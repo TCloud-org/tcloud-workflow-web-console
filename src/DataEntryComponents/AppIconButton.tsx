@@ -11,6 +11,8 @@ export const AppIconButton = (props: {
   tooltip?: string;
   type?: ButtonType;
   width?: string | number | undefined;
+  disabled?: boolean | undefined;
+  danger?: boolean | undefined;
 }) => {
   const defaultStyle = { fontSize: "14px" };
   const mergedStyle = {
@@ -30,6 +32,8 @@ export const AppIconButton = (props: {
         style={{ width: props.width }}
         size={props.size}
         type={props.type}
+        disabled={props.disabled}
+        danger={props.danger}
       />
     </Tooltip>
   );

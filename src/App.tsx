@@ -19,6 +19,7 @@ import { setItems } from "./features/navigation/breadcrumbSlice";
 import { deserializeLocation } from "./Utils/Serializer";
 import { GraphPage } from "./Pages/GraphPage";
 import { GraphDetailPage } from "./Pages/GraphDetailPage";
+import { CreateGraphPage } from "./Pages/CreateGraphPage";
 
 export const App = () => {
   const {
@@ -86,6 +87,10 @@ export const App = () => {
         {
           path: "/graph/:graphId",
           element: <GraphDetailPage />,
+        },
+        {
+          path: "/graph/create",
+          element: <CreateGraphPage />,
         },
       ],
     },

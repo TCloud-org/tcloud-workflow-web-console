@@ -1,9 +1,18 @@
-import { Typography } from "antd";
+import { LinkOutlined } from "@ant-design/icons";
+import {
+  Button,
+  Descriptions,
+  DescriptionsProps,
+  Popconfirm,
+  Typography,
+} from "antd";
 import axios from "axios";
 import { Key, useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { WOS_GET_GRAPHS_BY_WORKFLOW_ID_ENDPOINT } from "../Config/EndpointConfig";
 import { Graph } from "../Config/WorkflowConfig";
+import { AppSurface } from "../DataDisplayComponents/AppSurface";
 import { AppTable } from "../DataDisplayComponents/AppTable";
 import { AppSpace } from "../LayoutComponents/AppSpace";
 import { formatDateString } from "../Utils/DateUtils";
@@ -45,17 +54,43 @@ const columns: (Exclude<any, undefined>[number] & {
       <Typography.Text>{formatDateString(text)}</Typography.Text>
     ),
   },
+  {
+    title: "Action",
+    dataIndex: "action",
+    render: () => <Button>Edit</Button>,
+  },
 ];
 
 export const GraphPage = () => {
+  const navigate = useNavigate();
+
   const { workflowId, workflowName } = useSelector(
     (state: any) => state.workflow.workflow
   );
 
   const [graphs, setGraphs] = useState<Graph[]>([]);
-  // const [nextAvailableVersion, setNextAvailableVersion] = useState<number>(1);
-  // const [liveGraph, setLiveGraph] = useState<Graph>();
+  const [nextAvailableVersion, setNextAvailableVersion] = useState<number>(1);
+  const [liveGraph, setLiveGraph] = useState<Graph>();
   const [selected, setSelected] = useState<Key[]>([]);
+
+  const graphDescriptions: DescriptionsProps["items"] = [
+    {
+      key: "1",
+      label: "Live version",
+      span: 1,
+      children: (
+        <a href={`/graph/${liveGraph?.graphId}`}>
+          <LinkOutlined /> Version {liveGraph?.version}
+        </a>
+      ),
+    },
+    {
+      key: "2",
+      label: "Next available version",
+      children: nextAvailableVersion,
+      span: 1,
+    },
+  ];
 
   const fetchGraphs = useCallback(() => {
     if (workflowId) {
@@ -65,8 +100,8 @@ export const GraphPage = () => {
         )
         .then((response) => {
           setGraphs(response.data.graphs);
-          // setNextAvailableVersion(response.data.nextAvailableVersion);
-          // setLiveGraph(response.data.liveGraph);
+          setNextAvailableVersion(response.data.nextAvailableVersion);
+          setLiveGraph(response.data.liveGraph);
         })
         .catch((error) => console.error(error));
     }
@@ -76,9 +111,45 @@ export const GraphPage = () => {
     fetchGraphs();
   }, [fetchGraphs]);
 
+  const handleCreateGraph = () => {
+    navigate("/graph/create");
+  };
+
   return (
     <AppSpace>
       <Typography.Title level={4}>{workflowName}</Typography.Title>
+
+      <AppSurface>
+        <Descriptions
+          size="small"
+          title="Graph Info"
+          items={graphDescriptions}
+        />
+      </AppSurface>
+
+      <AppSpace direction="horizontal">
+        <Popconfirm
+          title={`Delete ${selected.length} item${
+            selected.length > 1 ? "s" : ""
+          }`}
+          description={`Are you sure to delete ${selected.length} item${
+            selected.length > 1 ? "s" : ""
+          }?`}
+          okText="Yes"
+          cancelText="No"
+          onConfirm={() => {}}
+        >
+          <Button type="primary" danger disabled={selected.length === 0}>
+            {`Delete${
+              selected.length > 0
+                ? ` ${selected.length} item${selected.length > 1 ? "s" : ""}`
+                : ""
+            }`}
+          </Button>
+        </Popconfirm>
+        <Button onClick={handleCreateGraph}>Create a new graph</Button>
+      </AppSpace>
+
       <AppTable
         rows={graphs.map((graph) => ({ key: graph.graphId, ...graph }))}
         columns={columns}

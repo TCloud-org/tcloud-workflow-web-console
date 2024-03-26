@@ -15,7 +15,7 @@ export const Box = forwardRef<HTMLDivElement, BoxProps>(
         ref={ref}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
-        style={{ display: "flex", flex: 1, ...style }}
+        style={{ display: "flex", flex: 1, flexDirection: "column", ...style }}
       >
         {(align === "right" || align === "center") && (
           <div style={{ flex: 1 }} />
