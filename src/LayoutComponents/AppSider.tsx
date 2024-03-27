@@ -4,7 +4,7 @@ import Sider from "antd/es/layout/Sider";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export const AppSlider = () => {
+export const AppSider = () => {
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
 
@@ -23,6 +23,11 @@ export const AppSlider = () => {
           key: "workflow-graph",
           label: "Graph",
           onClick: () => navigate("/graph"),
+        },
+        {
+          key: "workflow-service",
+          label: "Service",
+          onClick: () => navigate("/service"),
         },
       ],
     },

@@ -1,12 +1,10 @@
-import { useNavigate } from "react-router-dom";
-import { AppList } from "../DataDisplayComponents/AppList";
-import { AppTable } from "../DataDisplayComponents/AppTable";
-import { AppSpace } from "../LayoutComponents/AppSpace";
 import { Button } from "antd";
-import { useSelector } from "react-redux";
 import axios from "axios";
-import { WOS_INITIATE_TCA_WORKFLOW_ENDPOINT } from "../Config/EndpointConfig";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
+import { WOS_INITIATE_TCA_WORKFLOW_ENDPOINT } from "../Config/EndpointConfig";
+import { AppSpace } from "../LayoutComponents/AppSpace";
 
 export const HomePage = () => {
   const navigate = useNavigate();
@@ -32,8 +30,6 @@ export const HomePage = () => {
       <Button type="primary" onClick={() => navigate("/live")}>
         Primary Button
       </Button>
-      <AppList />
-      <AppTable />
     </AppSpace>
   );
 };

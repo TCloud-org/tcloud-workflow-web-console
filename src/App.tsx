@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import { AppFooter } from "./LayoutComponents/AppFooter";
 import { AppHeader } from "./LayoutComponents/AppHeader";
-import { AppSlider } from "./LayoutComponents/AppSlider";
+import { AppSider } from "./LayoutComponents/AppSider";
 import { HomePage } from "./Pages/HomePage";
 import { AppBreadcrumb } from "./NavigationComponents/AppBreadcrumb";
 import { LiveWorkflowPage } from "./Pages/LiveWorkflowPage";
@@ -20,6 +20,11 @@ import { deserializeLocation } from "./Utils/Serializer";
 import { GraphPage } from "./Pages/GraphPage";
 import { GraphDetailPage } from "./Pages/GraphDetailPage";
 import { CreateGraphPage } from "./Pages/CreateGraphPage";
+import { ServicePage } from "./Pages/ServicePage";
+import { ServiceDetailPage } from "./Pages/ServiceDetailPage";
+import { ServiceEndpointSetting } from "./Pages/ServiceEndpointSetting";
+import { CreateEndpointPage } from "./Pages/CreateEndpointPage";
+import { EditEndpointPage } from "./Pages/EditEndpointPage";
 
 export const App = () => {
   const {
@@ -38,8 +43,8 @@ export const App = () => {
       <Layout style={{ minHeight: "100vh" }}>
         <AppHeader />
 
-        <Layout>
-          <AppSlider />
+        <Layout hasSider>
+          <AppSider />
 
           <Layout>
             <Layout style={{ padding: "0 16px 0 16px" }}>
@@ -91,6 +96,26 @@ export const App = () => {
         {
           path: "/graph/create",
           element: <CreateGraphPage />,
+        },
+        {
+          path: "/service",
+          element: <ServicePage />,
+        },
+        {
+          path: "/service/:serviceName",
+          element: <ServiceDetailPage />,
+        },
+        {
+          path: "/service/:serviceName/create",
+          element: <CreateEndpointPage />,
+        },
+        {
+          path: "/service/:serviceName/:serviceId",
+          element: <ServiceEndpointSetting />,
+        },
+        {
+          path: "/service/:serviceName/:serviceId/edit",
+          element: <EditEndpointPage />,
         },
       ],
     },

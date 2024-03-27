@@ -1,63 +1,51 @@
 import { LinkOutlined } from "@ant-design/icons";
-import {
-  Button,
-  Descriptions,
-  DescriptionsProps,
-  Popconfirm,
-  Typography,
-} from "antd";
-import axios from "axios";
+import { Descriptions, DescriptionsProps, Popconfirm, Typography } from "antd";
 import { Key, useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { WOS_GET_GRAPHS_BY_WORKFLOW_ID_ENDPOINT } from "../Config/EndpointConfig";
-import { Graph } from "../Config/WorkflowConfig";
+import { EditableColumn } from "../Config/LayoutConfig";
+import { GetGraphsByWorkflowIdOutput, Graph } from "../Config/WorkflowConfig";
 import { AppSurface } from "../DataDisplayComponents/AppSurface";
 import { AppTable } from "../DataDisplayComponents/AppTable";
+import { AppButton } from "../DataEntryComponents/AppButton";
+import { AppLink } from "../DataEntryComponents/AppLink";
 import { AppSpace } from "../LayoutComponents/AppSpace";
+import { fetchGraphsById } from "../Network/WorkflowFetch";
 import { formatDateString } from "../Utils/DateUtils";
+import { Span } from "../Config/DataDisplayInterface";
 
-const columns: (Exclude<any, undefined>[number] & {
-  editable?: boolean;
-  dataIndex: string;
-})[] = [
+const columns: EditableColumn[] = [
   {
     title: "Graph Id",
     dataIndex: "graphId",
-    render: (text: string) => <a href={`/graph/${text}`}>{text}</a>,
+    render: (text: string) => (
+      <AppLink href={`/graph/${text}`} tooltip="Click to view or edit graph">
+        {text}
+      </AppLink>
+    ),
   },
   {
     title: "Description",
     dataIndex: "description",
+    editable: true,
+    width: "35%",
   },
   {
     title: "Alias",
     dataIndex: "alias",
     editable: true,
-    width: "20%",
-    onCell: (record: any) => ({
-      record,
-      editable: true,
-      dataIndex: "alias",
-      title: "Alias",
-      handleSave: (_: any) => {},
-    }),
+    width: "15%",
   },
   {
     title: "Version",
     dataIndex: "version",
   },
   {
-    title: "Created",
+    title: "Last Modified",
     dataIndex: "createdAt",
     render: (text: string) => (
       <Typography.Text>{formatDateString(text)}</Typography.Text>
     ),
-  },
-  {
-    title: "Action",
-    dataIndex: "action",
-    render: () => <Button>Edit</Button>,
   },
 ];
 
@@ -77,7 +65,7 @@ export const GraphPage = () => {
     {
       key: "1",
       label: "Live version",
-      span: 1,
+      span: Span[3],
       children: (
         <a href={`/graph/${liveGraph?.graphId}`}>
           <LinkOutlined /> Version {liveGraph?.version}
@@ -88,20 +76,17 @@ export const GraphPage = () => {
       key: "2",
       label: "Next available version",
       children: nextAvailableVersion,
-      span: 1,
+      span: Span[3],
     },
   ];
 
   const fetchGraphs = useCallback(() => {
     if (workflowId) {
-      axios
-        .get(
-          `${WOS_GET_GRAPHS_BY_WORKFLOW_ID_ENDPOINT}?workflowId=${workflowId}`
-        )
-        .then((response) => {
-          setGraphs(response.data.graphs);
-          setNextAvailableVersion(response.data.nextAvailableVersion);
-          setLiveGraph(response.data.liveGraph);
+      fetchGraphsById(workflowId)
+        .then((response: GetGraphsByWorkflowIdOutput | undefined) => {
+          setGraphs(response?.graphs || []);
+          setNextAvailableVersion(response?.nextAvailableVersion || 1);
+          setLiveGraph(response?.liveGraph);
         })
         .catch((error) => console.error(error));
     }
@@ -121,40 +106,42 @@ export const GraphPage = () => {
 
       <AppSurface>
         <Descriptions
+          column={Span[1]}
           size="small"
-          title="Graph Info"
+          title="Details"
           items={graphDescriptions}
         />
       </AppSurface>
 
       <AppSpace direction="horizontal">
         <Popconfirm
-          title={`Delete ${selected.length} item${
+          title={`Deprecate ${selected.length} graph${
             selected.length > 1 ? "s" : ""
           }`}
-          description={`Are you sure to delete ${selected.length} item${
+          description={`Are you sure to deprecate ${selected.length} graph${
             selected.length > 1 ? "s" : ""
           }?`}
           okText="Yes"
           cancelText="No"
           onConfirm={() => {}}
         >
-          <Button type="primary" danger disabled={selected.length === 0}>
-            {`Delete${
+          <AppButton type="primary" danger disabled={selected.length === 0}>
+            {`Deprecate${
               selected.length > 0
-                ? ` ${selected.length} item${selected.length > 1 ? "s" : ""}`
+                ? ` ${selected.length} graph${selected.length > 1 ? "s" : ""}`
                 : ""
             }`}
-          </Button>
+          </AppButton>
         </Popconfirm>
-        <Button onClick={handleCreateGraph}>Create a new graph</Button>
+        <AppButton onClick={handleCreateGraph}>Create a new graph</AppButton>
       </AppSpace>
 
       <AppTable
-        rows={graphs.map((graph) => ({ key: graph.graphId, ...graph }))}
+        rows={graphs}
         columns={columns}
         selected={selected}
-        onChange={(selectedRowKeys) => setSelected(selectedRowKeys)}
+        setSelected={setSelected}
+        rowId="graphId"
       />
     </AppSpace>
   );

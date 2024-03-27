@@ -60,3 +60,5 @@ export const WOS_GET_RETRY_POLICY_BY_ID_ENDPOINT =
   WOS_ENDPOINT + "/get-retry-policy-by-id";
 export const WOS_GET_WORKFLOW_BUCKETS_BY_CLIENT_ID_AND_WORKFLOW_ID_ENDPOINT =
   WOS_ENDPOINT + "/get-workflow-buckets-by-client-id-and-workflow-id";
+export const WOS_GET_CONFIGURATION_BY_ID_ENDPOINT =
+  WOS_ENDPOINT + "/get-configuration-by-id";

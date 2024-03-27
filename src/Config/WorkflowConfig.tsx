@@ -135,6 +135,33 @@ export interface ServiceConfiguration {
 }
 
 export enum Environment {
-  PROD = "PROD",
-  DEV = "DEV",
+  PROD = "Production",
+  DEV = "Development",
 }
+
+export interface GetGraphsByWorkflowIdOutput {
+  graphs: Graph[];
+  nextAvailableVersion: number;
+  liveGraph: Graph;
+}
+
+export type ServiceConfigurationMap = { [key: string]: ServiceConfiguration[] };
+
+export interface GetServiceConfigurationsByClientIdOutput {
+  serviceConfigurationMap: ServiceConfigurationMap;
+}
+
+export interface GetConfigurationsByServiceNameOutput {
+  configurations: ServiceConfiguration[];
+  nextAvailableVersion: number;
+  liveService: ServiceConfiguration;
+}
+
+export interface GetConfigurationByIdOutput {
+  configuration: ServiceConfiguration;
+}
+
+export const EnvironmentOptions = Object.keys(Environment).map((key) => ({
+  label: Environment[key as keyof typeof Environment],
+  value: key,
+}));

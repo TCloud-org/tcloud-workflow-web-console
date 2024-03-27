@@ -67,11 +67,14 @@ export const AppEditableCell: React.FC<AppEditableCellProps> = ({
           },
         ]}
       >
-        <Input
-          style={{ margin: 0 }}
+        <Input.TextArea
+          style={{
+            margin: 0,
+          }}
           ref={inputRef}
           onPressEnter={save}
           onBlur={save}
+          autoSize={{ minRows: 1, maxRows: 6 }}
         />
       </Form.Item>
     ) : (

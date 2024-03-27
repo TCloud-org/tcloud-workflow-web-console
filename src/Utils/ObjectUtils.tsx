@@ -81,3 +81,9 @@ export const extractStates = (graph: Graph | undefined) => {
     .sort(([, v1], [, v2]) => v1.runningOrder - v2.runningOrder)
     .map(([_, v]) => v);
 };
+
+export const formatCamelCaseKey = (key: string): string => {
+  return key
+    .replace(/([a-z])([A-Z])/g, "$1 $2")
+    .replace(/^./, (str) => str.toUpperCase());
+};
