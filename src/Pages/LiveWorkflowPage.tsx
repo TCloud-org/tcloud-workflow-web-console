@@ -6,6 +6,7 @@ import { WOS_GET_WORK_IDS_BY_WORKFLOW_ID_ENDPOINT } from "../Config/EndpointConf
 import { AppList } from "../DataDisplayComponents/AppList";
 import { PageTitle } from "../DataDisplayComponents/PageTitle";
 import { AppSpace } from "../LayoutComponents/AppSpace";
+import { ListItem } from "../Config/DataDisplayInterface";
 
 export const LiveWorkflowPage = () => {
   const location = useLocation();
@@ -13,7 +14,7 @@ export const LiveWorkflowPage = () => {
     (state: any) => state.workflow.workflow
   );
 
-  const [works, setWorks] = useState<any[]>([]);
+  const [works, setWorks] = useState<ListItem[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
   const fetchWorkIds = useCallback(() => {

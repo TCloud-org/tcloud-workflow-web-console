@@ -1,6 +1,6 @@
 import { Table, TableColumnsType } from "antd";
 import { SelectionSelectFn } from "antd/es/table/interface";
-import { Dispatch, Key, SetStateAction } from "react";
+import { Dispatch, Key, ReactNode, SetStateAction } from "react";
 import { EditableColumn } from "../Config/LayoutConfig";
 import { AppEditableCell } from "../DataEntryComponents/AppEditableCell";
 import { AppEditableRow } from "../DataEntryComponents/AppEditableRow";
@@ -13,6 +13,8 @@ export const AppTable = (props: {
   setSelected?: Dispatch<SetStateAction<Key[]>>;
   onSelect?: SelectionSelectFn<any> | undefined;
   rowId?: string | undefined;
+  title?: (data: readonly any[]) => ReactNode;
+  bordered?: boolean | undefined;
 }) => {
   const {
     selectionType = "checkbox",
@@ -22,6 +24,8 @@ export const AppTable = (props: {
     setSelected = () => {},
     onSelect,
     rowId = "",
+    title,
+    bordered,
   } = props;
 
   const components = {
@@ -53,8 +57,16 @@ export const AppTable = (props: {
 
   return (
     <Table
+      title={title}
       components={components}
       rowClassName={() => "editable-row"}
+      bordered={bordered}
+      pagination={{
+        showSizeChanger: true,
+        defaultPageSize: 5,
+        pageSizeOptions: [5, 10, 25, 50, 100],
+        showQuickJumper: true,
+      }}
       rowSelection={{
         type: selectionType,
         selectedRowKeys: selected,

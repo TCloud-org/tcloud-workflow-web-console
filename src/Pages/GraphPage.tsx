@@ -1,18 +1,21 @@
 import { LinkOutlined } from "@ant-design/icons";
 import { Descriptions, DescriptionsProps, Popconfirm, Typography } from "antd";
+import axios from "axios";
 import { Key, useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { Span } from "../Config/DataDisplayInterface";
+import { WOS_ADD_GRAPH_ENDPOINT } from "../Config/EndpointConfig";
 import { EditableColumn } from "../Config/LayoutConfig";
 import { GetGraphsByWorkflowIdOutput, Graph } from "../Config/WorkflowConfig";
 import { AppSurface } from "../DataDisplayComponents/AppSurface";
 import { AppTable } from "../DataDisplayComponents/AppTable";
+import { PageTitle } from "../DataDisplayComponents/PageTitle";
 import { AppButton } from "../DataEntryComponents/AppButton";
 import { AppLink } from "../DataEntryComponents/AppLink";
 import { AppSpace } from "../LayoutComponents/AppSpace";
 import { fetchGraphsById } from "../Network/WorkflowFetch";
 import { formatDateString } from "../Utils/DateUtils";
-import { Span } from "../Config/DataDisplayInterface";
 
 const columns: EditableColumn[] = [
   {
@@ -60,6 +63,7 @@ export const GraphPage = () => {
   const [nextAvailableVersion, setNextAvailableVersion] = useState<number>(1);
   const [liveGraph, setLiveGraph] = useState<Graph>();
   const [selected, setSelected] = useState<Key[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const graphDescriptions: DescriptionsProps["items"] = [
     {
@@ -80,15 +84,24 @@ export const GraphPage = () => {
     },
   ];
 
+  const saveGraph = async (value: any) => {
+    setLoading(true);
+    await axios.post(WOS_ADD_GRAPH_ENDPOINT, value);
+    fetchGraphs();
+    setLoading(false);
+  };
+
   const fetchGraphs = useCallback(() => {
     if (workflowId) {
+      setLoading(true);
       fetchGraphsById(workflowId)
         .then((response: GetGraphsByWorkflowIdOutput | undefined) => {
           setGraphs(response?.graphs || []);
           setNextAvailableVersion(response?.nextAvailableVersion || 1);
           setLiveGraph(response?.liveGraph);
+          setLoading(false);
         })
-        .catch((error) => console.error(error));
+        .catch((_) => setLoading(false));
     }
   }, [workflowId]);
 
@@ -101,8 +114,8 @@ export const GraphPage = () => {
   };
 
   return (
-    <AppSpace>
-      <Typography.Title level={4}>{workflowName}</Typography.Title>
+    <AppSpace loading={loading}>
+      <PageTitle>{workflowName}</PageTitle>
 
       <AppSurface>
         <Descriptions
@@ -138,7 +151,9 @@ export const GraphPage = () => {
 
       <AppTable
         rows={graphs}
-        columns={columns}
+        columns={columns.map((col) =>
+          !col.editable ? col : { ...col, handleSave: saveGraph }
+        )}
         selected={selected}
         setSelected={setSelected}
         rowId="graphId"

@@ -4,12 +4,14 @@ import {
   WOS_GET_CONFIGURATION_BY_ID_ENDPOINT,
   WOS_GET_GRAPHS_BY_WORKFLOW_ID_ENDPOINT,
   WOS_GET_SERVICE_CONFIGURATIONS_BY_CLIENT_ID_ENDPOINT,
+  WOS_GET_WORKFLOW_BUCKETS_BY_CLIENT_ID_AND_WORKFLOW_ID_ENDPOINT,
 } from "../Config/EndpointConfig";
 import {
   GetConfigurationByIdOutput,
   GetConfigurationsByServiceNameOutput,
   GetGraphsByWorkflowIdOutput,
   GetServiceConfigurationsByClientIdOutput,
+  GetWorkflowBucketsByClientIdAndWorkflowIdOutput,
   ServiceConfiguration,
 } from "../Config/WorkflowConfig";
 
@@ -76,6 +78,20 @@ export const getConfigurationById = async (
     .get(`${WOS_GET_CONFIGURATION_BY_ID_ENDPOINT}?serviceId=${serviceId}`)
     .then((response) => {
       return response.data as GetConfigurationByIdOutput;
+    })
+    .catch((_) => undefined);
+};
+
+export const getBuckets = async (clientId: string, workflowId: string) => {
+  const params = new URLSearchParams();
+  params.set("clientId", clientId);
+  params.set("workflowId", workflowId);
+  return await axios
+    .get(
+      `${WOS_GET_WORKFLOW_BUCKETS_BY_CLIENT_ID_AND_WORKFLOW_ID_ENDPOINT}?${params}`
+    )
+    .then((response) => {
+      return response.data as GetWorkflowBucketsByClientIdAndWorkflowIdOutput;
     })
     .catch((_) => undefined);
 };

@@ -165,3 +165,7 @@ export const EnvironmentOptions = Object.keys(Environment).map((key) => ({
   label: Environment[key as keyof typeof Environment],
   value: key,
 }));
+
+export interface GetWorkflowBucketsByClientIdAndWorkflowIdOutput {
+  bucketMap: Record<string, Route[]>;
+}

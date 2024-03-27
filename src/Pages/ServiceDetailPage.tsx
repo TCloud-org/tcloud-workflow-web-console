@@ -12,6 +12,8 @@ import { formatDate } from "../Utils/DateUtils";
 import { LinkOutlined } from "@ant-design/icons";
 import { AppSurface } from "../DataDisplayComponents/AppSurface";
 import { Span } from "../Config/DataDisplayInterface";
+import axios from "axios";
+import { WOS_ADD_SERVICE_CONFIGURATION_ENDPOINT } from "../Config/EndpointConfig";
 
 export const ServiceDetailPage = () => {
   const { serviceName } = useParams();
@@ -44,6 +46,19 @@ export const ServiceDetailPage = () => {
       dataIndex: "alias",
       editable: true,
       width: "15%",
+      handleSave: async (value: ServiceConfiguration) => {
+        const formData = {
+          serviceId: value.serviceId,
+          serviceName: value.serviceName,
+          clientId: value.clientId,
+          baseUrl: value.baseUrl,
+          environment: value.environment,
+          alias: value.alias,
+        };
+        setLoading(true);
+        await axios.post(WOS_ADD_SERVICE_CONFIGURATION_ENDPOINT, formData);
+        fetchConfig();
+      },
     },
     {
       title: "Version",

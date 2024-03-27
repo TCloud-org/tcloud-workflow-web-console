@@ -1,12 +1,14 @@
 import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { AppList } from "../DataDisplayComponents/AppList";
 import { AppSpace } from "../LayoutComponents/AppSpace";
 import { getServiceConfigurations } from "../Network/WorkflowFetch";
+import { Button } from "antd";
 
 export const ServicePage = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const clientId = useSelector((state: any) => state.client.clientId);
 
   const [services, setServices] = useState<any[]>([]);
@@ -30,6 +32,10 @@ export const ServicePage = () => {
     fetchServices();
   }, [fetchServices]);
 
+  const handleAddService = () => {
+    navigate("/service/add");
+  };
+
   return (
     <AppSpace>
       <AppList
@@ -37,6 +43,9 @@ export const ServicePage = () => {
         header="Services"
         onReload={fetchServices}
         loading={loading}
+        headerEndDecorator={
+          <Button onClick={handleAddService}>Add a new service</Button>
+        }
       />
     </AppSpace>
   );

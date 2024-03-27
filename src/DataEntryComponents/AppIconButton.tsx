@@ -24,7 +24,7 @@ export const AppIconButton = (props: {
   });
 
   return (
-    <Tooltip placement="bottom" title={props.tooltip}>
+    <Tooltip title={props.tooltip}>
       <Button
         loading={props.loading}
         onClick={props.onClick}

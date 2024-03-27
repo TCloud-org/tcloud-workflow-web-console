@@ -16,3 +16,8 @@ export const Span = {
   "2": { xs: 12, sm: 12, md: 12, lg: 12, xl: 12, xxl: 12 },
   "3": { xs: 8, sm: 8, md: 8, lg: 8, xl: 8, xxl: 8 },
 };
+
+export type ListItem = {
+  title?: string;
+  href?: string;
+};

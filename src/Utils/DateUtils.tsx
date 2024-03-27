@@ -55,3 +55,73 @@ export const isDateBeforeNow = (date: number | string | undefined) => {
   }
   return time.getTime() < Date.now();
 };
+
+export const formatTime = (timeInMinutes: number | string) => {
+  let minutes = parseFloat(timeInMinutes.toString());
+  if (minutes === 0) {
+    return "0 minute";
+  }
+  const days = Math.floor(minutes / (60 * 24));
+  const remainingHours = Math.floor((minutes % (60 * 24)) / 60);
+  const remainingMinutes = Math.floor(minutes % 60);
+  const seconds = Math.round((minutes - Math.floor(minutes)) * 60);
+
+  let formattedTime = "";
+
+  if (days > 0) {
+    formattedTime += `${days} day${days > 1 ? "s" : ""} `;
+  }
+  if (remainingHours > 0) {
+    formattedTime += `${remainingHours} hour${remainingHours > 1 ? "s" : ""} `;
+  }
+
+  if (days > 0 && remainingHours > 0) {
+    return formattedTime.trim();
+  }
+
+  if (remainingMinutes > 0) {
+    formattedTime += `${remainingMinutes} minute${
+      remainingMinutes > 1 ? "s" : ""
+    } `;
+  }
+
+  if (remainingHours > 0 && remainingMinutes > 0) {
+    return formattedTime.trim();
+  }
+
+  if (seconds > 0) {
+    formattedTime += `${seconds} second${seconds > 1 ? "s" : ""}`;
+  }
+
+  return formattedTime.trim();
+};
+
+export const formatTimeShort = (timeInMinutes: number | string) => {
+  let minutes = parseFloat(timeInMinutes.toString());
+  if (minutes === 0) {
+    return "0m";
+  }
+  const days = Math.floor(minutes / (60 * 24));
+  const remainingHours = Math.floor((minutes % (60 * 24)) / 60);
+  const remainingMinutes = Math.floor(minutes % 60);
+  const seconds = Math.round((minutes - Math.floor(minutes)) * 60);
+
+  let formattedTime = "";
+
+  if (days > 0) {
+    formattedTime += `${days}d `;
+  }
+  if (remainingHours > 0) {
+    formattedTime += `${remainingHours}h `;
+  }
+
+  if (remainingMinutes > 0) {
+    formattedTime += `${remainingMinutes}m`;
+  }
+
+  if (seconds > 0) {
+    formattedTime += `${seconds}s`;
+  }
+
+  return formattedTime.trim();
+};

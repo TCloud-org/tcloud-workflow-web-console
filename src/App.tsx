@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import { AppFooter } from "./LayoutComponents/AppFooter";
 import { AppHeader } from "./LayoutComponents/AppHeader";
-import { AppSider } from "./LayoutComponents/AppSider";
+import { AppSider, SiderHrefs } from "./LayoutComponents/AppSider";
 import { HomePage } from "./Pages/HomePage";
 import { AppBreadcrumb } from "./NavigationComponents/AppBreadcrumb";
 import { LiveWorkflowPage } from "./Pages/LiveWorkflowPage";
@@ -25,6 +25,11 @@ import { ServiceDetailPage } from "./Pages/ServiceDetailPage";
 import { ServiceEndpointSetting } from "./Pages/ServiceEndpointSetting";
 import { CreateEndpointPage } from "./Pages/CreateEndpointPage";
 import { EditEndpointPage } from "./Pages/EditEndpointPage";
+import { AddServicePage } from "./Pages/AddServicePage";
+import { BucketPage } from "./Pages/BucketPage";
+import { RetryPolicyPage } from "./Pages/RetryPolicyPage";
+import { RetryPolicyDetailPage } from "./Pages/RetryPolicyDetailPage";
+import { setSelectedKeys } from "./features/navigation/siderSlice";
 
 export const App = () => {
   const {
@@ -36,7 +41,14 @@ export const App = () => {
     const location = useLocation();
 
     useEffect(() => {
-      dispatch(setItems(deserializeLocation(location.pathname)));
+      const deserializedLocation = deserializeLocation(location.pathname);
+      const siderKey = deserializedLocation.find((item) =>
+        SiderHrefs.has(item.href)
+      );
+      if (siderKey?.href) {
+        dispatch(setSelectedKeys([siderKey.href]));
+      }
+      dispatch(setItems(deserializedLocation));
     }, [dispatch, location.pathname]);
 
     return (
@@ -102,6 +114,10 @@ export const App = () => {
           element: <ServicePage />,
         },
         {
+          path: "/service/add",
+          element: <AddServicePage />,
+        },
+        {
           path: "/service/:serviceName",
           element: <ServiceDetailPage />,
         },
@@ -116,6 +132,18 @@ export const App = () => {
         {
           path: "/service/:serviceName/:serviceId/edit",
           element: <EditEndpointPage />,
+        },
+        {
+          path: "/bucket",
+          element: <BucketPage />,
+        },
+        {
+          path: "/retry-policy",
+          element: <RetryPolicyPage />,
+        },
+        {
+          path: "/retry-policy/:retryPolicyId",
+          element: <RetryPolicyDetailPage />,
         },
       ],
     },

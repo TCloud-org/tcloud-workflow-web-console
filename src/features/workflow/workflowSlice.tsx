@@ -1,11 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface WorkflowState {
-  workflow: any;
+  workflow: {
+    workflowId?: number | string;
+    workflowName?: string;
+  };
 }
 
 const initialState: WorkflowState = {
-  workflow: null,
+  workflow: {},
 };
 
 export const workflowSlice = createSlice({
