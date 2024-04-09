@@ -1,5 +1,13 @@
 import { ReloadOutlined, ShareAltOutlined } from "@ant-design/icons";
-import { Button, Dropdown, MenuProps, Popconfirm } from "antd";
+import {
+  Button,
+  Dropdown,
+  Flex,
+  MenuProps,
+  Popconfirm,
+  Radio,
+  message,
+} from "antd";
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
@@ -9,13 +17,14 @@ import {
   WOS_CLOSE_WORKFLOW_ENDPOINT,
   WOS_RERUN_WORKFLOW_ENDPOINT,
   WOS_RETRY_WORKFLOW_ENDPOINT,
-} from "../Config/EndpointConfig";
-import { Route, WorkflowRunConfig } from "../Config/WorkflowConfig";
+} from "../Config/WOSEndpointConfig";
+import { Graph, Route, WorkflowRunConfig } from "../Config/WorkflowConfig";
 import { AppSurface } from "../DataDisplayComponents/AppSurface";
 import { AppIconButton } from "../DataEntryComponents/AppIconButton";
 import { AppSpace } from "../LayoutComponents/AppSpace";
 import { RerunConfiguration } from "./RerunConfiguration";
 import { RetryConfiguration } from "./RetryConfiguration";
+import { LiveTransition } from "./LiveTransition";
 
 const RetryOptions: MenuProps["items"] = [
   {
@@ -34,15 +43,19 @@ const RerunOptions: MenuProps["items"] = [
 export const WorkflowToolbar = (props: {
   onReload?: () => void;
   routes?: Route[];
+  graph?: Graph;
 }) => {
-  const { onReload = async () => {}, routes = [] } = props;
+  const { onReload = async () => {}, routes = [], graph } = props;
 
   const { workId } = useParams();
   const clientId = useSelector((state: any) => state.client.clientId);
   const { workflowId } = useSelector((state: any) => state.workflow.workflow);
 
+  const [messageApi, contextHolder] = message.useMessage();
+
   const rerunRef = useRef<HTMLDivElement>(null);
   const retryRef = useRef<HTMLDivElement>(null);
+  const transitionRef = useRef<HTMLDivElement>(null);
 
   const [rerunLoading, setRerunLoading] = useState<boolean>(false);
   const [closeLoading, setCloseLoading] = useState<boolean>(false);
@@ -85,6 +98,22 @@ export const WorkflowToolbar = (props: {
         retryRef.current.style.opacity = "1";
       }
     }
+
+    if (transitionRef.current) {
+      const height = transitionRef.current.scrollHeight;
+      transitionRef.current.style.maxHeight =
+        runConfig &&
+        runConfig.toString() === WorkflowRunConfig.Transition.toString()
+          ? `${height}px`
+          : "0px";
+      if (transitionRef.current.style.maxHeight === "0px") {
+        transitionRef.current.style.marginBottom = "-48px";
+        transitionRef.current.style.opacity = "0";
+      } else {
+        transitionRef.current.style.marginBottom = "0px";
+        transitionRef.current.style.opacity = "1";
+      }
+    }
   }, [runConfig, refreshToken]);
 
   const handleRetry = async () => {
@@ -109,7 +138,6 @@ export const WorkflowToolbar = (props: {
       workIds: [workId],
       clientId,
       workflowId,
-      alias: "live",
     };
 
     axios
@@ -147,7 +175,9 @@ export const WorkflowToolbar = (props: {
     const currentUrl = window.location.href;
     navigator.clipboard
       .writeText(currentUrl)
-      .then(() => {})
+      .then(() => {
+        messageApi.success("Link copied to clipboard");
+      })
       .catch((error) => console.error(error));
   };
 
@@ -161,8 +191,9 @@ export const WorkflowToolbar = (props: {
 
   return (
     <>
-      <AppSpace>
-        <AppSurface>
+      {contextHolder}
+      <AppSurface>
+        <Flex justify="center">
           <AppSpace
             direction="horizontal"
             loading={rerunLoading || closeLoading || retryLoading}
@@ -203,7 +234,20 @@ export const WorkflowToolbar = (props: {
               <Button danger>Close</Button>
             </Popconfirm>
 
-            <Button>Transition</Button>
+            <Radio.Group value={runConfig} buttonStyle="solid">
+              <Radio.Button
+                value={WorkflowRunConfig.Transition}
+                onClick={() =>
+                  setRunConfig((prev: WorkflowRunConfig) =>
+                    prev === WorkflowRunConfig.Transition
+                      ? undefined
+                      : WorkflowRunConfig.Transition
+                  )
+                }
+              >
+                Transition
+              </Radio.Button>
+            </Radio.Group>
 
             <AppIconButton onClick={onReload} tooltip="Reload">
               <ReloadOutlined />
@@ -213,8 +257,8 @@ export const WorkflowToolbar = (props: {
               <ShareAltOutlined />
             </AppIconButton>
           </AppSpace>
-        </AppSurface>
-      </AppSpace>
+        </Flex>
+      </AppSurface>
       <RetryConfiguration
         ref={retryRef}
         onClose={handleCloseConfig}
@@ -225,6 +269,13 @@ export const WorkflowToolbar = (props: {
         ref={rerunRef}
         onClose={handleCloseConfig}
         onRefresh={handleRefresh}
+      />
+
+      <LiveTransition
+        ref={transitionRef}
+        onClose={handleCloseConfig}
+        routes={routes}
+        graph={graph}
       />
     </>
   );

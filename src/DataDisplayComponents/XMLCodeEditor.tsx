@@ -4,8 +4,9 @@ import { githubDarkInit, githubLightInit } from "@uiw/codemirror-theme-github";
 import ReactCodeMirror, { ViewUpdate } from "@uiw/react-codemirror";
 import { CSSProperties } from "react";
 
+export type CodeTheme = "light" | "dark" | undefined;
 export const XMLCodeEditor = (props: {
-  theme?: "light" | "dark";
+  theme?: CodeTheme;
   value?: string | undefined;
   onChange?: (value: string, viewUpdate: ViewUpdate) => void;
   style?: CSSProperties;

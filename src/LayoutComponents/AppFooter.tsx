@@ -1,5 +1,5 @@
 import { Footer } from "antd/es/layout/layout";
-import { BRAND } from "../Config/EndpointConfig";
+import { BRAND } from "../Config/WOSEndpointConfig";
 
 export const AppFooter = () => {
   return (

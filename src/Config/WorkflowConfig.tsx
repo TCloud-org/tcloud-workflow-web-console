@@ -30,11 +30,26 @@ export interface Route {
 export interface RouteMetadata {
   document: Document;
   documentEntityChangeLog: DocumentEntityChangeLog;
-  workflowConfiguration: WorkflowRunConfiguration;
+  workRequest: WorkRequest;
   error: string;
   notification: StateNotification;
   workflowRetryConfig: RetryConfig;
   stateRetryConfigMap: { [key: string]: RetryConfig };
+  httpResponse: HttpResponse;
+}
+
+export interface HttpResponse {
+  statusCode: number;
+  status: string;
+  reasonPhrase: string;
+  latency: number;
+}
+
+export interface WorkRequest {
+  workId: string;
+  document: Document;
+  endpoint: string;
+  authorization: String;
 }
 
 export interface Document {
@@ -121,6 +136,7 @@ export interface XMLParsedGraphResult {
 export enum WorkflowRunConfig {
   RetryWithConfiguration,
   RerunWithConfiguration,
+  Transition,
 }
 
 export interface ServiceConfiguration {
@@ -168,4 +184,119 @@ export const EnvironmentOptions = Object.keys(Environment).map((key) => ({
 
 export interface GetWorkflowBucketsByClientIdAndWorkflowIdOutput {
   bucketMap: Record<string, Route[]>;
+}
+
+export interface WorkflowConfiguration {
+  workflowConfigurationId: string;
+  workId: string;
+  clientId: string;
+  workflowVersionConfig: Configuration;
+  stateEndpointConfigMap: Record<string, Configuration>;
+  serviceEndpointConfigMap: Record<string, Configuration>;
+  workflowRetryConfig: RetryConfig;
+  stateRetryConfigMap: Record<string, RetryConfig>;
+  modifiedAt: string;
+  version: number;
+}
+
+export interface GetWorkflowConfigurationOutput {
+  configuration: WorkflowConfiguration;
+}
+
+export interface GetServicesFromGraphOutput {
+  services: string[];
+}
+
+export interface RegisterWorkflowOutput {
+  workflowId: number;
+  clientId: string;
+}
+
+export const EndpointConfigTypes = [
+  {
+    label: "Service",
+    value: "service",
+  },
+  {
+    label: "State",
+    value: "state",
+  },
+];
+
+export interface GetGraphByIdOutput {
+  graph: Graph;
+  nextAvailableVersion: number;
+}
+
+export interface XMLVisualNodeData {
+  label: string;
+}
+
+export interface XMLVisualNode {
+  id: string;
+  data: XMLVisualNodeData;
+}
+
+export interface XMLVisualEdge {
+  id: string;
+  source: string;
+  target: string;
+  label: string;
+}
+
+export interface XMLTreeNode {
+  key: string;
+  title: string;
+  isLeaf: boolean;
+  children?: XMLTreeNode[];
+}
+
+export interface ParseXMLForVisualizationOutput {
+  nodes: XMLVisualNode[];
+  edges: XMLVisualEdge[];
+  treeNodes?: XMLTreeNode[];
+  treeNodeIds?: string[];
+}
+
+export interface Work {
+  workId: string;
+  clientId: string;
+  source: string;
+  service: string;
+  operation: string;
+  resultType: string;
+  resultName: string;
+  graphId: number;
+  workflowId: number;
+  version: number;
+  runningOrder: number;
+  executionTime: number;
+  createdAt: string;
+  updatedAt: string;
+  retryScheduleId: string;
+  nextRetryAt: string;
+  metadata: RouteMetadata;
+}
+
+export interface GetWorksByClientIdAndWorkflowIdOutput {
+  works: Work[];
+}
+
+export interface GetWorksInDateRangeOutput {
+  works: Work[];
+}
+
+export interface WorkStatistic {
+  totalWorks: number;
+  successes: Work[];
+  progresses: Work[];
+  failures: Work[];
+}
+
+export interface GetWorkStatisticInDateRangeOutput {
+  statistic: WorkStatistic;
+}
+
+export interface QueryWorksOutput {
+  works: Work[];
 }

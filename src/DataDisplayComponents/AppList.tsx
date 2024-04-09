@@ -1,8 +1,8 @@
 import { LinkOutlined } from "@ant-design/icons";
 import { List } from "antd";
-import { TableTitle } from "./TableTitle";
-import { ReactNode } from "react";
+import { CSSProperties, ReactNode } from "react";
 import { ListItem } from "../Config/DataDisplayInterface";
+import { AppHeading } from "./AppHeading";
 
 export const AppList = (props: {
   data?: ListItem[];
@@ -10,16 +10,39 @@ export const AppList = (props: {
   onReload?: () => void;
   loading?: boolean;
   headerEndDecorator?: ReactNode;
+  style?: CSSProperties;
+  headerTooltip?: string;
+  headerSurface?: boolean;
 }) => {
-  const { data = [], header, onReload, loading, headerEndDecorator } = props;
+  const {
+    data = [],
+    header,
+    headerTooltip,
+    onReload,
+    loading,
+    headerEndDecorator,
+    style,
+    headerSurface = true,
+  } = props;
   return (
     <List
       header={
-        <TableTitle onReload={onReload} headerEndDecorator={headerEndDecorator}>
+        <AppHeading
+          surface={headerSurface}
+          tooltip={headerTooltip}
+          onReload={onReload}
+          endDecorator={headerEndDecorator}
+        >
           {header}
-        </TableTitle>
+        </AppHeading>
       }
-      pagination={{ position: "bottom", align: "end" }}
+      style={style}
+      pagination={{
+        showSizeChanger: true,
+        defaultPageSize: 10,
+        showQuickJumper: true,
+        pageSizeOptions: [5, 10, 25, 50, 100],
+      }}
       dataSource={data}
       loading={loading}
       renderItem={(item: any, _) => (

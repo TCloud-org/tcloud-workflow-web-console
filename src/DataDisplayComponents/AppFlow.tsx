@@ -30,7 +30,7 @@ export const AppFlow = (props: { nodes?: Node[]; edges?: Edge[] }) => {
   const onEdgeClick = () => {};
 
   return (
-    <div style={{ width: "70vw", height: "50vh" }}>
+    <div style={{ width: "70vw", height: "70vh" }}>
       <ReactFlow
         nodes={nodes}
         edges={edges}

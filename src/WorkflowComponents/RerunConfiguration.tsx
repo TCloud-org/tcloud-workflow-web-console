@@ -1,16 +1,20 @@
 import { CaretUpOutlined } from "@ant-design/icons";
-import { Button, Col, Typography } from "antd";
+import { Button, Col, Flex, Typography } from "antd";
 import axios from "axios";
 import { forwardRef, useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import { SelectItem } from "../Config/DataDisplayInterface";
 import {
   WOS_GET_GRAPHS_BY_WORKFLOW_ID_ENDPOINT,
   WOS_RERUN_WORKFLOW_ENDPOINT,
-} from "../Config/EndpointConfig";
+} from "../Config/WOSEndpointConfig";
 import {
+  Configuration,
+  EndpointConfigTypes,
   Graph,
   ServiceConfiguration,
+  WorkflowConfiguration,
   XMLGraphState,
 } from "../Config/WorkflowConfig";
 import { AppIconButton } from "../DataEntryComponents/AppIconButton";
@@ -26,23 +30,11 @@ import { extractServices, extractStates } from "../Utils/ObjectUtils";
 import { EndpointConfigByService } from "./EndpointConfigByService";
 import { EndpointConfigByState } from "./EndpointConfigByState";
 import { WorkflowModal } from "./WorkflowModal";
-import { useParams } from "react-router-dom";
-
-const EndpointConfigTypes = [
-  {
-    label: "Service",
-    value: "service",
-  },
-  {
-    label: "State",
-    value: "state",
-  },
-];
 
 export const RerunConfiguration = forwardRef<
   HTMLDivElement,
   { onClose?: () => void; onRefresh?: () => void }
->(({ onClose, onRefresh = () => {} }, ref) => {
+>(({ onClose = () => {}, onRefresh = () => {} }, ref) => {
   const clientId = useSelector((state: any) => state.client.clientId);
   const { workflowId, workflowName } = useSelector(
     (state: any) => state.workflow.workflow
@@ -170,22 +162,26 @@ export const RerunConfiguration = forwardRef<
     setModalOpen(false);
   };
 
+  const mapFormDataToConfigurations = (data: any) => {
+    return Object.entries(data).reduce(
+      (acc: Record<string, Configuration>, [name, alias]) => {
+        acc[name] = { name, alias } as Configuration;
+        return acc;
+      },
+      {}
+    );
+  };
+
   const handleRerun = async () => {
     setLoading(true);
 
-    const serviceConfigurations =
+    const serviceEndpointConfigMap =
       endpointConfigType === "service"
-        ? Object.entries(serviceConfigFormData).map(([name, alias]) => ({
-            name,
-            alias,
-          }))
+        ? mapFormDataToConfigurations(serviceConfigFormData)
         : null;
-    const stateConfigurations =
+    const stateEndpointConfigMap =
       endpointConfigType === "state"
-        ? Object.entries(stateConfigFormData).map(([name, alias]) => ({
-            name,
-            alias,
-          }))
+        ? mapFormDataToConfigurations(stateConfigFormData)
         : null;
 
     const params = {
@@ -193,13 +189,13 @@ export const RerunConfiguration = forwardRef<
       workIds: [workId],
       workflowId,
       configuration: {
-        workflowConfiguration: {
+        workflowVersionConfig: {
           name: workflowName,
           alias: workflowAlias,
         },
-        serviceConfigurations,
-        stateConfigurations,
-      },
+        serviceEndpointConfigMap,
+        stateEndpointConfigMap,
+      } as WorkflowConfiguration,
     };
 
     await axios
@@ -213,6 +209,8 @@ export const RerunConfiguration = forwardRef<
       });
 
     setLoading(false);
+
+    onClose();
   };
 
   return (
@@ -295,9 +293,9 @@ export const RerunConfiguration = forwardRef<
                   />
                 ))}
           </AppRow>
-          <Box>
+          <Flex justify="center">
             <Button onClick={handleRerun}>Rerun with this configuration</Button>
-          </Box>
+          </Flex>
           <Box>
             <AppIconButton width="100%" onClick={onClose} type="text">
               <CaretUpOutlined />

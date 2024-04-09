@@ -7,16 +7,20 @@ export const formatDate = (data: number | string | undefined) => {
   }
   const date = new Date(time);
 
-  const locale = date.toLocaleString("en-US", {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: false,
-  });
-  return locale.split(", ").join(" ").split("/").join("-");
+  const utcString = date.toISOString();
+  const utcDate = utcString.split("T")[0];
+  const utcTime = utcString.split("T")[1].split(".")[0];
+
+  const timezoneOffset = -date.getTimezoneOffset();
+  const offsetHours = Math.floor(Math.abs(timezoneOffset) / 60);
+  const offsetMinutes = Math.abs(timezoneOffset) % 60;
+  const offsetSign = timezoneOffset >= 0 ? "+" : "-";
+
+  const utcOffset = `UTC${offsetSign}${offsetHours
+    .toString()
+    .padStart(2, "0")}:${offsetMinutes.toString().padStart(2, "0")}`;
+
+  return `${utcDate} ${utcTime} (${utcOffset})`;
 };
 
 export const formatDateString = (data: string | undefined) => {
@@ -24,16 +28,20 @@ export const formatDateString = (data: string | undefined) => {
 
   const date = new Date(data);
 
-  const locale = date.toLocaleString("en-US", {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: false,
-  });
-  return locale.split(", ").join(" ").split("/").join("-");
+  const utcString = date.toISOString();
+  const utcDate = utcString.split("T")[0];
+  const utcTime = utcString.split("T")[1].split(".")[0];
+
+  const timezoneOffset = -date.getTimezoneOffset();
+  const offsetHours = Math.floor(Math.abs(timezoneOffset) / 60);
+  const offsetMinutes = Math.abs(timezoneOffset) % 60;
+  const offsetSign = timezoneOffset >= 0 ? "+" : "-";
+
+  const utcOffset = `UTC${offsetSign}${offsetHours
+    .toString()
+    .padStart(2, "0")}:${offsetMinutes.toString().padStart(2, "0")}`;
+
+  return `${utcDate} ${utcTime} (${utcOffset})`;
 };
 
 export const isUnixTimestamp = (value: any) => {
@@ -116,7 +124,7 @@ export const formatTimeShort = (timeInMinutes: number | string) => {
   }
 
   if (remainingMinutes > 0) {
-    formattedTime += `${remainingMinutes}m`;
+    formattedTime += `${remainingMinutes}m `;
   }
 
   if (seconds > 0) {
@@ -124,4 +132,46 @@ export const formatTimeShort = (timeInMinutes: number | string) => {
   }
 
   return formattedTime.trim();
+};
+
+export const prettifyDate = (dateString: string): string => {
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  const date = new Date(dateString);
+  const month = months[date.getMonth()];
+  const day = date.getDate();
+  const year = date.getFullYear();
+
+  const addOrdinalSuffix = (day: number): string => {
+    if (day >= 11 && day <= 13) {
+      return `${day}th`;
+    }
+    switch (day % 10) {
+      case 1:
+        return `${day}st`;
+      case 2:
+        return `${day}nd`;
+      case 3:
+        return `${day}rd`;
+      default:
+        return `${day}th`;
+    }
+  };
+
+  const ordinalDay = addOrdinalSuffix(day);
+
+  return `${month} ${ordinalDay}, ${year}`;
 };

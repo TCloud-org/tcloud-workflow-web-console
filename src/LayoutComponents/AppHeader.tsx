@@ -1,23 +1,26 @@
-import { Select, Space, Typography } from "antd";
+import { AppSearchBar } from "DataEntryComponents/AppSearchBar";
+import { Flex, Select, theme } from "antd";
 import { Header } from "antd/es/layout/layout";
-import {
-  BRAND,
-  WOS_GET_WORKFLOWS_BY_CLIENT_ID_ENDPOINT,
-} from "../Config/EndpointConfig";
-import { useDispatch, useSelector } from "react-redux";
-import { setClientId } from "../features/workflow/clientSlice";
-import { useEffect, useState } from "react";
 import axios from "axios";
-import { setWorkflow } from "../features/workflow/workflowSlice";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { WOS_GET_WORKFLOWS_BY_CLIENT_ID_ENDPOINT } from "../Config/WOSEndpointConfig";
 import { deserializeWorkflow, serializeWorkflow } from "../Utils/Serializer";
-const { Link } = Typography;
+import { setClientId } from "../features/workflow/clientSlice";
+import { setWorkflow } from "../features/workflow/workflowSlice";
 
 export const AppHeader = () => {
+  const { token } = theme.useToken();
+
+  const navigate = useNavigate();
+
   const clientId = useSelector((state: any) => state.client.clientId);
   const workflow = useSelector((state: any) => state.workflow.workflow);
   const dispatch = useDispatch();
 
   const [workflows, setWorkflows] = useState([]);
+  const [searchInput, setSearchInput] = useState<string>("");
 
   useEffect(() => {
     if (clientId) {
@@ -47,18 +50,33 @@ export const AppHeader = () => {
       style={{
         position: "sticky",
         top: 0,
-        zIndex: 1,
+        zIndex: 100,
         width: "100%",
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
+        height: "64px",
+        gap: "56px",
       }}
     >
-      <Link style={{ marginRight: "16px" }} strong href="/" target="_blank">
-        {BRAND}
-      </Link>
+      <Flex
+        style={{
+          backgroundColor: "rgba(250,250,250,255)",
+          borderRadius: token.borderRadiusLG,
+          flex: 1,
+        }}
+      >
+        <AppSearchBar
+          placeholder="Search by work ID"
+          value={searchInput}
+          onChange={(e) => setSearchInput(e.target.value)}
+          onPressEnter={() =>
+            navigate(`live/${decodeURIComponent(searchInput.trim())}`)
+          }
+        />
+      </Flex>
 
-      <Space>
+      <Flex gap="8px" align="center" style={{ flex: 1 }} justify="flex-end">
         <Select
           style={{ width: 180 }}
           placeholder="Select workflow"
@@ -70,13 +88,13 @@ export const AppHeader = () => {
           }))}
         />
         <Select
-          style={{ width: 150 }}
+          style={{ width: 120 }}
           placeholder="Select client ID"
           value={clientId}
           onChange={handleClientIdChange}
           options={[{ value: "admin", label: "admin" }]}
         />
-      </Space>
+      </Flex>
     </Header>
   );
 };

@@ -5,10 +5,10 @@ import {
   CloseCircleOutlined,
   MinusCircleOutlined,
 } from "@ant-design/icons";
-import { Tag } from "antd";
-import { ResultType } from "../Config/WorkflowConfig";
+import { Tag, Tooltip } from "antd";
+import { CollapseTag } from "../Utils/ObjectUtils";
 
-const TagVariantMapping = {
+export const TagVariantMapping: { [key: string]: CollapseTag } = {
   success: {
     icon: <CheckCircleOutlined />,
     color: "success",
@@ -23,11 +23,11 @@ const TagVariantMapping = {
   },
   default: {
     icon: <MinusCircleOutlined />,
-    color: "default",
+    color: "geekblue",
   },
   terminal: {
     icon: <CheckCircleOutlined />,
-    color: "default",
+    color: "purple",
   },
   pending: {
     icon: <ClockCircleOutlined />,
@@ -35,7 +35,16 @@ const TagVariantMapping = {
   },
 };
 
-export const AppTag = (props: { type?: ResultType }) => {
-  const { type = "default" } = props;
-  return <Tag {...TagVariantMapping[type]}>{type}</Tag>;
+export const AppTag = (props: CollapseTag) => {
+  return (
+    <Tooltip title={props.tooltip}>
+      <Tag
+        bordered={false}
+        {...props}
+        style={{ margin: 0, wordBreak: "break-word", ...props.style }}
+      >
+        {props.children}
+      </Tag>
+    </Tooltip>
+  );
 };

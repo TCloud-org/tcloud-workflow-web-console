@@ -4,13 +4,20 @@ import { CSSProperties, useRef, useState } from "react";
 import { AppIconButton } from "../DataEntryComponents/AppIconButton";
 
 interface AppCopyProps {
-  content: string;
+  content?: string;
   style?: CSSProperties;
   size?: ButtonSize;
   type?: ButtonType;
+  buttonStyle?: CSSProperties;
 }
 
-export const AppCopy = ({ content, style, size, type }: AppCopyProps) => {
+export const AppCopy = ({
+  content = "",
+  style,
+  size,
+  type,
+  buttonStyle,
+}: AppCopyProps) => {
   const [copied, setCopied] = useState(false);
   const timeoutIdRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -35,6 +42,7 @@ export const AppCopy = ({ content, style, size, type }: AppCopyProps) => {
         tooltip={copied ? "Copied" : "Copy to clipboard"}
         size={size}
         type={type}
+        style={buttonStyle}
         onClick={() => handleCopyToClipboard(content)}
       >
         {!copied ? <CopyOutlined /> : <CheckSquareFilled />}

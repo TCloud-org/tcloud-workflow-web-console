@@ -1,35 +1,102 @@
-import { Button } from "antd";
-import axios from "axios";
+import { EditableColumn } from "Config/LayoutConfig";
+import { WorkColumns } from "Config/TableColumnConfig";
+import { PageTitle } from "DataDisplayComponents/PageTitle";
+import { WorkPeriodToolbar } from "WorkflowComponents/WorkPeriodToolbar";
+import { WorkStatisticDisplay } from "WorkflowComponents/WorkStatisticDisplay";
+import { Key, useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
-import { WOS_INITIATE_TCA_WORKFLOW_ENDPOINT } from "../Config/EndpointConfig";
+import { useLocation } from "react-router-dom";
+import { Work, WorkStatistic } from "../Config/WorkflowConfig";
+import { AppTable } from "../DataDisplayComponents/AppTable";
 import { AppSpace } from "../LayoutComponents/AppSpace";
+import {
+  getWorkStatisticInDateRange,
+  getWorksInDateRange,
+} from "../Network/WorkFetch";
 
 export const HomePage = () => {
-  const navigate = useNavigate();
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const start = searchParams.get("start") || undefined;
+  const end = searchParams.get("end") || undefined;
   const clientId = useSelector((state: any) => state.client.clientId);
   const { workflowId } = useSelector((state: any) => state.workflow.workflow);
 
-  const initiate = () => {
-    const id = uuidv4();
-    const formData = {
-      workId: id,
-      clientId,
-      workflowId,
-    };
-    axios
-      .post(WOS_INITIATE_TCA_WORKFLOW_ENDPOINT, formData)
-      .then((_) => alert(id))
-      .catch((error) => console.error(error));
-  };
+  const [works, setWorks] = useState<Work[]>([]);
+  const [selected, setSelected] = useState<Key[]>([]);
+  const [statistic, setStatistic] = useState<WorkStatistic>();
+  const [columns, setColumns] = useState<EditableColumn[]>(WorkColumns);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [period, setPeriod] = useState<string | undefined>();
+
+  const fetchWorksInRange = useCallback(async () => {
+    if (((start && end) || period) && clientId && workflowId) {
+      setLoading(true);
+      const workRes = await getWorksInDateRange(
+        clientId,
+        workflowId,
+        start,
+        end,
+        period
+      );
+      const statRes = await getWorkStatisticInDateRange(
+        clientId,
+        workflowId,
+        start,
+        end,
+        period
+      );
+      setWorks(workRes.works);
+      setColumns((prev: EditableColumn[]) =>
+        prev.map((col) => {
+          if (col.dataIndex !== "source") {
+            return col;
+          }
+          return {
+            ...col,
+            customFilters: Object.keys(
+              workRes.works.reduce((res: { [key: string]: string }, work) => {
+                res[work.source] = work.source;
+                return res;
+              }, {})
+            ).map((state) => ({
+              text: state,
+              value: state,
+            })),
+          } as EditableColumn;
+        })
+      );
+      setStatistic(statRes.statistic);
+      setLoading(false);
+    }
+  }, [start, end, clientId, workflowId, period]);
+
+  useEffect(() => {
+    fetchWorksInRange();
+  }, [fetchWorksInRange]);
 
   return (
     <AppSpace>
-      <Button onClick={initiate}>Initiate workflow</Button>
-      <Button type="primary" onClick={() => navigate("/live")}>
-        Primary Button
-      </Button>
+      <PageTitle>Welcome!</PageTitle>
+
+      <WorkPeriodToolbar period={period} setPeriod={setPeriod} />
+
+      <WorkStatisticDisplay statistic={statistic} />
+
+      <AppTable
+        loading={loading}
+        heading="Workflows"
+        onReload={fetchWorksInRange}
+        rows={works}
+        columns={columns}
+        selected={selected}
+        setSelected={setSelected}
+        rowId="workId"
+        defaultPageSize={25}
+        showFilter
+        showDownload
+        exludedColumnsFromExport={{ metadata: true }}
+      />
     </AppSpace>
   );
 };

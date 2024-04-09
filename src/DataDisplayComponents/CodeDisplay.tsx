@@ -20,6 +20,7 @@ export const CodeDisplay = (props: {
   bordered?: boolean | undefined;
   copyToClipboard?: boolean | undefined;
   hovered?: boolean | undefined;
+  containerStyle?: CSSProperties;
 }) => {
   const { token } = theme.useToken();
 
@@ -27,7 +28,6 @@ export const CodeDisplay = (props: {
     borderWidth: "1px",
     borderStyle: "solid",
     borderColor: token.colorBorder,
-    borderRadius: token.borderRadiusLG,
   };
 
   const hoverStyle: CSSProperties = {
@@ -44,6 +44,7 @@ export const CodeDisplay = (props: {
     bordered,
     copyToClipboard,
     hovered,
+    containerStyle,
   } = props;
 
   const [isHovered, setIsHovered] = useState<boolean>(false);
@@ -52,8 +53,11 @@ export const CodeDisplay = (props: {
     <Box
       style={{
         position: "relative",
+        backgroundColor: backgroundColor,
+        borderRadius: token.borderRadiusLG,
         ...(bordered && borderStyle),
         ...(hovered && isHovered && hoverStyle),
+        ...containerStyle,
       }}
       onMouseEnter={() => hovered && setIsHovered(true)}
       onMouseLeave={() => hovered && setIsHovered(false)}
@@ -66,8 +70,9 @@ export const CodeDisplay = (props: {
         showLineNumbers={showLineNumbers}
         customStyle={{
           fontSize: 12,
-          backgroundColor: backgroundColor,
           width: "100%",
+          padding: "4px 16px",
+          backgroundColor: "transparent",
           ...props.style,
         }}
       >

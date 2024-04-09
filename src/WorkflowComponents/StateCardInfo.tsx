@@ -1,10 +1,13 @@
-import { Descriptions, DescriptionsProps } from "antd";
+import { DescriptionsProps, theme } from "antd";
 import { CSSProperties, forwardRef } from "react";
-import { ResultType, Route } from "../Config/WorkflowConfig";
-import { AppTag } from "../DataDisplayComponents/AppTag";
+import { Span } from "../Config/DataDisplayInterface";
+import { Route } from "../Config/WorkflowConfig";
+import { AppDescriptions } from "../DataDisplayComponents/AppDescriptions";
+import { AppTag, TagVariantMapping } from "../DataDisplayComponents/AppTag";
 import { CodeDisplay } from "../DataDisplayComponents/CodeDisplay";
 import { formatDate } from "../Utils/DateUtils";
 import { parseError } from "../Utils/Serializer";
+import { LatencyTag } from "./LatencyTag";
 
 interface StateCardInfoProps {
   data?: Route;
@@ -13,51 +16,114 @@ interface StateCardInfoProps {
 
 export const StateCardInfo = forwardRef<HTMLDivElement, StateCardInfoProps>(
   (props, ref) => {
+    const { token } = theme.useToken();
     const { data, style } = props;
+
+    const renderNATag = () => {
+      return <AppTag>-</AppTag>;
+    };
 
     const items: DescriptionsProps["items"] = [
       {
         label: "Result name",
-        children: data?.resultName || "n/a",
-        span: { xs: 24, sm: 24, md: 24, lg: 24, xl: 24, xxl: 24 },
+        children: data?.resultName ? (
+          <AppTag>{data?.resultName}</AppTag>
+        ) : (
+          renderNATag()
+        ),
+        span: Span[4],
       },
       {
         label: "Result type",
         children: data?.resultType ? (
-          <AppTag type={data?.resultType as keyof ResultType} />
+          <AppTag
+            color={TagVariantMapping[data.resultType]?.color}
+            icon={TagVariantMapping[data.resultType]?.icon}
+          >
+            {data.resultType}
+          </AppTag>
         ) : (
-          "n/a"
+          renderNATag()
         ),
-        span: { xs: 24, sm: 24, md: 24, lg: 24, xl: 24, xxl: 24 },
+        span: Span[4],
       },
       {
         label: "Latency",
-        children: data?.executionTime ? `${data?.executionTime} ms` : "n/a",
-        span: { xs: 24, sm: 24, md: 24, lg: 24, xl: 24, xxl: 24 },
-      },
-      {
-        label: "Completed at",
-        children: formatDate(data?.createdAt) || "n/a",
-        span: { xs: 24, sm: 24, md: 24, lg: 24, xl: 24, xxl: 24 },
-      },
-      {
-        label: "Next retry at",
-        children: formatDate(data?.nextRetryAt) || "n/a",
-        span: { xs: 24, sm: 24, md: 24, lg: 24, xl: 24, xxl: 24 },
-      },
-      {
-        label: "Error",
-        children: data?.metadata.error ? (
-          <CodeDisplay
-            code={parseError(data?.metadata.error)}
-            backgroundColor="transparent"
-            copyToClipboard
-          />
+        children: data?.metadata?.httpResponse?.latency ? (
+          <LatencyTag latency={data?.metadata?.httpResponse.latency} />
         ) : (
-          "n/a"
+          renderNATag()
         ),
-        span: { xs: 24, sm: 24, md: 24, lg: 24, xl: 24, xxl: 24 },
+        span: Span[4],
       },
+      {
+        label: "Status code",
+        children: data?.metadata?.httpResponse?.statusCode ? (
+          <AppTag
+            color={
+              data?.metadata?.httpResponse?.statusCode === 200
+                ? "success"
+                : "error"
+            }
+          >
+            {data?.metadata?.httpResponse?.statusCode}
+          </AppTag>
+        ) : (
+          renderNATag()
+        ),
+        span: Span[4],
+      },
+      {
+        label: "Status",
+        children: data?.metadata?.httpResponse?.status ? (
+          <AppTag>{data?.metadata?.httpResponse?.status}</AppTag>
+        ) : (
+          renderNATag()
+        ),
+        span: Span[4],
+      },
+      {
+        label: "Reason",
+        children: data?.metadata?.httpResponse?.reasonPhrase ? (
+          <AppTag>{data?.metadata?.httpResponse?.reasonPhrase}</AppTag>
+        ) : (
+          renderNATag()
+        ),
+        span: Span[4],
+      },
+      {
+        label: "Completed",
+        children: data?.createdAt ? (
+          <AppTag>{formatDate(data?.createdAt)}</AppTag>
+        ) : (
+          renderNATag()
+        ),
+        span: Span[4],
+      },
+      {
+        label: "Retried",
+        children: data?.nextRetryAt ? (
+          <AppTag>{formatDate(data?.nextRetryAt)}</AppTag>
+        ) : (
+          renderNATag()
+        ),
+        span: Span[4],
+      },
+      ...(data?.metadata?.error
+        ? [
+            {
+              label: "Error",
+              children: (
+                <CodeDisplay
+                  code={parseError(data?.metadata.error)}
+                  copyToClipboard
+                  backgroundColor={token.colorFillQuaternary}
+                />
+              ),
+              span: Span[1],
+            },
+          ]
+        : []),
     ];
 
     return (
@@ -72,8 +138,7 @@ export const StateCardInfo = forwardRef<HTMLDivElement, StateCardInfoProps>(
         }}
         ref={ref}
       >
-        <Descriptions
-          bordered
+        <AppDescriptions
           layout="vertical"
           labelStyle={{
             fontWeight: "bold",
@@ -83,8 +148,8 @@ export const StateCardInfo = forwardRef<HTMLDivElement, StateCardInfoProps>(
             fontSize: "12px",
           }}
           size="small"
+          style={{ padding: "16px 16px 8px 16px" }}
           items={items}
-          column={{ xs: 24, sm: 24, md: 24, lg: 24, xl: 24, xxl: 24 }}
         />
       </div>
     );

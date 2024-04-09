@@ -15,6 +15,10 @@ export const AppButton = (props: AppButtonProps) => {
         danger={props.danger}
         onClick={props.onClick}
         loading={props.loading}
+        icon={props.icon}
+        style={props.style}
+        color={props.color}
+        size={props.size}
       >
         {props.children}
       </Button>

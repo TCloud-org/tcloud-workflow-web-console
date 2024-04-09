@@ -1,4 +1,4 @@
-import { Form } from "antd";
+import { Form, FormProps } from "antd";
 import { ReactNode } from "react";
 
 const formItemLayout = {
@@ -12,16 +12,13 @@ const formItemLayout = {
   },
 };
 
-export const AppForm = (props: {
-  children?: ReactNode;
-  onValuesChange?: (e: any) => any;
-}) => {
+export const AppForm = (
+  props: FormProps & {
+    children?: ReactNode;
+  }
+) => {
   return (
-    <Form
-      {...formItemLayout}
-      variant="filled"
-      onValuesChange={props.onValuesChange}
-    >
+    <Form {...formItemLayout} variant="filled" {...props} size="small">
       {props.children}
     </Form>
   );

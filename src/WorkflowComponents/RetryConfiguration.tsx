@@ -1,4 +1,4 @@
-import { Button, Typography } from "antd";
+import { Button, Flex, Typography } from "antd";
 import { forwardRef, useCallback, useEffect, useState } from "react";
 import { AppSheet } from "../LayoutComponents/AppSheet";
 import { AppSpace } from "../LayoutComponents/AppSpace";
@@ -14,14 +14,14 @@ import { fetchServiceConfiguration } from "../Network/WorkflowFetch";
 import { AppRow } from "../LayoutComponents/AppRow";
 import { EndpointConfigByState } from "./EndpointConfigByState";
 import axios from "axios";
-import { WOS_RETRY_WORKFLOW_ENDPOINT } from "../Config/EndpointConfig";
+import { WOS_RETRY_WORKFLOW_ENDPOINT } from "../Config/WOSEndpointConfig";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 export const RetryConfiguration = forwardRef<
   HTMLDivElement,
   { onClose?: () => void; routes?: Route[] }
->(({ onClose, routes = [] }, ref) => {
+>(({ onClose = () => {}, routes = [] }, ref) => {
   const { workId } = useParams();
 
   const clientId = useSelector((state: any) => state.client.clientId);
@@ -62,10 +62,13 @@ export const RetryConfiguration = forwardRef<
       workIds: [workId],
       workflowId,
       configuration: {
-        stateConfigurations: Object.entries(formData).map(([name, alias]) => ({
-          name,
-          alias,
-        })),
+        stateEndpointConfigMap: Object.entries(formData).reduce(
+          (result: { [key: string]: any }, [name, alias]) => {
+            result[name] = { name, alias };
+            return result;
+          },
+          {}
+        ),
       },
     };
 
@@ -79,6 +82,8 @@ export const RetryConfiguration = forwardRef<
       });
 
     setLoading(false);
+
+    onClose();
   };
 
   return (
@@ -104,9 +109,9 @@ export const RetryConfiguration = forwardRef<
             dispatch={setFormData}
           />
         </AppRow>
-        <Box>
+        <Flex justify="center">
           <Button onClick={handleRetry}>Retry with this configuration</Button>
-        </Box>
+        </Flex>
         <Box>
           <AppIconButton width="100%" onClick={onClose} type="text">
             <CaretUpOutlined />

@@ -57,16 +57,7 @@ export const AppEditableCell: React.FC<AppEditableCellProps> = ({
 
   if (editable) {
     childNode = editing ? (
-      <Form.Item
-        style={{ margin: 0 }}
-        name={dataIndex.toString()}
-        rules={[
-          {
-            required: true,
-            message: `${title} is required.`,
-          },
-        ]}
-      >
+      <Form.Item style={{ margin: 0 }} name={dataIndex.toString()}>
         <Input.TextArea
           style={{
             margin: 0,

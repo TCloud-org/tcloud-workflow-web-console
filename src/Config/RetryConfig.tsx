@@ -1,6 +1,7 @@
 export interface RetryInput {
   label: string;
   value: keyof RetryPolicy;
+  type?: string;
 }
 
 export interface RetryPolicyOption {
@@ -29,8 +30,12 @@ export const RetryPolicyOptions: RetryPolicyOptionsProps = {
       type: "FIXED_RETRY",
       inputs: [
         { label: "Name", value: "name" },
-        { label: "Number of retries", value: "numberOfRetries" },
-        { label: "Delay", value: "delay" },
+        {
+          label: "Number of retries",
+          value: "numberOfRetries",
+          type: "number",
+        },
+        { label: "Delay", value: "delay", type: "number" },
       ],
     },
     order: 1,
@@ -41,10 +46,14 @@ export const RetryPolicyOptions: RetryPolicyOptionsProps = {
       type: "EXPONENTIAL_BACKOFF",
       inputs: [
         { label: "Name", value: "name" },
-        { label: "Initial delay", value: "initialDelay" },
-        { label: "Multiplier factor", value: "multiplierFactor" },
-        { label: "Max retries", value: "maxRetries" },
-        { label: "Max delay", value: "maxDelay" },
+        { label: "Initial delay", value: "initialDelay", type: "number" },
+        {
+          label: "Multiplier factor",
+          value: "multiplierFactor",
+          type: "number",
+        },
+        { label: "Max retries", value: "maxRetries", type: "number" },
+        { label: "Max delay", value: "maxDelay", type: "number" },
       ],
     },
     order: 2,
@@ -55,10 +64,14 @@ export const RetryPolicyOptions: RetryPolicyOptionsProps = {
       type: "EXPONENTIAL_BACKOFF_WITH_JITTER",
       inputs: [
         { label: "Name", value: "name" },
-        { label: "Initial delay", value: "initialDelay" },
-        { label: "Multiplier factor", value: "multiplierFactor" },
-        { label: "Max retries", value: "maxRetries" },
-        { label: "Max delay", value: "maxDelay" },
+        { label: "Initial delay", value: "initialDelay", type: "number" },
+        {
+          label: "Multiplier factor",
+          value: "multiplierFactor",
+          type: "number",
+        },
+        { label: "Max retries", value: "maxRetries", type: "number" },
+        { label: "Max delay", value: "maxDelay", type: "number" },
       ],
     },
     order: 3,
@@ -69,10 +82,10 @@ export const RetryPolicyOptions: RetryPolicyOptionsProps = {
       type: "LINEAR_BACKOFF",
       inputs: [
         { label: "Name", value: "name" },
-        { label: "Initial delay", value: "initialDelay" },
-        { label: "Delay increment", value: "delayIncrement" },
-        { label: "Max retries", value: "maxRetries" },
-        { label: "Max delay", value: "maxDelay" },
+        { label: "Initial delay", value: "initialDelay", type: "number" },
+        { label: "Delay increment", value: "delayIncrement", type: "number" },
+        { label: "Max retries", value: "maxRetries", type: "number" },
+        { label: "Max delay", value: "maxDelay", type: "number" },
       ],
     },
     order: 4,
@@ -83,10 +96,10 @@ export const RetryPolicyOptions: RetryPolicyOptionsProps = {
       type: "CUSTOM_RETRY",
       inputs: [
         { label: "Name", value: "name" },
-        { label: "Max retries", value: "maxRetries" },
-        { label: "Retry conditions", value: "retryConditions" },
-        { label: "Delay strategy", value: "delayStrategy" },
-        { label: "Backoff strategy", value: "backoffStrategy" },
+        { label: "Max retries", value: "maxRetries", type: "number" },
+        { label: "Retry conditions", value: "retryConditions", type: "number" },
+        { label: "Delay strategy", value: "delayStrategy", type: "number" },
+        { label: "Backoff strategy", value: "backoffStrategy", type: "number" },
       ],
     },
     disabled: true,
@@ -98,10 +111,14 @@ export const RetryPolicyOptions: RetryPolicyOptionsProps = {
       type: "CIRCUIT_BREAKER",
       inputs: [
         { label: "Name", value: "name" },
-        { label: "Threshold", value: "threshold" },
-        { label: "Reset time", value: "resetTime" },
-        { label: "Failure threshold", value: "failureThreshold" },
-        { label: "Retry interval", value: "retryInterval" },
+        { label: "Threshold", value: "threshold", type: "number" },
+        { label: "Reset time", value: "resetTime", type: "number" },
+        {
+          label: "Failure threshold",
+          value: "failureThreshold",
+          type: "number",
+        },
+        { label: "Retry interval", value: "retryInterval", type: "number" },
       ],
     },
     disabled: true,

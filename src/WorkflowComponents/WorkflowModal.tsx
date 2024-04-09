@@ -1,12 +1,15 @@
-import { Descriptions, Modal } from "antd";
+import { DescriptionsProps, Modal } from "antd";
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { WOS_GET_GRAPH_BY_WORKFLOW_ID_AND_ALIAS_ENDPOINT } from "../Config/EndpointConfig";
+import { WOS_GET_GRAPH_BY_WORKFLOW_ID_AND_ALIAS_ENDPOINT } from "../Config/WOSEndpointConfig";
 import { Graph } from "../Config/WorkflowConfig";
+import { AppDescriptions } from "../DataDisplayComponents/AppDescriptions";
 import { CodeDisplay } from "../DataDisplayComponents/CodeDisplay";
 import { AppSpace } from "../LayoutComponents/AppSpace";
 import { Box } from "../LayoutComponents/Box";
+import { AppSurface } from "../DataDisplayComponents/AppSurface";
+import { Span } from "../Config/DataDisplayInterface";
 
 export const WorkflowModal = (props: {
   open?: boolean;
@@ -46,6 +49,21 @@ export const WorkflowModal = (props: {
     fetchGraph();
   }, [fetchGraph]);
 
+  const descriptions: DescriptionsProps["items"] = [
+    {
+      label: "Workflow Id",
+      span: Span[2],
+      children: workflowId,
+      key: "workflowId",
+    },
+    {
+      label: "Alias",
+      span: Span[2],
+      children: alias,
+      key: "alias",
+    },
+  ];
+
   return (
     <Modal
       title={workflowName}
@@ -60,15 +78,10 @@ export const WorkflowModal = (props: {
       }}
       width="65%"
     >
-      <AppSpace size="small" loading={loading}>
-        <Descriptions layout="horizontal" size="small">
-          <Descriptions.Item label="Workflow Id" span={24}>
-            {workflowId}
-          </Descriptions.Item>
-          <Descriptions.Item label="Alias" span={24}>
-            {alias}
-          </Descriptions.Item>
-        </Descriptions>
+      <AppSpace loading={loading}>
+        <AppSurface style={{ paddingBottom: 0 }}>
+          <AppDescriptions items={descriptions} layout="vertical" />
+        </AppSurface>
 
         <Box>
           <AppSpace>
@@ -76,12 +89,12 @@ export const WorkflowModal = (props: {
               hovered
               showLineNumbers
               bordered
+              copyToClipboard
               style={{
                 width: "100%",
               }}
               language="xml"
               code={graph?.xmlContent}
-              copyToClipboard
             />
           </AppSpace>
         </Box>

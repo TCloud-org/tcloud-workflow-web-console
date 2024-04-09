@@ -1,10 +1,5 @@
-import { Tabs } from "antd";
-import { TabItem } from "../Config/DataDisplayInterface";
+import { Tabs, TabsProps } from "antd";
 
-export const AppCardTabs = (props: {
-  size?: "large" | "middle" | "small";
-  items?: TabItem[];
-}) => {
-  const { size, items } = props;
-  return <Tabs defaultActiveKey="1" type="card" size={size} items={items} />;
+export const AppCardTabs = (props: TabsProps) => {
+  return <Tabs type="card" {...props} />;
 };

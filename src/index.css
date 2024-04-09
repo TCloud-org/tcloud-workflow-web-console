@@ -26,3 +26,42 @@ code {
   border       : 1px solid #d9d9d9;
   border-radius: 6px;
 }
+
+.react-resizable {
+  position       : relative;
+  background-clip: padding-box;
+}
+
+.react-resizable-handle {
+  position       : absolute;
+  right          : -5px;
+  bottom         : 0;
+  z-index        : 1;
+  width          : 10px;
+  height         : 100%;
+  cursor         : col-resize;
+  justify-content: center;
+  display        : flex;
+  justify-content: center;
+  align-items    : center;
+}
+
+.react-resizable-content {
+  width           : 2px;
+  height          : 35%;
+  background-color: transparent;
+  transition      : 0.3s;
+}
+
+.react-resizable-handle:hover>.react-resizable-content {
+  background-color: rgb(164, 164, 164);
+}
+
+
+.ant-select>* {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.ant-input {
+  background-color: rgba(0, 0, 0, 0.02);
+}

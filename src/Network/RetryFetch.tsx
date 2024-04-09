@@ -2,7 +2,7 @@ import axios from "axios";
 import {
   WOS_GET_RETRY_POLICIES_BY_CLIENT_ID_ENDPOINT,
   WOS_GET_RETRY_POLICY_BY_ID_ENDPOINT,
-} from "../Config/EndpointConfig";
+} from "../Config/WOSEndpointConfig";
 import {
   GetRetryPoliciesByClientIdOutput,
   GetRetryPolicyByIdOutput,

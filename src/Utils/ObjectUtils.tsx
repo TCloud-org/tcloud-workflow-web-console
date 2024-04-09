@@ -1,8 +1,19 @@
-import { Graph, Route, XMLGraphState } from "../Config/WorkflowConfig";
+import { TagProps } from "antd";
+import { PresetColorType, PresetStatusColorType } from "antd/es/_util/colors";
+import { LiteralUnion } from "antd/es/_util/type";
+import {
+  Graph,
+  Route,
+  WorkRequest,
+  XMLGraphState,
+} from "../Config/WorkflowConfig";
 import {
   deserializeDocument,
   deserializeDocumentChangeLogs,
 } from "./Serializer";
+import { getAbbreviation } from "./StringUtils";
+import { Clause } from "Config/FilterConfig";
+import dayjs from "dayjs";
 
 export const populateFlowNodeData = (nodes: any[] = []) => {
   const newNodes = nodes.map((node) => ({ ...node }));
@@ -43,6 +54,51 @@ export const extractEntities = (routes: Route[] = []) => {
       }
       return result;
     }, {});
+};
+
+export interface WorkRequestValue {
+  runningOrder: number;
+  workRequest: WorkRequest;
+  tags: CollapseTag[];
+}
+
+export type Color = LiteralUnion<PresetColorType | PresetStatusColorType>;
+
+export type CollapseTag = {
+  tooltip?: string;
+  width?: number | string;
+} & TagProps;
+
+export const extractWorkRequests = (
+  routes: Route[] = []
+): { [source: string]: WorkRequestValue } => {
+  return routes.reduce(
+    (
+      res: {
+        [source: string]: WorkRequestValue;
+      },
+      route
+    ) => {
+      res[route.source] = {
+        runningOrder: route.runningOrder,
+        workRequest: route.metadata.workRequest,
+        tags: [
+          {
+            tooltip: route.service,
+            children: getAbbreviation(route.service),
+            color: "processing",
+          },
+          {
+            tooltip: "Operation",
+            children: route.operation,
+            color: "processing",
+          },
+        ],
+      };
+      return res;
+    },
+    {}
+  );
 };
 
 export const extractLogs = (routes: Route[] = []) => {
@@ -86,4 +142,89 @@ export const formatCamelCaseKey = (key: string): string => {
   return key
     .replace(/([a-z])([A-Z])/g, "$1 $2")
     .replace(/^./, (str) => str.toUpperCase());
+};
+
+export const extractStatesAfterSource = (
+  source: string,
+  graph: Graph
+): XMLGraphState[] => {
+  const result = graph.parsedGraphResult?.result || {};
+  const sortedResult = Object.values(result).sort(
+    (a: any, b: any) => a.runningOrder - b.runningOrder
+  );
+  const itemsAfterSource: XMLGraphState[] = [];
+  let foundSource = false;
+
+  for (const item of sortedResult) {
+    if (foundSource) {
+      itemsAfterSource.push(item as XMLGraphState);
+    } else if ((item as any).source === source) {
+      foundSource = true;
+    }
+  }
+
+  return itemsAfterSource;
+};
+
+export const getLastRouteSource = (routes: Route[]) => {
+  const copiedRoutes = routes.map((route) => ({ ...route }));
+  const sortedRoutes = copiedRoutes.sort(
+    (a, b) => b.runningOrder - a.runningOrder
+  );
+  return sortedRoutes[0]?.source;
+};
+
+export const generateBlob = (
+  data: any[],
+  excludedColumn: { [key: string]: boolean }
+): Blob => {
+  const header =
+    Object.keys(data[0])
+      .filter((k) => !excludedColumn[k])
+      .join(",") + "\n";
+  const rows = data
+    .map((item) =>
+      Object.entries(item)
+        .filter(([k, _]) => !excludedColumn[k])
+        .map(([_, v]) => JSON.stringify(v))
+        .join(",")
+    )
+    .join("\n");
+  const csvData = header + rows;
+
+  return new Blob([csvData], { type: "text/csv;charset=utf-8" });
+};
+
+export const noFilters = (clauses: Clause[] = []) => {
+  if (clauses.length === 0) {
+    return true;
+  }
+  return clauses.every((clause) => {
+    if (!clause) return true;
+    if (clause.condition && clause.condition.toLowerCase().includes("null")) {
+      return false;
+    }
+    return (
+      !clause.input &&
+      (!clause.checkbox ||
+        Object.values(clause.checkbox).every((checked) => !checked)) &&
+      !clause.date
+    );
+  });
+};
+
+export const transformClausesDate = (data: Clause[]): Clause[] => {
+  return data.map((item) => {
+    if (item.date) {
+      return {
+        ...item,
+        date: {
+          start: dayjs(item.date.start),
+          end: item.date.end ? dayjs(item.date.end) : undefined,
+        },
+      };
+    } else {
+      return item;
+    }
+  });
 };

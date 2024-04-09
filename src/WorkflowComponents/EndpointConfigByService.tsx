@@ -20,6 +20,10 @@ export const EndpointConfigByService = (props: {
 
   const configurations = serviceConfigMap[service] || [];
 
+  if (service === "") {
+    return null;
+  }
+
   return (
     <Fragment>
       <Col span={10}>

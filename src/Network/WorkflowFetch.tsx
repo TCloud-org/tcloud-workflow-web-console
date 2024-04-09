@@ -3,15 +3,21 @@ import {
   WOS_GET_CONFIGURATIONS_BY_SERVICE_NAME_ENDPOINT,
   WOS_GET_CONFIGURATION_BY_ID_ENDPOINT,
   WOS_GET_GRAPHS_BY_WORKFLOW_ID_ENDPOINT,
+  WOS_GET_GRAPH_BY_ID_ENDPOINT,
+  WOS_GET_SERVICES_FROM_GRAPH_ENDPOINT,
   WOS_GET_SERVICE_CONFIGURATIONS_BY_CLIENT_ID_ENDPOINT,
   WOS_GET_WORKFLOW_BUCKETS_BY_CLIENT_ID_AND_WORKFLOW_ID_ENDPOINT,
-} from "../Config/EndpointConfig";
+  WOS_GET_WORKFLOW_CONFIGURATION_ENDPOINT,
+} from "../Config/WOSEndpointConfig";
 import {
   GetConfigurationByIdOutput,
   GetConfigurationsByServiceNameOutput,
+  GetGraphByIdOutput,
   GetGraphsByWorkflowIdOutput,
   GetServiceConfigurationsByClientIdOutput,
+  GetServicesFromGraphOutput,
   GetWorkflowBucketsByClientIdAndWorkflowIdOutput,
+  GetWorkflowConfigurationOutput,
   ServiceConfiguration,
 } from "../Config/WorkflowConfig";
 
@@ -94,4 +100,33 @@ export const getBuckets = async (clientId: string, workflowId: string) => {
       return response.data as GetWorkflowBucketsByClientIdAndWorkflowIdOutput;
     })
     .catch((_) => undefined);
+};
+
+export const getWorkflowConfiguration = async (
+  workId: string,
+  version: string
+) => {
+  const params = new URLSearchParams();
+  params.set("workId", workId);
+  params.set("version", version);
+  return await axios
+    .get(`${WOS_GET_WORKFLOW_CONFIGURATION_ENDPOINT}?${params}`)
+    .then((response) => response.data as GetWorkflowConfigurationOutput)
+    .catch((_) => undefined);
+};
+
+export const getServicesFromGraph = async (xml: string) => {
+  const formData = {
+    xml,
+  };
+  return await axios
+    .post(WOS_GET_SERVICES_FROM_GRAPH_ENDPOINT, formData)
+    .then((response) => response.data as GetServicesFromGraphOutput)
+    .catch((_) => undefined);
+};
+
+export const getGraphById = async (graphId: string | number) => {
+  return await axios
+    .get(`${WOS_GET_GRAPH_BY_ID_ENDPOINT}?graphId=${graphId}`)
+    .then((response) => response.data as GetGraphByIdOutput);
 };
