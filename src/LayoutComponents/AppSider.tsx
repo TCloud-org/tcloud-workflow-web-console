@@ -1,4 +1,5 @@
 import {
+  ApiOutlined,
   CodeOutlined,
   HomeOutlined,
   MonitorOutlined,
@@ -6,6 +7,7 @@ import {
   SafetyOutlined,
   SettingOutlined,
 } from "@ant-design/icons";
+import { SiderWidth } from "Config/LayoutConfig";
 import { BRAND } from "Config/WOSEndpointConfig";
 import { Flex, Menu, MenuProps, Typography, theme } from "antd";
 import Sider from "antd/es/layout/Sider";
@@ -19,6 +21,7 @@ export const SiderHrefs = {
   security: "security",
   settings: "settings",
   monitor: "monitor",
+  "/workflow-automation": "/workflow-automation",
   "/development": "/development",
   "/onboarding": "workflow",
   "/query": "workflow",
@@ -51,9 +54,15 @@ export const AppSider = () => {
       onClick: () => navigate("/"),
     },
     {
-      key: "workflow",
+      key: "/workflow-automation",
       icon: <PartitionOutlined />,
-      label: "Workflow",
+      label: "Workflow Automation",
+      onClick: () => navigate("/workflow-automation"),
+    },
+    {
+      key: "workflow",
+      icon: <ApiOutlined />,
+      label: "API Workflow",
       children: [
         {
           key: "/onboarding",
@@ -161,7 +170,7 @@ export const AppSider = () => {
 
   return (
     <Sider
-      width={200}
+      width={SiderWidth}
       theme="dark"
       collapsed={collapsed}
       onCollapse={(value) => setCollapsed(value)}

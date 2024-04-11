@@ -48,6 +48,10 @@ import { WorkflowStatisticPage } from "Pages/Statistic/WorkflowStatisticPage";
 import { MonitorTrafficPage } from "Pages/MonitorSider/MonitorTrafficPage";
 import { DevModePage } from "Pages/DevModeSider/DevModePage";
 import { QueryPage } from "Pages/QuerySider/QueryPage";
+import { WorkflowAutomationPage } from "Pages/WorkflowAutomationSider/WorkflowAutomationPage";
+import { SiderWidth } from "Config/LayoutConfig";
+import { EmailNotificationWorkflowPage } from "Pages/WorkflowAutomationSider/EmailNotificationWorkflowPage";
+import { CreateEmailNotificationWorkflowPage } from "Pages/WorkflowAutomationSider/CreateEmailNotificationWorkflowPage";
 
 export const App = () => {
   const {
@@ -77,7 +81,7 @@ export const App = () => {
         <Layout hasSider>
           <AppSider />
 
-          <Layout style={{ marginLeft: 200 }}>
+          <Layout style={{ marginLeft: SiderWidth }}>
             <AppHeader />
             <Layout style={{ padding: "0 16px 0 16px" }}>
               <AppBreadcrumb />
@@ -236,6 +240,18 @@ export const App = () => {
         {
           path: "/development",
           element: <DevModePage />,
+        },
+        {
+          path: "/workflow-automation",
+          element: <WorkflowAutomationPage />,
+        },
+        {
+          path: "/workflow-automation/email-notification-workflow",
+          element: <EmailNotificationWorkflowPage />,
+        },
+        {
+          path: "/workflow-automation/email-notification-workflow/create",
+          element: <CreateEmailNotificationWorkflowPage />,
         },
       ],
     },

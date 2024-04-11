@@ -88,3 +88,18 @@ code {
 .certain-category-search-dropdown .ant-select-dropdown-menu {
   max-height: 300px;
 }
+
+.hover {
+  opacity   : 1;
+  transition: 0.2s;
+}
+
+.hover:hover {
+  opacity: 0.7;
+}
+
+.dot-background {
+  background      : white;
+  background-image: radial-gradient(black 1px, transparent 0);
+  background-size : 40px 40px;
+}

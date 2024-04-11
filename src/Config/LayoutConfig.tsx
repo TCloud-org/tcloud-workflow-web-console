@@ -14,3 +14,5 @@ export type EditableColumn = EditableColumnTypes[number] & {
   handleSave?: (record: any) => void;
   customFilters?: ColumnFilterItem[];
 };
+
+export const SiderWidth = 250;

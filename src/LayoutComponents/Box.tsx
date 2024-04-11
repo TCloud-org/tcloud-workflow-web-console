@@ -6,13 +6,25 @@ interface BoxProps {
   align?: "left" | "center" | "right";
   onMouseEnter?: MouseEventHandler | undefined;
   onMouseLeave?: MouseEventHandler | undefined;
+  className?: string;
 }
 
 export const Box = forwardRef<HTMLDivElement, BoxProps>(
-  ({ style, children, align = "center", onMouseEnter, onMouseLeave }, ref) => {
+  (
+    {
+      style,
+      children,
+      align = "center",
+      onMouseEnter,
+      onMouseLeave,
+      className,
+    },
+    ref
+  ) => {
     return (
       <div
         ref={ref}
+        className={className}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
         style={{ display: "flex", flex: 1, flexDirection: "column", ...style }}
