@@ -228,3 +228,7 @@ export const transformClausesDate = (data: Clause[]): Clause[] => {
     }
   });
 };
+
+export const isNullCondition = (condition: string = "") => {
+  return condition && condition.toLowerCase().includes("null");
+};

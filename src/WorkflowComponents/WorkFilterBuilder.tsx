@@ -21,7 +21,11 @@ import { AppIconButton } from "DataEntryComponents/AppIconButton";
 import { AppLine } from "LayoutComponents/AppLine";
 import { AppRow } from "LayoutComponents/AppRow";
 import { AppSpace } from "LayoutComponents/AppSpace";
-import { formatCamelCaseKey, noFilters } from "Utils/ObjectUtils";
+import {
+  formatCamelCaseKey,
+  isNullCondition,
+  noFilters,
+} from "Utils/ObjectUtils";
 import {
   Button,
   Card,
@@ -78,28 +82,30 @@ const renderCheckboxInputs = (props: RenderProps) => {
           options={ListConditionOptions}
         />
       </Form.Item>
-      <AppSurface>
-        <AppSpace size="small">
-          <Typography.Text strong>Select all that apply</Typography.Text>
-          <AppRow>
-            {data.length === 0 ? (
-              <AppEmpty style={{ margin: 0 }} />
-            ) : (
-              data.map((value, i) => (
-                <Col key={i} span={12}>
-                  <Form.Item
-                    name={[...props.name, value]}
-                    valuePropName="checked"
-                    style={{ marginBottom: 0 }}
-                  >
-                    <Checkbox>{value}</Checkbox>
-                  </Form.Item>
-                </Col>
-              ))
-            )}
-          </AppRow>
-        </AppSpace>
-      </AppSurface>
+      {!isNullCondition(props.condition) && (
+        <AppSurface>
+          <AppSpace size="small">
+            <Typography.Text strong>Select all that apply</Typography.Text>
+            <AppRow>
+              {data.length === 0 ? (
+                <AppEmpty style={{ margin: 0 }} />
+              ) : (
+                data.map((value, i) => (
+                  <Col key={i} span={12}>
+                    <Form.Item
+                      name={[...props.name, value]}
+                      valuePropName="checked"
+                      style={{ marginBottom: 0 }}
+                    >
+                      <Checkbox>{value}</Checkbox>
+                    </Form.Item>
+                  </Col>
+                ))
+              )}
+            </AppRow>
+          </AppSpace>
+        </AppSurface>
+      )}
     </Flex>
   );
 };
@@ -194,7 +200,7 @@ export const WorkFilterBuilder = (props: {
 
   const [messageApi, contextHolder] = message.useMessage();
 
-  const { active }: { active?: number } = useSelector(
+  const { active }: { active?: string } = useSelector(
     (state: any) => state.workFilter
   );
 
@@ -229,12 +235,15 @@ export const WorkFilterBuilder = (props: {
   };
 
   const renderInputs = (name: number) => {
-    const attribute = form.getFieldValue(parent)?.[name]?.attribute || "";
+    const items = form.getFieldValue(parent) || [];
+    const attribute = items?.[name]?.attribute || "";
+    const condition = items?.[name]?.condition;
 
     if (attribute in FilterCheckboxMapping) {
       return FilterCheckboxMapping[attribute].render({
         data,
         name: [name, "checkbox"],
+        condition,
       });
     }
 
@@ -242,7 +251,7 @@ export const WorkFilterBuilder = (props: {
       return FilterDateMapping[attribute].render({
         data,
         name: [name, "date"],
-        condition: form.getFieldValue(parent)?.[name]?.condition,
+        condition,
       });
     }
 
@@ -256,9 +265,14 @@ export const WorkFilterBuilder = (props: {
             size="small"
           />
         </Form.Item>
-        <Form.Item style={{ marginBottom: 0, flex: 1 }} name={[name, "input"]}>
-          <Input placeholder={`Enter ${formatCamelCaseKey(attribute)}`} />
-        </Form.Item>
+        {!isNullCondition(condition) && (
+          <Form.Item
+            style={{ marginBottom: 0, flex: 1 }}
+            name={[name, "input"]}
+          >
+            <Input placeholder={`Enter ${formatCamelCaseKey(attribute)}`} />
+          </Form.Item>
+        )}
       </Flex>
     );
   };
@@ -316,7 +330,7 @@ export const WorkFilterBuilder = (props: {
       return;
     }
     const savedClauses = JSON.parse(JSON.stringify([...items]));
-    dispatch(update({ clauses: savedClauses, index: active || 0 }));
+    dispatch(update({ clauses: savedClauses, key: active }));
 
     messageApi.success("Query updated");
   };

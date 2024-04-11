@@ -1,18 +1,27 @@
-import { Clause } from "Config/FilterConfig";
 import { AppSurface } from "DataDisplayComponents/AppSurface";
 import { AppSurfaceTitle } from "DataDisplayComponents/AppSurfaceTitle";
+import { AppRow } from "LayoutComponents/AppRow";
 import { AppSpace } from "LayoutComponents/AppSpace";
+import { Col, Flex } from "antd";
+import { FilterQuery } from "features/filter/workFilterSlice";
 import { useSelector } from "react-redux";
 import { WorkQueryCard } from "./WorkQueryCard";
-import { Col, Flex } from "antd";
-import { AppRow } from "LayoutComponents/AppRow";
 
 export const WorkSavedFilterList = () => {
-  const { saved }: { saved: Clause[][] } = useSelector(
-    (state: any) => state.workFilter
-  );
+  const { saved, active }: { saved: FilterQuery[]; active: string } =
+    useSelector((state: any) => state.workFilter);
 
   if (saved.length === 0) return null;
+
+  const comparator = (a: FilterQuery, b: FilterQuery) => {
+    if (a.key === active) {
+      return -1;
+    }
+    if (b.key === active) {
+      return 1;
+    }
+    return 0;
+  };
 
   return (
     <AppSurface>
@@ -20,9 +29,9 @@ export const WorkSavedFilterList = () => {
         <AppSurfaceTitle>Saved Queries</AppSurfaceTitle>
         <Flex style={{ maxHeight: "300px", overflow: "auto" }}>
           <AppRow gutter={[8, 8]} style={{ width: "100%" }}>
-            {saved.map((clauses, i) => (
+            {[...saved].sort(comparator).map((query, i) => (
               <Col key={i} span={8}>
-                <WorkQueryCard clauses={clauses} index={i} />
+                <WorkQueryCard query={query} />
               </Col>
             ))}
           </AppRow>

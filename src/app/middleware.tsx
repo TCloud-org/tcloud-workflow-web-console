@@ -1,15 +1,7 @@
-import {
-  FLUSH,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER,
-  REHYDRATE,
-} from "redux-persist";
+import { GetDefaultMiddleware } from "@reduxjs/toolkit/dist/getDefaultMiddleware";
+import { thunk } from "redux-thunk";
 
-export const middleware = (getDefaultMiddleware: any) =>
+export const middleware = (getDefaultMiddleware: GetDefaultMiddleware<any>) =>
   getDefaultMiddleware({
-    serializableCheck: {
-      ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-    },
-  });
+    serializableCheck: false,
+  }).concat(thunk);

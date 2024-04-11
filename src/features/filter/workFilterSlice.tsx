@@ -1,9 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Clause } from "Config/FilterConfig";
+import { v4 } from "uuid";
+
+export interface FilterQuery {
+  key: string;
+  clauses: Clause[];
+}
 
 export interface WorkFilterState {
-  saved: Clause[][];
-  active?: number;
+  saved: FilterQuery[];
+  active?: string;
 }
 
 const initialState: WorkFilterState = {
@@ -16,32 +22,39 @@ export const workFilterSlice = createSlice({
   initialState,
   reducers: {
     save: (state, action: PayloadAction<Clause[]>) => {
-      state.saved = [...state.saved, action.payload];
+      const newClause: FilterQuery = {
+        key: v4().split("-")[0],
+        clauses: action.payload,
+      };
+      state.saved = [...state.saved, newClause];
     },
     update: (
       state,
-      action: PayloadAction<{ clauses: Clause[]; index: number }>
+      action: PayloadAction<{ clauses: Clause[]; key?: string }>
     ) => {
-      const { clauses, index } = action.payload;
+      const { clauses, key } = action.payload;
+      if (!key) return;
+      const index = state.saved.findIndex((item) => item.key === key);
       if (index >= 0 && index < state.saved.length) {
         const saved = [...state.saved];
-        saved[index] = [...clauses];
+        saved[index] = { ...saved[index], clauses };
         state.saved = [...saved];
       }
     },
-    activate: (state, action: PayloadAction<number>) => {
-      const active = action.payload;
-      if (active < state.saved.length) {
-        if (active === state.active) {
-          state.active = undefined;
-        } else {
-          state.active = active;
-        }
+    activate: (state, action: PayloadAction<string>) => {
+      const key = action.payload;
+      if (state.active === key) {
+        state.active = undefined;
+      } else {
+        state.active = key;
       }
     },
-    remove: (state, action: PayloadAction<number>) => {
+    remove: (state, action: PayloadAction<string>) => {
       const saved = [...state.saved];
-      saved.splice(action.payload, 1);
+      saved.splice(
+        saved.findIndex((item) => item.key === action.payload),
+        1
+      );
       state.saved = saved;
     },
     reset: (state) => {

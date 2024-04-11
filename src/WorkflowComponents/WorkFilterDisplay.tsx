@@ -67,7 +67,12 @@ export const WorkFilterDisplay = (props: {
     }
 
     return (
-      <AppTag key={i} closable color="geekblue" onClose={() => handleClose(i)}>
+      <AppTag
+        key={`${item.attribute}-${i}`}
+        closable
+        color="geekblue"
+        onClose={() => handleClose(i)}
+      >
         {`${item.attribute} ${item.condition}${
           item.input ? ` ${item.input.trim()}` : ""
         }`}

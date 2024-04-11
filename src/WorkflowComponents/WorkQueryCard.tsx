@@ -4,27 +4,26 @@ import { AppTag } from "DataDisplayComponents/AppTag";
 import { AppButton } from "DataEntryComponents/AppButton";
 import { AppIconButton } from "DataEntryComponents/AppIconButton";
 import { Card, Flex, message, theme } from "antd";
-import { activate, remove } from "features/filter/workFilterSlice";
+import { FilterQuery, activate, remove } from "features/filter/workFilterSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Fragment } from "react/jsx-runtime";
 
-export const WorkQueryCard = (props: {
-  clauses?: Clause[];
-  index?: number;
-}) => {
+export const WorkQueryCard = (props: { query: FilterQuery }) => {
   const dispatch = useDispatch();
 
   const { token } = theme.useToken();
 
   const [messageApi, contextHolder] = message.useMessage();
 
-  const { active }: { active?: number } = useSelector(
+  const { active }: { active?: string } = useSelector(
     (state: any) => state.workFilter
   );
 
-  const { clauses = [], index = 0 } = props;
+  const {
+    query: { key, clauses = [] },
+  } = props;
 
-  const isActivated = active === index;
+  const isActivated = active === key;
 
   const getValue = (clause: Clause) => {
     if (clause.date) {
@@ -44,6 +43,10 @@ export const WorkQueryCard = (props: {
         .filter(([_, v]) => v)
         .map(([k, _]) => `'${k}'`)
         .join(", ")})`;
+    }
+
+    if (!clause.input) {
+      return null;
     }
 
     return `'${clause.input.trim()}'`;
@@ -66,30 +69,32 @@ export const WorkQueryCard = (props: {
   };
 
   const handleRemove = () => {
-    dispatch(remove(index));
+    dispatch(remove(key));
   };
 
   const handleCopy = () => {
     navigator.clipboard
       .writeText(getQueryText())
-      .then(() => messageApi.success(`Query ${index + 1} copied to clipboard`))
+      .then(() => messageApi.success(`Query ${key} copied to clipboard`))
       .catch((error) =>
         console.error("Error copying JSON to clipboard: ", error)
       );
   };
 
   const getQueryText = (): string => {
-    let query = "";
+    let queryString = "";
     clauses.forEach((clause, i) => {
-      query += `${i > 0 ? `${clause.operator}` : "WHERE"} ${clause.attribute} ${
-        clause.condition
-      } ${getValueText(clause)}${i !== clauses.length - 1 ? "\n" : ""}`;
+      queryString += `${i > 0 ? `${clause.operator}` : "WHERE"} ${
+        clause.attribute
+      } ${clause.condition} ${getValueText(clause)}${
+        i !== clauses.length - 1 ? "\n" : ""
+      }`;
     });
-    return query;
+    return queryString;
   };
 
   const handleActivate = () => {
-    dispatch(activate(index));
+    dispatch(activate(key));
   };
 
   const handleEdit = () => {};
@@ -98,7 +103,7 @@ export const WorkQueryCard = (props: {
     <Fragment>
       {contextHolder}
       <Card
-        title={`Query ${index + 1}${isActivated ? " (Active)" : ""}`}
+        title={`${key}${isActivated ? " (Active)" : ""}`}
         bordered={false}
         size="small"
         extra={
@@ -120,18 +125,13 @@ export const WorkQueryCard = (props: {
           },
         }}
         actions={[
-          <AppButton
-            type="text"
-            onClick={handleActivate}
-            danger={isActivated}
-            style={{ width: "80%" }}
-          >
+          <AppButton type="text" onClick={handleActivate} danger={isActivated}>
             {isActivated ? "Deactivate" : "Activate"}
           </AppButton>,
-          <AppButton type="text" onClick={handleEdit} style={{ width: "80%" }}>
+          <AppButton type="text" onClick={handleEdit}>
             Edit
           </AppButton>,
-          <AppButton type="text" onClick={handleCopy} style={{ width: "80%" }}>
+          <AppButton type="text" onClick={handleCopy}>
             Copy
           </AppButton>,
         ]}

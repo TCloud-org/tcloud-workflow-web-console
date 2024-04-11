@@ -6,6 +6,7 @@ import workflowReducer from "../features/workflow/workflowSlice";
 import siderReducer from "../features/navigation/siderSlice";
 import generalReducer from "features/settings/generalSlice";
 import workFilterReducer from "features/filter/workFilterSlice";
+import historyReducer from "features/search/historySlice";
 
 const rootReducer = combineReducers({
   breadcrumb: breadcrumbReducer,
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   sider: siderReducer,
   general: generalReducer,
   workFilter: workFilterReducer,
+  history: historyReducer,
 });
 
 export default persistedReducer(rootReducer);

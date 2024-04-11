@@ -1,8 +1,13 @@
+import { ClockCircleOutlined } from "@ant-design/icons";
+import { AppButton } from "DataEntryComponents/AppButton";
 import { AppSearchBar } from "DataEntryComponents/AppSearchBar";
-import { Flex, Select, theme } from "antd";
+import { AutoCompleteProps, Flex, Select, Typography, theme } from "antd";
 import { Header } from "antd/es/layout/layout";
+import { DefaultOptionType } from "antd/es/select";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { clear, set } from "features/search/historySlice";
+import { LRUCache } from "lru-cache";
+import { KeyboardEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { WOS_GET_WORKFLOWS_BY_CLIENT_ID_ENDPOINT } from "../Config/WOSEndpointConfig";
@@ -17,6 +22,9 @@ export const AppHeader = () => {
 
   const clientId = useSelector((state: any) => state.client.clientId);
   const workflow = useSelector((state: any) => state.workflow.workflow);
+  const historyCache: LRUCache<string, string | number, any> = useSelector(
+    (state: any) => state.history.cache
+  );
   const dispatch = useDispatch();
 
   const [workflows, setWorkflows] = useState([]);
@@ -45,6 +53,60 @@ export const AppHeader = () => {
     dispatch(setWorkflow(deserializeWorkflow(value)));
   };
 
+  const handleSearchEnter = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === "Enter") {
+      dispatch(set({ key: searchInput.trim(), value: searchInput.trim() }));
+      navigate(`live/${decodeURIComponent(searchInput.trim())}`);
+    }
+  };
+
+  const handleSearchSelect = (value: string) => {
+    dispatch(set({ key: value.trim(), value: value.trim() }));
+    navigate(`live/${value}`);
+  };
+
+  const handleClear = () => {
+    dispatch(clear());
+  };
+
+  const getHistoryOptions = (): AutoCompleteProps["options"] => {
+    const options: AutoCompleteProps["options"] = [];
+    historyCache.forEach((value, key) => {
+      options.push({
+        label: (
+          <Flex justify="space-between" align="center">
+            <Flex gap="12px" align="center">
+              <ClockCircleOutlined />
+              <Typography.Text>{value}</Typography.Text>
+            </Flex>
+            {/* <AppIconButton
+              onClick={() => handleRemoveHistory(key)}
+              type="text"
+              size="small"
+            >
+              <CloseOutlined />
+            </AppIconButton> */}
+          </Flex>
+        ),
+        value: key,
+      } as DefaultOptionType);
+    });
+    const parent: AutoCompleteProps["options"] = [
+      {
+        label: (
+          <Flex justify="space-between" align="center">
+            <span>Recent</span>
+            <AppButton onClick={handleClear} type="link" size="small">
+              Clear
+            </AppButton>
+          </Flex>
+        ),
+        options: options,
+      },
+    ];
+    return parent;
+  };
+
   return (
     <Header
       style={{
@@ -63,16 +125,16 @@ export const AppHeader = () => {
         style={{
           backgroundColor: "rgba(250,250,250,255)",
           borderRadius: token.borderRadiusLG,
-          flex: 1,
+          flex: 2,
         }}
       >
         <AppSearchBar
           placeholder="Search by work ID"
           value={searchInput}
-          onChange={(e) => setSearchInput(e.target.value)}
-          onPressEnter={() =>
-            navigate(`live/${decodeURIComponent(searchInput.trim())}`)
-          }
+          onAutoChange={(value) => setSearchInput(value)}
+          options={getHistoryOptions()}
+          onAutoSelect={handleSearchSelect}
+          onKeyDown={handleSearchEnter}
         />
       </Flex>
 

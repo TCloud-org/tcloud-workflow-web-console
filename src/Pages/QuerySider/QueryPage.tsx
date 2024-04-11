@@ -10,13 +10,14 @@ import { noFilters, transformClausesDate } from "Utils/ObjectUtils";
 import { WorkFilterBuilder } from "WorkflowComponents/WorkFilterBuilder";
 import { WorkFilterDisplay } from "WorkflowComponents/WorkFilterDisplay";
 import { WorkSavedFilterList } from "WorkflowComponents/WorkSavedFilterList";
+import { FilterQuery } from "features/filter/workFilterSlice";
 import { Key, useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 export const QueryPage = () => {
   const clientId = useSelector((state: any) => state.client.clientId);
   const { workflowId } = useSelector((state: any) => state.workflow.workflow);
-  const { saved, active = -1 }: { saved: Clause[][]; active?: number } =
+  const { saved, active }: { saved: FilterQuery[]; active?: string } =
     useSelector((state: any) => state.workFilter);
 
   const [clauses, setClauses] = useState<Clause[]>([]);
@@ -24,7 +25,6 @@ export const QueryPage = () => {
   const [columns, setColumns] = useState<EditableColumn[]>(WorkColumns);
   const [loading, setLoading] = useState<boolean>(false);
   const [selected, setSelected] = useState<Key[]>([]);
-  const [isInitialStart, setIsInitialStart] = useState<boolean>(true);
 
   const fetchQueriedWorks = useCallback(async () => {
     setLoading(true);
@@ -62,15 +62,12 @@ export const QueryPage = () => {
   }, [fetchQueriedWorks]);
 
   useEffect(() => {
-    if (isInitialStart) {
-      if (active >= 0 && active < saved.length) {
-        setClauses(transformClausesDate(saved[active]));
-      } else {
-        setClauses([]);
-      }
-      setIsInitialStart(false);
+    const query = saved.find((item) => item.key === active);
+    if (query) {
+      const transformedClauses = transformClausesDate(query.clauses || []);
+      setClauses(transformedClauses);
     }
-  }, [active, saved, isInitialStart]);
+  }, [active, saved]);
 
   return (
     <AppSpace>
