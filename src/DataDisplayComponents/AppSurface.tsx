@@ -48,7 +48,7 @@ export const AppSurface = forwardRef<HTMLDivElement, AppSurfaceProps>(
           borderRadius: token.borderRadiusLG,
           padding: hasSpace ? `0 ${SizeMapping[size]}` : SizeMapping[size],
           transition: "0.2s",
-          overflow: "hidden",
+          overflow: "auto",
           ...((type === "form" || type === "border") && borderStyle),
           ...(type === "dot" && dotStyle),
           ...style,

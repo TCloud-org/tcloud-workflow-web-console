@@ -36,6 +36,7 @@ export const AppIconToggle = (
         type={props.active ? "primary" : "default"}
         disabled={props.disabled}
         danger={props.danger}
+        onMouseDown={props.onMouseDown}
       >
         {props.title}
       </Button>

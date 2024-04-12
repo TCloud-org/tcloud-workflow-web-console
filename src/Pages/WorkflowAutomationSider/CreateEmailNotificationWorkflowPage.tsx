@@ -1,53 +1,49 @@
 import {
   DndContext,
   DragEndEvent,
+  KeyboardSensor,
+  PointerSensor,
   UniqueIdentifier,
   closestCorners,
+  useSensor,
+  useSensors,
 } from "@dnd-kit/core";
 import {
   SortableContext,
   arrayMove,
+  sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { AppSurface } from "DataDisplayComponents/AppSurface";
 import { PageTitle } from "DataDisplayComponents/PageTitle";
 import { AppDroppable } from "DataEntryComponents/AppDroppable";
-import { AppSortable } from "DataEntryComponents/AppSortable";
+import { AppSortableCard } from "DataEntryComponents/AppSortableCard";
 import { AppSpace } from "LayoutComponents/AppSpace";
-import { Card, Flex } from "antd";
+import { EmailTemplateForm } from "WorkflowAutomationComponents/ EmailTemplateForm";
+import { Flex, Typography } from "antd";
 import { ReactNode, useState } from "react";
 
 interface AutomationStep {
   id: UniqueIdentifier;
-  render: (props?: any) => ReactNode;
+  label?: string;
   fixed?: boolean;
+  content?: ReactNode;
 }
 export const CreateEmailNotificationWorkflowPage = () => {
   const [steps, setSteps] = useState<AutomationStep[]>([
     {
       id: "1",
-      render: (props) => (
-        <Card style={{ width: "70%", borderColor: "blue" }} title="Trigger">
-          Test1
-        </Card>
-      ),
+      label: "Trigger",
       fixed: true,
     },
     {
       id: "2",
-      render: (props) => (
-        <Card style={{ width: "70%", borderColor: "blue" }} title="Subject">
-          Test2
-        </Card>
-      ),
+      label: "Email Template 1",
+      content: <EmailTemplateForm />,
     },
     {
       id: "3",
-      render: (props) => (
-        <Card style={{ width: "70%", borderColor: "blue" }} title="Body">
-          Test3
-        </Card>
-      ),
+      label: "Email Template 2",
     },
   ]);
 
@@ -55,37 +51,60 @@ export const CreateEmailNotificationWorkflowPage = () => {
     if (!over || active.id === over.id) return;
 
     setSteps((prev) => {
-      const originalPos = prev.findIndex(
+      const oldIndex = prev.findIndex(
         (item) => !item.fixed && item.id === active.id
       );
-      const newPos = prev.findIndex(
+      const newIndex = prev.findIndex(
         (item) => !item.fixed && item.id === over.id
       );
 
-      if (originalPos < 0 || newPos < 0) return prev;
+      if (oldIndex < 0 || newIndex < 0) return prev;
 
-      return arrayMove(prev, originalPos, newPos);
+      return arrayMove(prev, oldIndex, newIndex);
     });
   };
+
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
 
   return (
     <AppSpace>
       <PageTitle>Create Email Notification Workflow</PageTitle>
 
-      <DndContext onDragEnd={handleDragEnd} collisionDetection={closestCorners}>
+      <DndContext
+        onDragEnd={handleDragEnd}
+        collisionDetection={closestCorners}
+        sensors={sensors}
+      >
         <AppDroppable id="droppable">
-          <AppSurface type="dot" style={{ height: "60vh" }}>
+          <AppSurface type="dot" style={{ height: "70vh", padding: "64px 0" }}>
             <SortableContext
               items={steps}
               strategy={verticalListSortingStrategy}
             >
-              <Flex gap="24px" vertical>
+              <Flex gap="32px" vertical align="center" justify="center">
                 {steps.map((step, i) => (
-                  <AppSortable key={i} id={step.id}>
-                    <Flex justify="center" align="center">
-                      {step.render()}
-                    </Flex>
-                  </AppSortable>
+                  <Flex
+                    gap="16px"
+                    align="center"
+                    justify="center"
+                    style={{ width: "100%", transition: "1s" }}
+                    key={i}
+                  >
+                    <AppSortableCard
+                      key={i}
+                      id={step.id}
+                      content={step.content}
+                    >
+                      <Typography.Title level={5} style={{ margin: 0 }}>
+                        {step.label}
+                      </Typography.Title>
+                    </AppSortableCard>
+                  </Flex>
                 ))}
               </Flex>
             </SortableContext>

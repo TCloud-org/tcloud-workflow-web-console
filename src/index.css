@@ -103,3 +103,7 @@ code {
   background-image: radial-gradient(black 1px, transparent 0);
   background-size : 40px 40px;
 }
+
+.ant-card-head-title {
+  transition: 0.2s;
+}
