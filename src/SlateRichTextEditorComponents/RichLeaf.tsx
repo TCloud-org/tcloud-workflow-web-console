@@ -1,6 +1,8 @@
+import { theme } from "antd";
 import { RenderLeafProps } from "slate-react";
 
 export const RichLeaf = (props: RenderLeafProps) => {
+  const { token } = theme.useToken();
   let { attributes, children, leaf } = props;
 
   if (leaf.bold) {
@@ -8,7 +10,17 @@ export const RichLeaf = (props: RenderLeafProps) => {
   }
 
   if (leaf.code) {
-    children = <code>{children}</code>;
+    children = (
+      <code
+        style={{
+          backgroundColor: token.colorFillContent,
+          padding: "2px",
+          borderRadius: token.borderRadiusSM,
+        }}
+      >
+        {children}
+      </code>
+    );
   }
 
   if (leaf.italic) {

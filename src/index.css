@@ -107,3 +107,15 @@ code {
 .ant-card-head-title {
   transition: 0.2s;
 }
+
+.focus {
+  border      : 1px solid;
+  border-color: transparent;
+  outline     : 0px solid transparent;
+}
+
+.focus:focus {
+  border      : 1px solid;
+  border-color: #4e96ff;
+  outline     : 0px solid transparent;
+}

@@ -44,6 +44,7 @@ export const CreateEmailNotificationWorkflowPage = () => {
     {
       id: "3",
       label: "Email Template 2",
+      content: <EmailTemplateForm />,
     },
   ]);
 
@@ -99,6 +100,7 @@ export const CreateEmailNotificationWorkflowPage = () => {
                       key={i}
                       id={step.id}
                       content={step.content}
+                      label={step.label}
                     >
                       <Typography.Title level={5} style={{ margin: 0 }}>
                         {step.label}

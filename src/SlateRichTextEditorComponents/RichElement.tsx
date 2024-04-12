@@ -3,7 +3,7 @@ import { RenderElementProps } from "slate-react";
 export const RichElement = (props: RenderElementProps) => {
   const { attributes, children, element } = props;
   const style = { textAlign: element.align };
-  switch (element.type) {
+  switch (element.type as any) {
     case "block-quote":
       return (
         <blockquote style={style} {...attributes}>
@@ -28,6 +28,30 @@ export const RichElement = (props: RenderElementProps) => {
           {children}
         </h2>
       );
+    case "heading-three":
+      return (
+        <h3 style={style} {...attributes}>
+          {children}
+        </h3>
+      );
+    case "heading-four":
+      return (
+        <h4 style={style} {...attributes}>
+          {children}
+        </h4>
+      );
+    case "heading-five":
+      return (
+        <h5 style={style} {...attributes}>
+          {children}
+        </h5>
+      );
+    case "heading-six":
+      return (
+        <h6 style={style} {...attributes}>
+          {children}
+        </h6>
+      );
     case "list-item":
       return (
         <li style={style} {...attributes}>
@@ -42,7 +66,7 @@ export const RichElement = (props: RenderElementProps) => {
       );
     default:
       return (
-        <p style={style} {...attributes}>
+        <p style={{ ...style, margin: 0 }} {...attributes}>
           {children}
         </p>
       );

@@ -9,6 +9,7 @@ export const AppSortableCard = (props: {
   id: UniqueIdentifier;
   children?: ReactNode;
   content?: ReactNode;
+  label?: string;
 }) => {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({
@@ -58,7 +59,7 @@ export const AppSortableCard = (props: {
       </Card>
 
       <Drawer
-        title="Drawer with extra actions"
+        title={props.label}
         placement="right"
         onClose={onClose}
         width="50vw"
