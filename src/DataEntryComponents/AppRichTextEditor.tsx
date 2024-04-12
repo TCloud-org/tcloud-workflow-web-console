@@ -58,6 +58,7 @@ export const AppRichTextEditor = () => {
       event.preventDefault();
       editor.insertText("and");
     }
+
     for (const hotkey in HOTKEYS) {
       if (isHotkey(hotkey, event as any)) {
         event.preventDefault();
@@ -108,6 +109,7 @@ export const AppRichTextEditor = () => {
           padding: "8px",
           backgroundColor: token.colorFillQuaternary,
           borderRadius: token.borderRadiusSM,
+          minHeight: "100px",
         }}
         className="focus"
       />

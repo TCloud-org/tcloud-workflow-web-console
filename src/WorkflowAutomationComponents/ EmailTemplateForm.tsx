@@ -1,8 +1,9 @@
 import { Span } from "Config/DataDisplayInterface";
+import { AppButton } from "DataEntryComponents/AppButton";
 import { AppForm } from "DataEntryComponents/AppForm";
 import { AppRichTextEditor } from "DataEntryComponents/AppRichTextEditor";
 import { AppSpace } from "LayoutComponents/AppSpace";
-import { Form, Input } from "antd";
+import { Flex, Form, Input } from "antd";
 
 export const EmailTemplateForm = () => {
   return (
@@ -25,6 +26,11 @@ export const EmailTemplateForm = () => {
         </Form.Item>
         <Form.Item label="Message" name="message">
           <AppRichTextEditor />
+        </Form.Item>
+        <Form.Item>
+          <Flex justify="flex-end">
+            <AppButton type="primary">Save</AppButton>
+          </Flex>
         </Form.Item>
       </AppForm>
     </AppSpace>

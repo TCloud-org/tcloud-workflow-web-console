@@ -108,7 +108,7 @@ export type CustomElement =
   | TitleElement
   | VideoElement
   | CodeBlockElement
-  | CodeLineElement) & { align?: CanvasTextAlign}
+  | CodeLineElement) & { align?: CanvasTextAlign, url?: string}
 
 export type CustomText = {
   bold?: boolean

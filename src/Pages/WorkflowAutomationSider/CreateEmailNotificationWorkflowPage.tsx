@@ -1,3 +1,4 @@
+import { PlusCircleOutlined } from "@ant-design/icons";
 import {
   DndContext,
   DragEndEvent,
@@ -17,6 +18,7 @@ import {
 import { AppSurface } from "DataDisplayComponents/AppSurface";
 import { PageTitle } from "DataDisplayComponents/PageTitle";
 import { AppDroppable } from "DataEntryComponents/AppDroppable";
+import { AppIconButton } from "DataEntryComponents/AppIconButton";
 import { AppSortableCard } from "DataEntryComponents/AppSortableCard";
 import { AppSpace } from "LayoutComponents/AppSpace";
 import { EmailTemplateForm } from "WorkflowAutomationComponents/ EmailTemplateForm";
@@ -90,12 +92,18 @@ export const CreateEmailNotificationWorkflowPage = () => {
               <Flex gap="32px" vertical align="center" justify="center">
                 {steps.map((step, i) => (
                   <Flex
-                    gap="16px"
+                    gap="32px"
+                    vertical
                     align="center"
                     justify="center"
-                    style={{ width: "100%", transition: "1s" }}
+                    style={{ width: "100%" }}
                     key={i}
                   >
+                    {i !== 0 && (
+                      <AppIconButton type="text" style={{ color: "blue" }}>
+                        <PlusCircleOutlined />
+                      </AppIconButton>
+                    )}
                     <AppSortableCard
                       key={i}
                       id={step.id}
