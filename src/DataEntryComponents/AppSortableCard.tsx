@@ -15,6 +15,8 @@ import {
 } from "react";
 import { InputRef } from "./AppEditableCell";
 import { AutomationStep, borderColor } from "Config/AutomationConfig";
+import { AppIconButton } from "./AppIconButton";
+import { DoubleLeftOutlined, DoubleRightOutlined } from "@ant-design/icons";
 
 const pointerHoldingDurationThreshold = 200;
 
@@ -64,6 +66,7 @@ export const AppSortableCard = (props: {
   const [open, setOpen] = useState(false);
   const [titleEditing, setTitleEditing] = useState<boolean>(false);
   const [title, setTitle] = useState<string>(props.label || "");
+  const [drawerExpanded, setDrawerExpanded] = useState<boolean>(false);
 
   useEffect(() => {
     setTitle(props.label || "");
@@ -149,10 +152,22 @@ export const AppSortableCard = (props: {
         }
         placement="right"
         onClose={onClose}
-        width="50vw"
+        width={drawerExpanded ? "90vw" : "50vw"}
         open={open}
+        style={{ transition: "0.2s" }}
       >
         {props.content}
+        <AppIconButton
+          onClick={() => setDrawerExpanded((prev) => !prev)}
+          style={{
+            position: "absolute",
+            left: -16,
+            top: "50%",
+            transform: "translateY(-50%)",
+          }}
+        >
+          {drawerExpanded ? <DoubleRightOutlined /> : <DoubleLeftOutlined />}
+        </AppIconButton>
       </Drawer>
     </>
   );

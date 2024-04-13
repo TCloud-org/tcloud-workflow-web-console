@@ -47,6 +47,8 @@ export const AppTable = (
     exludedColumnsFromExport?: { [key: string]: boolean };
     showSettings?: boolean;
     titleToolDecorator?: ReactNode;
+    showSelected?: boolean;
+    showTitle?: boolean;
   } & TableProps
 ) => {
   const {
@@ -66,6 +68,8 @@ export const AppTable = (
     exludedColumnsFromExport = {},
     showSettings = true,
     titleToolDecorator,
+    showSelected = true,
+    showTitle = true,
   } = props;
 
   const [mergedColumns, setMergedColumns] = useState<EditableColumn[]>([
@@ -221,7 +225,8 @@ export const AppTable = (
 
   return (
     <Table
-      title={renderTitle}
+      title={showTitle ? () => renderTitle() : undefined}
+      style={props.style}
       components={TableComponents}
       rowClassName={() => "editable-row"}
       bordered={bordered}
@@ -231,12 +236,16 @@ export const AppTable = (
         pageSizeOptions: [5, 10, 25, 50, 100],
         showQuickJumper: true,
       }}
-      rowSelection={{
-        type: selectionType,
-        selectedRowKeys: selected,
-        onSelect: onSelect,
-        onChange: onSelectedChange,
-      }}
+      rowSelection={
+        showSelected
+          ? {
+              type: selectionType,
+              selectedRowKeys: selected,
+              onSelect: onSelect,
+              onChange: onSelectedChange,
+            }
+          : undefined
+      }
       columns={editableColumns as EditableColumnTypes}
       dataSource={data.filter((work) => {
         return (

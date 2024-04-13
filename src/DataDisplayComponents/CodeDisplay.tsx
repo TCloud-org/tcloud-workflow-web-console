@@ -10,9 +10,10 @@ import python from "react-syntax-highlighter/dist/esm/languages/hljs/python";
 import xml from "react-syntax-highlighter/dist/esm/languages/hljs/xml";
 import { Box } from "../LayoutComponents/Box";
 import { AppCopy } from "./AppCopy";
+import { Language } from "Utils/CodeUtils";
 
 export const CodeDisplay = (props: {
-  language?: "json" | "java" | "xml" | "javascript" | "bash" | undefined;
+  language?: Language;
   code?: string;
   backgroundColor?: string;
   style?: CSSProperties;
@@ -21,6 +22,7 @@ export const CodeDisplay = (props: {
   copyToClipboard?: boolean | undefined;
   hovered?: boolean | undefined;
   containerStyle?: CSSProperties;
+  wrapLongLines?: boolean;
 }) => {
   const { token } = theme.useToken();
 
@@ -45,6 +47,7 @@ export const CodeDisplay = (props: {
     copyToClipboard,
     hovered,
     containerStyle,
+    wrapLongLines = true,
   } = props;
 
   const [isHovered, setIsHovered] = useState<boolean>(false);
@@ -65,7 +68,7 @@ export const CodeDisplay = (props: {
       <SyntaxHighlighter
         language={language}
         style={github}
-        wrapLongLines
+        wrapLongLines={wrapLongLines}
         wrapLines
         showLineNumbers={showLineNumbers}
         customStyle={{

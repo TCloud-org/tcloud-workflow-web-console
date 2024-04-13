@@ -20,13 +20,16 @@ const HttpMethodBadge: FC<HttpMethodBadgeProps> = ({ method = "POST" }) => {
         borderRadius: token.borderRadiusSM,
         backgroundColor: HTTP_METHOD_COLOR_CODE[method],
         color: "white",
-        width: "80px",
-        height: "32px",
+        width: "64px",
+        height: "24px",
       }}
       align="center"
       justify="center"
     >
-      <Typography.Text style={{ color: token.colorWhite }} strong>
+      <Typography.Text
+        style={{ color: token.colorWhite, fontSize: "12px", fontWeight: 700 }}
+        strong
+      >
         {method}
       </Typography.Text>
     </Flex>
