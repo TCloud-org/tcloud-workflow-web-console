@@ -2,7 +2,7 @@ import type { GetRef } from "antd";
 import { Form, Input } from "antd";
 import React, { useContext, useEffect, useRef, useState } from "react";
 
-type InputRef = GetRef<typeof Input>;
+export type InputRef = GetRef<typeof Input>;
 type FormInstance<T> = GetRef<typeof Form<T>>;
 
 export const EditableContext = React.createContext<FormInstance<any> | null>(

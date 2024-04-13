@@ -1,3 +1,4 @@
+import { Span } from "Config/DataDisplayInterface";
 import { Form, FormProps } from "antd";
 import { ReactNode } from "react";
 
@@ -18,7 +19,15 @@ export const AppForm = (
   }
 ) => {
   return (
-    <Form {...formItemLayout} variant="filled" {...props} size="small">
+    <Form
+      {...formItemLayout}
+      wrapperCol={
+        props.layout === "vertical" ? Span[1] : formItemLayout.wrapperCol
+      }
+      variant="filled"
+      {...props}
+      size="small"
+    >
       {props.children}
     </Form>
   );

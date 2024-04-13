@@ -9,7 +9,7 @@ interface AppSurfaceProps {
   hasSpace?: boolean;
   size?: SizeType;
   backgroundColor?: string;
-  type?: "default" | "form" | "dot" | "border";
+  type?: "default" | "form" | "dot" | "border" | "dashed";
 }
 
 const SizeMapping: any = {
@@ -26,7 +26,7 @@ export const AppSurface = forwardRef<HTMLDivElement, AppSurfaceProps>(
     const { token } = theme.useToken();
 
     const borderStyle: CSSProperties = {
-      border: "1px solid",
+      border: type === "dashed" ? "1px dashed" : "1px solid",
       borderColor:
         type === "form" ? token.colorBorder : token.colorBorderSecondary,
       backgroundColor: token.colorWhite,
@@ -49,7 +49,8 @@ export const AppSurface = forwardRef<HTMLDivElement, AppSurfaceProps>(
           padding: hasSpace ? `0 ${SizeMapping[size]}` : SizeMapping[size],
           transition: "0.2s",
           overflow: "auto",
-          ...((type === "form" || type === "border") && borderStyle),
+          ...((type === "form" || type === "border" || type === "dashed") &&
+            borderStyle),
           ...(type === "dot" && dotStyle),
           ...style,
         }}

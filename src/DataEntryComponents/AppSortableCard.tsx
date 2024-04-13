@@ -1,31 +1,79 @@
 import { UniqueIdentifier } from "@dnd-kit/core";
-import { useSortable } from "@dnd-kit/sortable";
+import { defaultAnimateLayoutChanges, useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { Card, Drawer } from "antd";
-import { CSSProperties, PointerEvent, ReactNode, useState } from "react";
+import { Card, Drawer, Input, Typography, theme } from "antd";
+import {
+  CSSProperties,
+  ChangeEvent,
+  Dispatch,
+  PointerEvent,
+  ReactNode,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import { InputRef } from "./AppEditableCell";
+import { AutomationStep, borderColor } from "Config/AutomationConfig";
 
 const pointerHoldingDurationThreshold = 200;
+
+const animateLayoutChanges = (args: any) => {
+  const { isSorting, wasSorting, wasDragging } = args;
+
+  if (isSorting || wasSorting || wasDragging) {
+    return defaultAnimateLayoutChanges(args);
+  }
+
+  return true;
+};
+
 export const AppSortableCard = (props: {
   id: UniqueIdentifier;
   children?: ReactNode;
   content?: ReactNode;
   label?: string;
+  setStep?: Dispatch<SetStateAction<AutomationStep>>;
 }) => {
+  const { token } = theme.useToken();
+
+  const { setStep = () => {} } = props;
+
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({
       id: props.id,
-      animateLayoutChanges: () => false,
+      animateLayoutChanges,
     });
   const style: CSSProperties = {
     transition,
     transform: CSS.Translate.toString(transform),
-    width: "70%",
-    borderColor: "blue",
+    width: 400,
     cursor: "pointer",
+    zIndex: 1,
+    position: "relative",
+    boxShadow: token.boxShadowSecondary,
+    border: "1px solid",
+    borderColor: "transparent",
   };
+  const borderStyle: CSSProperties = {
+    borderColor: borderColor,
+  };
+  const inputRef = useRef<InputRef>(null);
 
   const [pointerTime, setPointerTime] = useState<Date>(new Date());
   const [open, setOpen] = useState(false);
+  const [titleEditing, setTitleEditing] = useState<boolean>(false);
+  const [title, setTitle] = useState<string>(props.label || "");
+
+  useEffect(() => {
+    setTitle(props.label || "");
+  }, [props.label]);
+
+  useEffect(() => {
+    if (titleEditing && inputRef.current) {
+      (inputRef.current as HTMLInputElement).focus();
+    }
+  }, [titleEditing]);
 
   const onClose = () => {
     setOpen(false);
@@ -45,11 +93,25 @@ export const AppSortableCard = (props: {
     }
   };
 
+  const handleDrawerTitleClick = () => {
+    setTitleEditing(true);
+  };
+
+  const handleTitleEditEnter = () => {
+    setTitleEditing((prev) => !prev);
+  };
+
+  const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value);
+    setStep((prev) => ({ ...prev, label: e.target.value }));
+  };
+
   return (
     <>
       <Card
         ref={setNodeRef}
-        style={style}
+        bordered={false}
+        style={{ ...style, ...(open && borderStyle) }}
         {...listeners}
         {...attributes}
         onPointerDown={handlePointerDown}
@@ -59,7 +121,32 @@ export const AppSortableCard = (props: {
       </Card>
 
       <Drawer
-        title={props.label}
+        title={
+          titleEditing ? (
+            <Input
+              value={title}
+              onChange={handleTitleChange}
+              ref={inputRef}
+              onPressEnter={handleTitleEditEnter}
+              onBlur={handleTitleEditEnter}
+              style={{
+                margin: 0,
+                padding: "4px 11px",
+                fontSize: "14px",
+                fontWeight: "normal",
+              }}
+            />
+          ) : (
+            <Typography.Title
+              level={5}
+              style={{ margin: 0 }}
+              className="editable"
+              onClick={handleDrawerTitleClick}
+            >
+              {title}
+            </Typography.Title>
+          )
+        }
         placement="right"
         onClose={onClose}
         width="50vw"

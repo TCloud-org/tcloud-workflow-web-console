@@ -3,6 +3,7 @@ import { MouseEvent, ReactNode } from "react";
 import { Editor, Element, Transforms } from "slate";
 import { useSlate } from "slate-react";
 import { Button, Icon } from "./RichTextToolbarComponents";
+import { Tooltip } from "antd";
 
 const LIST_TYPES = ["numbered-list", "bulleted-list"];
 const TEXT_ALIGN_TYPES = ["left", "center", "right", "justify"];
@@ -62,7 +63,11 @@ export const toggleBlock = (editor: CustomEditor, format: string) => {
   }
 };
 
-export const BlockButton = (props: { format: string; icon: ReactNode }) => {
+export const BlockButton = (props: {
+  format: string;
+  icon: ReactNode;
+  tooltip?: string;
+}) => {
   const { format, icon } = props;
 
   const editor = useSlate();
@@ -73,15 +78,17 @@ export const BlockButton = (props: { format: string; icon: ReactNode }) => {
   };
 
   return (
-    <Button
-      active={isBlockActive(
-        editor,
-        format,
-        TEXT_ALIGN_TYPES.includes(format) ? "align" : "type"
-      )}
-      onMouseDown={handleMouseDown}
-    >
-      <Icon>{icon}</Icon>
-    </Button>
+    <Tooltip title={props.tooltip}>
+      <Button
+        active={isBlockActive(
+          editor,
+          format,
+          TEXT_ALIGN_TYPES.includes(format) ? "align" : "type"
+        )}
+        onMouseDown={handleMouseDown}
+      >
+        <Icon>{icon}</Icon>
+      </Button>
+    </Tooltip>
   );
 };
