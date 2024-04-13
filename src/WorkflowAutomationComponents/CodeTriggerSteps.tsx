@@ -2,11 +2,11 @@ import { WOS_TRIGGER_EMAIL_NOTIFICATION_WORKFLOW_ENDPOINT } from "Config/WOSEndp
 import { AppSurface } from "DataDisplayComponents/AppSurface";
 import { AppSurfaceTitle } from "DataDisplayComponents/AppSurfaceTitle";
 import { CodeDisplay } from "DataDisplayComponents/CodeDisplay";
+import { CodeWithToolbar } from "DataDisplayComponents/CodeWithToolbar";
 import HttpMethodBadge from "DataDisplayComponents/HttpMethodBadge";
-import { Divider, Flex, theme } from "antd";
+import { Divider, Flex } from "antd";
 
 export const CodeTriggerSteps = () => {
-  const { token } = theme.useToken();
   return (
     <Flex vertical>
       <Divider />
@@ -44,6 +44,7 @@ export const CodeTriggerSteps = () => {
         </AppSurface>
       </Flex>
       <Divider />
+      <CodeWithToolbar code={JSON.stringify({ triggerId: 1 }, null, 4)} />
     </Flex>
   );
 };
