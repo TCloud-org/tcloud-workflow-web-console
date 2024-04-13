@@ -73,3 +73,5 @@ export const WOS_GET_WORKS_IN_DATE_RANGE_ENDPOINT =
 export const WOS_GET_WORK_STATISTIC_IN_DATE_RANGE_ENDPOINT =
   WOS_ENDPOINT + "/get-work-statistic-in-date-range";
 export const WOS_QUERY_WORKS_ENDPOINT = WOS_ENDPOINT + "/query-works";
+export const WOS_TRIGGER_EMAIL_NOTIFICATION_WORKFLOW_ENDPOINT =
+  WOS_ENDPOINT + "/trigger-email-notification-workflow";

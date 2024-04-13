@@ -1,18 +1,18 @@
 import { theme } from "antd";
 import { CSSProperties, useState } from "react";
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
+import { github } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 import bash from "react-syntax-highlighter/dist/esm/languages/hljs/bash";
 import java from "react-syntax-highlighter/dist/esm/languages/hljs/java";
 import js from "react-syntax-highlighter/dist/esm/languages/hljs/javascript";
 import json from "react-syntax-highlighter/dist/esm/languages/hljs/json";
 import python from "react-syntax-highlighter/dist/esm/languages/hljs/python";
 import xml from "react-syntax-highlighter/dist/esm/languages/hljs/xml";
-import { vs } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { Box } from "../LayoutComponents/Box";
 import { AppCopy } from "./AppCopy";
 
 export const CodeDisplay = (props: {
-  language?: "json" | "java" | "xml" | "javascript" | undefined;
+  language?: "json" | "java" | "xml" | "javascript" | "bash" | undefined;
   code?: string;
   backgroundColor?: string;
   style?: CSSProperties;
@@ -64,13 +64,12 @@ export const CodeDisplay = (props: {
     >
       <SyntaxHighlighter
         language={language}
-        style={vs}
+        style={github}
         wrapLongLines
         wrapLines
         showLineNumbers={showLineNumbers}
         customStyle={{
           fontSize: 12,
-          width: "100%",
           padding: "4px 16px",
           backgroundColor: "transparent",
           ...props.style,
@@ -82,7 +81,8 @@ export const CodeDisplay = (props: {
       {copyToClipboard && (
         <AppCopy
           content={code}
-          style={{ position: "absolute", top: 0, right: 0, margin: "8px" }}
+          size="small"
+          style={{ position: "absolute", top: 0, right: 0, margin: "4px" }}
         />
       )}
     </Box>
