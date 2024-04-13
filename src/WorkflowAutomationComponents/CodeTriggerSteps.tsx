@@ -1,6 +1,7 @@
 import { DownloadOutlined } from "@ant-design/icons";
 import { EditableColumn } from "Config/LayoutConfig";
 import { WOS_TRIGGER_EMAIL_NOTIFICATION_WORKFLOW_ENDPOINT } from "Config/WOSEndpointConfig";
+import { AppCopy } from "DataDisplayComponents/AppCopy";
 import { AppSurface } from "DataDisplayComponents/AppSurface";
 import { AppSurfaceTitle } from "DataDisplayComponents/AppSurfaceTitle";
 import { AppTable } from "DataDisplayComponents/AppTable";
@@ -23,10 +24,6 @@ const propertyColumns: EditableColumn[] = [
     render: (text: string) => <Typography.Text strong>{text}</Typography.Text>,
   },
   {
-    title: "Description",
-    dataIndex: "description",
-  },
-  {
     title: "Type",
     dataIndex: "type",
   },
@@ -34,6 +31,10 @@ const propertyColumns: EditableColumn[] = [
     title: "Required",
     dataIndex: "required",
     render: (text: boolean) => (text ? "True" : "False"),
+  },
+  {
+    title: "Description",
+    dataIndex: "description",
   },
 ];
 
@@ -43,7 +44,7 @@ const propertyRows = [
     required: "true",
     description:
       "An integer representing the unique identifier of the trigger associated with the email notification workflow to be executed. The system will use this trigger ID to identify the specific workflow to be triggered.",
-    type: "Number",
+    type: "integer",
   },
 ];
 
@@ -97,7 +98,8 @@ export const CodeTriggerSteps = () => {
 
   return (
     <Flex vertical>
-      <Flex justify="flex-end">
+      <Flex justify="space-between" align="center">
+        <AppSurfaceTitle>API Documentation</AppSurfaceTitle>
         <AppButton
           onClick={handleDownloadMarkdown}
           type="primary"
@@ -117,16 +119,21 @@ export const CodeTriggerSteps = () => {
           can initiate the execution of a specific email notification workflow.
         </Typography.Paragraph>
         <AppSurface size="small">
-          <Flex gap="8px" align="center">
-            <HttpMethodBadge method="POST" />
-            <CodeDisplay
-              language="bash"
-              code={WOS_TRIGGER_EMAIL_NOTIFICATION_WORKFLOW_ENDPOINT}
-              copyToClipboard
-              style={{
-                margin: 0,
-                paddingRight: "16px",
-              }}
+          <Flex justify="space-between" align="center">
+            <Flex gap="12px">
+              <HttpMethodBadge method="POST" />
+              <CodeDisplay
+                language="bash"
+                code={WOS_TRIGGER_EMAIL_NOTIFICATION_WORKFLOW_ENDPOINT}
+                style={{
+                  paddingRight: "16px",
+                }}
+              />
+            </Flex>
+            <AppCopy
+              type="text"
+              size="small"
+              content={WOS_TRIGGER_EMAIL_NOTIFICATION_WORKFLOW_ENDPOINT}
             />
           </Flex>
         </AppSurface>

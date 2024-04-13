@@ -1,13 +1,13 @@
 import { AppCodeToolbar } from "DataEntryComponents/AppCodeToolbar";
 import { CodeSnippet } from "Utils/CodeUtils";
-import { Flex, theme } from "antd";
+import { Flex } from "antd";
 import { useState } from "react";
+import { AppSurface } from "./AppSurface";
 import { CodeDisplay } from "./CodeDisplay";
 
 export const CodeWithToolbar = (props: {
   snippets?: { [key: string]: CodeSnippet };
 }) => {
-  const { token } = theme.useToken();
   const { snippets = {} } = props;
 
   const [language, setLanguage] = useState<string>(Object.keys(snippets)?.[0]);
@@ -19,13 +19,14 @@ export const CodeWithToolbar = (props: {
         setLanguage={setLanguage}
         language={language}
       />
-      <CodeDisplay
-        language={snippets[language]?.language}
-        code={snippets[language]?.snippet}
-        backgroundColor={token.colorFillQuaternary}
-        showLineNumbers
-        wrapLongLines={false}
-      />
+      <AppSurface size="small">
+        <CodeDisplay
+          language={snippets[language]?.language}
+          code={snippets[language]?.snippet}
+          showLineNumbers
+          wrapLongLines={false}
+        />
+      </AppSurface>
     </Flex>
   );
 };

@@ -1,5 +1,5 @@
 export const getMarkdown = (): Blob => {
-  const md = `# Code Trigger Steps
+  const md = `# Email Notification Workflow API Documentation
 
 ## Endpoint
 This endpoint allows you to trigger an email notification workflow within the system. Email notification workflows are automated processes that send out emails based on predefined conditions or events. By calling this endpoint with the appropriate parameters, you can initiate the execution of a specific email notification workflow.

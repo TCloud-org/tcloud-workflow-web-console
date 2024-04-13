@@ -1,4 +1,5 @@
-import { DescriptionsProps, theme } from "antd";
+import { AppSurface } from "DataDisplayComponents/AppSurface";
+import { DescriptionsProps } from "antd";
 import { CSSProperties, forwardRef } from "react";
 import { Span } from "../Config/DataDisplayInterface";
 import { Route } from "../Config/WorkflowConfig";
@@ -16,7 +17,6 @@ interface StateCardInfoProps {
 
 export const StateCardInfo = forwardRef<HTMLDivElement, StateCardInfoProps>(
   (props, ref) => {
-    const { token } = theme.useToken();
     const { data, style } = props;
 
     const renderNATag = () => {
@@ -114,11 +114,12 @@ export const StateCardInfo = forwardRef<HTMLDivElement, StateCardInfoProps>(
             {
               label: "Error",
               children: (
-                <CodeDisplay
-                  code={parseError(data?.metadata.error)}
-                  copyToClipboard
-                  backgroundColor={token.colorFillQuaternary}
-                />
+                <AppSurface size="small">
+                  <CodeDisplay
+                    code={parseError(data?.metadata.error)}
+                    copyToClipboard
+                  />
+                </AppSurface>
               ),
               span: Span[1],
             },

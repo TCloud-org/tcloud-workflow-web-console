@@ -73,7 +73,8 @@ export const CodeDisplay = (props: {
         showLineNumbers={showLineNumbers}
         customStyle={{
           fontSize: 12,
-          padding: "4px 16px",
+          padding: 0,
+          margin: 0,
           backgroundColor: "transparent",
           ...props.style,
         }}
@@ -85,7 +86,8 @@ export const CodeDisplay = (props: {
         <AppCopy
           content={code}
           size="small"
-          style={{ position: "absolute", top: 0, right: 0, margin: "4px" }}
+          type="text"
+          style={{ position: "absolute", top: 0, right: 0 }}
         />
       )}
     </Box>
