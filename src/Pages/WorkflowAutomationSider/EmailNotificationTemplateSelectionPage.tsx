@@ -23,6 +23,16 @@ const templates = [
     title: "Delay",
     src: "https://tcw-images.s3.us-west-2.amazonaws.com/Screenshot+2024-04-13+at+9.39.03%E2%80%AFPM.png",
   },
+  {
+    key: "consecutiveEmails",
+    title: "Consecutive Emails",
+    src: "https://tcw-images.s3.us-west-2.amazonaws.com/Screenshot+2024-04-13+at+11.00.25%E2%80%AFPM.png",
+  },
+  {
+    key: "consecutiveEmailsWithDelay",
+    title: "Consecutive Emails with Delay",
+    src: "https://tcw-images.s3.us-west-2.amazonaws.com/Screenshot+2024-04-13+at+10.58.13%E2%80%AFPM.png",
+  },
 ];
 
 export const EmailNotificationTemplateSelectionPage = () => {

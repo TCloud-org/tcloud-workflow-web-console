@@ -219,4 +219,15 @@ export const EmailNotificationTemplates: { [key: string]: AutomationStep[] } = {
     TemplateComponent.delay,
     TemplateComponent.email,
   ],
+  consecutiveEmails: [
+    TemplateComponent.trigger,
+    TemplateComponent.email,
+    TemplateComponent.email,
+  ],
+  consecutiveEmailsWithDelay: [
+    TemplateComponent.trigger,
+    TemplateComponent.email,
+    TemplateComponent.delay,
+    TemplateComponent.email,
+  ],
 };
