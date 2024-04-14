@@ -10,6 +10,8 @@ interface AppSurfaceProps {
   size?: SizeType;
   backgroundColor?: string;
   type?: "default" | "form" | "dot" | "border" | "dashed";
+  className?: string;
+  onClick?: () => void;
 }
 
 const SizeMapping: any = {
@@ -20,7 +22,16 @@ const SizeMapping: any = {
 
 export const AppSurface = forwardRef<HTMLDivElement, AppSurfaceProps>(
   (
-    { children, style, hasSpace, size = "middle", backgroundColor, type },
+    {
+      children,
+      style,
+      hasSpace,
+      size = "middle",
+      backgroundColor,
+      type,
+      className,
+      onClick,
+    },
     ref
   ) => {
     const { token } = theme.useToken();
@@ -41,6 +52,7 @@ export const AppSurface = forwardRef<HTMLDivElement, AppSurfaceProps>(
     return (
       <Box
         ref={ref}
+        onClick={onClick}
         style={{
           backgroundColor:
             backgroundColor ||
@@ -54,6 +66,7 @@ export const AppSurface = forwardRef<HTMLDivElement, AppSurfaceProps>(
           ...(type === "dot" && dotStyle),
           ...style,
         }}
+        className={className}
       >
         {children}
       </Box>

@@ -27,7 +27,7 @@ export const WorkflowSettingsToolbar = (props: {
   );
 
   const selected = columns.reduce((res: { [key: string]: boolean }, col) => {
-    res[col.dataIndex] = true;
+    res[col.dataIndex || ""] = true;
     return res;
   }, {});
 

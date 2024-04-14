@@ -99,7 +99,7 @@ export const CodeTriggerSteps = () => {
   return (
     <Flex vertical>
       <Flex justify="space-between" align="center">
-        <AppSurfaceTitle>API Documentation</AppSurfaceTitle>
+        <AppSurfaceTitle>API Reference</AppSurfaceTitle>
         <AppButton
           onClick={handleDownloadMarkdown}
           type="primary"
@@ -120,7 +120,7 @@ export const CodeTriggerSteps = () => {
         </Typography.Paragraph>
         <AppSurface size="small">
           <Flex justify="space-between" align="center">
-            <Flex gap="12px">
+            <Flex gap="12px" align="center">
               <HttpMethodBadge method="POST" />
               <CodeDisplay
                 language="bash"

@@ -16,22 +16,25 @@ export const WorkflowFilterSection = (props: {
   return (
     <Flex gap="16px" align="flex-start" style={{ width: "100%" }}>
       <Typography.Text strong style={{ flex: 2 }}>
-        {formatCamelCaseKey(data.dataIndex)}
+        {formatCamelCaseKey(data.dataIndex || "")}
       </Typography.Text>
       <AppRow style={{ flex: 6 }}>
         {data.customFilters?.map((filter, i) => (
           <Col key={i} span={8}>
             <Checkbox
-              checked={selected[data.dataIndex]?.[filter.value.toString()]}
+              checked={
+                selected[data.dataIndex || ""]?.[filter.value.toString()]
+              }
               style={{ flex: 1 }}
               key={i}
               onClick={() =>
                 setSelected((prev) => ({
                   ...prev,
-                  [data.dataIndex]: {
-                    ...prev[data.dataIndex],
+                  [data.dataIndex || ""]: {
+                    ...prev[data.dataIndex || ""],
                     [filter.value.toString()]: !(
-                      prev[data.dataIndex]?.[filter.value.toString()] || false
+                      prev[data.dataIndex || ""]?.[filter.value.toString()] ||
+                      false
                     ),
                   },
                 }))

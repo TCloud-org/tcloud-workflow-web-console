@@ -7,6 +7,7 @@ interface BoxProps {
   onMouseEnter?: MouseEventHandler | undefined;
   onMouseLeave?: MouseEventHandler | undefined;
   className?: string;
+  onClick?: () => void;
 }
 
 export const Box = forwardRef<HTMLDivElement, BoxProps>(
@@ -18,6 +19,7 @@ export const Box = forwardRef<HTMLDivElement, BoxProps>(
       onMouseEnter,
       onMouseLeave,
       className,
+      onClick,
     },
     ref
   ) => {
@@ -27,6 +29,7 @@ export const Box = forwardRef<HTMLDivElement, BoxProps>(
         className={className}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
+        onClick={onClick}
         style={{ display: "flex", flex: 1, flexDirection: "column", ...style }}
       >
         {(align === "right" || align === "center") && (

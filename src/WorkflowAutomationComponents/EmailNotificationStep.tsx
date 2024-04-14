@@ -9,15 +9,18 @@ import { AppIconHolder } from "DataDisplayComponents/AppIconHolder";
 import { AppSortableCard } from "DataEntryComponents/AppSortableCard";
 import { Divider, Dropdown, Flex, Typography } from "antd";
 import { MenuItemType } from "antd/es/menu/hooks/useItems";
-import { Key, useEffect, useState } from "react";
+import { Dispatch, Key, SetStateAction, useEffect, useState } from "react";
 
 export const EmailNotificationStep = (props: {
   data: AutomationStep;
   onAdd?: (item: Key | undefined) => void;
   isDragStart?: boolean;
   last?: boolean;
+  collect: Dispatch<SetStateAction<any>>;
+  formData: any;
+  index: number;
 }) => {
-  const { data, onAdd, isDragStart, last } = props;
+  const { data, onAdd, isDragStart, last, collect, formData, index } = props;
 
   const [step, setStep] = useState<AutomationStep>(data);
 
@@ -35,7 +38,12 @@ export const EmailNotificationStep = (props: {
     >
       <AppSortableCard
         id={step.id}
-        content={step.content}
+        content={step.content({
+          id: step.id,
+          collect: collect,
+          data: formData,
+          index: index,
+        })}
         label={step.label}
         setStep={setStep}
       >

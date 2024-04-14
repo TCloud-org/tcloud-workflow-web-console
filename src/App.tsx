@@ -3,7 +3,8 @@ import { DevModePage } from "Pages/DevModeSider/DevModePage";
 import { MonitorTrafficPage } from "Pages/MonitorSider/MonitorTrafficPage";
 import { QueryPage } from "Pages/QuerySider/QueryPage";
 import { WorkflowStatisticPage } from "Pages/Statistic/WorkflowStatisticPage";
-import { CreateEmailNotificationWorkflowPage } from "Pages/WorkflowAutomationSider/CreateEmailNotificationWorkflowPage";
+import { EmailNotificationTemplateSelectionPage } from "Pages/WorkflowAutomationSider/EmailNotificationTemplateSelectionPage";
+import { EmailNotificationWorkflowDetailPage } from "Pages/WorkflowAutomationSider/EmailNotificationWorkflowDetailPage";
 import { EmailNotificationWorkflowPage } from "Pages/WorkflowAutomationSider/EmailNotificationWorkflowPage";
 import { WorkflowAutomationPage } from "Pages/WorkflowAutomationSider/WorkflowAutomationPage";
 import { Layout, theme } from "antd";
@@ -52,6 +53,7 @@ import { GeneralPage } from "./Pages/SettingsSider/GeneralPage";
 import { deserializeLocation } from "./Utils/Serializer";
 import { setItems } from "./features/navigation/breadcrumbSlice";
 import { setSelectedKeys } from "./features/navigation/siderSlice";
+import { CreateEmailNotificationWorkflowPage } from "Pages/WorkflowAutomationSider/CreateEmailNotificationWorkflowPage";
 
 export const App = () => {
   const {
@@ -250,8 +252,16 @@ export const App = () => {
           element: <EmailNotificationWorkflowPage />,
         },
         {
-          path: "/workflow-automation/email-notification-workflow/create",
+          path: "/workflow-automation/email-notification-workflow/choose-template",
+          element: <EmailNotificationTemplateSelectionPage />,
+        },
+        {
+          path: "/workflow-automation/email-notification-workflow/choose-template/create",
           element: <CreateEmailNotificationWorkflowPage />,
+        },
+        {
+          path: "/workflow-automation/email-notification-workflow/:id",
+          element: <EmailNotificationWorkflowDetailPage />,
         },
       ],
     },

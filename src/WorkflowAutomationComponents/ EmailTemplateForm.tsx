@@ -1,4 +1,4 @@
-import { EmailActions } from "Config/AutomationConfig";
+import { AutomationContentProps, EmailActions } from "Config/AutomationConfig";
 import { AppButton } from "DataEntryComponents/AppButton";
 import { AppForm } from "DataEntryComponents/AppForm";
 import { AppRichTextEditor } from "DataEntryComponents/AppRichTextEditor";
@@ -6,19 +6,31 @@ import { AppSpace } from "LayoutComponents/AppSpace";
 import { Flex, Form, Input, Select, message } from "antd";
 import { useEffect } from "react";
 
-export const EmailTemplateForm = () => {
+export const EmailTemplateForm = (props: AutomationContentProps) => {
+  const { collect, data, id } = props;
+
   const [form] = Form.useForm();
   const [messageApi, contextHolder] = message.useMessage();
 
   useEffect(() => {
-    form.setFieldValue("action", "send");
-  }, [form]);
+    if (data[id]?.email) {
+      form.setFieldsValue(data[id].email);
+    } else {
+      form.setFieldValue("action", "send");
+    }
+  }, [form, id, data]);
 
   const handleValuesChange = (_: any, values: any) => {
     form.setFieldsValue(values);
   };
 
   const handleSave = () => {
+    collect((prev: any) => ({
+      ...prev,
+      [id]: {
+        email: form.getFieldsValue(),
+      },
+    }));
     messageApi.success("Changes saved successfully");
   };
 

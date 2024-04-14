@@ -1,10 +1,13 @@
-import { TriggerMethods } from "Config/AutomationConfig";
+import {
+  AutomationContentProps,
+  TriggerMethods,
+} from "Config/AutomationConfig";
 import { AppForm } from "DataEntryComponents/AppForm";
 import { Flex, Form, Select } from "antd";
 import { ReactNode, useEffect, useState } from "react";
 import { CodeTriggerSteps } from "./CodeTriggerSteps";
 
-export const TriggerForm = () => {
+export const TriggerForm = (props: AutomationContentProps) => {
   const [form] = Form.useForm();
   const [content, setContent] = useState<ReactNode>();
 

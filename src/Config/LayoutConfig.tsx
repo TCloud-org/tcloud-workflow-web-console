@@ -10,7 +10,7 @@ export type EditableColumnTypes = Exclude<
 >;
 export type EditableColumn = EditableColumnTypes[number] & {
   editable?: boolean;
-  dataIndex: string;
+  dataIndex?: string;
   handleSave?: (record: any) => void;
   customFilters?: ColumnFilterItem[];
 };

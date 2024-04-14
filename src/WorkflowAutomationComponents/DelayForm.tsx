@@ -1,30 +1,45 @@
-import { DelayOptions } from "Config/AutomationConfig";
+import { AutomationContentProps, DelayOptions } from "Config/AutomationConfig";
 import { AppButton } from "DataEntryComponents/AppButton";
 import { AppForm } from "DataEntryComponents/AppForm";
 import { Flex, Form, Select, message } from "antd";
 import { useEffect, useState } from "react";
 
-export const DelayForm = () => {
+export const DelayForm = (props: AutomationContentProps) => {
+  const { collect, id, data } = props;
   const [form] = Form.useForm();
   const [messageApi, contextHolder] = message.useMessage();
   const [extraForms, setExtraForms] = useState<any[]>([]);
 
   useEffect(() => {
-    form.setFieldValue("delay", "none");
-  }, [form]);
+    if (!form.getFieldValue("delay")) {
+      if (data[id]?.delay) {
+        form.setFieldsValue(data[id].delay);
+      } else {
+        form.setFieldValue("delay", "none");
+      }
+    }
+  }, [form, id, data]);
 
   const handleSave = () => {
-    console.log(form.getFieldsValue());
+    collect((prev: any) => ({
+      ...prev,
+      [id]: {
+        delay: form.getFieldsValue(),
+      },
+    }));
     messageApi.success("Changes saved successfully");
   };
 
   const handleValuesChange = (changes: any, values: any) => {
+    console.log(changes, values);
     if (changes.delay && changes.delay === "custom") {
       setExtraForms(
         DelayOptions.find((item) => item.value === changes.delay)?.inputs
       );
     } else {
-      setExtraForms([]);
+      if (values.delay !== "custom") {
+        setExtraForms([]);
+      }
     }
     form.setFieldsValue(values);
   };

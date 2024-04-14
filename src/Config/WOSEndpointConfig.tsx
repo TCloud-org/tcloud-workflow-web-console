@@ -75,3 +75,7 @@ export const WOS_GET_WORK_STATISTIC_IN_DATE_RANGE_ENDPOINT =
 export const WOS_QUERY_WORKS_ENDPOINT = WOS_ENDPOINT + "/query-works";
 export const WOS_TRIGGER_EMAIL_NOTIFICATION_WORKFLOW_ENDPOINT =
   WOS_ENDPOINT + "/trigger-email-notification-workflow";
+export const WOS_SAVE_EVENT_WORKFLOW_ENDPOINT =
+  WOS_ENDPOINT + "/save-event-workflow";
+export const WOS_GET_EVENT_WORKFLOWS_BY_CLIENT_ID_ENDPOINT =
+  WOS_ENDPOINT + "/get-event-workflows-by-client-id";

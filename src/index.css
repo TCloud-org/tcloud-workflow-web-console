@@ -141,3 +141,11 @@ thead {
   text-transform: uppercase;
   font-weight   : 700;
 }
+
+.template-select {
+  transition: 0.2s;
+}
+
+.template-select:hover {
+  border: 1px solid #7a54ed;
+}

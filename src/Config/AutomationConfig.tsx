@@ -1,7 +1,15 @@
-import { MailOutlined } from "@ant-design/icons";
+import {
+  CalendarOutlined,
+  ClockCircleOutlined,
+  MailOutlined,
+} from "@ant-design/icons";
 import { UniqueIdentifier } from "@dnd-kit/core";
+import { EmailTemplateForm } from "WorkflowAutomationComponents/ EmailTemplateForm";
+import { DelayForm } from "WorkflowAutomationComponents/DelayForm";
+import { TriggerForm } from "WorkflowAutomationComponents/TriggerForm";
 import { InputNumber, MenuProps, Select, SelectProps } from "antd";
-import { ReactNode } from "react";
+import { Dispatch, ReactNode, SetStateAction } from "react";
+import { v4 } from "uuid";
 
 export interface Utility {
   href?: string;
@@ -16,11 +24,18 @@ export const WorkflowUtilities: Utility[] = [
   },
 ];
 
+export interface AutomationContentProps {
+  id: UniqueIdentifier;
+  data: any;
+  collect: Dispatch<SetStateAction<any>>;
+  index: number;
+}
+
 export interface AutomationStep {
   id: UniqueIdentifier;
   label?: string;
   fixed?: boolean;
-  content?: ReactNode;
+  content: (props: AutomationContentProps) => ReactNode;
   removable?: boolean;
   hidden?: boolean;
   icon?: ReactNode;
@@ -169,3 +184,39 @@ export const DelayOptions: SelectProps["options"] & { inputs?: any[] } = [
     value: "1d",
   },
 ];
+
+export const TemplateComponent: { [key: string]: AutomationStep } = {
+  trigger: {
+    id: v4(),
+    label: "Trigger",
+    fixed: true,
+    content: (props: AutomationContentProps) => <TriggerForm {...props} />,
+    icon: <CalendarOutlined />,
+  },
+  email: {
+    id: v4(),
+    label: "Email",
+    content: (props: AutomationContentProps) => (
+      <EmailTemplateForm {...props} />
+    ),
+    icon: <MailOutlined />,
+    removable: true,
+  },
+  delay: {
+    id: v4(),
+    label: "Delay",
+    content: (props: AutomationContentProps) => <DelayForm {...props} />,
+    icon: <ClockCircleOutlined />,
+    removable: true,
+  },
+};
+
+export const EmailNotificationTemplates: { [key: string]: AutomationStep[] } = {
+  blank: [TemplateComponent.trigger],
+  basic: [TemplateComponent.trigger, TemplateComponent.email],
+  delay: [
+    TemplateComponent.trigger,
+    TemplateComponent.delay,
+    TemplateComponent.email,
+  ],
+};
