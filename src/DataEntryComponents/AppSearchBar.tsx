@@ -1,33 +1,19 @@
-import { AutoComplete, AutoCompleteProps, Input, InputProps } from "antd";
+import { AutoComplete, AutoCompleteProps } from "antd";
 
-export const AppSearchBar = (
-  props: InputProps & {
-    options?: AutoCompleteProps["options"];
-    onAutoSelect?: AutoCompleteProps["onSelect"];
-    onAutoChange?: AutoCompleteProps["onChange"];
-  }
-) => {
+export const AppSearchBar = (props: AutoCompleteProps) => {
   return (
     <AutoComplete
       options={props.options}
-      onSelect={props.onAutoSelect}
-      onChange={props.onAutoChange}
+      onSelect={props.onSelect}
+      onChange={props.onChange}
       value={props.value}
       onKeyDown={props.onKeyDown}
       style={{
         width: "100%",
-        backgroundColor: "transparent",
         ...props.style,
       }}
-      size={props.size}
       variant="borderless"
-    >
-      <Input
-        placeholder={props.placeholder}
-        size={props.size}
-        style={{ width: "100%" }}
-        variant="filled"
-      />
-    </AutoComplete>
+      placeholder={props.placeholder}
+    />
   );
 };

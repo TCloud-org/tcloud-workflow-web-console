@@ -11,12 +11,16 @@ export const DelayForm = (props: AutomationContentProps) => {
   const [extraForms, setExtraForms] = useState<any[]>([]);
 
   useEffect(() => {
-    if (!form.getFieldValue("delay")) {
-      if (data[id]?.delay) {
-        form.setFieldsValue(data[id].delay);
-      } else {
-        form.setFieldValue("delay", "none");
+    if (data[id]?.delay) {
+      if (data[id].delay.delay === "custom") {
+        setExtraForms(
+          DelayOptions.find((item) => item.value === data[id].delay.delay)
+            ?.inputs
+        );
       }
+      form.setFieldsValue(data[id].delay);
+    } else {
+      form.setFieldValue("delay", "none");
     }
   }, [form, id, data]);
 
@@ -31,7 +35,6 @@ export const DelayForm = (props: AutomationContentProps) => {
   };
 
   const handleValuesChange = (changes: any, values: any) => {
-    console.log(changes, values);
     if (changes.delay && changes.delay === "custom") {
       setExtraForms(
         DelayOptions.find((item) => item.value === changes.delay)?.inputs
@@ -42,6 +45,12 @@ export const DelayForm = (props: AutomationContentProps) => {
       }
     }
     form.setFieldsValue(values);
+    collect((prev: any) => ({
+      ...prev,
+      [id]: {
+        delay: values,
+      },
+    }));
   };
 
   return (

@@ -39,7 +39,10 @@ export const CreateEmailNotificationWorkflowPage = () => {
       .map((e) => e[1])
       .map((v) => ({
         type: Object.keys(v as any)[0].toUpperCase(),
-        ...(v as any),
+        form: {
+          type: Object.keys(v as any)[0],
+          ...(v as any)[Object.keys(v as any)[0]],
+        },
       }));
     const params = {
       clientId,

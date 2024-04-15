@@ -23,6 +23,12 @@ export const EmailTemplateForm = (props: AutomationContentProps) => {
 
   const handleValuesChange = (_: any, values: any) => {
     form.setFieldsValue(values);
+    collect((prev: any) => ({
+      ...prev,
+      [id]: {
+        email: values,
+      },
+    }));
   };
 
   const handleSave = () => {

@@ -1,5 +1,5 @@
 import { Select } from "antd";
-import { FocusEvent, KeyboardEvent, useEffect, useState } from "react";
+import { FocusEvent, KeyboardEvent, useState } from "react";
 
 export const AppChipInput = (props: {
   value?: string[];
@@ -8,19 +8,13 @@ export const AppChipInput = (props: {
 }) => {
   const { onChange = () => {}, placeholder, value = [] } = props;
 
-  const [values, setValues] = useState<string[]>(value);
   const [query, setQuery] = useState<string>("");
-
-  useEffect(() => {
-    setValues(value);
-  }, [value]);
 
   const handleSearch = (value: string) => {
     setQuery(value);
   };
 
   const handleChange = (changes: string[]) => {
-    setValues(changes);
     onChange(changes);
   };
 
@@ -39,8 +33,7 @@ export const AppChipInput = (props: {
   };
 
   const appendNewQuery = () => {
-    const newValues = [...values, query];
-    setValues(newValues);
+    const newValues = [...value, query];
     onChange(newValues);
     setQuery("");
   };
@@ -54,7 +47,7 @@ export const AppChipInput = (props: {
       onClick={(e) => {}}
       onChange={handleChange}
       onBlur={handleBlur}
-      value={values}
+      value={value}
       searchValue={query}
       dropdownStyle={{ display: "none" }}
       suffixIcon={null}

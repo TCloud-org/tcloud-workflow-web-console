@@ -1,5 +1,8 @@
 import { AutomationStep, TemplateComponent } from "Config/AutomationConfig";
-import { EventWorkflow, EventWorkflowStep } from "Config/EventWorkflowConfig";
+import {
+  EventWorkflow,
+  EventWorkflowStepType,
+} from "Config/EventWorkflowConfig";
 import { AppCopy } from "DataDisplayComponents/AppCopy";
 import { PageTitle } from "DataDisplayComponents/PageTitle";
 import { AppSpace } from "LayoutComponents/AppSpace";
@@ -42,12 +45,11 @@ export const EmailNotificationWorkflowDetailPage = () => {
       .map((step) => step.id)
       .reduce((res: any, id, i) => {
         res[id] = {
-          [data.metadata.steps[i].type.toLowerCase()]:
-            data.metadata.steps[i][
-              data.metadata.steps[
-                i
-              ].type.toLowerCase() as keyof EventWorkflowStep
-            ],
+          [EventWorkflowStepType[
+            data.metadata.steps[
+              i
+            ].type.toString() as keyof typeof EventWorkflowStepType
+          ]]: data.metadata.steps[i].form,
         };
         return res;
       }, {});

@@ -20,7 +20,7 @@ import {
 const initialValue: Descendant[] = [
   {
     type: "paragraph",
-    children: [{ text: "tete" }],
+    children: [{ text: "" }],
   },
 ];
 

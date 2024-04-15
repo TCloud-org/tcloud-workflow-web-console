@@ -88,11 +88,11 @@ export const TimeUnits: SelectProps["options"] = [
 export const TriggerMethods: SelectProps["options"] = [
   {
     label: "API",
-    value: "api",
+    value: "API",
   },
   {
     label: "Webhook",
-    value: "webhook",
+    value: "WEBHOOK",
   },
 ];
 

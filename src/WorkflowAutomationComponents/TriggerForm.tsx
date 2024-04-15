@@ -8,23 +8,36 @@ import { ReactNode, useEffect, useState } from "react";
 import { CodeTriggerSteps } from "./CodeTriggerSteps";
 
 export const TriggerForm = (props: AutomationContentProps) => {
+  const { id, collect } = props;
   const [form] = Form.useForm();
   const [content, setContent] = useState<ReactNode>();
 
   useEffect(() => {
-    form.setFieldValue("method", "api");
+    form.setFieldValue("method", "API");
+    collect((prev: any) => ({
+      ...prev,
+      [id]: {
+        trigger: form.getFieldsValue(),
+      },
+    }));
     setContent(<CodeTriggerSteps />);
-  }, [form]);
+  }, [form, id, collect]);
 
   const handleValuesChange = (changes: any, values: any) => {
-    if (changes.method === "api") {
+    if (changes.method === "API") {
       setContent(<CodeTriggerSteps />);
-    } else if (changes.method === "webhook") {
+    } else if (changes.method === "WEBHOOK") {
       setContent(undefined);
     } else {
       setContent(undefined);
     }
     form.setFieldsValue(values);
+    collect((prev: any) => ({
+      ...prev,
+      [id]: {
+        trigger: values,
+      },
+    }));
   };
 
   return (

@@ -141,7 +141,6 @@ export const AppHeader = () => {
       </Flex>
       <Flex
         style={{
-          backgroundColor: "rgba(250,250,250,255)",
           borderRadius: token.borderRadiusLG,
           flex: 2,
         }}
@@ -149,9 +148,9 @@ export const AppHeader = () => {
         <AppSearchBar
           placeholder="Search by work ID"
           value={searchInput}
-          onAutoChange={(value) => setSearchInput(value)}
+          onChange={(value) => setSearchInput(value)}
           options={getHistoryOptions()}
-          onAutoSelect={handleSearchSelect}
+          onSelect={handleSearchSelect}
           onKeyDown={handleSearchEnter}
         />
       </Flex>
@@ -159,7 +158,6 @@ export const AppHeader = () => {
       <Flex gap="8px" align="center" style={{ flex: 1 }} justify="flex-end">
         <Select
           style={{ width: 180 }}
-          size="small"
           variant="filled"
           placeholder="Select workflow"
           value={serializeWorkflow(workflow)}
@@ -172,7 +170,6 @@ export const AppHeader = () => {
         <Select
           style={{ width: 180 }}
           variant="filled"
-          size="small"
           placeholder="Select client ID"
           value={clientId}
           onChange={handleClientIdChange}

@@ -1,3 +1,4 @@
+import { Descendant } from "slate";
 import { TimeUnit } from "./AutomationConfig";
 
 export interface EventWorkflow {
@@ -14,12 +15,29 @@ export interface EventWorkflowMetadata {
 }
 
 export interface EventWorkflowStep {
-  type: string;
-  delay?: Delay;
-  email?: EmailTemplate;
+  type: EventWorkflowStepType;
+  form?: EventWorkflowForm;
 }
 
-export interface Delay {
+export interface EventWorkflowForm {
+  id: string;
+}
+
+export interface TriggerForm extends EventWorkflowForm {
+  method: EventWorkflowTriggerMethod;
+}
+
+export interface EmailForm extends EventWorkflowForm {
+  action: string;
+  from: string;
+  to: string[];
+  cc?: string[];
+  bcc?: string[];
+  subject: string;
+  message: Descendant[];
+}
+
+export interface DelayForm extends EventWorkflowForm {
   delay: string;
   custom: CustomTime;
 }
@@ -29,12 +47,13 @@ export interface CustomTime {
   time: number;
 }
 
-export interface EmailTemplate {
-  action: string;
-  from: string;
-  to: string;
-  cc?: string[];
-  bcc?: string[];
-  subject: string;
-  message: string;
+export enum EventWorkflowTriggerMethod {
+  CODE = "code",
+  WEBHOOK = "webhook",
+}
+
+export enum EventWorkflowStepType {
+  EMAIL = "email",
+  DELAY = "delay",
+  TRIGGER = "trigger",
 }
