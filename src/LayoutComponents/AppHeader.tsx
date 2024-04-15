@@ -10,7 +10,10 @@ import { LRUCache } from "lru-cache";
 import { KeyboardEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { WOS_GET_WORKFLOWS_BY_CLIENT_ID_ENDPOINT } from "../Config/WOSEndpointConfig";
+import {
+  BRAND,
+  WOS_GET_WORKFLOWS_BY_CLIENT_ID_ENDPOINT,
+} from "../Config/WOSEndpointConfig";
 import { deserializeWorkflow, serializeWorkflow } from "../Utils/Serializer";
 import { setClientId } from "../features/workflow/clientSlice";
 import { setWorkflow } from "../features/workflow/workflowSlice";
@@ -119,8 +122,23 @@ export const AppHeader = () => {
         justifyContent: "space-between",
         height: "64px",
         gap: "56px",
+        background: token.colorBgContainer,
+        borderBottom: `1px solid ${token.colorBorder}`,
       }}
     >
+      <Flex justify="center" align="center">
+        <Typography.Link
+          style={{
+            flex: 1,
+            textAlign: "center",
+            borderRadius: token.borderRadiusLG,
+          }}
+          strong
+          href="/"
+        >
+          {BRAND}
+        </Typography.Link>
+      </Flex>
       <Flex
         style={{
           backgroundColor: "rgba(250,250,250,255)",

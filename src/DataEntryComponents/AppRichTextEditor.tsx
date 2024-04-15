@@ -52,6 +52,8 @@ export const AppRichTextEditor = (props: {
 }) => {
   const { token } = theme.useToken();
 
+  const { value = "" } = props;
+
   const [editor] = useState<CustomEditor>(() =>
     withReact(withHistory(createEditor()))
   );

@@ -8,8 +8,7 @@ import {
   SettingOutlined,
 } from "@ant-design/icons";
 import { SiderWidth } from "Config/LayoutConfig";
-import { BRAND } from "Config/WOSEndpointConfig";
-import { Flex, Menu, MenuProps, Typography, theme } from "antd";
+import { Menu, MenuProps, theme } from "antd";
 import Sider from "antd/es/layout/Sider";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -171,7 +170,6 @@ export const AppSider = () => {
   return (
     <Sider
       width={SiderWidth}
-      theme="dark"
       collapsed={collapsed}
       onCollapse={(value) => setCollapsed(value)}
       style={{
@@ -181,27 +179,12 @@ export const AppSider = () => {
         left: 0,
         top: 0,
         bottom: 0,
+        background: token.colorBgContainer,
       }}
     >
-      <Flex justify="center" style={{ height: "64px" }} align="center">
-        <Typography.Link
-          style={{
-            padding: "8px 0",
-            margin: "0 16px",
-            // backgroundColor: "#324553",
-            flex: 1,
-            textAlign: "center",
-            borderRadius: token.borderRadiusLG,
-          }}
-          strong
-          href="/"
-        >
-          {BRAND}
-        </Typography.Link>
-      </Flex>
+      <div style={{ height: "64px" }} />
       <Menu
         mode="inline"
-        theme="dark"
         selectedKeys={selectedKeys}
         onOpenChange={onOpenKey}
         openKeys={currentOpenKeys}

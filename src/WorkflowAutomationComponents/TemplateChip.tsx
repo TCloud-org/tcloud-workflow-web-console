@@ -26,14 +26,16 @@ export const TemplateChip = (props: {
         <img
           alt="template"
           src={props.src}
-          style={{ height: 250, objectFit: "cover" }}
+          style={{ height: "20vh", objectFit: "contain", maxWidth: "100%" }}
         />
       }
       style={style}
       styles={{ cover: { padding: "8px" }, body: { flex: 1 } }}
     >
       <Flex justify="center" align="center">
-        <Typography.Text strong>{props.title}</Typography.Text>
+        <Typography.Text style={{ textAlign: "center" }} strong>
+          {props.title}
+        </Typography.Text>
       </Flex>
     </Card>
   );

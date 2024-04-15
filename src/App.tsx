@@ -80,11 +80,12 @@ export const App = () => {
 
     return (
       <Layout style={{ minHeight: "100vh" }}>
+        <AppHeader />
+
         <Layout hasSider>
           <AppSider />
 
           <Layout style={{ marginLeft: SiderWidth }}>
-            <AppHeader />
             <Layout style={{ padding: "0 16px 0 16px" }}>
               <AppBreadcrumb />
 

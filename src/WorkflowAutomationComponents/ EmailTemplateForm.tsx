@@ -2,6 +2,7 @@ import { AutomationContentProps, EmailActions } from "Config/AutomationConfig";
 import { AppButton } from "DataEntryComponents/AppButton";
 import { AppForm } from "DataEntryComponents/AppForm";
 import { AppRichTextEditor } from "DataEntryComponents/AppRichTextEditor";
+import { AppChipInput } from "DataEntryComponents/Form/AppChipInput";
 import { AppSpace } from "LayoutComponents/AppSpace";
 import { Flex, Form, Input, Select, message } from "antd";
 import { useEffect } from "react";
@@ -13,7 +14,9 @@ export const EmailTemplateForm = (props: AutomationContentProps) => {
   const [messageApi, contextHolder] = message.useMessage();
 
   useEffect(() => {
-    if (data[id]?.email) {
+    if (data && data[id]?.email) {
+      console.log(data[id]?.email);
+
       form.setFieldsValue(data[id].email);
     } else {
       form.setFieldValue("action", "send");
@@ -51,13 +54,13 @@ export const EmailTemplateForm = (props: AutomationContentProps) => {
             <Input />
           </Form.Item>
           <Form.Item label="To" name="to">
-            <Input />
+            <AppChipInput />
           </Form.Item>
           <Form.Item label="Cc" name="cc">
-            <Input />
+            <AppChipInput />
           </Form.Item>
           <Form.Item label="Bcc" name="bcc">
-            <Input />
+            <AppChipInput />
           </Form.Item>
           <Form.Item label="Subject" name="subject">
             <Input />

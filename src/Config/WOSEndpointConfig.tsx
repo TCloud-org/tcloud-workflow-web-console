@@ -79,3 +79,7 @@ export const WOS_SAVE_EVENT_WORKFLOW_ENDPOINT =
   WOS_ENDPOINT + "/save-event-workflow";
 export const WOS_GET_EVENT_WORKFLOWS_BY_CLIENT_ID_ENDPOINT =
   WOS_ENDPOINT + "/get-event-workflows-by-client-id";
+export const WOS_GET_EVENT_WORKFLOW_BY_ID_ENDPOINT =
+  WOS_ENDPOINT + "/get-event-workflow-by-id";
+export const WOS_DELETE_EVENT_WORKFLOW_ENDPOINT =
+  WOS_ENDPOINT + "/delete-event-workflow";

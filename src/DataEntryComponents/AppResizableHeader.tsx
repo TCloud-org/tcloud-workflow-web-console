@@ -11,7 +11,7 @@ export const AppResizableHeader = (
 ) => {
   const { onResize, width, ...restProps } = props;
 
-  if (!width) {
+  if (!width || typeof width !== "number") {
     return <th {...restProps} />;
   }
 
