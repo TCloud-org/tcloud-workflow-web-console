@@ -1,7 +1,7 @@
 import { UniqueIdentifier } from "@dnd-kit/core";
 import { defaultAnimateLayoutChanges, useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { Card, Drawer, Input, Typography, theme } from "antd";
+import { Card, Drawer, Flex, Input, Typography, theme } from "antd";
 import {
   CSSProperties,
   ChangeEvent,
@@ -109,6 +109,44 @@ export const AppSortableCard = (props: {
     setStep((prev) => ({ ...prev, label: e.target.value }));
   };
 
+  const renderDrawerTitle = () => {
+    return (
+      <Flex align="center" gap="16px">
+        <AppIconButton
+          type="text"
+          onClick={() => setDrawerExpanded((prev) => !prev)}
+        >
+          {drawerExpanded ? <DoubleRightOutlined /> : <DoubleLeftOutlined />}
+        </AppIconButton>
+        {titleEditing ? (
+          <Input
+            value={title}
+            onChange={handleTitleChange}
+            ref={inputRef}
+            onPressEnter={handleTitleEditEnter}
+            onBlur={handleTitleEditEnter}
+            style={{
+              margin: 0,
+              padding: "4px 11px",
+              fontSize: "14px",
+              fontWeight: "normal",
+              width: "100%",
+            }}
+          />
+        ) : (
+          <Typography.Title
+            level={5}
+            style={{ margin: 0, width: "100%" }}
+            className="editable"
+            onClick={handleDrawerTitleClick}
+          >
+            {title}
+          </Typography.Title>
+        )}
+      </Flex>
+    );
+  };
+
   return (
     <>
       <Card
@@ -124,32 +162,7 @@ export const AppSortableCard = (props: {
       </Card>
 
       <Drawer
-        title={
-          titleEditing ? (
-            <Input
-              value={title}
-              onChange={handleTitleChange}
-              ref={inputRef}
-              onPressEnter={handleTitleEditEnter}
-              onBlur={handleTitleEditEnter}
-              style={{
-                margin: 0,
-                padding: "4px 11px",
-                fontSize: "14px",
-                fontWeight: "normal",
-              }}
-            />
-          ) : (
-            <Typography.Title
-              level={5}
-              style={{ margin: 0 }}
-              className="editable"
-              onClick={handleDrawerTitleClick}
-            >
-              {title}
-            </Typography.Title>
-          )
-        }
+        title={renderDrawerTitle()}
         placement="right"
         onClose={onClose}
         width={drawerExpanded ? "90vw" : "50vw"}
@@ -157,17 +170,6 @@ export const AppSortableCard = (props: {
         style={{ transition: "0.2s" }}
       >
         {props.content}
-        <AppIconButton
-          onClick={() => setDrawerExpanded((prev) => !prev)}
-          style={{
-            position: "absolute",
-            left: -16,
-            top: "50%",
-            transform: "translateY(-50%)",
-          }}
-        >
-          {drawerExpanded ? <DoubleRightOutlined /> : <DoubleLeftOutlined />}
-        </AppIconButton>
       </Drawer>
     </>
   );

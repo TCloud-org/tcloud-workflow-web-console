@@ -159,6 +159,8 @@ export const AppHeader = () => {
       <Flex gap="8px" align="center" style={{ flex: 1 }} justify="flex-end">
         <Select
           style={{ width: 180 }}
+          size="small"
+          variant="filled"
           placeholder="Select workflow"
           value={serializeWorkflow(workflow)}
           onChange={handleWorkflowChange}
@@ -168,7 +170,9 @@ export const AppHeader = () => {
           }))}
         />
         <Select
-          style={{ width: 120 }}
+          style={{ width: 180 }}
+          variant="filled"
+          size="small"
           placeholder="Select client ID"
           value={clientId}
           onChange={handleClientIdChange}

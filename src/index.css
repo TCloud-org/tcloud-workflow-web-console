@@ -149,3 +149,8 @@ thead {
 .template-select:hover {
   border: 1px solid #7a54ed;
 }
+
+.ant-drawer-header-title {
+  flex-direction: row-reverse;
+  gap           : 16px;
+}
