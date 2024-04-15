@@ -15,8 +15,6 @@ export const EmailTemplateForm = (props: AutomationContentProps) => {
 
   useEffect(() => {
     if (data && data[id]?.email) {
-      console.log(data[id]?.email);
-
       form.setFieldsValue(data[id].email);
     } else {
       form.setFieldValue("action", "send");

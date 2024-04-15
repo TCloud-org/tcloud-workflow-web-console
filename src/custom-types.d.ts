@@ -27,13 +27,11 @@ export type EditableVoidElement = {
 
 export type HeadingOneElement = {
   type: 'heading-one'
-  
   children: Descendant[]
 }
 
 export type HeadingTwoElement = {
   type: 'heading-two'
-  
   children: Descendant[]
 }
 

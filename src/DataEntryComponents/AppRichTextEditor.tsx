@@ -6,7 +6,7 @@ import { Toolbar } from "SlateRichTextEditorComponents/RichTextToolbarComponents
 import { theme } from "antd";
 import { CustomEditor } from "custom-types";
 import isHotkey from "is-hotkey";
-import { KeyboardEvent, useCallback, useState } from "react";
+import { KeyboardEvent, useCallback, useEffect, useState } from "react";
 import { Descendant, Editor, createEditor } from "slate";
 import { withHistory } from "slate-history";
 import {
@@ -20,7 +20,7 @@ import {
 const initialValue: Descendant[] = [
   {
     type: "paragraph",
-    children: [{ text: "" }],
+    children: [{ text: "tete" }],
   },
 ];
 
@@ -47,16 +47,18 @@ export const isMarkActive = (editor: CustomEditor, format: string) => {
 };
 
 export const AppRichTextEditor = (props: {
-  value?: string;
-  onChange?: (value: string | undefined) => void;
+  value?: Descendant[];
+  onChange?: (value: Descendant[]) => void;
 }) => {
   const { token } = theme.useToken();
 
-  const { value = "" } = props;
+  const { value = initialValue, onChange = () => {} } = props;
 
   const [editor] = useState<CustomEditor>(() =>
     withReact(withHistory(createEditor()))
   );
+
+  useEffect(() => {}, [value]);
 
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.key === "&") {
@@ -73,12 +75,6 @@ export const AppRichTextEditor = (props: {
     }
   };
 
-  const handleKeyUp = (event: KeyboardEvent<HTMLDivElement>) => {
-    if (typeof props.onChange === "function") {
-      props.onChange(event.currentTarget.textContent as string);
-    }
-  };
-
   const renderElement = useCallback(
     (props: RenderElementProps) => <RichElement {...props} />,
     []
@@ -90,7 +86,12 @@ export const AppRichTextEditor = (props: {
   );
 
   return (
-    <Slate editor={editor} initialValue={initialValue}>
+    <Slate
+      editor={editor}
+      initialValue={value}
+      key={JSON.stringify(value)}
+      onChange={(value) => onChange(value)}
+    >
       <Toolbar>
         <MarkButton format="bold" icon="format_bold" tooltip="Bold" />
         <MarkButton format="italic" icon="format_italic" tooltip="Italic" />
@@ -155,7 +156,6 @@ export const AppRichTextEditor = (props: {
         renderLeaf={renderLeaf}
         spellCheck
         autoFocus
-        onKeyUp={handleKeyUp}
         onKeyDown={handleKeyDown}
         style={{
           padding: "8px",
