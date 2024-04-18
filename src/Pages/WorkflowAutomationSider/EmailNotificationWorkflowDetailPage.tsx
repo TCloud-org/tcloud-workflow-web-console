@@ -98,7 +98,7 @@ export const EmailNotificationWorkflowDetailPage = () => {
       <PageTitle>{eventWorkflow?.name}</PageTitle>
       <Flex gap="16px">
         <AppButton onClick={handleTest} type="primary">
-          Test
+          Run a test job
         </AppButton>
       </Flex>
       <List
