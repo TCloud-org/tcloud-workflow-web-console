@@ -40,7 +40,7 @@ const propertyColumns: EditableColumn[] = [
 
 const propertyRows = [
   {
-    property: "triggerId",
+    property: "id",
     required: "true",
     description:
       "An integer representing the unique identifier of the trigger associated with the email notification workflow to be executed. The system will use this trigger ID to identify the specific workflow to be triggered.",
@@ -91,6 +91,11 @@ const responseCodeRows = [
 ];
 
 export const CodeTriggerSteps = () => {
+  const baseUrl =
+    window.location.protocol +
+    "//" +
+    window.location.hostname +
+    (window.location.port ? ":" + window.location.port : "");
   const handleDownloadMarkdown = () => {
     const blob = getMarkdown();
     FileSaver.saveAs(blob, "README.md");
@@ -155,7 +160,7 @@ export const CodeTriggerSteps = () => {
         />
 
         <CodeWithToolbar
-          snippets={generateModelCodeSnippets({ triggerId: "<INSERT_ID>" })}
+          snippets={generateModelCodeSnippets({ id: "<INSERT_ID>" })}
         />
       </Flex>
       <Divider />
@@ -191,11 +196,14 @@ export const CodeTriggerSteps = () => {
           <a href="http://52.41.91.140:80/api/private/v1/trigger-email-notification-workflow">
             http://52.41.91.140:80/api/private/v1/trigger-email-notification-workflow
           </a>{" "}
-          with a JSON request body containing the trigger ID 1.
+          with a JSON request body containing the ID 1.
         </Typography.Paragraph>
         <Typography.Paragraph>
-          If you're creating a new workflow, a trigger ID will be provided upon
-          successful creation.
+          If you're creating a new workflow, an ID will be provided upon
+          successful creation. To claim the newly created workflow ID, go to{" "}
+          <a
+            href={`${baseUrl}/workflow-automation/email-notification-workflow`}
+          >{`${baseUrl}/workflow-automation/email-notification-workflow`}</a>
         </Typography.Paragraph>
       </Flex>
     </Flex>

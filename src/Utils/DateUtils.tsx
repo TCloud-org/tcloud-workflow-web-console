@@ -134,6 +134,21 @@ export const formatTimeShort = (timeInMinutes: number | string) => {
   return formattedTime.trim();
 };
 
+export const getTime = (data: any) => {
+  if (!data) return undefined;
+
+  let time = parseInt(data.toString());
+  if (isUnixTimestamp(data)) {
+    time *= 1000;
+  }
+
+  const result = new Date(time).toLocaleTimeString([], {
+    hour: "numeric",
+    minute: "2-digit",
+  });
+  return result;
+};
+
 export const prettifyDate = (dateString: string): string => {
   const months = [
     "January",

@@ -12,12 +12,12 @@ The request body should contain the following parameters:
 
 | Property | Description | Type | Required |
 | --- | --- | --- | --- |
-| triggerId | An integer representing the unique identifier of the trigger associated with the email notification workflow to be executed. The system will use this trigger ID to identify the specific workflow to be triggered. | Number | true |
+| id | An integer representing the unique identifier of the trigger associated with the email notification workflow to be executed. The system will use this trigger ID to identify the specific workflow to be triggered. | Number | true |
 
 ### Example Request Body Model:
 \`\`\`json
 {
-    "triggerId": "<INSERT_ID>"
+    "id": "<INSERT_ID>"
 }
 \`\`\`
 

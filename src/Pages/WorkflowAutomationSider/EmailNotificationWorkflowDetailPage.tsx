@@ -1,26 +1,37 @@
 import { AutomationStep, TemplateComponent } from "Config/AutomationConfig";
+import { Email } from "Config/EMSConfig";
 import {
   EventWorkflow,
   EventWorkflowStepType,
 } from "Config/EventWorkflowConfig";
+import { WOS_TRIGGER_EMAIL_NOTIFICATION_WORKFLOW_ENDPOINT } from "Config/WOSEndpointConfig";
 import { AppCopy } from "DataDisplayComponents/AppCopy";
+import { DraggableTabs } from "DataDisplayComponents/DraggableTabs";
 import { PageTitle } from "DataDisplayComponents/PageTitle";
+import { AppButton } from "DataEntryComponents/AppButton";
 import { AppSpace } from "LayoutComponents/AppSpace";
+import { queryEmailsPerWorkflow } from "Network/EmailFetch";
 import { getEventWorkflowById } from "Network/EventWorkflowFetch";
 import { formatDate } from "Utils/DateUtils";
+import { EmailList } from "WorkflowAutomationComponents/EmailList";
 import { EventWorkflowSortableForm } from "WorkflowAutomationComponents/EventWorkflowSortableForm";
 import { Flex, List } from "antd";
 import { ListItemMetaProps } from "antd/es/list";
+import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 export const EmailNotificationWorkflowDetailPage = () => {
   const { id } = useParams();
 
+  const clientId = useSelector((state: any) => state.client.clientId);
+
   const [eventWorkflow, setEventWorkflow] = useState<EventWorkflow>();
   const [loading, setLoading] = useState<boolean>(false);
   const [steps, setSteps] = useState<AutomationStep[]>([]);
   const [formData, setFormData] = useState<any>({});
+  const [emails, setEmails] = useState<Email[]>([]);
 
   const fetchEventWorkflow = useCallback(async () => {
     if (id) {
@@ -31,6 +42,23 @@ export const EmailNotificationWorkflowDetailPage = () => {
       setLoading(false);
     }
   }, [id]);
+
+  const fetchSentEmails = useCallback(async () => {
+    if (eventWorkflow) {
+      const workflowId = eventWorkflow.id;
+      const senders: string[] = eventWorkflow.metadata.steps
+        .filter((step) => (step?.form as any)?.from)
+        .map((step) => (step?.form as any)?.from as string);
+      senders.forEach(async (sender) => {
+        const res = await queryEmailsPerWorkflow(sender, workflowId);
+        setEmails(res.emails);
+      });
+    }
+  }, [eventWorkflow]);
+
+  useEffect(() => {
+    fetchSentEmails();
+  }, [fetchSentEmails]);
 
   useEffect(() => {
     fetchEventWorkflow();
@@ -57,9 +85,22 @@ export const EmailNotificationWorkflowDetailPage = () => {
     setFormData(initialFormData);
   };
 
+  const handleTest = () => {
+    const req = {
+      clientId,
+      id,
+    };
+    axios.post(WOS_TRIGGER_EMAIL_NOTIFICATION_WORKFLOW_ENDPOINT, req);
+  };
+
   return (
     <AppSpace loading={loading}>
       <PageTitle>{eventWorkflow?.name}</PageTitle>
+      <Flex gap="16px">
+        <AppButton onClick={handleTest} type="primary">
+          Test
+        </AppButton>
+      </Flex>
       <List
         itemLayout="horizontal"
         dataSource={
@@ -78,17 +119,6 @@ export const EmailNotificationWorkflowDetailPage = () => {
               ),
             },
             {
-              title: "Workflow",
-              description: (
-                <EventWorkflowSortableForm
-                  steps={steps}
-                  setSteps={setSteps}
-                  formData={formData}
-                  setFormData={setFormData}
-                />
-              ),
-            },
-            {
               title: "Created",
               description: formatDate(eventWorkflow?.createdAt),
             },
@@ -99,6 +129,28 @@ export const EmailNotificationWorkflowDetailPage = () => {
             <List.Item.Meta {...item} />
           </List.Item>
         )}
+      />
+      <DraggableTabs
+        defaultActiveKey="1"
+        items={[
+          {
+            key: "1",
+            label: "Workflow",
+            children: (
+              <EventWorkflowSortableForm
+                steps={steps}
+                setSteps={setSteps}
+                formData={formData}
+                setFormData={setFormData}
+              />
+            ),
+          },
+          {
+            key: "2",
+            label: "Mail",
+            children: <EmailList emails={emails} />,
+          },
+        ]}
       />
     </AppSpace>
   );

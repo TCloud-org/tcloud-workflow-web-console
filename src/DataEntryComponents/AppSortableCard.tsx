@@ -18,7 +18,7 @@ import { AutomationStep, borderColor } from "Config/AutomationConfig";
 import { AppIconButton } from "./AppIconButton";
 import { DoubleLeftOutlined, DoubleRightOutlined } from "@ant-design/icons";
 
-const pointerHoldingDurationThreshold = 200;
+export const pointerHoldingDurationThreshold = 200;
 
 const animateLayoutChanges = (args: any) => {
   const { isSorting, wasSorting, wasDragging } = args;

@@ -57,15 +57,6 @@ code {
   background-color: rgb(164, 164, 164);
 }
 
-.ant-select>* {
-  background-color: rgba(0, 0, 0, 0.02) !important;
-}
-
-.ant-input,
-.ant-input-number {
-  background-color: rgba(0, 0, 0, 0.02);
-}
-
 .certain-category-search-dropdown .ant-select-dropdown-menu-item-group-title {
   color      : #666;
   font-weight: bold;
