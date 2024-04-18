@@ -147,7 +147,7 @@ export const EmailNotificationWorkflowDetailPage = () => {
           },
           {
             key: "2",
-            label: "Mail",
+            label: "Sent",
             children: <EmailList emails={emails} />,
           },
         ]}

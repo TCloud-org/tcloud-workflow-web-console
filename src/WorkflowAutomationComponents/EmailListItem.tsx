@@ -1,4 +1,5 @@
 import { CaretDownOutlined } from "@ant-design/icons";
+import { AppButton } from "DataEntryComponents/AppButton";
 import { AppIconButton } from "DataEntryComponents/AppIconButton";
 import { AppAnimatedBox } from "LayoutComponents/AppAnimatedBox";
 import { Flex, List } from "antd";
@@ -19,7 +20,7 @@ export const EmailListItem = (props: { item: ListItemMetaProps }) => {
   }, [isCollapsed]);
 
   return (
-    <List.Item>
+    <List.Item actions={[<AppButton>View workflow</AppButton>]}>
       <List.Item.Meta
         title={
           <Flex justify="space-between" align="center">

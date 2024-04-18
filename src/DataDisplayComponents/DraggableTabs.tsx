@@ -11,6 +11,7 @@ import { DraggableTabNode } from "./DraggableTabNode";
 
 export const DraggableTabs = (props: TabsProps) => {
   const [items, setItems] = useState<TabsProps["items"]>([]);
+  const [isTabMoving, setIsTabMoving] = useState<boolean>(false);
 
   useEffect(() => {
     setItems(props.items || []);
@@ -20,7 +21,12 @@ export const DraggableTabs = (props: TabsProps) => {
     activationConstraint: { distance: 10 },
   });
 
+  const onDragMove = () => {
+    setIsTabMoving(true);
+  };
+
   const onDragEnd = ({ active, over }: DragEndEvent) => {
+    setIsTabMoving(false);
     if (active.id !== over?.id) {
       setItems((prev) => {
         if (!prev) return [];
@@ -36,14 +42,22 @@ export const DraggableTabs = (props: TabsProps) => {
       {...props}
       items={items}
       renderTabBar={(tabBarProps, DefaultTabBar) => (
-        <DndContext sensors={[sensor]} onDragEnd={onDragEnd}>
+        <DndContext
+          sensors={[sensor]}
+          onDragEnd={onDragEnd}
+          onDragMove={onDragMove}
+        >
           <SortableContext
             items={(items || []).map((i) => i.key)}
             strategy={horizontalListSortingStrategy}
           >
             <DefaultTabBar {...tabBarProps}>
               {(node) => (
-                <DraggableTabNode {...node.props} key={node.key}>
+                <DraggableTabNode
+                  {...node.props}
+                  key={node.key}
+                  isTabMoving={isTabMoving}
+                >
                   {node}
                 </DraggableTabNode>
               )}

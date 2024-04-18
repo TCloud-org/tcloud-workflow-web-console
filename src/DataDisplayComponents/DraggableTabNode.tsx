@@ -5,6 +5,7 @@ import { cloneElement } from "react";
 
 interface DraggableTabPaneProps extends React.HTMLAttributes<HTMLDivElement> {
   "data-node-key": string;
+  isTabMoving?: boolean;
 }
 
 export const DraggableTabNode = ({
@@ -20,7 +21,7 @@ export const DraggableTabNode = ({
     ...props.style,
     transform: CSS.Transform.toString(transform && { ...transform, scaleX: 1 }),
     transition,
-    cursor: "pointer",
+    cursor: props.isTabMoving ? "move" : "pointer",
   };
 
   return (
