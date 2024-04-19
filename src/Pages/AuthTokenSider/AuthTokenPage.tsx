@@ -107,7 +107,9 @@ export const AuthTokenPage = () => {
   return (
     <AppSpace>
       <PageTitle>Auth Token</PageTitle>
-      <AppButton onClick={onAddToken}>Add token</AppButton>
+      <Flex justify="flex-end">
+        <AppButton onClick={onAddToken}>Add token</AppButton>
+      </Flex>
 
       {Object.entries(tokenMap).map(([type, tokens], i) => (
         <AppTable
