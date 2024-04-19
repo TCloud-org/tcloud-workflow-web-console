@@ -1,6 +1,8 @@
+import { ReloadOutlined } from "@ant-design/icons";
 import { AutomationStep, TemplateComponent } from "Config/AutomationConfig";
 import { EventWorkflowStage } from "Config/EventWorkflowConfig";
 import { PageTitle } from "DataDisplayComponents/PageTitle";
+import { AppIconButton } from "DataEntryComponents/AppIconButton";
 import { AppSpace } from "LayoutComponents/AppSpace";
 import { getEventWorkflowStages } from "Network/EventWorkflowFetch";
 import { EventWorkflowSortableForm } from "WorkflowAutomationComponents/EventWorkflowSortableForm";
@@ -17,11 +19,14 @@ export const EmailNotificationJobPage = () => {
 
   const [stages, setStages] = useState<EventWorkflowStage[]>([]);
   const [steps, setSteps] = useState<AutomationStep[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const fetchStages = useCallback(async () => {
     if (clientId && id) {
+      setLoading(true);
       const res = await getEventWorkflowStages(parseInt(id), clientId);
       setStages(res.stages);
+      setLoading(false);
     }
   }, [clientId, id]);
 
@@ -43,8 +48,14 @@ export const EmailNotificationJobPage = () => {
   }, [fetchStages]);
 
   return (
-    <AppSpace>
-      <PageTitle>{`Job #${id}`}</PageTitle>
+    <AppSpace loading={loading}>
+      <PageTitle
+        endDecorator={
+          <AppIconButton onClick={fetchStages}>
+            <ReloadOutlined />
+          </AppIconButton>
+        }
+      >{`Job #${id}`}</PageTitle>
       <EventWorkflowSortableForm steps={steps} showAdd={false} />
     </AppSpace>
   );

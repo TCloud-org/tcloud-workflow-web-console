@@ -20,9 +20,12 @@ import { ListItemMetaProps } from "antd/es/list";
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 export const EmailNotificationWorkflowDetailPage = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const { id } = useParams();
 
   const clientId = useSelector((state: any) => state.client.clientId);
@@ -32,6 +35,7 @@ export const EmailNotificationWorkflowDetailPage = () => {
   const [steps, setSteps] = useState<AutomationStep[]>([]);
   const [formData, setFormData] = useState<any>({});
   const [emails, setEmails] = useState<Email[]>([]);
+  const [testRunLoading, setTestRunLoading] = useState<boolean>(false);
 
   const fetchEventWorkflow = useCallback(async () => {
     if (id) {
@@ -85,19 +89,27 @@ export const EmailNotificationWorkflowDetailPage = () => {
     setFormData(initialFormData);
   };
 
-  const handleTest = () => {
+  const handleTest = async () => {
+    setTestRunLoading(true);
     const req = {
       clientId,
       id,
     };
-    axios.post(WOS_TRIGGER_EMAIL_NOTIFICATION_WORKFLOW_ENDPOINT, req);
+    const jobId = await axios
+      .post(WOS_TRIGGER_EMAIL_NOTIFICATION_WORKFLOW_ENDPOINT, req)
+      .then((res) => res.data);
+
+    setTimeout(() => {
+      setTestRunLoading(false);
+      navigate(`${location.pathname}/job?id=${jobId}`);
+    }, 2000);
   };
 
   return (
     <AppSpace loading={loading}>
       <PageTitle>{eventWorkflow?.name}</PageTitle>
       <Flex gap="16px">
-        <AppButton onClick={handleTest} type="primary">
+        <AppButton onClick={handleTest} type="primary" loading={testRunLoading}>
           Run a test job
         </AppButton>
       </Flex>
