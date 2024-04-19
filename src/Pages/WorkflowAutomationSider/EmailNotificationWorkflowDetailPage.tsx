@@ -142,6 +142,7 @@ export const EmailNotificationWorkflowDetailPage = () => {
                 setSteps={setSteps}
                 formData={formData}
                 setFormData={setFormData}
+                showAdd={false}
               />
             ),
           },

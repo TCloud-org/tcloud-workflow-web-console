@@ -10,6 +10,7 @@ import { TriggerForm } from "WorkflowAutomationComponents/TriggerForm";
 import { InputNumber, MenuProps, Select, SelectProps } from "antd";
 import { Dispatch, ReactNode, SetStateAction } from "react";
 import { v4 } from "uuid";
+import { EventWorkflowStatus } from "./EventWorkflowConfig";
 
 export interface Utility {
   href?: string;
@@ -39,6 +40,7 @@ export interface AutomationStep {
   removable?: boolean;
   hidden?: boolean;
   icon?: ReactNode;
+  status?: EventWorkflowStatus;
 }
 
 export const borderColor = "#4312e5";

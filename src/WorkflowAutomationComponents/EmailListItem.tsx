@@ -1,12 +1,19 @@
 import { CaretDownOutlined } from "@ant-design/icons";
+import { Email } from "Config/EMSConfig";
 import { AppButton } from "DataEntryComponents/AppButton";
 import { AppIconButton } from "DataEntryComponents/AppIconButton";
 import { AppAnimatedBox } from "LayoutComponents/AppAnimatedBox";
 import { Flex, List } from "antd";
 import { ListItemMetaProps } from "antd/es/list";
 import { useEffect, useRef, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
-export const EmailListItem = (props: { item: ListItemMetaProps }) => {
+export const EmailListItem = (props: {
+  item: ListItemMetaProps & { email: Email };
+}) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const { item } = props;
 
   const [isCollapsed, setIsCollapsed] = useState<boolean>(true);
@@ -19,8 +26,15 @@ export const EmailListItem = (props: { item: ListItemMetaProps }) => {
     }
   }, [isCollapsed]);
 
+  const handleViewJob = () => {
+    const email = item.email;
+    navigate(`${location.pathname}/job?id=${email.jobId}`);
+  };
+
   return (
-    <List.Item actions={[<AppButton>View workflow</AppButton>]}>
+    <List.Item
+      actions={[<AppButton onClick={handleViewJob}>View job</AppButton>]}
+    >
       <List.Item.Meta
         title={
           <Flex justify="space-between" align="center">

@@ -5,9 +5,10 @@ import {
   borderColor,
   stepLineHeight,
 } from "Config/AutomationConfig";
+import { EventWorkflowStatus } from "Config/EventWorkflowConfig";
 import { AppIconHolder } from "DataDisplayComponents/AppIconHolder";
 import { AppSortableCard } from "DataEntryComponents/AppSortableCard";
-import { Divider, Dropdown, Flex, Typography } from "antd";
+import { Divider, Dropdown, Flex, Typography, theme } from "antd";
 import { MenuItemType } from "antd/es/menu/hooks/useItems";
 import { Dispatch, Key, SetStateAction, useEffect, useState } from "react";
 
@@ -19,8 +20,28 @@ export const EmailNotificationStep = (props: {
   collect: Dispatch<SetStateAction<any>>;
   formData: any;
   index: number;
+  showAdd?: boolean;
+  status?: EventWorkflowStatus;
 }) => {
-  const { data, onAdd, isDragStart, last, collect, formData, index } = props;
+  const { token } = theme.useToken();
+  const StatusColor: { [key: string]: string } = {
+    [EventWorkflowStatus.SUCCESSFUL]: borderColor,
+    [EventWorkflowStatus.PENDING]: token.colorWarning,
+    [EventWorkflowStatus.START]: token.colorInfo,
+    [EventWorkflowStatus.IN_PROGRESS]: token.colorBorder,
+  };
+
+  const {
+    data,
+    onAdd,
+    isDragStart,
+    last,
+    collect,
+    formData,
+    index,
+    showAdd,
+    status,
+  } = props;
 
   const [step, setStep] = useState<AutomationStep>(data);
 
@@ -53,8 +74,23 @@ export const EmailNotificationStep = (props: {
             {step.label}
           </Typography.Title>
         </Flex>
+        {status && (
+          <div
+            style={{
+              width: "4px",
+              position: "absolute",
+              left: 0,
+              top: 0,
+              bottom: 0,
+              backgroundColor: StatusColor[status],
+              borderTopLeftRadius: token.borderRadiusLG,
+              borderBottomLeftRadius: token.borderRadiusLG,
+            }}
+          />
+        )}
       </AppSortableCard>
-      {onAdd && (
+      {!showAdd && <div style={{ height: "16px" }} />}
+      {onAdd && showAdd && (
         <Flex
           vertical
           align="center"

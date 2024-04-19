@@ -54,6 +54,7 @@ import { deserializeLocation } from "./Utils/Serializer";
 import { setItems } from "./features/navigation/breadcrumbSlice";
 import { setSelectedKeys } from "./features/navigation/siderSlice";
 import { CreateEmailNotificationWorkflowPage } from "Pages/WorkflowAutomationSider/CreateEmailNotificationWorkflowPage";
+import { EmailNotificationJobPage } from "Pages/WorkflowAutomationSider/EmailNotificationJobPage";
 
 export const App = () => {
   const {
@@ -263,6 +264,10 @@ export const App = () => {
         {
           path: "/workflow-automation/email-notification-workflow/:id",
           element: <EmailNotificationWorkflowDetailPage />,
+        },
+        {
+          path: "/workflow-automation/email-notification-workflow/:id/job",
+          element: <EmailNotificationJobPage />,
         },
       ],
     },

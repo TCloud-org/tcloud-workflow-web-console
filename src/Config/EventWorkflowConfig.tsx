@@ -57,3 +57,20 @@ export enum EventWorkflowStepType {
   DELAY = "delay",
   TRIGGER = "trigger",
 }
+
+export interface EventWorkflowStage {
+  stageId: number;
+  jobId: number;
+  clientId: string;
+  step: EventWorkflowStep;
+  stepIndex: number;
+  status: EventWorkflowStatus;
+  executedAt: string;
+}
+
+export enum EventWorkflowStatus {
+  START = "START",
+  IN_PROGRESS = "IN_PROGRESS",
+  PENDING = "PENDING",
+  SUCCESSFUL = "SUCCESSFUL",
+}

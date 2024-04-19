@@ -16,17 +16,17 @@ import {
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import { AppSurface } from "DataDisplayComponents/AppSurface";
-import { AppDroppable } from "DataEntryComponents/AppDroppable";
-import { Flex } from "antd";
-import { EmailNotificationStep } from "./EmailNotificationStep";
-import { RemovableDroppable } from "./RemovableDroppable";
 import {
   AutomationStep,
   EmailNotificationTemplates,
   TemplateComponent,
 } from "Config/AutomationConfig";
+import { AppSurface } from "DataDisplayComponents/AppSurface";
+import { AppDroppable } from "DataEntryComponents/AppDroppable";
+import { Flex } from "antd";
 import { Dispatch, Key, SetStateAction, useState } from "react";
+import { EmailNotificationStep } from "./EmailNotificationStep";
+import { RemovableDroppable } from "./RemovableDroppable";
 
 const measuringConfig = {
   droppable: {
@@ -41,12 +41,14 @@ export const EventWorkflowSortableForm = (props: {
   setFormData?: Dispatch<SetStateAction<any>>;
   steps?: AutomationStep[];
   setSteps?: Dispatch<SetStateAction<AutomationStep[]>>;
+  showAdd?: boolean;
 }) => {
   const {
     formData,
     setFormData = () => {},
     steps = EmailNotificationTemplates["blank"],
     setSteps = () => {},
+    showAdd = true,
   } = props;
 
   const [showRemovable, setShowRemovable] = useState<boolean>(false);
@@ -148,7 +150,9 @@ export const EventWorkflowSortableForm = (props: {
                   last={i === filteredSteps.length - 1}
                   collect={setFormData}
                   formData={formData}
+                  showAdd={showAdd}
                   index={i}
+                  status={step.status}
                 />
               ))}
             </Flex>

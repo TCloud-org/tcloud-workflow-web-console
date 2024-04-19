@@ -22,7 +22,8 @@ export const EmailList = (props: { emails?: Email[] }) => {
           title: email.sender,
           description: <EmailListItemDescription email={email} />,
           children: <EmailListItemContent email={email} />,
-        })) as ListItemMetaProps[]
+          email: email,
+        })) as (ListItemMetaProps & { email: Email })[]
       }
       renderItem={(item) => <EmailListItem item={item} />}
       pagination={{

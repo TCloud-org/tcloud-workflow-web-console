@@ -1,5 +1,6 @@
 export interface Email {
   id: number;
+  jobId: number;
   workflowId: number;
   sender: string;
   recipients: InternetAddress[];
