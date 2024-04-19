@@ -1,5 +1,9 @@
 import { ReloadOutlined } from "@ant-design/icons";
-import { AutomationStep, TemplateComponent } from "Config/AutomationConfig";
+import {
+  AutomationStep,
+  TemplateComponent,
+  TemplateComponentProps,
+} from "Config/AutomationConfig";
 import { EventWorkflowStage } from "Config/EventWorkflowConfig";
 import { PageTitle } from "DataDisplayComponents/PageTitle";
 import { AppIconButton } from "DataEntryComponents/AppIconButton";
@@ -34,7 +38,7 @@ export const EmailNotificationJobPage = () => {
     const currentSteps = stages
       .map((stage) => stage.step)
       .map((step) => step.type.toLowerCase())
-      .map((type) => TemplateComponent[type])
+      .map((type) => TemplateComponent[type as keyof TemplateComponentProps])
       .map((step, i) => ({
         ...step,
         removable: false,

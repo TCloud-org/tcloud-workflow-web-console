@@ -20,6 +20,7 @@ import {
   AutomationStep,
   EmailNotificationTemplates,
   TemplateComponent,
+  TemplateComponentProps,
 } from "Config/AutomationConfig";
 import { AppSurface } from "DataDisplayComponents/AppSurface";
 import { AppDroppable } from "DataEntryComponents/AppDroppable";
@@ -66,7 +67,11 @@ export const EventWorkflowSortableForm = (props: {
     if (!key) return;
 
     const clonedSteps = [...steps];
-    clonedSteps.splice(index + 1, 0, TemplateComponent[key as string]);
+    clonedSteps.splice(
+      index + 1,
+      0,
+      TemplateComponent[key as keyof TemplateComponentProps]
+    );
     setSteps(clonedSteps);
   };
 

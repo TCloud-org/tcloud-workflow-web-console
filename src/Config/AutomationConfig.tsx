@@ -1,6 +1,7 @@
 import {
   CalendarOutlined,
   ClockCircleOutlined,
+  IdcardOutlined,
   MailOutlined,
 } from "@ant-design/icons";
 import { UniqueIdentifier } from "@dnd-kit/core";
@@ -11,6 +12,7 @@ import { InputNumber, MenuProps, Select, SelectProps } from "antd";
 import { Dispatch, ReactNode, SetStateAction } from "react";
 import { v4 } from "uuid";
 import { EventWorkflowStatus } from "./EventWorkflowConfig";
+import { VerificationForm } from "WorkflowAutomationComponents/VerificationForm";
 
 export interface Utility {
   href?: string;
@@ -187,7 +189,21 @@ export const DelayOptions: SelectProps["options"] & { inputs?: any[] } = [
   },
 ];
 
-export const TemplateComponent: { [key: string]: AutomationStep } = {
+export interface TemplateComponentProps {
+  verification: AutomationStep;
+  trigger: AutomationStep;
+  email: AutomationStep;
+  delay: AutomationStep;
+}
+
+export const TemplateComponent: TemplateComponentProps = {
+  verification: {
+    id: v4(),
+    label: "Verification",
+    fixed: true,
+    content: (props: AutomationContentProps) => <VerificationForm {...props} />,
+    icon: <IdcardOutlined />,
+  },
   trigger: {
     id: v4(),
     label: "Trigger",
@@ -214,19 +230,26 @@ export const TemplateComponent: { [key: string]: AutomationStep } = {
 };
 
 export const EmailNotificationTemplates: { [key: string]: AutomationStep[] } = {
-  blank: [TemplateComponent.trigger],
-  basic: [TemplateComponent.trigger, TemplateComponent.email],
+  blank: [TemplateComponent.verification, TemplateComponent.trigger],
+  basic: [
+    TemplateComponent.verification,
+    TemplateComponent.trigger,
+    TemplateComponent.email,
+  ],
   delay: [
+    TemplateComponent.verification,
     TemplateComponent.trigger,
     TemplateComponent.delay,
     TemplateComponent.email,
   ],
   consecutiveEmails: [
+    TemplateComponent.verification,
     TemplateComponent.trigger,
     TemplateComponent.email,
     TemplateComponent.email,
   ],
   consecutiveEmailsWithDelay: [
+    TemplateComponent.verification,
     TemplateComponent.trigger,
     TemplateComponent.email,
     TemplateComponent.delay,

@@ -1,4 +1,8 @@
-import { AutomationStep, TemplateComponent } from "Config/AutomationConfig";
+import {
+  AutomationStep,
+  TemplateComponent,
+  TemplateComponentProps,
+} from "Config/AutomationConfig";
 import { Email } from "Config/EMSConfig";
 import {
   EventWorkflow,
@@ -71,7 +75,7 @@ export const EmailNotificationWorkflowDetailPage = () => {
   const updateEventWorkflowAttributes = (data: EventWorkflow) => {
     const initialSteps = data?.metadata.steps
       .map((step) => step.type.toLowerCase())
-      .map((type) => TemplateComponent[type])
+      .map((type) => TemplateComponent[type as keyof TemplateComponentProps])
       .map((step) => ({ ...step, removable: false }));
     const initialFormData: any = initialSteps
       .map((step) => step.id)

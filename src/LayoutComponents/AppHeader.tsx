@@ -142,6 +142,7 @@ export const AppHeader = () => {
             <Icon
               component={() => (
                 <img
+                  alt={BRAND}
                   src="https://tcw-icon.s3.us-west-2.amazonaws.com/tcw-icon-transparent.png"
                   width={20}
                   height={20}
