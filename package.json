@@ -83,6 +83,8 @@
     "@types/react-resizable": "^3.0.7",
     "@types/react-syntax-highlighter": "^15.5.11",
     "@types/redux-persist": "^4.3.1",
-    "@types/uuid": "^9.0.8"
+    "@types/uuid": "^9.0.8",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.2"
   }
 }

@@ -49,6 +49,7 @@ export const AppTable = (
     titleToolDecorator?: ReactNode;
     showSelected?: boolean;
     showTitle?: boolean;
+    titleStartDecorator?: ReactNode;
   } & TableProps
 ) => {
   const {
@@ -70,6 +71,7 @@ export const AppTable = (
     titleToolDecorator,
     showSelected = true,
     showTitle = true,
+    titleStartDecorator,
   } = props;
 
   const [mergedColumns, setMergedColumns] = useState<EditableColumn[]>([
@@ -161,6 +163,7 @@ export const AppTable = (
       <div>
         <TableTitle
           onReload={onReload}
+          startDecorator={titleStartDecorator}
           endDecorator={
             <>
               {titleToolDecorator}

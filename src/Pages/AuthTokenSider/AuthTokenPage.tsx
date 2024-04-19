@@ -1,3 +1,4 @@
+import { Flex, Typography } from "antd";
 import { Key, useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -11,7 +12,6 @@ import { AppSecretText } from "../../DataDisplayComponents/AppSecretText";
 import { AppTable } from "../../DataDisplayComponents/AppTable";
 import { AppTag } from "../../DataDisplayComponents/AppTag";
 import { PageTitle } from "../../DataDisplayComponents/PageTitle";
-import { TableTitle } from "../../DataDisplayComponents/TableTitle";
 import { AppButton } from "../../DataEntryComponents/AppButton";
 import { AppLink } from "../../DataEntryComponents/AppLink";
 import { AppSpace } from "../../LayoutComponents/AppSpace";
@@ -70,21 +70,18 @@ export const AuthTokenPage = () => {
     navigate("/auth-token/add");
   };
 
-  const renderTableTitle = (type: string) => {
+  const renderTitleStartDecorator = (type: string) => {
     const authType =
       AuthenticationTypes[type as keyof AuthenticationTypesProps];
     return (
-      <TableTitle
-        onReload={() => {}}
-        startDecorator={
-          authType.tag && (
-            <AppTag color={authType.tag.color}>{authType.tag.children}</AppTag>
-          )
-        }
-        endDecorator={<AppButton onClick={onAddToken}>Add token</AppButton>}
-      >
-        {authType.label}
-      </TableTitle>
+      authType.tag && (
+        <Flex align="center" gap="16px">
+          <Typography.Title level={5} style={{ margin: 0 }}>
+            {authType.label}
+          </Typography.Title>
+          <AppTag color={authType.tag.color}>{authType.tag.children}</AppTag>
+        </Flex>
+      )
     );
   };
 
@@ -110,15 +107,18 @@ export const AuthTokenPage = () => {
   return (
     <AppSpace>
       <PageTitle>Auth Token</PageTitle>
+      <AppButton onClick={onAddToken}>Add token</AppButton>
+
       {Object.entries(tokenMap).map(([type, tokens], i) => (
         <AppTable
           key={i}
-          title={() => renderTableTitle(type)}
+          titleStartDecorator={renderTitleStartDecorator(type)}
           rows={tokens}
           columns={getColumns(type)}
           selected={selected}
           setSelected={setSelected}
           rowId="tokenId"
+          showTitle
         />
       ))}
     </AppSpace>
