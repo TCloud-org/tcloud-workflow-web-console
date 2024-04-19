@@ -17,6 +17,7 @@ import {
 import { deserializeWorkflow, serializeWorkflow } from "../Utils/Serializer";
 import { setClientId } from "../features/workflow/clientSlice";
 import { setWorkflow } from "../features/workflow/workflowSlice";
+import Icon from "@ant-design/icons/lib/components/Icon";
 
 export const AppHeader = () => {
   const { token } = theme.useToken();
@@ -132,11 +133,27 @@ export const AppHeader = () => {
             flex: 1,
             textAlign: "center",
             borderRadius: token.borderRadiusLG,
+            color: "black",
           }}
           strong
           href="/"
         >
-          {BRAND}
+          <Flex justify="center" align="center">
+            <Icon
+              component={() => (
+                <img
+                  src="https://tcw-icon.s3.us-west-2.amazonaws.com/tcw-icon-transparent.png"
+                  width={20}
+                  height={20}
+                  style={{
+                    marginRight: "4px",
+                    animation: "spin 2s linear infinite",
+                  }}
+                />
+              )}
+            />
+            {BRAND}
+          </Flex>
         </Typography.Link>
       </Flex>
       <Flex
