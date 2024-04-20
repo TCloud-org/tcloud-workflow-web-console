@@ -29,6 +29,7 @@ export const EmailNotificationStep = (props: {
     [EventWorkflowStatus.PENDING]: token.colorWarning,
     [EventWorkflowStatus.START]: token.colorInfo,
     [EventWorkflowStatus.IN_PROGRESS]: token.colorBorder,
+    [EventWorkflowStatus.FAILED]: token.colorError,
   };
 
   const {

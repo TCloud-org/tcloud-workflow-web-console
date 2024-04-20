@@ -1,5 +1,4 @@
 import { AutomationContentProps } from "Config/AutomationConfig";
-import { AppButton } from "DataEntryComponents/AppButton";
 import { AppForm } from "DataEntryComponents/AppForm";
 import { AppSpace } from "LayoutComponents/AppSpace";
 import { Checkbox, Form, Radio, SelectProps, Typography } from "antd";
@@ -18,6 +17,8 @@ const InputTypes: SelectProps["options"] = [
   },
 ];
 export const VerificationForm = (props: AutomationContentProps) => {
+  const { id, data, collect } = props;
+
   const [form] = Form.useForm();
 
   const [type, setType] = useState<string>("email");
@@ -25,15 +26,32 @@ export const VerificationForm = (props: AutomationContentProps) => {
     useState<boolean>(false);
 
   useEffect(() => {
-    form.setFieldValue("type", "email");
-    setType("email");
-  }, [form]);
+    if (data && data[id]?.verification) {
+      form.setFieldsValue(data[id].verification);
+      setType(data[id].verification?.type || "email");
+    } else {
+      form.setFieldValue("type", "email");
+      setType("email");
+      collect({
+        ...data,
+        [id]: {
+          verification: form.getFieldsValue(),
+        },
+      });
+    }
+  }, [form, data, id, collect]);
 
   const handleValuesChange = (changes: any, values: any) => {
     if (changes.type) {
       setType(changes.type);
     }
     form.setFieldsValue(values);
+    collect({
+      ...data,
+      [id]: {
+        verification: values,
+      },
+    });
   };
 
   return (
@@ -84,11 +102,6 @@ export const VerificationForm = (props: AutomationContentProps) => {
             )
           }
         </Form.List>
-        <Form.Item>
-          <AppButton type="primary" htmlType="submit">
-            Submit
-          </AppButton>
-        </Form.Item>
       </AppForm>
     </AppSpace>
   );

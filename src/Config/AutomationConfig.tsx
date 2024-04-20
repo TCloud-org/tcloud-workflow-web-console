@@ -36,6 +36,7 @@ export interface AutomationContentProps {
 
 export interface AutomationStep {
   id: UniqueIdentifier;
+  key: string;
   label?: string;
   fixed?: boolean;
   content: (props: AutomationContentProps) => ReactNode;
@@ -198,6 +199,7 @@ export interface TemplateComponentProps {
 
 export const TemplateComponent: TemplateComponentProps = {
   verification: {
+    key: "verification",
     id: v4(),
     label: "Verification",
     fixed: true,
@@ -205,6 +207,7 @@ export const TemplateComponent: TemplateComponentProps = {
     icon: <IdcardOutlined />,
   },
   trigger: {
+    key: "trigger",
     id: v4(),
     label: "Trigger",
     fixed: true,
@@ -212,6 +215,7 @@ export const TemplateComponent: TemplateComponentProps = {
     icon: <CalendarOutlined />,
   },
   email: {
+    key: "email",
     id: v4(),
     label: "Email",
     content: (props: AutomationContentProps) => (
@@ -221,6 +225,7 @@ export const TemplateComponent: TemplateComponentProps = {
     removable: true,
   },
   delay: {
+    key: "delay",
     id: v4(),
     label: "Delay",
     content: (props: AutomationContentProps) => <DelayForm {...props} />,

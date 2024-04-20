@@ -38,15 +38,15 @@ const measuringConfig = {
 const removableId = "removable";
 
 export const EventWorkflowSortableForm = (props: {
-  formData?: any;
-  setFormData?: Dispatch<SetStateAction<any>>;
+  value?: any;
+  onChange?: Dispatch<SetStateAction<any>>;
   steps?: AutomationStep[];
   setSteps?: Dispatch<SetStateAction<AutomationStep[]>>;
   showAdd?: boolean;
 }) => {
   const {
-    formData,
-    setFormData = () => {},
+    value,
+    onChange = () => {},
     steps = EmailNotificationTemplates["blank"],
     setSteps = () => {},
     showAdd = true,
@@ -153,8 +153,8 @@ export const EventWorkflowSortableForm = (props: {
                   key={i}
                   isDragStart={isDragMove}
                   last={i === filteredSteps.length - 1}
-                  collect={setFormData}
-                  formData={formData}
+                  collect={onChange}
+                  formData={value}
                   showAdd={showAdd}
                   index={i}
                   status={step.status}

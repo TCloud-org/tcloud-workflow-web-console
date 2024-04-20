@@ -1,17 +1,15 @@
 import { AutomationContentProps, EmailActions } from "Config/AutomationConfig";
-import { AppButton } from "DataEntryComponents/AppButton";
 import { AppForm } from "DataEntryComponents/AppForm";
 import { AppRichTextEditor } from "DataEntryComponents/AppRichTextEditor";
 import { AppChipInput } from "DataEntryComponents/Form/AppChipInput";
 import { AppSpace } from "LayoutComponents/AppSpace";
-import { Flex, Form, Input, Select, message } from "antd";
+import { Form, Input, Select } from "antd";
 import { useEffect } from "react";
 
 export const EmailTemplateForm = (props: AutomationContentProps) => {
   const { collect, data, id } = props;
 
   const [form] = Form.useForm();
-  const [messageApi, contextHolder] = message.useMessage();
 
   useEffect(() => {
     if (data && data[id]?.email) {
@@ -23,64 +21,43 @@ export const EmailTemplateForm = (props: AutomationContentProps) => {
 
   const handleValuesChange = (_: any, values: any) => {
     form.setFieldsValue(values);
-    collect((prev: any) => ({
-      ...prev,
+    collect({
+      ...data,
       [id]: {
         email: values,
       },
-    }));
-  };
-
-  const handleSave = () => {
-    collect((prev: any) => ({
-      ...prev,
-      [id]: {
-        email: form.getFieldsValue(),
-      },
-    }));
-    messageApi.success("Changes saved successfully");
+    });
   };
 
   return (
-    <>
-      {contextHolder}
-
-      <AppSpace>
-        <AppForm
-          form={form}
-          layout="vertical"
-          onValuesChange={handleValuesChange}
-        >
-          <Form.Item label="Action" name="action">
-            <Select options={EmailActions} />
-          </Form.Item>
-          <Form.Item label="From" name="from">
-            <Input />
-          </Form.Item>
-          <Form.Item label="To" name="to">
-            <AppChipInput />
-          </Form.Item>
-          <Form.Item label="Cc" name="cc">
-            <AppChipInput />
-          </Form.Item>
-          <Form.Item label="Bcc" name="bcc">
-            <AppChipInput />
-          </Form.Item>
-          <Form.Item label="Subject" name="subject">
-            <Input />
-          </Form.Item>
-          <Form.Item label="Message" name="message">
-            <AppRichTextEditor />
-          </Form.Item>
-          <Form.Item>
-            <Flex justify="flex-end">
-              <AppButton onClick={handleSave} type="primary">
-                Save
-              </AppButton>
-            </Flex>
-          </Form.Item>
-        </AppForm>
-      </AppSpace>
-    </>
+    <AppSpace>
+      <AppForm
+        form={form}
+        layout="vertical"
+        onValuesChange={handleValuesChange}
+      >
+        <Form.Item label="Action" name="action">
+          <Select options={EmailActions} />
+        </Form.Item>
+        <Form.Item label="From" name="from">
+          <Input />
+        </Form.Item>
+        <Form.Item label="To" name="to">
+          <AppChipInput />
+        </Form.Item>
+        <Form.Item label="Cc" name="cc">
+          <AppChipInput />
+        </Form.Item>
+        <Form.Item label="Bcc" name="bcc">
+          <AppChipInput />
+        </Form.Item>
+        <Form.Item label="Subject" name="subject">
+          <Input />
+        </Form.Item>
+        <Form.Item label="Message" name="message">
+          <AppRichTextEditor />
+        </Form.Item>
+      </AppForm>
+    </AppSpace>
   );
 };

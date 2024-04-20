@@ -156,8 +156,8 @@ export const EmailNotificationWorkflowDetailPage = () => {
               <EventWorkflowSortableForm
                 steps={steps}
                 setSteps={setSteps}
-                formData={formData}
-                setFormData={setFormData}
+                value={formData}
+                onChange={setFormData}
                 showAdd={false}
               />
             ),

@@ -154,3 +154,199 @@ thead {
     transform: rotate(360deg);
   }
 }
+
+#globe-mark {
+  position           : relative;
+  width              : 150px;
+  height             : 150px;
+  transform-style    : flat;
+  backface-visibility: hidden;
+}
+
+.globe-rail {
+  position     : absolute;
+  top          : 0;
+  left         : 0;
+  width        : 100%;
+  height       : 100%;
+  border       : 0.5px solid #000000;
+  border-radius: 300px;
+
+}
+
+.globe-cross-1,
+.globe-cross-2,
+.globe-cross-3,
+.globe-cross-4 {
+  position  : absolute;
+  height    : 0.5px;
+  width     : 80%;
+  background: #000000;
+}
+
+.globe-rail:nth-of-type(2) {
+  transform                : rotateY(40deg);
+  animation                : globerail-1 10s infinite;
+  animation-timing-function: linear;
+}
+
+.globe-rail:nth-of-type(3) {
+  transform                : rotateY(60deg);
+  animation                : globerail-2 10s infinite;
+  animation-timing-function: linear;
+}
+
+.globe-rail:nth-of-type(4) {
+  transform                : rotateY(80deg);
+  animation                : globerail-3 10s infinite;
+  animation-timing-function: linear;
+}
+
+.globe-rail:nth-of-type(5) {
+  transform                : rotateY(100deg);
+  animation                : globerail-4 10s infinite;
+  animation-timing-function: linear;
+}
+
+.globe-rail:nth-of-type(6) {
+  transform                : rotateY(120deg);
+  animation                : globerail-5 10s infinite;
+  animation-timing-function: linear;
+}
+
+.globe-rail:nth-of-type(7) {
+  transform                : rotateY(140deg);
+  animation                : globerail-6 10s infinite;
+  animation-timing-function: linear;
+}
+
+.globe-rail:nth-of-type(8) {
+  transform                : rotateY(160deg);
+  animation                : globerail-7 10s infinite;
+  animation-timing-function: linear;
+}
+
+.globe-rail:nth-of-type(9) {
+  transform                : rotateY(180deg);
+  animation                : globerail-8 10s infinite;
+  animation-timing-function: linear;
+}
+
+.globe-rail:nth-of-type(10) {
+  transform                : rotateY(220deg);
+  animation                : globerail-9 10s infinite;
+  animation-timing-function: linear;
+}
+
+
+.globe-cross-1 {
+  top : 20%;
+  left: 10%;
+}
+
+.globe-cross-2 {
+  top  : 40%;
+  left : 2%;
+  width: 98%;
+}
+
+.globe-cross-3 {
+  top  : 60%;
+  left : 2%;
+  width: 98%;
+}
+
+.globe-cross-4 {
+  top : 80%;
+  left: 10%;
+}
+
+@keyframes globerail-1 {
+  from {
+    transform: rotateY(40deg)
+  }
+
+  to {
+    transform: rotateY(220deg)
+  }
+}
+
+@keyframes globerail-2 {
+  from {
+    transform: rotateY(60deg)
+  }
+
+  to {
+    transform: rotateY(240deg)
+  }
+}
+
+@keyframes globerail-3 {
+  from {
+    transform: rotateY(80deg)
+  }
+
+  to {
+    transform: rotateY(260deg)
+  }
+}
+
+@keyframes globerail-4 {
+  from {
+    transform: rotateY(100deg)
+  }
+
+  to {
+    transform: rotateY(280deg)
+  }
+}
+
+@keyframes globerail-5 {
+  from {
+    transform: rotateY(120deg)
+  }
+
+  to {
+    transform: rotateY(300deg)
+  }
+}
+
+@keyframes globerail-6 {
+  from {
+    transform: rotateY(140deg)
+  }
+
+  to {
+    transform: rotateY(320deg)
+  }
+}
+
+@keyframes globerail-7 {
+  from {
+    transform: rotateY(160deg)
+  }
+
+  to {
+    transform: rotateY(340deg)
+  }
+}
+
+@keyframes globerail-8 {
+  from {
+    transform: rotateY(180deg)
+  }
+
+  to {
+    transform: rotateY(360deg)
+  }
+}
+
+@keyframes globerail-9 {
+  from {
+    transform: rotateY(200deg)
+  }
+
+  to {
+    transform: rotateY(380deg)
+  }
+}

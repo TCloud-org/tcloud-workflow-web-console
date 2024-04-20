@@ -73,4 +73,5 @@ export enum EventWorkflowStatus {
   IN_PROGRESS = "IN_PROGRESS",
   PENDING = "PENDING",
   SUCCESSFUL = "SUCCESSFUL",
+  FAILED = "FAILED",
 }

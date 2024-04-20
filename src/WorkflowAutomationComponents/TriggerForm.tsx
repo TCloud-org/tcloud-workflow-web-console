@@ -8,20 +8,24 @@ import { ReactNode, useEffect, useState } from "react";
 import { CodeTriggerSteps } from "./CodeTriggerSteps";
 
 export const TriggerForm = (props: AutomationContentProps) => {
-  const { id, collect } = props;
+  const { id, collect, data } = props;
   const [form] = Form.useForm();
   const [content, setContent] = useState<ReactNode>();
+  const [firstRender, setFirstRender] = useState<boolean>(true);
 
   useEffect(() => {
-    form.setFieldValue("method", "API");
-    collect((prev: any) => ({
-      ...prev,
-      [id]: {
-        trigger: form.getFieldsValue(),
-      },
-    }));
-    setContent(<CodeTriggerSteps />);
-  }, [form, id, collect]);
+    if (firstRender) {
+      form.setFieldValue("method", "API");
+      collect({
+        ...data,
+        [id]: {
+          trigger: form.getFieldsValue(),
+        },
+      });
+      setContent(<CodeTriggerSteps />);
+      setFirstRender(false);
+    }
+  }, [form, id, collect, data, firstRender]);
 
   const handleValuesChange = (changes: any, values: any) => {
     if (changes.method === "API") {
@@ -32,12 +36,12 @@ export const TriggerForm = (props: AutomationContentProps) => {
       setContent(undefined);
     }
     form.setFieldsValue(values);
-    collect((prev: any) => ({
-      ...prev,
+    collect({
+      ...data,
       [id]: {
         trigger: values,
       },
-    }));
+    });
   };
 
   return (

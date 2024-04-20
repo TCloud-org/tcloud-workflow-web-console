@@ -8,9 +8,9 @@ import { AppButton } from "DataEntryComponents/AppButton";
 import { AppForm } from "DataEntryComponents/AppForm";
 import { AppSpace } from "LayoutComponents/AppSpace";
 import { EventWorkflowSortableForm } from "WorkflowAutomationComponents/EventWorkflowSortableForm";
-import { Flex, Form, Input } from "antd";
+import { Flex, Form, Input, message } from "antd";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -22,10 +22,35 @@ export const CreateEmailNotificationWorkflowPage = () => {
   const [form] = Form.useForm();
   const clientId = useSelector((state: any) => state.client.clientId);
 
-  const [formData, setFormData] = useState<any>({});
+  const [messageApi, contextHolder] = message.useMessage();
+
   const [steps, setSteps] = useState<AutomationStep[]>(
     EmailNotificationTemplates[template]
   );
+  const [createLoading, setCreateLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    const triggerId = steps.find((step) => step.key === "trigger")?.id;
+    if (triggerId) {
+      const workflow = form.getFieldValue("workflow");
+      if (
+        !workflow ||
+        !workflow[triggerId] ||
+        !workflow[triggerId].trigger ||
+        !workflow[triggerId].trigger.method
+      ) {
+        form.setFieldValue("workflow", {
+          ...(workflow || {}),
+          [triggerId]: {
+            trigger: {
+              ...(workflow?.[triggerId]?.trigger || {}),
+              method: "API",
+            },
+          },
+        });
+      }
+    }
+  }, [form, steps]);
 
   const comparator = (a: [string, any], b: [string, any]): number => {
     const aIndex = steps.findIndex((item) => item.id === a[0]);
@@ -34,7 +59,9 @@ export const CreateEmailNotificationWorkflowPage = () => {
   };
 
   const handleCreate = async () => {
-    const orders: any[] = Object.entries(formData)
+    setCreateLoading(true);
+
+    const orders: any[] = Object.entries(form.getFieldValue("workflow"))
       .sort(comparator)
       .map((e) => e[1])
       .map((v) => ({
@@ -56,7 +83,11 @@ export const CreateEmailNotificationWorkflowPage = () => {
           navigate("/workflow-automation/email-notification-workflow");
         }
       })
-      .catch((_) => {});
+      .catch((_) => {
+        messageApi.error("Error occurred while creating the workflow");
+      });
+
+    setCreateLoading(false);
   };
 
   const handleValuesChange = (_: any, values: any) => {
@@ -64,29 +95,37 @@ export const CreateEmailNotificationWorkflowPage = () => {
   };
 
   return (
-    <AppSpace>
-      <PageTitle>Create Email Notification Workflow</PageTitle>
+    <>
+      {contextHolder}
+      <AppSpace>
+        <PageTitle>Create Email Notification Workflow</PageTitle>
 
-      <AppForm form={form} onValuesChange={handleValuesChange}>
-        <Form.Item name="name" label="Name">
-          <Input />
-        </Form.Item>
-
-        <EventWorkflowSortableForm
-          formData={formData}
-          setFormData={setFormData}
-          steps={steps}
-          setSteps={setSteps}
-        />
-
-        <Flex justify="flex-end" align="center">
-          <Form.Item>
-            <AppButton onClick={handleCreate} type="primary">
-              Create
-            </AppButton>
+        <AppForm
+          form={form}
+          onValuesChange={handleValuesChange}
+          layout="vertical"
+        >
+          <Form.Item name="name" label="Name">
+            <Input />
           </Form.Item>
-        </Flex>
-      </AppForm>
-    </AppSpace>
+
+          <Form.Item name="workflow" label="Workflow">
+            <EventWorkflowSortableForm steps={steps} setSteps={setSteps} />
+          </Form.Item>
+
+          <Flex justify="flex-end" align="center">
+            <Form.Item>
+              <AppButton
+                loading={createLoading}
+                onClick={handleCreate}
+                type="primary"
+              >
+                Create
+              </AppButton>
+            </Form.Item>
+          </Flex>
+        </AppForm>
+      </AppSpace>
+    </>
   );
 };

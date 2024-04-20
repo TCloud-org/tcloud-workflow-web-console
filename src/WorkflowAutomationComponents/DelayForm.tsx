@@ -1,13 +1,11 @@
 import { AutomationContentProps, DelayOptions } from "Config/AutomationConfig";
-import { AppButton } from "DataEntryComponents/AppButton";
 import { AppForm } from "DataEntryComponents/AppForm";
-import { Flex, Form, Select, message } from "antd";
+import { Form, Select } from "antd";
 import { useEffect, useState } from "react";
 
 export const DelayForm = (props: AutomationContentProps) => {
   const { collect, id, data } = props;
   const [form] = Form.useForm();
-  const [messageApi, contextHolder] = message.useMessage();
   const [extraForms, setExtraForms] = useState<any[]>([]);
 
   useEffect(() => {
@@ -21,18 +19,14 @@ export const DelayForm = (props: AutomationContentProps) => {
       form.setFieldsValue(data[id].delay);
     } else {
       form.setFieldValue("delay", "none");
+      collect({
+        ...data,
+        [id]: {
+          delay: form.getFieldsValue(),
+        },
+      });
     }
-  }, [form, id, data]);
-
-  const handleSave = () => {
-    collect((prev: any) => ({
-      ...prev,
-      [id]: {
-        delay: form.getFieldsValue(),
-      },
-    }));
-    messageApi.success("Changes saved successfully");
-  };
+  }, [form, id, data, collect]);
 
   const handleValuesChange = (changes: any, values: any) => {
     if (changes.delay && changes.delay === "custom") {
@@ -45,39 +39,24 @@ export const DelayForm = (props: AutomationContentProps) => {
       }
     }
     form.setFieldsValue(values);
-    collect((prev: any) => ({
-      ...prev,
+    collect({
+      ...data,
       [id]: {
         delay: values,
       },
-    }));
+    });
   };
 
   return (
-    <>
-      {contextHolder}
-
-      <AppForm
-        form={form}
-        layout="vertical"
-        onValuesChange={handleValuesChange}
-      >
-        <Form.Item name="delay" label="Delay">
-          <Select options={DelayOptions} />
+    <AppForm form={form} layout="vertical" onValuesChange={handleValuesChange}>
+      <Form.Item name="delay" label="Delay">
+        <Select options={DelayOptions} />
+      </Form.Item>
+      {extraForms.map((input, i) => (
+        <Form.Item label={input.label} name={["custom", input.value]} key={i}>
+          {input.render()}
         </Form.Item>
-        {extraForms.map((input, i) => (
-          <Form.Item label={input.label} name={["custom", input.value]} key={i}>
-            {input.render()}
-          </Form.Item>
-        ))}
-        <Flex justify="flex-end">
-          <Form.Item>
-            <AppButton onClick={handleSave} type="primary">
-              Save
-            </AppButton>
-          </Form.Item>
-        </Flex>
-      </AppForm>
-    </>
+      ))}
+    </AppForm>
   );
 };
