@@ -8,7 +8,7 @@ export const AppFooter = () => {
         textAlign: "center",
       }}
     >
-      {`${BRAND} ©2024 Powered by TCloud`}
+      {`The Cloud World - ${BRAND} ©2024`}
     </Footer>
   );
 };
