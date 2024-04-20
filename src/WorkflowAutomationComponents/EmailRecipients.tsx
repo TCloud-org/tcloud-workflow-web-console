@@ -6,6 +6,11 @@ export const EmailRecipients = (props: {
   label?: string;
 }) => {
   const { recipients = [], label } = props;
+
+  if (recipients.length === 0) {
+    return null;
+  }
+
   return (
     <Flex gap={4} wrap="wrap">
       {label && (
