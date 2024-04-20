@@ -6,6 +6,8 @@ import { EmailListItemContent } from "./EmailListItemContent";
 import { EmailListItemDescription } from "./EmailListItemDescription";
 import { AppSpace } from "LayoutComponents/AppSpace";
 import { SearchOutlined } from "@ant-design/icons";
+import { AppIconButton } from "DataEntryComponents/AppIconButton";
+import { Icon } from "SlateRichTextEditorComponents/RichTextToolbarComponents";
 
 const emailComparator = (a: Email, b: Email) => {
   const dateA = new Date(a.sentAt);
@@ -18,7 +20,15 @@ export const EmailList = (props: { emails?: Email[] }) => {
   const { emails = [] } = props;
   return (
     <AppSpace>
-      <Input addonBefore={<SearchOutlined />} placeholder="Type to search" />
+      <Input
+        addonBefore={<SearchOutlined />}
+        suffix={
+          <AppIconButton type="text">
+            <Icon>tune</Icon>
+          </AppIconButton>
+        }
+        placeholder="Type to search"
+      />
       <List
         itemLayout="vertical"
         dataSource={

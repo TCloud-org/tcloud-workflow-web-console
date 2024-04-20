@@ -11,9 +11,7 @@ export const PageTitle = (props: {
 }) => {
   return (
     <Flex justify="space-between" align="center" style={{ padding: "8px 0" }}>
-      <Typography.Title style={{ margin: 0 }} level={4}>
-        {props.children}
-      </Typography.Title>
+      <Typography.Title level={2}>{props.children}</Typography.Title>
       <AppSpace direction="horizontal" size="small" align="center">
         {props.endDecorator}
         {props.onReload && (

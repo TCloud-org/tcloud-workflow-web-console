@@ -55,6 +55,8 @@ import { setItems } from "./features/navigation/breadcrumbSlice";
 import { setSelectedKeys } from "./features/navigation/siderSlice";
 import { CreateEmailNotificationWorkflowPage } from "Pages/WorkflowAutomationSider/CreateEmailNotificationWorkflowPage";
 import { EmailNotificationJobPage } from "Pages/WorkflowAutomationSider/EmailNotificationJobPage";
+import { ApiWorkflowIntroductionPage } from "Pages/ApiWorkflowGetStartedSider/ApiWorkflowIntroductionPage";
+import { ApiWorkflowQuickstartPage } from "Pages/ApiWorkflowGetStartedSider/ApiWorkflowQuickstartPage";
 
 export const App = () => {
   const {
@@ -122,8 +124,16 @@ export const App = () => {
           element: <WorkflowStatisticPage />,
         },
         {
-          path: "/onboarding",
+          path: "/api-workflow-introduction",
+          element: <ApiWorkflowIntroductionPage />,
+        },
+        {
+          path: "/api-workflow-onboarding",
           element: <OnboardingPage />,
+        },
+        {
+          path: "/api-workflow-quickstart",
+          element: <ApiWorkflowQuickstartPage />,
         },
         {
           path: "/query",

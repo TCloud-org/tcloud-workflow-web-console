@@ -22,7 +22,9 @@ export const SiderHrefs = {
   monitor: "monitor",
   "/workflow-automation": "/workflow-automation",
   "/development": "/development",
-  "/onboarding": "workflow",
+  "/api-workflow-introduction": "workflow",
+  "/api-workflow-onboarding": "workflow",
+  "/api-workflow-quickstart": "workflow",
   "/query": "workflow",
   "/live": "workflow",
   "/bucket": "workflow",
@@ -33,6 +35,24 @@ export const SiderHrefs = {
   "/general": "settings",
   "/billing": "settings",
   "/traffic": "monitor",
+};
+
+export const SiderName = {
+  "/workflow-automation": "Workflow Automation",
+  "/development": "Development",
+  "/api-workflow-introduction": "Introduction",
+  "/api-workflow-onboarding": "Onboarding",
+  "/api-workflow-quickstart": "Quickstart",
+  "/query": "Query",
+  "/live": "Live",
+  "/bucket": "Bucket",
+  "/graph": "Graph",
+  "/service": "Service",
+  "/retry-policy": "Retry Policy",
+  "/auth-token": "Auth Token",
+  "/general": "General",
+  "/billing": "Billing",
+  "/traffic": "Traffic",
 };
 
 export const AppSider = () => {
@@ -64,39 +84,70 @@ export const AppSider = () => {
       label: "API Workflow",
       children: [
         {
-          key: "/onboarding",
-          label: "Onboarding",
-          onClick: () => navigate("/onboarding"),
+          key: "getStarted",
+          label: "Get Started",
+          children: [
+            {
+              key: "/api-workflow-introduction",
+              label: "Introduction",
+              onClick: () => navigate("/api-workflow-introduction"),
+            },
+            {
+              key: "/api-workflow-quickstart",
+              label: "Quickstart",
+              onClick: () => navigate("/api-workflow-quickstart"),
+            },
+            {
+              key: "/api-workflow-onboarding",
+              label: "Onboarding",
+              onClick: () => navigate("/api-workflow-onboarding"),
+            },
+          ],
+          type: "group",
         },
         {
-          key: "/query",
-          label: "Query",
-          onClick: () => navigate("/query"),
+          key: "workflow",
+          label: "Workflow",
+          children: [
+            {
+              key: "/query",
+              label: "Query",
+              onClick: () => navigate("/query"),
+            },
+            {
+              key: "/live",
+              label: "Live",
+              onClick: () => navigate("/live"),
+            },
+            {
+              key: "/bucket",
+              label: "Bucket",
+              onClick: () => navigate("/bucket"),
+            },
+          ],
+          type: "group",
         },
         {
-          key: "/live",
-          label: "Live",
-          onClick: () => navigate("/live"),
-        },
-        {
-          key: "/bucket",
-          label: "Bucket",
-          onClick: () => navigate("/bucket"),
-        },
-        {
-          key: "/graph",
-          label: "Graph",
-          onClick: () => navigate("/graph"),
-        },
-        {
-          key: "/service",
-          label: "Service",
-          onClick: () => navigate("/service"),
-        },
-        {
-          key: "/retry-policy",
-          label: "Retry Policy",
-          onClick: () => navigate("/retry-policy"),
+          key: "configuration",
+          label: "Configuration",
+          children: [
+            {
+              key: "/graph",
+              label: "Graph",
+              onClick: () => navigate("/graph"),
+            },
+            {
+              key: "/service",
+              label: "Service",
+              onClick: () => navigate("/service"),
+            },
+            {
+              key: "/retry-policy",
+              label: "Retry Policy",
+              onClick: () => navigate("/retry-policy"),
+            },
+          ],
+          type: "group",
         },
       ],
     },
