@@ -46,7 +46,7 @@ export const ApiWorkflowHowItWorksPage = () => {
       <PageTitle>How Does It Works?</PageTitle>
       <Typography.Paragraph>
         {
-          "Our process takes 5 steps. To learn more details about each step, check out the "
+          "Explore our streamlined 5-step process to initiate your first workflow. To learn more details about each step, check out the "
         }
         <a href="/api-workflow-quickstart">Quickstart</a>
         {" tutorial."}
