@@ -1,27 +1,33 @@
-import { ProfileFilled, RocketFilled } from "@ant-design/icons";
+import { ProfileFilled, RocketFilled, SettingFilled } from "@ant-design/icons";
 import { AppNextActionCard } from "DataDisplayComponents/AppNextActionCard";
 import { PageTitle } from "DataDisplayComponents/PageTitle";
 import { AppRow } from "LayoutComponents/AppRow";
 import { AppSpace } from "LayoutComponents/AppSpace";
 import { Col, Flex, Typography } from "antd";
 
-export const ApiWorkflowIntroductionPage = () => {
-  const nextSteps = [
-    {
-      title: "Quickstart",
-      description: "Follow our quickstart tutorial to build a sample workflow",
-      icon: <RocketFilled />,
-      href: "/api-workflow-quickstart",
-    },
-    {
-      title: "Onboarding",
-      description:
-        "Feel ready? Head over to our onboarding process to create a new workflow",
-      icon: <ProfileFilled />,
-      href: "/api-workflow-onboarding",
-    },
-  ];
+const nextSteps = [
+  {
+    title: "How It Works",
+    description: "Interested? Learn more about how it works",
+    icon: <SettingFilled />,
+    href: "/api-workflow-how-it-works",
+  },
+  {
+    title: "Quickstart",
+    description: "Follow our quickstart tutorial to build a sample workflow",
+    icon: <RocketFilled />,
+    href: "/api-workflow-quickstart",
+  },
+  {
+    title: "Onboarding",
+    description:
+      "Feel ready? Head over to our onboarding process to get started",
+    icon: <ProfileFilled />,
+    href: "/api-workflow-onboarding",
+  },
+];
 
+export const ApiWorkflowIntroductionPage = () => {
   return (
     <AppSpace>
       <PageTitle>Introduction</PageTitle>

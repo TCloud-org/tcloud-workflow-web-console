@@ -57,6 +57,7 @@ import { CreateEmailNotificationWorkflowPage } from "Pages/WorkflowAutomationSid
 import { EmailNotificationJobPage } from "Pages/WorkflowAutomationSider/EmailNotificationJobPage";
 import { ApiWorkflowIntroductionPage } from "Pages/ApiWorkflowGetStartedSider/ApiWorkflowIntroductionPage";
 import { ApiWorkflowQuickstartPage } from "Pages/ApiWorkflowGetStartedSider/ApiWorkflowQuickstartPage";
+import { ApiWorkflowHowItWorksPage } from "Pages/ApiWorkflowGetStartedSider/ApiWorkflowHowItWorksPage";
 
 export const App = () => {
   const {
@@ -126,6 +127,10 @@ export const App = () => {
         {
           path: "/api-workflow-introduction",
           element: <ApiWorkflowIntroductionPage />,
+        },
+        {
+          path: "/api-workflow-how-it-works",
+          element: <ApiWorkflowHowItWorksPage />,
         },
         {
           path: "/api-workflow-onboarding",
