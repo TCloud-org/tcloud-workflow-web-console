@@ -3,13 +3,18 @@ import {
   AutomationStep,
   TemplateComponent,
   TemplateComponentProps,
+  borderColor,
 } from "Config/AutomationConfig";
-import { EventWorkflowStage } from "Config/EventWorkflowConfig";
+import {
+  EventWorkflowStage,
+  EventWorkflowStatus,
+} from "Config/EventWorkflowConfig";
 import { PageTitle } from "DataDisplayComponents/PageTitle";
 import { AppIconButton } from "DataEntryComponents/AppIconButton";
 import { AppSpace } from "LayoutComponents/AppSpace";
 import { getEventWorkflowStages } from "Network/EventWorkflowFetch";
 import { EventWorkflowSortableForm } from "WorkflowAutomationComponents/EventWorkflowSortableForm";
+import { Flex, Tag } from "antd";
 import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
@@ -24,6 +29,7 @@ export const EmailNotificationJobPage = () => {
   const [stages, setStages] = useState<EventWorkflowStage[]>([]);
   const [steps, setSteps] = useState<AutomationStep[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [completed, setCompleted] = useState<boolean>(false);
 
   const fetchStages = useCallback(async () => {
     if (clientId && id) {
@@ -45,6 +51,9 @@ export const EmailNotificationJobPage = () => {
         status: stages[i].status,
       }));
     setSteps(currentSteps);
+    setCompleted(
+      stages?.[stages.length - 1]?.status === EventWorkflowStatus.COMPLETED
+    );
   }, [stages]);
 
   useEffect(() => {
@@ -59,7 +68,12 @@ export const EmailNotificationJobPage = () => {
             <ReloadOutlined />
           </AppIconButton>
         }
-      >{`Job #${id}`}</PageTitle>
+      >
+        <Flex align="center" gap={16}>
+          {`Job #${id}`}
+          {completed && <Tag color={borderColor}>Completed</Tag>}
+        </Flex>
+      </PageTitle>
       <EventWorkflowSortableForm steps={steps} showAdd={false} />
     </AppSpace>
   );

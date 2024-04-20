@@ -40,7 +40,6 @@ export const getEventWorkflowStages = async (
     jobId,
     clientId,
   };
-  console.log(formData);
   return await axios
     .post(WOS_GET_EVENT_WORKFLOW_STAGES_ENDPOINT, formData)
     .then((res) => res.data as GetEventWorkflowStagesOutput);

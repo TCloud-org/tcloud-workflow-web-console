@@ -9,7 +9,7 @@ export const DelayForm = (props: AutomationContentProps) => {
   const [extraForms, setExtraForms] = useState<any[]>([]);
 
   useEffect(() => {
-    if (data[id]?.delay) {
+    if (data?.[id]?.delay) {
       if (data[id].delay.delay === "custom") {
         setExtraForms(
           DelayOptions.find((item) => item.value === data[id].delay.delay)

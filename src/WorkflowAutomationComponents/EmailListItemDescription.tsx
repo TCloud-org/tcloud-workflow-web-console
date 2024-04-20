@@ -8,7 +8,7 @@ export const EmailListItemDescription = (props: { email: Email }) => {
   const { email } = props;
   return (
     <Flex justify="space-between" align="flex-start">
-      <Flex vertical gap="8px">
+      <Flex vertical gap="8px" style={{ flex: 4 }}>
         <AppRow gutter={[16, 16]}>
           <Col span={12}>
             <EmailRecipients
@@ -27,7 +27,7 @@ export const EmailListItemDescription = (props: { email: Email }) => {
           </Col>
         </AppRow>
       </Flex>
-      <Flex vertical align="flex-end">
+      <Flex vertical align="flex-end" style={{ flex: 1 }}>
         <Typography.Text>
           {prettifyDate(formatDate(email.sentAt) || "")}
         </Typography.Text>

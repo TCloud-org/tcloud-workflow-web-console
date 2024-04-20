@@ -63,10 +63,10 @@ export const CreateEmailNotificationWorkflowPage = () => {
 
     const orders: any[] = Object.entries(form.getFieldValue("workflow"))
       .sort(comparator)
-      .map((e) => e[1])
-      .map((v) => ({
+      .map(([k, v]) => ({
         type: Object.keys(v as any)[0].toUpperCase(),
         form: {
+          id: k,
           type: Object.keys(v as any)[0],
           ...(v as any)[Object.keys(v as any)[0]],
         },

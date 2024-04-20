@@ -74,4 +74,5 @@ export enum EventWorkflowStatus {
   PENDING = "PENDING",
   SUCCESSFUL = "SUCCESSFUL",
   FAILED = "FAILED",
+  COMPLETED = "COMPLETED",
 }
