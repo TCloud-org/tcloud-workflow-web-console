@@ -134,6 +134,7 @@ export const AppHeader = () => {
             textAlign: "center",
             borderRadius: token.borderRadiusLG,
             color: "black",
+            fontSize: "20px",
           }}
           strong
           href="/"
@@ -143,12 +144,12 @@ export const AppHeader = () => {
               component={() => (
                 <img
                   alt={BRAND}
-                  src="https://tcw-icon.s3.us-west-2.amazonaws.com/tcw-icon-transparent.png"
-                  width={20}
-                  height={20}
+                  src="https://tcw-icon.s3.us-west-2.amazonaws.com/tcw.png"
+                  width={32}
+                  height={32}
                   style={{
                     marginRight: "4px",
-                    animation: "spin 2s linear infinite",
+                    // animation: "spin 2s linear infinite",
                   }}
                 />
               )}
