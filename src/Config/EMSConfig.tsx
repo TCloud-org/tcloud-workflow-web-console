@@ -14,6 +14,6 @@ export interface Email {
 
 export interface InternetAddress {
   address: string;
-  personal: string;
-  encodedPersonal: string;
+  personal?: string;
+  encodedPersonal?: string;
 }

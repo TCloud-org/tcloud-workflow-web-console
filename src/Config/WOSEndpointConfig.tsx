@@ -86,3 +86,5 @@ export const WOS_DELETE_EVENT_WORKFLOW_ENDPOINT =
   WOS_ENDPOINT + "/delete-event-workflow";
 export const WOS_GET_EVENT_WORKFLOW_STAGES_ENDPOINT =
   WOS_ENDPOINT + "/get-event-workflow-stages";
+export const WOS_QUERY_JOBS_PER_WORKFLOW_ENDPOINT =
+  WOS_ENDPOINT + "/query-jobs-per-workflow";

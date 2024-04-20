@@ -19,7 +19,7 @@ export const EmailList = (props: { emails?: Email[] }) => {
       itemLayout="vertical"
       dataSource={
         emails.sort(emailComparator).map((email) => ({
-          title: email.sender,
+          title: email.subject,
           description: <EmailListItemDescription email={email} />,
           children: <EmailListItemContent email={email} />,
           email: email,

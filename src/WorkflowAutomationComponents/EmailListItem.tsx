@@ -1,9 +1,8 @@
-import { CaretDownOutlined } from "@ant-design/icons";
+import { CaretRightFilled } from "@ant-design/icons";
 import { Email } from "Config/EMSConfig";
 import { AppButton } from "DataEntryComponents/AppButton";
-import { AppIconButton } from "DataEntryComponents/AppIconButton";
 import { AppAnimatedBox } from "LayoutComponents/AppAnimatedBox";
-import { Flex, List } from "antd";
+import { Flex, List, Typography } from "antd";
 import { ListItemMetaProps } from "antd/es/list";
 import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -34,22 +33,33 @@ export const EmailListItem = (props: {
   return (
     <List.Item
       actions={[<AppButton onClick={handleViewJob}>View job</AppButton>]}
+      style={{ paddingBottom: "24px" }}
     >
       <List.Item.Meta
         title={
           <Flex justify="space-between" align="center">
-            {item.title}
-            <AppIconButton
-              type="text"
-              onClick={() => setIsCollapsed((prev) => !prev)}
-            >
-              <CaretDownOutlined
-                style={{
-                  transition: "0.2s",
-                  transform: !isCollapsed ? "rotate(180deg)" : "rotate(0deg)",
-                }}
-              />
-            </AppIconButton>
+            <Flex align="center" gap={16}>
+              <AppButton
+                type="link"
+                onClick={() => setIsCollapsed((prev) => !prev)}
+                style={{ padding: 0, color: "black", fontWeight: 600 }}
+                icon={
+                  <CaretRightFilled
+                    style={{
+                      transition: "0.2s",
+                      transform: !isCollapsed
+                        ? "rotate(90deg)"
+                        : "rotate(0deg)",
+                    }}
+                  />
+                }
+              >
+                {item.title}
+              </AppButton>
+            </Flex>
+            <Typography.Text strong>
+              {`Job #${item.email.jobId}`}
+            </Typography.Text>
           </Flex>
         }
         description={item.description}

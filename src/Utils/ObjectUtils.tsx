@@ -144,6 +144,14 @@ export const formatCamelCaseKey = (key: string): string => {
     .replace(/^./, (str) => str.toUpperCase());
 };
 
+export const formatTitleCase = (str: string): string => {
+  return str
+    .toLowerCase()
+    .split("_")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+};
+
 export const extractStatesAfterSource = (
   source: string,
   graph: Graph

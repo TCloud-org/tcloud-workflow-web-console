@@ -18,6 +18,7 @@ import { queryEmailsPerWorkflow } from "Network/EmailFetch";
 import { getEventWorkflowById } from "Network/EventWorkflowFetch";
 import { formatDate } from "Utils/DateUtils";
 import { EmailList } from "WorkflowAutomationComponents/EmailList";
+import { EmailNotificationJobList } from "WorkflowAutomationComponents/EmailNotificationJobList";
 import { EventWorkflowSortableForm } from "WorkflowAutomationComponents/EventWorkflowSortableForm";
 import { Flex, List } from "antd";
 import { ListItemMetaProps } from "antd/es/list";
@@ -164,6 +165,11 @@ export const EmailNotificationWorkflowDetailPage = () => {
           },
           {
             key: "2",
+            label: "Jobs",
+            children: <EmailNotificationJobList />,
+          },
+          {
+            key: "3",
             label: "Sent",
             children: <EmailList emails={emails} />,
           },

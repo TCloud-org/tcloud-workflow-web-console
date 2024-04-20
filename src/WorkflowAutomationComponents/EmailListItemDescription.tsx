@@ -1,22 +1,31 @@
 import { Email } from "Config/EMSConfig";
 import { formatDate, getTime, prettifyDate } from "Utils/DateUtils";
-import { Flex, Tag, Typography } from "antd";
+import { Col, Flex, Typography } from "antd";
+import { EmailRecipients } from "./EmailRecipients";
+import { AppRow } from "LayoutComponents/AppRow";
 
 export const EmailListItemDescription = (props: { email: Email }) => {
   const { email } = props;
   return (
     <Flex justify="space-between" align="flex-start">
-      <Flex gap="4px">
-        <Typography.Text>To:</Typography.Text>
-        <Flex wrap="wrap">
-          {email.recipients
-            .map((recipient) => recipient.address)
-            .map((address, i) => (
-              <Tag color="geekblue" key={i}>
-                {address}
-              </Tag>
-            ))}
-        </Flex>
+      <Flex vertical gap="8px">
+        <AppRow gutter={[16, 16]}>
+          <Col span={12}>
+            <EmailRecipients
+              recipients={[{ address: email.sender }]}
+              label="From"
+            />
+          </Col>
+          <Col span={12}>
+            <EmailRecipients recipients={email.recipients} label="To" />
+          </Col>
+          <Col span={12}>
+            <EmailRecipients recipients={email.cc} label="Cc" />
+          </Col>
+          <Col span={12}>
+            <EmailRecipients recipients={email.bcc} label="Bcc" />
+          </Col>
+        </AppRow>
       </Flex>
       <Flex vertical align="flex-end">
         <Typography.Text>

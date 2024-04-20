@@ -3,6 +3,7 @@ import { List } from "antd";
 import { CSSProperties, ReactNode } from "react";
 import { ListItem } from "../Config/DataDisplayInterface";
 import { AppHeading } from "./AppHeading";
+import { ListItemLayout } from "antd/es/list";
 
 export const AppList = (props: {
   data?: ListItem[];
@@ -13,6 +14,7 @@ export const AppList = (props: {
   style?: CSSProperties;
   headerTooltip?: string;
   headerSurface?: boolean;
+  itemLayout?: ListItemLayout;
 }) => {
   const {
     data = [],
@@ -23,9 +25,11 @@ export const AppList = (props: {
     headerEndDecorator,
     style,
     headerSurface = true,
+    itemLayout,
   } = props;
   return (
     <List
+      itemLayout={itemLayout}
       header={
         <AppHeading
           surface={headerSurface}
