@@ -21,13 +21,13 @@ const steps: AppDisplayStepProps[] = [
       "Wrap your API request and response model with our Document model",
   },
   {
-    icon: <KeyOutlined />,
-    description: "Add your service authentication token",
-  },
-  {
     icon: <ApartmentOutlined />,
     description:
-      "Configure your workflow, service endpoints, and retry strategies",
+      "Configure your service endpoints, retry strategies, and workflow",
+  },
+  {
+    icon: <KeyOutlined />,
+    description: "Add your service authentication token",
   },
   {
     icon: <ApiOutlined />,

@@ -80,8 +80,13 @@ export const ApiWorkflowQuickstartPage = () => {
         value={language}
       />
 
+      <Typography.Paragraph>
+        If your server is already up and running, feel free to proceed to step
+        2.
+      </Typography.Paragraph>
+
       <Typography.Title level={3}>
-        1. Setting up the environment
+        Step 1: Setting up the environment
       </Typography.Title>
 
       <Typography.Title level={4}>
@@ -93,8 +98,9 @@ export const ApiWorkflowQuickstartPage = () => {
             Go to <a href="https://start.spring.io">Spring Initializr</a>.
           </li>
           <li>
-            Follow this <a href="https://spring.io/quickstart">tutorial</a> to
-            create a Spring Boot application or fill out as below:
+            Follow this{" "}
+            <a href="https://spring.io/quickstart">Spring Quickstart Guide</a>{" "}
+            to create a Spring Boot application or fill out as below:
             <AppTable
               rows={SpringRows}
               columns={SpringCols}
@@ -168,8 +174,57 @@ export const ApiWorkflowQuickstartPage = () => {
               />
             </p>
           </li>
+          <li>
+            Test by running your server locally with{" "}
+            <code>mvn spring-boot:run</code> command
+          </li>
         </ol>
       </Typography.Paragraph>
+
+      <Typography.Title level={4}>1.4 Host your server</Typography.Title>
+      <Typography.Paragraph>
+        Feel free to select the hosting method that suits you best. In this
+        tutorial, we'll explore how to utilize AWS EC2 for our demonstration.
+      </Typography.Paragraph>
+
+      <Typography.Paragraph>
+        <ol>
+          <li>
+            Follow this{" "}
+            <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EC2_GetStarted.html">
+              Tutorial: Get started with Amazon EC2 Linux instances
+            </a>{" "}
+            from AWS to launch your EC2 instance where you will host your
+            server.
+          </li>
+          <li>
+            One of the optimal methods for deploying your Java application to
+            EC2 is <a href="https://www.docker.com">Docker</a>. However, to
+            maintain simplicity in this tutorial, we will employ the{" "}
+            <a href="https://man.openbsd.org/scp.1">scp</a> command to
+            seamlessly transfer your application from your local machine to a
+            virtual machine, such as AWS EC2. By referring to the{" "}
+            <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/connect-linux-inst-ssh.html#linux-file-transfer-scp">
+              Transfer files to Linux instances using an SCP client
+            </a>{" "}
+            documentation provided by AWS, you should be able to successfully
+            transfer your java application to your EC2 instance.
+          </li>
+          <li>
+            SSH to your EC2 instance and navigate to the root directory of your
+            java application and simply run the application using the maven
+            command: <code>mvn spring-boot:run</code>
+          </li>
+        </ol>
+      </Typography.Paragraph>
+
+      <Typography.Title level={3}>
+        Step 2: Configure your service endpoints, retry strategies, and
+        workflow.
+      </Typography.Title>
+      <Typography.Title level={4}>
+        2.1 Add your service endpoint mapping
+      </Typography.Title>
     </AppSpace>
   );
 };
