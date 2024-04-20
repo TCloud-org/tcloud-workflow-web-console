@@ -35,7 +35,7 @@ export const AppCodeToolbar = (props: {
           onChange={(value) => setLanguage(value)}
           variant="filled"
           size="small"
-          value={language}
+          value={language.toUpperCase()}
         />
         <AppCopy
           type="text"

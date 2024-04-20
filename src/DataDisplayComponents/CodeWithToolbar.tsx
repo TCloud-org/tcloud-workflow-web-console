@@ -25,6 +25,7 @@ export const CodeWithToolbar = (props: {
           code={snippets[language]?.snippet}
           showLineNumbers
           wrapLongLines={false}
+          style={{ borderWidth: "0px" }}
         />
       </AppSurface>
     </Flex>
