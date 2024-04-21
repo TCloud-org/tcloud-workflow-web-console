@@ -1,4 +1,4 @@
-import { ProfileFilled } from "@ant-design/icons";
+import { ProfileFilled, SmileOutlined } from "@ant-design/icons";
 import { EditableColumn } from "Config/LayoutConfig";
 import { WOS_INITIATE_TCA_WORKFLOW_ENDPOINT } from "Config/WOSEndpointConfig";
 import { AppEndpointDoc } from "DataDisplayComponents/AppEndpointDoc";
@@ -8,7 +8,7 @@ import { CodeWithToolbar } from "DataDisplayComponents/CodeWithToolbar";
 import { PageTitle } from "DataDisplayComponents/PageTitle";
 import { AppRow } from "LayoutComponents/AppRow";
 import { AppSpace } from "LayoutComponents/AppSpace";
-import { Col, Divider, Flex, Segmented, Typography } from "antd";
+import { Col, Divider, Flex, Result, Segmented, Typography } from "antd";
 import { useState } from "react";
 
 const firstApiSnippet = `package com.example.demo.controller;
@@ -499,6 +499,11 @@ https://wos-server-142456886.us-west-2.elb.amazonaws.com/api/private/v1/initiate
             language: "bash",
           },
         }}
+      />
+
+      <Result
+        icon={<SmileOutlined />}
+        title="Great, we have completed this tutorial!"
       />
 
       <Divider />
