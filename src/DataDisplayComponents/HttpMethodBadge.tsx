@@ -1,7 +1,7 @@
 import { Flex, Typography, theme } from "antd";
 import { FC } from "react";
 
-interface HttpMethodBadgeProps {
+export interface HttpMethodBadgeProps {
   method?: "POST" | "GET" | "DELETE" | "PUT";
 }
 

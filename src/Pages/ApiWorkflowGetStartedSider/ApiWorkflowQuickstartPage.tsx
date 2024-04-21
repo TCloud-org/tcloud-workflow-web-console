@@ -1,4 +1,6 @@
 import { EditableColumn } from "Config/LayoutConfig";
+import { WOS_INITIATE_TCA_WORKFLOW_ENDPOINT } from "Config/WOSEndpointConfig";
+import { AppEndpointDoc } from "DataDisplayComponents/AppEndpointDoc";
 import { AppTable } from "DataDisplayComponents/AppTable";
 import { CodeWithToolbar } from "DataDisplayComponents/CodeWithToolbar";
 import { PageTitle } from "DataDisplayComponents/PageTitle";
@@ -25,6 +27,25 @@ public class ExampleController {
         return ResponseEntity.ok().build();
     }
 }`;
+
+const AddTokenRows = [
+  {
+    field: "Name",
+    value: "ExampleAuthToken",
+  },
+  {
+    field: "Client",
+    value: "admin",
+  },
+  {
+    field: "Associated service",
+    value: "ExampleService",
+  },
+  {
+    field: "Authentication type",
+    value: "No Auth",
+  },
+];
 
 const AddRetryRows = [
   {
@@ -400,6 +421,73 @@ export const ApiWorkflowQuickstartPage = () => {
           </li>
         </ol>
       </Typography.Paragraph>
+
+      <Typography.Title level={3}>
+        Step 3: Add your service auth token
+      </Typography.Title>
+      <Typography.Paragraph>
+        For our platform to process your API requests, authentication via an
+        authentication token is required. Currently, we support two
+        authentication methods: "NO AUTH" and "BEARER". Stay tuned for more
+        options in the future.
+      </Typography.Paragraph>
+      <Typography.Paragraph>
+        <ol>
+          <li>
+            Navigate to <a href="/auth-token">Auth Token</a> tab under Security
+            menu and click <a href="/auth-token/add">Add token</a>.
+          </li>
+          <li>
+            Fill out the forms as below and click <strong>Add</strong>:
+            <AppTable
+              rows={AddTokenRows}
+              columns={SpringCols}
+              showTitle={false}
+              showSettings={false}
+              showSelected={false}
+              style={{ marginTop: 16 }}
+            />
+          </li>
+        </ol>
+        Since we haven't configured any authentication from the backend, we
+        select "No Auth" as the authentication type.{" "}
+      </Typography.Paragraph>
+
+      <Typography.Title level={3}>
+        Step 4: Trigger the workflow
+      </Typography.Title>
+
+      <Typography.Title level={4}>Endpoint</Typography.Title>
+
+      <AppEndpointDoc
+        endpoint={WOS_INITIATE_TCA_WORKFLOW_ENDPOINT}
+        method="POST"
+      />
+
+      <Typography.Paragraph>
+        Use the above endpoint to integrate into your application to initiate a
+        workflow based on your business requirements. To quickly test and
+        validate if it works, use the below CURL command to initiate a random
+        workflow.
+      </Typography.Paragraph>
+
+      <CodeWithToolbar
+        snippets={{
+          curl: {
+            snippet: `curl -X POST \
+https://wos-server-142456886.us-west-2.elb.amazonaws.com/api/private/v1/initiate-tca-workflow \
+\n     -H 'Content-Type: application/json' \
+\n     -d '{
+            "clientId": "admin",
+            "workflowId": <INSERT_YOUR_WORKFLOW_ID>,
+            "workId": null,
+            "document": null,
+            "configuration": null
+        }'`,
+            language: "bash",
+          },
+        }}
+      />
     </AppSpace>
   );
 };

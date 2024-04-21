@@ -1,13 +1,10 @@
 import { DownloadOutlined } from "@ant-design/icons";
 import { EditableColumn } from "Config/LayoutConfig";
 import { WOS_TRIGGER_EMAIL_NOTIFICATION_WORKFLOW_ENDPOINT } from "Config/WOSEndpointConfig";
-import { AppCopy } from "DataDisplayComponents/AppCopy";
-import { AppSurface } from "DataDisplayComponents/AppSurface";
+import { AppEndpointDoc } from "DataDisplayComponents/AppEndpointDoc";
 import { AppSurfaceTitle } from "DataDisplayComponents/AppSurfaceTitle";
 import { AppTable } from "DataDisplayComponents/AppTable";
-import { CodeDisplay } from "DataDisplayComponents/CodeDisplay";
 import { CodeWithToolbar } from "DataDisplayComponents/CodeWithToolbar";
-import HttpMethodBadge from "DataDisplayComponents/HttpMethodBadge";
 import { AppButton } from "DataEntryComponents/AppButton";
 import {
   generateCodeSnippets,
@@ -123,25 +120,10 @@ export const CodeTriggerSteps = () => {
           events. By calling this endpoint with the appropriate parameters, you
           can initiate the execution of a specific email notification workflow.
         </Typography.Paragraph>
-        <AppSurface size="small">
-          <Flex justify="space-between" align="center">
-            <Flex gap="12px" align="center">
-              <HttpMethodBadge method="POST" />
-              <CodeDisplay
-                language="bash"
-                code={WOS_TRIGGER_EMAIL_NOTIFICATION_WORKFLOW_ENDPOINT}
-                style={{
-                  paddingRight: "16px",
-                }}
-              />
-            </Flex>
-            <AppCopy
-              type="text"
-              size="small"
-              content={WOS_TRIGGER_EMAIL_NOTIFICATION_WORKFLOW_ENDPOINT}
-            />
-          </Flex>
-        </AppSurface>
+        <AppEndpointDoc
+          endpoint={WOS_TRIGGER_EMAIL_NOTIFICATION_WORKFLOW_ENDPOINT}
+          method="POST"
+        />
       </Flex>
       <Divider />
       <Flex vertical gap="16px">
