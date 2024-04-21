@@ -8,6 +8,7 @@ import { CodeWithToolbar } from "DataDisplayComponents/CodeWithToolbar";
 import { PageTitle } from "DataDisplayComponents/PageTitle";
 import { AppRow } from "LayoutComponents/AppRow";
 import { AppSpace } from "LayoutComponents/AppSpace";
+import { propertyColumns } from "WorkflowAutomationComponents/CodeTriggerSteps";
 import { Col, Divider, Flex, Result, Segmented, Typography } from "antd";
 import { useState } from "react";
 
@@ -30,6 +31,42 @@ public class ExampleController {
         return ResponseEntity.ok().build();
     }
 }`;
+
+const requestBodyRows = [
+  {
+    property: "clientId",
+    required: true,
+    description: "An unique identifier of a client",
+    type: "String",
+  },
+  {
+    property: "workflowId",
+    required: true,
+    description: "An unique identifier of a workflow",
+    type: "Long",
+  },
+  {
+    property: "workId",
+    required: false,
+    description:
+      "This field represents a unique identifier assigned to a work executed after triggering the workflow. If provided, it signifies the creation of a new version of the workflow.",
+    type: "Long",
+  },
+  {
+    property: "document",
+    required: false,
+    description:
+      "This document serves as the initial input for the workflow and will be utilized throughout the entire workflow process. It provides the foundational data upon which subsequent actions and decisions are based.",
+    type: "Document",
+  },
+  {
+    property: "configuration",
+    required: false,
+    description:
+      "This enables you to configure which version of a graph or service endpoint to execute for a particular state or the entire workflow.",
+    type: "WorkflowConfiguration",
+  },
+];
 
 const nextSteps = [
   {
@@ -411,7 +448,7 @@ export const ApiWorkflowQuickstartPage = () => {
         }}
       />
       <Typography.Paragraph>
-        In this workflow, we can see that the initial state triggers an API
+        In this workflow, we can see that the initial state triggers the API
         "first-api" from ExampleService. As a result, we set the default result
         state to go to terminal which will conclude this workflow.
       </Typography.Paragraph>
@@ -462,7 +499,7 @@ export const ApiWorkflowQuickstartPage = () => {
           </li>
         </ol>
         Since we haven't configured any authentication from the backend, we
-        select "No Auth" as the authentication type.{" "}
+        select "No Auth" for the authentication type.{" "}
       </Typography.Paragraph>
 
       <Typography.Title level={3}>
@@ -499,6 +536,17 @@ https://wos-server-142456886.us-west-2.elb.amazonaws.com/api/private/v1/initiate
             language: "bash",
           },
         }}
+      />
+
+      <Typography.Title level={4}>Request Body</Typography.Title>
+
+      <AppTable
+        rows={requestBodyRows}
+        columns={propertyColumns}
+        showTitle={false}
+        showSettings={false}
+        showSelected={false}
+        style={{ marginTop: 16 }}
       />
 
       <Divider />

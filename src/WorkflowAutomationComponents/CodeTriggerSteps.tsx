@@ -14,10 +14,11 @@ import { getMarkdown } from "Utils/MarkdownUtils";
 import { Divider, Flex, Typography } from "antd";
 import FileSaver from "file-saver";
 
-const propertyColumns: EditableColumn[] = [
+export const propertyColumns: EditableColumn[] = [
   {
     title: "Property",
     dataIndex: "property",
+    width: 200,
     render: (text: string) => <Typography.Text strong>{text}</Typography.Text>,
   },
   {
@@ -27,7 +28,7 @@ const propertyColumns: EditableColumn[] = [
   {
     title: "Required",
     dataIndex: "required",
-    render: (text: boolean) => (text ? "True" : "False"),
+    render: (text: boolean) => (text ? "Yes" : "No"),
   },
   {
     title: "Description",
@@ -38,7 +39,7 @@ const propertyColumns: EditableColumn[] = [
 const propertyRows = [
   {
     property: "id",
-    required: "true",
+    required: true,
     description:
       "An integer representing the unique identifier of the trigger associated with the email notification workflow to be executed. The system will use this trigger ID to identify the specific workflow to be triggered.",
     type: "integer",
