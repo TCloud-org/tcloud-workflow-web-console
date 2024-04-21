@@ -501,6 +501,8 @@ https://wos-server-142456886.us-west-2.elb.amazonaws.com/api/private/v1/initiate
         }}
       />
 
+      <Divider />
+
       <Result
         icon={<SmileOutlined />}
         title="Great, we have completed this tutorial!"
