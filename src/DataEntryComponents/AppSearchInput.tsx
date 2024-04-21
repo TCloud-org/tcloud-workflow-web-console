@@ -34,12 +34,19 @@ export const AppSearchInput = (
     </div>
   );
 
+  const handleOpenChange = (open: boolean, info: any) => {
+    if (!open && info.source === "trigger") {
+      setFilterOpen(false);
+    }
+  };
+
   return (
     <Dropdown
       open={filterOpen}
       dropdownRender={() => content}
       trigger={["click"]}
       placement="bottomRight"
+      onOpenChange={handleOpenChange}
     >
       <Input
         ref={inputRef}

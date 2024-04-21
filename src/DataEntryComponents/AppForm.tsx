@@ -21,6 +21,7 @@ export const AppForm = (
   return (
     <Form
       {...formItemLayout}
+      colon={false}
       wrapperCol={
         props.layout === "vertical" ? Span[1] : formItemLayout.wrapperCol
       }

@@ -14,11 +14,11 @@ export interface SelectItem {
 
 export const Span = {
   "1": { xs: 24, sm: 24, md: 24, lg: 24, xl: 24, xxl: 24 },
-  "2": { xs: 12, sm: 12, md: 12, lg: 12, xl: 12, xxl: 12 },
-  "3": { xs: 8, sm: 8, md: 8, lg: 8, xl: 8, xxl: 8 },
-  "4": { xs: 6, sm: 6, md: 6, lg: 6, xl: 6, xxl: 6 },
-  "6": { xs: 4, sm: 4, md: 4, lg: 4, xl: 4, xxl: 4 },
-  "8": { xs: 3, sm: 3, md: 3, lg: 3, xl: 3, xxl: 3 },
+  "2": { xs: 24, sm: 24, md: 12, lg: 12, xl: 12, xxl: 12 },
+  "3": { xs: 24, sm: 24, md: 8, lg: 8, xl: 8, xxl: 8 },
+  "4": { xs: 24, sm: 24, md: 6, lg: 6, xl: 6, xxl: 6 },
+  "6": { xs: 24, sm: 24, md: 4, lg: 4, xl: 4, xxl: 4 },
+  "8": { xs: 24, sm: 24, md: 3, lg: 3, xl: 3, xxl: 3 },
 };
 
 export type ListItem = {
