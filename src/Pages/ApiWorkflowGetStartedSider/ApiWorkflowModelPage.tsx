@@ -7,7 +7,7 @@ import { PageTitle } from "DataDisplayComponents/PageTitle";
 import { AppSearchInput } from "DataEntryComponents/AppSearchInput";
 import { AppSpace } from "LayoutComponents/AppSpace";
 import { propertyColumns } from "WorkflowAutomationComponents/CodeTriggerSteps";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Fragment } from "react/jsx-runtime";
 
 const documentRows = [
@@ -170,7 +170,12 @@ const retryConfigRows = [
   },
 ];
 
-export const models = [
+export interface Model {
+  name: string;
+  rows: any[];
+}
+
+export const models: Model[] = [
   {
     name: "Configuration",
     rows: configurationRows,
@@ -198,8 +203,21 @@ export const models = [
 ];
 
 export const ApiWorkflowModelPage = () => {
+  const [query, setQuery] = useState<string>("");
+
   const modelComparator = (a: any, b: any) => {
     return a.name.localeCompare(b.name);
+  };
+
+  const modelFilter = (model: Model) => {
+    if (model.name.toLowerCase().includes(query.toLowerCase())) {
+      return true;
+    }
+    return (
+      model.rows.filter((row) =>
+        row.property.toLowerCase().includes(query.toLowerCase())
+      ).length > 0
+    );
   };
 
   useEffect(() => {
@@ -210,20 +228,26 @@ export const ApiWorkflowModelPage = () => {
     <AppSpace>
       <PageTitle>Model</PageTitle>
 
-      <AppSearchInput />
+      <AppSearchInput
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+      />
 
-      {models.sort(modelComparator).map((model, i) => (
-        <Fragment key={i}>
-          <AppHeadingLink level={5}>{model.name}</AppHeadingLink>
-          <AppTable
-            rows={model.rows}
-            columns={propertyColumns}
-            showTitle={false}
-            showSettings={false}
-            showSelected={false}
-          />
-        </Fragment>
-      ))}
+      {models
+        .filter(modelFilter)
+        .sort(modelComparator)
+        .map((model, i) => (
+          <Fragment key={i}>
+            <AppHeadingLink level={5}>{model.name}</AppHeadingLink>
+            <AppTable
+              rows={model.rows}
+              columns={propertyColumns}
+              showTitle={false}
+              showSettings={false}
+              showSelected={false}
+            />
+          </Fragment>
+        ))}
     </AppSpace>
   );
 };

@@ -1,10 +1,17 @@
 import { SearchOutlined } from "@ant-design/icons";
 import { Icon } from "SlateRichTextEditorComponents/RichTextToolbarComponents";
 import { Dropdown, Input, InputProps, InputRef, theme } from "antd";
-import { useRef, useState } from "react";
+import { ReactNode, useRef, useState } from "react";
 import { AppIconButton } from "./AppIconButton";
+import { AppEmpty } from "DataDisplayComponents/AppEmpty";
 
-export const AppSearchInput = (props: InputProps) => {
+export const AppSearchInput = (
+  props: InputProps & {
+    renderFilter?: ReactNode;
+  }
+) => {
+  const { renderFilter } = props;
+
   const { token } = theme.useToken();
 
   const inputRef = useRef<InputRef>(null);
@@ -23,7 +30,7 @@ export const AppSearchInput = (props: InputProps) => {
         padding: 16,
       }}
     >
-      <div>Content</div>
+      {renderFilter ? renderFilter : <AppEmpty />}
     </div>
   );
 
