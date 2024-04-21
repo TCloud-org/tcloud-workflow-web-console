@@ -105,7 +105,7 @@ export const ApiWorkflowHowItWorksPage = () => {
 
       <Divider />
 
-      <Flex align="center" vertical gap={32}>
+      <Flex align="center" vertical gap={32} style={{ marginBottom: "32px" }}>
         <Typography.Title level={5}>Next Steps</Typography.Title>
         <AppRow
           gutter={[16, 16]}

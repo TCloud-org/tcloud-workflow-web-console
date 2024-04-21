@@ -510,7 +510,7 @@ https://wos-server-142456886.us-west-2.elb.amazonaws.com/api/private/v1/initiate
 
       <Divider />
 
-      <Flex align="center" vertical gap={32}>
+      <Flex align="center" vertical gap={32} style={{ marginBottom: "32px" }}>
         <Typography.Title level={5}>Next Steps</Typography.Title>
         <AppRow
           gutter={[16, 16]}
