@@ -171,7 +171,14 @@ thead {
   height       : 100%;
   border       : 0.5px solid #000000;
   border-radius: 300px;
+}
 
+[id]::before {
+  content   : '';
+  display   : block;
+  height    : 64px;
+  margin-top: -64px;
+  visibility: hidden;
 }
 
 .globe-cross-1,

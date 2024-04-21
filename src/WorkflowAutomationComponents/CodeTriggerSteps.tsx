@@ -18,17 +18,19 @@ export const propertyColumns: EditableColumn[] = [
   {
     title: "Property",
     dataIndex: "property",
-    width: 200,
+    width: 250,
     render: (text: string) => <Typography.Text strong>{text}</Typography.Text>,
   },
   {
     title: "Type",
     dataIndex: "type",
+    width: 250,
   },
   {
     title: "Required",
     dataIndex: "required",
     render: (text: boolean) => (text ? "Yes" : "No"),
+    width: 100,
   },
   {
     title: "Description",

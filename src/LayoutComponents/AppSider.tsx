@@ -239,15 +239,13 @@ export const AppSider = () => {
       onCollapse={(value) => setCollapsed(value)}
       style={{
         overflow: "auto",
-        height: "100vh",
         position: "fixed",
         left: 0,
-        top: 0,
+        top: 64,
         bottom: 0,
         background: token.colorBgContainer,
       }}
     >
-      <div style={{ height: "64px" }} />
       <Menu
         mode="inline"
         selectedKeys={selectedKeys}
