@@ -250,7 +250,7 @@ export const AppSider = (props: { collapsed?: boolean }) => {
         mode="inline"
         selectedKeys={selectedKeys}
         onOpenChange={onOpenKey}
-        openKeys={currentOpenKeys}
+        // openKeys={currentOpenKeys}
         style={{ borderRight: 0 }}
         items={siderMenus}
       />

@@ -69,7 +69,7 @@ export const App = () => {
     const dispatch = useDispatch();
     const location = useLocation();
 
-    const [collapsed, setCollapsed] = useState<boolean>(false);
+    const [collapsed, setCollapsed] = useState<boolean>(true);
 
     useEffect(() => {
       const deserializedLocation = deserializeLocation(location.pathname);
