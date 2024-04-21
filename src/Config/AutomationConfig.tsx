@@ -235,30 +235,33 @@ export const TemplateComponent: TemplateComponentProps = {
 };
 
 export const EmailNotificationTemplates: { [key: string]: AutomationStep[] } = {
-  blank: [TemplateComponent.verification, TemplateComponent.trigger],
+  blank: [
+    { ...TemplateComponent.verification, id: v4() },
+    { ...TemplateComponent.trigger, id: v4() },
+  ],
   basic: [
-    TemplateComponent.verification,
-    TemplateComponent.trigger,
-    TemplateComponent.email,
+    { ...TemplateComponent.verification, id: v4() },
+    { ...TemplateComponent.trigger, id: v4() },
+    { ...TemplateComponent.email, id: v4() },
   ],
   delay: [
-    TemplateComponent.verification,
-    TemplateComponent.trigger,
-    TemplateComponent.delay,
-    TemplateComponent.email,
+    { ...TemplateComponent.verification, id: v4() },
+    { ...TemplateComponent.trigger, id: v4() },
+    { ...TemplateComponent.delay, id: v4() },
+    { ...TemplateComponent.email, id: v4() },
   ],
   consecutiveEmails: [
-    TemplateComponent.verification,
-    TemplateComponent.trigger,
-    TemplateComponent.email,
-    TemplateComponent.email,
+    { ...TemplateComponent.verification, id: v4() },
+    { ...TemplateComponent.trigger, id: v4() },
+    { ...TemplateComponent.email, id: v4() },
+    { ...TemplateComponent.email, id: v4() },
   ],
   consecutiveEmailsWithDelay: [
-    TemplateComponent.verification,
-    TemplateComponent.trigger,
-    TemplateComponent.email,
-    TemplateComponent.delay,
-    TemplateComponent.email,
+    { ...TemplateComponent.verification, id: v4() },
+    { ...TemplateComponent.trigger, id: v4() },
+    { ...TemplateComponent.email, id: v4() },
+    { ...TemplateComponent.delay, id: v4() },
+    { ...TemplateComponent.email, id: v4() },
   ],
 };
 
