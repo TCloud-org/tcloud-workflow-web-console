@@ -465,10 +465,10 @@ export const ApiWorkflowQuickstartPage = () => {
       />
 
       <Typography.Paragraph>
-        Use the above endpoint to integrate into your application to initiate a
-        workflow based on your business requirements. To quickly test and
-        validate if it works, use the below CURL command to initiate a random
-        workflow.
+        Utilize the provided endpoint to seamlessly integrate it into your
+        application for initiating workflows tailored to your business needs. To
+        swiftly verify its functionality, execute the following CURL command to
+        initiate a sample workflow.
       </Typography.Paragraph>
 
       <CodeWithToolbar
