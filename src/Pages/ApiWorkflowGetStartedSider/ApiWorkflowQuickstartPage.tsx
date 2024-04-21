@@ -2,6 +2,7 @@ import { ProfileFilled, SmileOutlined } from "@ant-design/icons";
 import { EditableColumn } from "Config/LayoutConfig";
 import { WOS_INITIATE_TCA_WORKFLOW_ENDPOINT } from "Config/WOSEndpointConfig";
 import { AppEndpointDoc } from "DataDisplayComponents/AppEndpointDoc";
+import { AppHeadingLink } from "DataDisplayComponents/AppHeadingLink";
 import { AppNextActionCard } from "DataDisplayComponents/AppNextActionCard";
 import { AppTable } from "DataDisplayComponents/AppTable";
 import { CodeWithToolbar } from "DataDisplayComponents/CodeWithToolbar";
@@ -206,13 +207,13 @@ export const ApiWorkflowQuickstartPage = () => {
         2.
       </Typography.Paragraph>
 
-      <Typography.Title level={3}>
+      <AppHeadingLink level={3}>
         Step 1: Setting up the environment
-      </Typography.Title>
+      </AppHeadingLink>
 
-      <Typography.Title level={4}>
+      <AppHeadingLink level={4}>
         1.1. Initialize a Spring Boot project
-      </Typography.Title>
+      </AppHeadingLink>
       <Typography.Paragraph>
         <ol>
           <li>
@@ -237,9 +238,9 @@ export const ApiWorkflowQuickstartPage = () => {
         </ol>
       </Typography.Paragraph>
 
-      <Typography.Title level={4}>
+      <AppHeadingLink level={4}>
         1.2. Add the required dependencies
-      </Typography.Title>
+      </AppHeadingLink>
       <Typography.Paragraph>
         <ol>
           <li>
@@ -270,7 +271,7 @@ export const ApiWorkflowQuickstartPage = () => {
         </ol>
       </Typography.Paragraph>
 
-      <Typography.Title level={4}>1.3. Set up your first API</Typography.Title>
+      <AppHeadingLink level={4}>1.3. Set up your first API</AppHeadingLink>
       <Typography.Paragraph>
         This step will guide you through setting up the standard infrastructure
         for your API, which can seamlessly integrate into your workflow.{" "}
@@ -302,7 +303,7 @@ export const ApiWorkflowQuickstartPage = () => {
         </ol>
       </Typography.Paragraph>
 
-      <Typography.Title level={4}>1.4 Host your server</Typography.Title>
+      <AppHeadingLink level={4}>1.4 Host your server</AppHeadingLink>
       <Typography.Paragraph>
         Feel free to select the hosting method that suits you best. In this
         tutorial, we'll explore how to utilize AWS EC2 for our demonstration.
@@ -339,14 +340,14 @@ export const ApiWorkflowQuickstartPage = () => {
         </ol>
       </Typography.Paragraph>
 
-      <Typography.Title level={3}>
+      <AppHeadingLink level={3}>
         Step 2: Configure your service endpoints, retry strategies, and
         workflow.
-      </Typography.Title>
+      </AppHeadingLink>
 
-      <Typography.Title level={4}>
+      <AppHeadingLink level={4}>
         2.1 Add your service endpoint mapping
-      </Typography.Title>
+      </AppHeadingLink>
       <Typography.Paragraph>
         <ol>
           <li>
@@ -373,9 +374,7 @@ export const ApiWorkflowQuickstartPage = () => {
         </ol>
       </Typography.Paragraph>
 
-      <Typography.Title level={4}>
-        2.2 Add your retry strategies
-      </Typography.Title>
+      <AppHeadingLink level={4}>2.2 Add your retry strategies</AppHeadingLink>
       <Typography.Paragraph>
         We will use an exponential backoff retry strategy as an example in this
         tutorial.
@@ -411,9 +410,7 @@ export const ApiWorkflowQuickstartPage = () => {
         scheduled time for the next retry attempt.
       </Typography.Paragraph>
 
-      <Typography.Title level={4}>
-        2.3 Create your first workflow
-      </Typography.Title>
+      <AppHeadingLink level={4}>2.3 Create your first workflow</AppHeadingLink>
       <Typography.Paragraph>
         Let's do a quick review of what you've completed up to this point.
         <ul style={{ listStyle: "outside" }}>
@@ -471,9 +468,9 @@ export const ApiWorkflowQuickstartPage = () => {
         </ol>
       </Typography.Paragraph>
 
-      <Typography.Title level={3}>
+      <AppHeadingLink level={3}>
         Step 3: Add your service auth token
-      </Typography.Title>
+      </AppHeadingLink>
       <Typography.Paragraph>
         For our platform to process your API requests, authentication via an
         authentication token is required. Currently, we support two
@@ -502,11 +499,9 @@ export const ApiWorkflowQuickstartPage = () => {
         select "No Auth" for the authentication type.{" "}
       </Typography.Paragraph>
 
-      <Typography.Title level={3}>
-        Step 4: Trigger the workflow
-      </Typography.Title>
+      <AppHeadingLink level={3}>Step 4: Trigger the workflow</AppHeadingLink>
 
-      <Typography.Title level={4}>Endpoint</Typography.Title>
+      <AppHeadingLink level={4}>Endpoint</AppHeadingLink>
 
       <AppEndpointDoc
         endpoint={WOS_INITIATE_TCA_WORKFLOW_ENDPOINT}
@@ -538,7 +533,7 @@ https://wos-server-142456886.us-west-2.elb.amazonaws.com/api/private/v1/initiate
         }}
       />
 
-      <Typography.Title level={4}>Request Body</Typography.Title>
+      <AppHeadingLink level={4}>Request Body</AppHeadingLink>
 
       <AppTable
         rows={requestBodyRows}

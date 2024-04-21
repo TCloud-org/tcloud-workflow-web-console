@@ -5,17 +5,16 @@ import { useState } from "react";
 
 export const AppHeadingLink = (props: {
   level?: TitleProps["level"];
-  id?: string;
   children?: string;
 }) => {
-  const { level, id, children } = props;
+  const { level, children } = props;
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <a href={`#${id}`} style={{ color: "black" }}>
+    <a href={`#${children}`} style={{ color: "black" }}>
       <Typography.Title
         level={level}
-        id={id}
+        id={children}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >

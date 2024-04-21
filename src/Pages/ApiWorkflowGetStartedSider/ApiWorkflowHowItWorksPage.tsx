@@ -11,6 +11,7 @@ import {
   AppDisplayStep,
   AppDisplayStepProps,
 } from "DataDisplayComponents/AppDisplayStep";
+import { AppHeadingLink } from "DataDisplayComponents/AppHeadingLink";
 import { AppNextActionCard } from "DataDisplayComponents/AppNextActionCard";
 import { PageTitle } from "DataDisplayComponents/PageTitle";
 import { AppRow } from "LayoutComponents/AppRow";
@@ -64,7 +65,7 @@ export const ApiWorkflowHowItWorksPage = () => {
   return (
     <AppSpace>
       <PageTitle>How Does It Works?</PageTitle>
-      <Typography.Title level={3}>What's alias?</Typography.Title>
+      <AppHeadingLink level={3}>What's alias?</AppHeadingLink>
       <Typography.Paragraph>
         Using an <strong>"alias"</strong> provides a clear, human-readable
         reference to a specific version. Instead of manually typing version
@@ -77,7 +78,7 @@ export const ApiWorkflowHowItWorksPage = () => {
         </em>
       </Typography.Paragraph>
 
-      <Typography.Title level={3}>Process</Typography.Title>
+      <AppHeadingLink level={3}>Process</AppHeadingLink>
       <Typography.Paragraph>
         {
           "Explore our streamlined 5-step process to initiate your first workflow. To learn more details about each step, check out the "

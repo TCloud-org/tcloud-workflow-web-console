@@ -1,4 +1,5 @@
 import { ProfileFilled, RocketFilled, SettingFilled } from "@ant-design/icons";
+import { AppHeadingLink } from "DataDisplayComponents/AppHeadingLink";
 import { AppNextActionCard } from "DataDisplayComponents/AppNextActionCard";
 import { PageTitle } from "DataDisplayComponents/PageTitle";
 import { AppRow } from "LayoutComponents/AppRow";
@@ -32,7 +33,7 @@ export const ApiWorkflowIntroductionPage = () => {
     <AppSpace>
       <PageTitle>Introduction</PageTitle>
 
-      <Typography.Title level={3}>Overview</Typography.Title>
+      <AppHeadingLink level={3}>Overview</AppHeadingLink>
       <Typography.Paragraph>
         Our API Workflow Integration Platform offers a seamless solution for
         clients seeking to optimize their API workflow processes. By integrating
@@ -41,9 +42,9 @@ export const ApiWorkflowIntroductionPage = () => {
         interactions.
       </Typography.Paragraph>
 
-      <Typography.Title level={3}>Key Features</Typography.Title>
+      <AppHeadingLink level={3}>Key Features</AppHeadingLink>
 
-      <Typography.Title level={4}>Integration</Typography.Title>
+      <AppHeadingLink level={4}>Integration</AppHeadingLink>
       <Typography.Paragraph>
         Clients can easily onboard and integrate their systems with minimal
         coding effort, accelerating time to value and reducing implementation
@@ -52,7 +53,7 @@ export const ApiWorkflowIntroductionPage = () => {
         hassle-free experience.
       </Typography.Paragraph>
 
-      <Typography.Title level={4}>Configuration</Typography.Title>
+      <AppHeadingLink level={4}>Configuration</AppHeadingLink>
       <Typography.Paragraph>
         Clients have the flexibility to customize their workflow configurations
         based on their specific requirements. They can define workflows tailored
@@ -60,7 +61,7 @@ export const ApiWorkflowIntroductionPage = () => {
         interactions, and automation rules.
       </Typography.Paragraph>
 
-      <Typography.Title level={4}>Monitoring</Typography.Title>
+      <AppHeadingLink level={4}>Monitoring</AppHeadingLink>
       <Typography.Paragraph>
         Our platform offers comprehensive monitoring and analytics capabilities,
         providing clients with insights into their API workflow performance.
@@ -68,7 +69,7 @@ export const ApiWorkflowIntroductionPage = () => {
         bottlenecks, and optimize workflows for enhanced efficiency.
       </Typography.Paragraph>
 
-      <Typography.Title level={4}>Security</Typography.Title>
+      <AppHeadingLink level={4}>Security</AppHeadingLink>
       <Typography.Paragraph>
         Security is paramount in API interactions. Our platform ensures robust
         security measures, including authentication, authorization, encryption,

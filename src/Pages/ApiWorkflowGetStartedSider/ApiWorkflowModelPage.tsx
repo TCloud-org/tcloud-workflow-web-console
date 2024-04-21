@@ -137,9 +137,7 @@ export const ApiWorkflowModelPage = () => {
     <AppSpace>
       <PageTitle>Model</PageTitle>
 
-      <AppHeadingLink level={5} id="Document">
-        Document
-      </AppHeadingLink>
+      <AppHeadingLink level={5}>Document</AppHeadingLink>
       <AppTable
         rows={documentRows}
         columns={propertyColumns}
@@ -148,9 +146,7 @@ export const ApiWorkflowModelPage = () => {
         showSelected={false}
       />
 
-      <AppHeadingLink level={5} id="DocumentBody">
-        DocumentBody
-      </AppHeadingLink>
+      <AppHeadingLink level={5}>DocumentBody</AppHeadingLink>
       <AppTable
         rows={documentBodyRows}
         columns={propertyColumns}
@@ -159,9 +155,7 @@ export const ApiWorkflowModelPage = () => {
         showSelected={false}
       />
 
-      <AppHeadingLink level={5} id="DocumentEntityChangeLog">
-        DocumentEntityChangeLog
-      </AppHeadingLink>
+      <AppHeadingLink level={5}>DocumentEntityChangeLog</AppHeadingLink>
       <AppTable
         rows={documentEntityChangeLogRows}
         columns={propertyColumns}
@@ -170,9 +164,7 @@ export const ApiWorkflowModelPage = () => {
         showSelected={false}
       />
 
-      <AppHeadingLink level={5} id="WorkflowConfiguration">
-        WorkflowConfiguration
-      </AppHeadingLink>
+      <AppHeadingLink level={5}>WorkflowConfiguration</AppHeadingLink>
       <AppTable
         rows={workflowConfigurationRows}
         columns={propertyColumns}
