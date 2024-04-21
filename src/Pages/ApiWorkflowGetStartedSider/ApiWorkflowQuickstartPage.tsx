@@ -26,6 +26,33 @@ public class ExampleController {
     }
 }`;
 
+const AddRetryRows = [
+  {
+    field: "Policy",
+    value: "Exponential Backoff",
+  },
+  {
+    field: "Name",
+    value: "Example Exponential Backoff Retry Strategy",
+  },
+  {
+    field: "Initial delay",
+    value: "5",
+  },
+  {
+    field: "Multiplier factor",
+    value: "1",
+  },
+  {
+    field: "Max retries",
+    value: "20",
+  },
+  {
+    field: "Max delay",
+    value: "60",
+  },
+];
+
 const AddServiceRows = [
   {
     field: "Client Id",
@@ -246,12 +273,16 @@ export const ApiWorkflowQuickstartPage = () => {
         Step 2: Configure your service endpoints, retry strategies, and
         workflow.
       </Typography.Title>
+
       <Typography.Title level={4}>
         2.1 Add your service endpoint mapping
       </Typography.Title>
       <Typography.Paragraph>
         <ol>
-          <li>Under API Workflow menu, navigate to Service tab.</li>
+          <li>
+            Under <strong>API Workflow</strong> menu, navigate to{" "}
+            <strong>Service</strong> tab.
+          </li>
           <li>
             Click <strong>Add a new service</strong>.
           </li>
@@ -265,6 +296,107 @@ export const ApiWorkflowQuickstartPage = () => {
               showSelected={false}
               style={{ marginTop: 16 }}
             />
+          </li>
+          <li>
+            Click <strong>Add</strong>.
+          </li>
+        </ol>
+      </Typography.Paragraph>
+
+      <Typography.Title level={4}>
+        2.2 Add your retry strategies
+      </Typography.Title>
+      <Typography.Paragraph>
+        We will use an exponential backoff retry strategy as an example in this
+        tutorial.
+        <ol>
+          <li>
+            Under <strong>API Workflow</strong> menu, navigate to{" "}
+            <strong>Retry Policy</strong> tab.
+          </li>
+          <li>
+            Click <strong>Add a new retry policy</strong>
+          </li>
+          <li>
+            Fill out the forms as below:
+            <AppTable
+              rows={AddRetryRows}
+              columns={SpringCols}
+              showTitle={false}
+              showSettings={false}
+              showSelected={false}
+              style={{ marginTop: 16 }}
+            />
+            This retry strategy includes an initial delay of 5 minutes for the
+            first attempt, with a multiplier factor of 1, doubling the delay
+            time with each subsequent attempt. It allows for a maximum of 20
+            retries, with a maximum delay of 60 minutes, maintaining a flat
+            delay time after reaching this threshold.
+          </li>
+          <li>
+            Click <strong>Add</strong>.
+          </li>
+        </ol>
+        When reviewing a retry policy, you'll find a simulator that displays the
+        scheduled time for the next retry attempt.
+      </Typography.Paragraph>
+
+      <Typography.Title level={4}>
+        2.3 Create your first workflow
+      </Typography.Title>
+      <Typography.Paragraph>
+        Let's do a quick review of what you've completed up to this point.
+        <ul style={{ listStyle: "outside" }}>
+          <li>Your java server is up and running.</li>
+          <li>
+            You've configured an API with a POST request and the path
+            "/first-api".
+          </li>
+          <li>
+            You have set up a service endpoint mapping:{" "}
+            <strong>ExampleService</strong>
+          </li>
+          <li>You have created a exponential backoff retry strategy.</li>
+        </ul>
+        Now, let's assembly them together in the workflow.
+      </Typography.Paragraph>
+      <Typography.Paragraph>
+        Replace <code>{`<INSERT_YOUR_RETRY_POLICY_ID>`}</code> with the retry
+        policy ID created in the previous step.
+      </Typography.Paragraph>
+      <CodeWithToolbar
+        snippets={{
+          xml: {
+            snippet: `<?xml version="1.0" encoding="UTF-8"?>
+<workflow initialState="InitialState" retryPolicyId="<INSERT_YOUR_RETRY_POLICY_ID>">
+    <state name="InitialState" service="ExampleService" operation="first-api">
+        <default goto="terminal"/>
+    </state>
+</workflow>`,
+            language: "xml",
+          },
+        }}
+      />
+      <Typography.Paragraph>
+        In this workflow, we can see that the initial state triggers an API
+        "first-api" from ExampleService. As a result, we set the default result
+        state to go to terminal which will conclude this workflow.
+      </Typography.Paragraph>
+
+      <Typography.Paragraph>
+        <ol>
+          <li>
+            Now that you have a workflow graph ready, you can navigate to the{" "}
+            <a href="api-workflow-onboarding">Onboarding</a> tab to create a new
+            workflow and add the above graph with a <strong>live</strong> alias.
+            Since you have created service endpoint mapping and retry policy
+            ealier, you can simply skip these 2 steps during the onboarding
+            process.
+          </li>
+          <li>
+            Once completed, you should find your workflow name in the first
+            dropdown menu located at the top right corner. If it appears there,
+            select your workflow.
           </li>
         </ol>
       </Typography.Paragraph>
