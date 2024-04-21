@@ -59,14 +59,15 @@ export const SiderName = {
   "/traffic": "Traffic",
 };
 
-export const AppSider = () => {
+export const AppSider = (props: { collapsed?: boolean }) => {
+  const { collapsed } = props;
+
   const { token } = theme.useToken();
   const { isDevMode } = useSelector((state: any) => state.general);
   const selectedKeys: string[] = useSelector(
     (state: any) => state.sider.selectedKeys
   );
   const navigate = useNavigate();
-  const [collapsed, setCollapsed] = useState(false);
   const [currentOpenKeys, setCurrentOpenKeys] = useState<string[]>([]);
 
   const siderMenus: MenuProps["items"] = [
@@ -236,7 +237,6 @@ export const AppSider = () => {
     <Sider
       width={SiderWidth}
       collapsed={collapsed}
-      onCollapse={(value) => setCollapsed(value)}
       style={{
         overflow: "auto",
         position: "fixed",

@@ -9,7 +9,7 @@ import { EmailNotificationWorkflowPage } from "Pages/WorkflowAutomationSider/Ema
 import { WorkflowAutomationPage } from "Pages/WorkflowAutomationSider/WorkflowAutomationPage";
 import { Layout, theme } from "antd";
 import { Content } from "antd/es/layout/layout";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import {
   Outlet,
@@ -69,6 +69,8 @@ export const App = () => {
     const dispatch = useDispatch();
     const location = useLocation();
 
+    const [collapsed, setCollapsed] = useState<boolean>(false);
+
     useEffect(() => {
       const deserializedLocation = deserializeLocation(location.pathname);
       const siderKey = deserializedLocation.find(
@@ -85,12 +87,17 @@ export const App = () => {
 
     return (
       <Layout style={{ minHeight: "100vh" }}>
-        <AppHeader />
+        <AppHeader collapsed={collapsed} setCollapsed={setCollapsed} />
 
         <Layout hasSider>
-          <AppSider />
+          <AppSider collapsed={collapsed} />
 
-          <Layout style={{ marginLeft: SiderWidth }}>
+          <Layout
+            style={{
+              marginLeft: collapsed ? 80 : SiderWidth,
+              transition: "0.2s",
+            }}
+          >
             <Layout style={{ padding: "0 16px 0 16px" }}>
               <AppBreadcrumb />
 

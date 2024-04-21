@@ -1,4 +1,8 @@
-import { ClockCircleOutlined } from "@ant-design/icons";
+import {
+  ClockCircleOutlined,
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+} from "@ant-design/icons";
 import { AppButton } from "DataEntryComponents/AppButton";
 import { AppSearchBar } from "DataEntryComponents/AppSearchBar";
 import { AutoCompleteProps, Flex, Select, Typography, theme } from "antd";
@@ -7,7 +11,13 @@ import { DefaultOptionType } from "antd/es/select";
 import axios from "axios";
 import { clear, set } from "features/search/historySlice";
 import { LRUCache } from "lru-cache";
-import { KeyboardEvent, useEffect, useState } from "react";
+import {
+  Dispatch,
+  KeyboardEvent,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
@@ -18,9 +28,15 @@ import { deserializeWorkflow, serializeWorkflow } from "../Utils/Serializer";
 import { setClientId } from "../features/workflow/clientSlice";
 import { setWorkflow } from "../features/workflow/workflowSlice";
 import Icon from "@ant-design/icons/lib/components/Icon";
+import { AppIconButton } from "DataEntryComponents/AppIconButton";
 
-export const AppHeader = () => {
+export const AppHeader = (props: {
+  collapsed?: boolean;
+  setCollapsed?: Dispatch<SetStateAction<boolean>>;
+}) => {
   const { token } = theme.useToken();
+
+  const { collapsed, setCollapsed = () => {} } = props;
 
   const navigate = useNavigate();
 
@@ -116,7 +132,7 @@ export const AppHeader = () => {
       style={{
         position: "sticky",
         top: 0,
-        zIndex: 100,
+        zIndex: 999,
         width: "100%",
         display: "flex",
         alignItems: "center",
@@ -125,9 +141,23 @@ export const AppHeader = () => {
         gap: "56px",
         background: token.colorBgContainer,
         borderBottom: `1px solid ${token.colorBorder}`,
+        paddingLeft: 0,
       }}
     >
-      <Flex justify="center" align="center">
+      <Flex justify="center" align="center" gap={16}>
+        <AppIconButton
+          type="text"
+          onClick={() => setCollapsed(!collapsed)}
+          style={{
+            fontSize: "16px",
+            width: 64,
+            height: 64,
+            borderTopLeftRadius: 0,
+            borderBottomLeftRadius: 0,
+          }}
+        >
+          {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+        </AppIconButton>
         <Typography.Link
           style={{
             flex: 1,

@@ -1,6 +1,7 @@
 import { AppHeadingLink } from "DataDisplayComponents/AppHeadingLink";
 import { AppTable } from "DataDisplayComponents/AppTable";
 import { PageTitle } from "DataDisplayComponents/PageTitle";
+import { AppSearchInput } from "DataEntryComponents/AppSearchInput";
 import { AppSpace } from "LayoutComponents/AppSpace";
 import { propertyColumns } from "WorkflowAutomationComponents/CodeTriggerSteps";
 import { Fragment } from "react/jsx-runtime";
@@ -200,6 +201,8 @@ export const ApiWorkflowModelPage = () => {
   return (
     <AppSpace>
       <PageTitle>Model</PageTitle>
+
+      <AppSearchInput />
 
       {models.sort(modelComparator).map((model, i) => (
         <Fragment key={i}>
