@@ -3,6 +3,7 @@ import { AppTable } from "DataDisplayComponents/AppTable";
 import { PageTitle } from "DataDisplayComponents/PageTitle";
 import { AppSpace } from "LayoutComponents/AppSpace";
 import { propertyColumns } from "WorkflowAutomationComponents/CodeTriggerSteps";
+import { Fragment } from "react/jsx-runtime";
 
 const documentRows = [
   {
@@ -27,7 +28,7 @@ const documentBodyRows = [
     required: false,
     description:
       "Stores entities within the document as key-value pairs, where each key is a unique identifier and the corresponding value is the entity content added by clients represented as a byte array.",
-    type: "Map<String, byte[]>",
+    type: "Map<String, Byte[]>",
   },
   {
     property: "changeLogs",
@@ -44,21 +45,21 @@ const documentEntityChangeLogRows = [
     required: false,
     description:
       "Records entities added to the document, where each key-value pair represents the entity identifier and its content as a byte array.",
-    type: "Map<String, byte[]>",
+    type: "Map<String, Byte[]>",
   },
   {
     property: "removed",
     required: false,
     description:
       "Tracks entities removed from the document, storing the entity identifier and its content as a byte array for each removal.",
-    type: "Map<String, byte[]>",
+    type: "Map<String, Byte[]>",
   },
   {
     property: "modified",
     required: false,
     description:
       "Captures entities that have been modified within the document, storing the identifier and updated content as byte arrays.",
-    type: "Map<String, byte[]>",
+    type: "Map<String, Byte[]>",
   },
   {
     property: "createdAt",
@@ -66,6 +67,22 @@ const documentEntityChangeLogRows = [
     description:
       "Indicates the date and time when the document entity change log entry was created.",
     type: "ZonedDateTime",
+  },
+];
+
+const configurationRows = [
+  {
+    property: "name",
+    required: false,
+    description:
+      "The name of the configuration (e.g., state name, service name).",
+    type: "String",
+  },
+  {
+    property: "alias",
+    required: true,
+    description: "Represents a specific version of a configuration.",
+    type: "String",
   },
 ];
 
@@ -132,46 +149,70 @@ const workflowConfigurationRows = [
   },
 ];
 
+const retryConfigRows = [
+  {
+    property: "retryPolicyId",
+    required: true,
+    description: "The unique identifier of the retry policy.",
+    type: "Integer",
+  },
+  {
+    property: "retryIndex",
+    required: true,
+    description:
+      "The index representing the retry attempt (e.g., first attempt, second attempt, etc.).",
+    type: "Integer",
+  },
+];
+
+export const models = [
+  {
+    name: "Configuration",
+    rows: configurationRows,
+  },
+  {
+    name: "Document",
+    rows: documentRows,
+  },
+  {
+    name: "DocumentBody",
+    rows: documentBodyRows,
+  },
+  {
+    name: "DocumentEntityChangeLog",
+    rows: documentEntityChangeLogRows,
+  },
+  {
+    name: "WorkflowConfiguration",
+    rows: workflowConfigurationRows,
+  },
+  {
+    name: "RetryConfig",
+    rows: retryConfigRows,
+  },
+];
+
 export const ApiWorkflowModelPage = () => {
+  const modelComparator = (a: any, b: any) => {
+    return a.name.localeCompare(b.name);
+  };
+
   return (
     <AppSpace>
       <PageTitle>Model</PageTitle>
 
-      <AppHeadingLink level={5}>Document</AppHeadingLink>
-      <AppTable
-        rows={documentRows}
-        columns={propertyColumns}
-        showTitle={false}
-        showSettings={false}
-        showSelected={false}
-      />
-
-      <AppHeadingLink level={5}>DocumentBody</AppHeadingLink>
-      <AppTable
-        rows={documentBodyRows}
-        columns={propertyColumns}
-        showTitle={false}
-        showSettings={false}
-        showSelected={false}
-      />
-
-      <AppHeadingLink level={5}>DocumentEntityChangeLog</AppHeadingLink>
-      <AppTable
-        rows={documentEntityChangeLogRows}
-        columns={propertyColumns}
-        showTitle={false}
-        showSettings={false}
-        showSelected={false}
-      />
-
-      <AppHeadingLink level={5}>WorkflowConfiguration</AppHeadingLink>
-      <AppTable
-        rows={workflowConfigurationRows}
-        columns={propertyColumns}
-        showTitle={false}
-        showSettings={false}
-        showSelected={false}
-      />
+      {models.sort(modelComparator).map((model, i) => (
+        <Fragment key={i}>
+          <AppHeadingLink level={5}>{model.name}</AppHeadingLink>
+          <AppTable
+            rows={model.rows}
+            columns={propertyColumns}
+            showTitle={false}
+            showSettings={false}
+            showSelected={false}
+          />
+        </Fragment>
+      ))}
     </AppSpace>
   );
 };

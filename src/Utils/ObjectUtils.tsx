@@ -14,6 +14,7 @@ import {
 import { getAbbreviation } from "./StringUtils";
 import { Clause } from "Config/FilterConfig";
 import dayjs from "dayjs";
+import { models } from "Pages/ApiWorkflowGetStartedSider/ApiWorkflowModelPage";
 
 export const populateFlowNodeData = (nodes: any[] = []) => {
   const newNodes = nodes.map((node) => ({ ...node }));
@@ -239,4 +240,50 @@ export const transformClausesDate = (data: Clause[]): Clause[] => {
 
 export const isNullCondition = (condition: string = "") => {
   return condition && condition.toLowerCase().includes("null");
+};
+
+export const LibHref: Record<string, string> = {
+  ZonedDateTime:
+    "https://docs.oracle.com/javase/8/docs/api/java/time/ZonedDateTime.html",
+  String: "https://docs.oracle.com/javase/8/docs/api/java/lang/String.html",
+  Long: "https://docs.oracle.com/javase/8/docs/api/java/lang/Long.html",
+  Map: "https://docs.oracle.com/javase/8/docs/api/java/util/Map.html",
+  List: "https://docs.oracle.com/javase/8/docs/api/java/util/List.html",
+  Integer: "https://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html",
+  Byte: "https://docs.oracle.com/javase/8/docs/api/java/lang/Byte.html",
+};
+
+export const wrapWordsWithAnchorTag = (input: string) => {
+  const camelCaseWords = input.match(/\b[A-Z][a-z]*(?:[A-Z][a-z]*)*\b/g) || [];
+
+  for (const word of camelCaseWords) {
+    const href = LibHref[word];
+    if (href) {
+      // If href exists in LibHref for the word
+      input = input.replace(
+        new RegExp(`\\b${word}\\b`, "g"),
+        `<a href="${href}">${word}</a>`
+      );
+    } else {
+      // If href doesn't exist in LibHref, check if it's in models
+      for (const model of models) {
+        const modelName = model.name;
+        if (modelName === word) {
+          input = input.replace(
+            new RegExp(`\\b${word}\\b`, "g"),
+            `<a href="/api-workflow-model#${word}">${word}</a>`
+          );
+        }
+      }
+    }
+  }
+
+  const elements = input.split(/(<a[^>]*>[^<]*<\/a>)/).map((part, index) => {
+    if (part.startsWith("<a") && part.endsWith("</a>")) {
+      return <span key={index} dangerouslySetInnerHTML={{ __html: part }} />;
+    } else {
+      return <span key={index}>{part}</span>;
+    }
+  });
+  return elements;
 };

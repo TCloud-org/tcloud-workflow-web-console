@@ -11,6 +11,7 @@ import {
   generateModelCodeSnippets,
 } from "Utils/CodeUtils";
 import { getMarkdown } from "Utils/MarkdownUtils";
+import { wrapWordsWithAnchorTag } from "Utils/ObjectUtils";
 import { Divider, Flex, Typography } from "antd";
 import FileSaver from "file-saver";
 
@@ -25,6 +26,7 @@ export const propertyColumns: EditableColumn[] = [
     title: "Type",
     dataIndex: "type",
     width: 250,
+    render: (text: string) => wrapWordsWithAnchorTag(text),
   },
   {
     title: "Required",
