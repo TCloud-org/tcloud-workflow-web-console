@@ -58,6 +58,7 @@ import { EmailNotificationJobPage } from "Pages/WorkflowAutomationSider/EmailNot
 import { ApiWorkflowIntroductionPage } from "Pages/ApiWorkflowGetStartedSider/ApiWorkflowIntroductionPage";
 import { ApiWorkflowQuickstartPage } from "Pages/ApiWorkflowGetStartedSider/ApiWorkflowQuickstartPage";
 import { ApiWorkflowHowItWorksPage } from "Pages/ApiWorkflowGetStartedSider/ApiWorkflowHowItWorksPage";
+import { ApiWorkflowModelPage } from "Pages/ApiWorkflowGetStartedSider/ApiWorkflowModelPage";
 
 export const App = () => {
   const {
@@ -135,6 +136,10 @@ export const App = () => {
         {
           path: "/api-workflow-onboarding",
           element: <OnboardingPage />,
+        },
+        {
+          path: "/api-workflow-model",
+          element: <ApiWorkflowModelPage />,
         },
         {
           path: "/api-workflow-quickstart",

@@ -28,6 +28,7 @@ import { Flex } from "antd";
 import { Dispatch, Key, SetStateAction, useState } from "react";
 import { EmailNotificationStep } from "./EmailNotificationStep";
 import { RemovableDroppable } from "./RemovableDroppable";
+import { v4 } from "uuid";
 
 const measuringConfig = {
   droppable: {
@@ -67,11 +68,10 @@ export const EventWorkflowSortableForm = (props: {
     if (!key) return;
 
     const clonedSteps = [...steps];
-    clonedSteps.splice(
-      index + 1,
-      0,
-      TemplateComponent[key as keyof TemplateComponentProps]
-    );
+    clonedSteps.splice(index + 1, 0, {
+      ...TemplateComponent[key as keyof TemplateComponentProps],
+      id: v4(),
+    });
     setSteps(clonedSteps);
   };
 
