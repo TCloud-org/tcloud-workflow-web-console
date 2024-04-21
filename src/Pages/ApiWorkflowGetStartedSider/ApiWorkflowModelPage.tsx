@@ -1,9 +1,13 @@
-import { AppHeadingLink } from "DataDisplayComponents/AppHeadingLink";
+import {
+  AppHeadingLink,
+  scrollToHash,
+} from "DataDisplayComponents/AppHeadingLink";
 import { AppTable } from "DataDisplayComponents/AppTable";
 import { PageTitle } from "DataDisplayComponents/PageTitle";
 import { AppSearchInput } from "DataEntryComponents/AppSearchInput";
 import { AppSpace } from "LayoutComponents/AppSpace";
 import { propertyColumns } from "WorkflowAutomationComponents/CodeTriggerSteps";
+import { useEffect } from "react";
 import { Fragment } from "react/jsx-runtime";
 
 const documentRows = [
@@ -197,6 +201,10 @@ export const ApiWorkflowModelPage = () => {
   const modelComparator = (a: any, b: any) => {
     return a.name.localeCompare(b.name);
   };
+
+  useEffect(() => {
+    scrollToHash();
+  }, []);
 
   return (
     <AppSpace>

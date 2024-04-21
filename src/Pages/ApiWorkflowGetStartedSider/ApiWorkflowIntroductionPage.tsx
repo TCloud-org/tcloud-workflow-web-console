@@ -1,10 +1,14 @@
 import { ProfileFilled, RocketFilled, SettingFilled } from "@ant-design/icons";
-import { AppHeadingLink } from "DataDisplayComponents/AppHeadingLink";
+import {
+  AppHeadingLink,
+  scrollToHash,
+} from "DataDisplayComponents/AppHeadingLink";
 import { AppNextActionCard } from "DataDisplayComponents/AppNextActionCard";
 import { PageTitle } from "DataDisplayComponents/PageTitle";
 import { AppRow } from "LayoutComponents/AppRow";
 import { AppSpace } from "LayoutComponents/AppSpace";
 import { Col, Divider, Flex, Typography } from "antd";
+import { useEffect } from "react";
 
 const nextSteps = [
   {
@@ -29,6 +33,10 @@ const nextSteps = [
 ];
 
 export const ApiWorkflowIntroductionPage = () => {
+  useEffect(() => {
+    scrollToHash();
+  }, []);
+
   return (
     <AppSpace>
       <PageTitle>Introduction</PageTitle>

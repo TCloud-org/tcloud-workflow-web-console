@@ -10,7 +10,7 @@ import {
 import { SiderWidth } from "Config/LayoutConfig";
 import { Menu, MenuProps, theme } from "antd";
 import Sider from "antd/es/layout/Sider";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -59,7 +59,10 @@ export const SiderName = {
   "/traffic": "Traffic",
 };
 
-export const AppSider = (props: { collapsed?: boolean }) => {
+export const AppSider = (props: {
+  collapsed?: boolean;
+  setCollapsed?: Dispatch<SetStateAction<boolean>>;
+}) => {
   const { collapsed } = props;
 
   const { token } = theme.useToken();
@@ -68,7 +71,8 @@ export const AppSider = (props: { collapsed?: boolean }) => {
     (state: any) => state.sider.selectedKeys
   );
   const navigate = useNavigate();
-  const [currentOpenKeys, setCurrentOpenKeys] = useState<string[]>([]);
+  // const [currentOpenKeys, setCurrentOpenKeys] = useState<string[]>([]);
+  // const [isHovered, setIsHovered] = useState<boolean>(false);
 
   const siderMenus: MenuProps["items"] = [
     {
@@ -219,24 +223,34 @@ export const AppSider = (props: { collapsed?: boolean }) => {
       : []),
   ];
 
-  useEffect(() => {
-    if (selectedKeys) {
-      setCurrentOpenKeys(
-        selectedKeys.length > 0
-          ? [SiderHrefs[selectedKeys[0].toString() as keyof typeof SiderHrefs]]
-          : ["home"]
-      );
-    }
-  }, [selectedKeys]);
+  // useEffect(() => {
+  //   if (selectedKeys) {
+  //     setCurrentOpenKeys(
+  //       selectedKeys.length > 0
+  //         ? [SiderHrefs[selectedKeys[0].toString() as keyof typeof SiderHrefs]]
+  //         : ["home"]
+  //     );
+  //   }
+  // }, [selectedKeys]);
 
-  const onOpenKey = (openKeys: string[]) => {
-    setCurrentOpenKeys(openKeys.slice(-1));
-  };
+  // useEffect(() => {
+  //   if (isHovered && collapsed) {
+  //     setCollapsed(false);
+  //   } else if (!isHovered && !collapsed) {
+  //     setCollapsed(true);
+  //   }
+  // }, [isHovered]);
+
+  // const onOpenKey = (openKeys: string[]) => {
+  //   setCurrentOpenKeys(openKeys.slice(-1));
+  // };
 
   return (
     <Sider
       width={SiderWidth}
       collapsed={collapsed}
+      // onMouseEnter={() => setIsHovered(true)}
+      // onMouseLeave={() => setIsHovered(false)}
       style={{
         overflow: "auto",
         position: "fixed",
@@ -244,12 +258,13 @@ export const AppSider = (props: { collapsed?: boolean }) => {
         top: 64,
         bottom: 0,
         background: token.colorBgContainer,
+        transition: "0.2s",
       }}
     >
       <Menu
         mode="inline"
         selectedKeys={selectedKeys}
-        onOpenChange={onOpenKey}
+        // onOpenChange={onOpenKey}
         // openKeys={currentOpenKeys}
         style={{ borderRight: 0 }}
         items={siderMenus}

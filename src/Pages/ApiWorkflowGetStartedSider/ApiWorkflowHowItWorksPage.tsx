@@ -11,12 +11,16 @@ import {
   AppDisplayStep,
   AppDisplayStepProps,
 } from "DataDisplayComponents/AppDisplayStep";
-import { AppHeadingLink } from "DataDisplayComponents/AppHeadingLink";
+import {
+  AppHeadingLink,
+  scrollToHash,
+} from "DataDisplayComponents/AppHeadingLink";
 import { AppNextActionCard } from "DataDisplayComponents/AppNextActionCard";
 import { PageTitle } from "DataDisplayComponents/PageTitle";
 import { AppRow } from "LayoutComponents/AppRow";
 import { AppSpace } from "LayoutComponents/AppSpace";
 import { Col, Divider, Flex, Typography, theme } from "antd";
+import { useEffect } from "react";
 import { Fragment } from "react/jsx-runtime";
 
 const nextSteps = [
@@ -61,6 +65,10 @@ const steps: AppDisplayStepProps[] = [
 ];
 export const ApiWorkflowHowItWorksPage = () => {
   const { token } = theme.useToken();
+
+  useEffect(() => {
+    scrollToHash();
+  }, []);
 
   return (
     <AppSpace>

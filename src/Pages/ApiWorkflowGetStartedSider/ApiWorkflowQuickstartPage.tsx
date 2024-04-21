@@ -2,7 +2,10 @@ import { ProfileFilled, SmileOutlined } from "@ant-design/icons";
 import { EditableColumn } from "Config/LayoutConfig";
 import { WOS_INITIATE_TCA_WORKFLOW_ENDPOINT } from "Config/WOSEndpointConfig";
 import { AppEndpointDoc } from "DataDisplayComponents/AppEndpointDoc";
-import { AppHeadingLink } from "DataDisplayComponents/AppHeadingLink";
+import {
+  AppHeadingLink,
+  scrollToHash,
+} from "DataDisplayComponents/AppHeadingLink";
 import { AppNextActionCard } from "DataDisplayComponents/AppNextActionCard";
 import { AppTable } from "DataDisplayComponents/AppTable";
 import { CodeWithToolbar } from "DataDisplayComponents/CodeWithToolbar";
@@ -11,7 +14,7 @@ import { AppRow } from "LayoutComponents/AppRow";
 import { AppSpace } from "LayoutComponents/AppSpace";
 import { propertyColumns } from "WorkflowAutomationComponents/CodeTriggerSteps";
 import { Col, Divider, Flex, Result, Segmented, Typography } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const firstApiSnippet = `package com.example.demo.controller;
 
@@ -189,6 +192,11 @@ const SpringRows = [
 ];
 export const ApiWorkflowQuickstartPage = () => {
   const [language, setLanguage] = useState<string>("Java");
+
+  useEffect(() => {
+    scrollToHash();
+  }, []);
+
   return (
     <AppSpace>
       <PageTitle>Quickstart</PageTitle>

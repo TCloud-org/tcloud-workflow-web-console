@@ -3,6 +3,16 @@ import { Typography } from "antd";
 import { TitleProps } from "antd/es/typography/Title";
 import { useState } from "react";
 
+export const scrollToHash = () => {
+  const hash = window.location.hash;
+  if (hash) {
+    const element = document.querySelector(hash);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  }
+};
+
 export const AppHeadingLink = (props: {
   level?: TitleProps["level"];
   children?: string;

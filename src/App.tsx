@@ -90,7 +90,7 @@ export const App = () => {
         <AppHeader collapsed={collapsed} setCollapsed={setCollapsed} />
 
         <Layout hasSider>
-          <AppSider collapsed={collapsed} />
+          <AppSider collapsed={collapsed} setCollapsed={setCollapsed} />
 
           <Layout
             style={{
