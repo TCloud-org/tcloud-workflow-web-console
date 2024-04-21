@@ -173,7 +173,7 @@ thead {
   border-radius: 300px;
 }
 
-[id]::before {
+a>[id]::before {
   content   : '';
   display   : block;
   height    : 64px;
