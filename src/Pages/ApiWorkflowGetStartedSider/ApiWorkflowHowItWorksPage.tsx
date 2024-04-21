@@ -44,6 +44,20 @@ export const ApiWorkflowHowItWorksPage = () => {
   return (
     <AppSpace>
       <PageTitle>How Does It Works?</PageTitle>
+      <Typography.Title level={3}>What's alias?</Typography.Title>
+      <Typography.Paragraph>
+        Using an <strong>"alias"</strong> provides a clear, human-readable
+        reference to a specific version. Instead of manually typing version
+        numbers, which could lead to errors, an alias simplifies the process by
+        indicating which version of the workflow to execute.{" "}
+        <em>
+          It's important to note that all operations will be executed based on
+          the version associated with the <strong>live</strong> alias by
+          default.
+        </em>
+      </Typography.Paragraph>
+
+      <Typography.Title level={3}>Process</Typography.Title>
       <Typography.Paragraph>
         {
           "Explore our streamlined 5-step process to initiate your first workflow. To learn more details about each step, check out the "

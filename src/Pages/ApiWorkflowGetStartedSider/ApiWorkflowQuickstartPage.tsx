@@ -26,6 +26,30 @@ public class ExampleController {
     }
 }`;
 
+const AddServiceRows = [
+  {
+    field: "Client Id",
+    value: "admin",
+  },
+  {
+    field: "Service",
+    value: "ExampleService",
+  },
+  {
+    field: "Endpoint",
+    value:
+      "http://<YOUR_EC2_PUBLIC_DNS>:<PORT>/<REQUEST_MAPPING> (e.g., http://10.10.10.100:80/)",
+  },
+  {
+    field: "Environment",
+    value: "Development",
+  },
+  {
+    field: "Alias",
+    value: "live",
+  },
+];
+
 const SpringCols: EditableColumn[] = [
   {
     title: "Field",
@@ -225,6 +249,25 @@ export const ApiWorkflowQuickstartPage = () => {
       <Typography.Title level={4}>
         2.1 Add your service endpoint mapping
       </Typography.Title>
+      <Typography.Paragraph>
+        <ol>
+          <li>Under API Workflow menu, navigate to Service tab.</li>
+          <li>
+            Click <strong>Add a new service</strong>.
+          </li>
+          <li>
+            Fill out the forms as below:
+            <AppTable
+              rows={AddServiceRows}
+              columns={SpringCols}
+              showTitle={false}
+              showSettings={false}
+              showSelected={false}
+              style={{ marginTop: 16 }}
+            />
+          </li>
+        </ol>
+      </Typography.Paragraph>
     </AppSpace>
   );
 };
