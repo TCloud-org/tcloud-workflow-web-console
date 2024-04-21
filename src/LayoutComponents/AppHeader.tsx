@@ -182,7 +182,7 @@ export const AppHeader = () => {
           value={serializeWorkflow(workflow)}
           onChange={handleWorkflowChange}
           options={workflows.map((item: any) => ({
-            label: item.workflowName,
+            label: `${item.workflowName} (${item.workflowId})`,
             value: `${item.workflowId}-${item.workflowName}`,
           }))}
         />
