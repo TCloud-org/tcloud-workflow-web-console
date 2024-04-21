@@ -1,11 +1,14 @@
+import { ProfileFilled } from "@ant-design/icons";
 import { EditableColumn } from "Config/LayoutConfig";
 import { WOS_INITIATE_TCA_WORKFLOW_ENDPOINT } from "Config/WOSEndpointConfig";
 import { AppEndpointDoc } from "DataDisplayComponents/AppEndpointDoc";
+import { AppNextActionCard } from "DataDisplayComponents/AppNextActionCard";
 import { AppTable } from "DataDisplayComponents/AppTable";
 import { CodeWithToolbar } from "DataDisplayComponents/CodeWithToolbar";
 import { PageTitle } from "DataDisplayComponents/PageTitle";
+import { AppRow } from "LayoutComponents/AppRow";
 import { AppSpace } from "LayoutComponents/AppSpace";
-import { Segmented, Typography } from "antd";
+import { Col, Divider, Flex, Segmented, Typography } from "antd";
 import { useState } from "react";
 
 const firstApiSnippet = `package com.example.demo.controller;
@@ -27,6 +30,15 @@ public class ExampleController {
         return ResponseEntity.ok().build();
     }
 }`;
+
+const nextSteps = [
+  {
+    title: "Onboarding",
+    description: "Check out our onboarding process to get started",
+    icon: <ProfileFilled />,
+    href: "/api-workflow-onboarding",
+  },
+];
 
 const AddTokenRows = [
   {
@@ -488,6 +500,22 @@ https://wos-server-142456886.us-west-2.elb.amazonaws.com/api/private/v1/initiate
           },
         }}
       />
+
+      <Divider />
+
+      <Flex align="center" vertical gap={32}>
+        <Typography.Title level={5}>Next Steps</Typography.Title>
+        <AppRow
+          gutter={[16, 16]}
+          style={{ width: "100%", justifyContent: "center" }}
+        >
+          {nextSteps.map((step, i) => (
+            <Col span={8} key={i}>
+              <AppNextActionCard {...step} />
+            </Col>
+          ))}
+        </AppRow>
+      </Flex>
     </AppSpace>
   );
 };

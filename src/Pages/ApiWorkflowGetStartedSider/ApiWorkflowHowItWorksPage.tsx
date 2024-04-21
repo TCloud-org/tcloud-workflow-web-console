@@ -4,15 +4,35 @@ import {
   InteractionOutlined,
   KeyOutlined,
   MonitorOutlined,
+  ProfileFilled,
+  RocketFilled,
 } from "@ant-design/icons";
 import {
   AppDisplayStep,
   AppDisplayStepProps,
 } from "DataDisplayComponents/AppDisplayStep";
+import { AppNextActionCard } from "DataDisplayComponents/AppNextActionCard";
 import { PageTitle } from "DataDisplayComponents/PageTitle";
+import { AppRow } from "LayoutComponents/AppRow";
 import { AppSpace } from "LayoutComponents/AppSpace";
-import { Divider, Flex, Typography, theme } from "antd";
+import { Col, Divider, Flex, Typography, theme } from "antd";
 import { Fragment } from "react/jsx-runtime";
+
+const nextSteps = [
+  {
+    title: "Quickstart",
+    description: "Follow our quickstart tutorial to build a sample workflow",
+    icon: <RocketFilled />,
+    href: "/api-workflow-quickstart",
+  },
+  {
+    title: "Onboarding",
+    description:
+      "Feel ready? Head over to our onboarding process to get started",
+    icon: <ProfileFilled />,
+    href: "/api-workflow-onboarding",
+  },
+];
 
 const steps: AppDisplayStepProps[] = [
   {
@@ -82,6 +102,22 @@ export const ApiWorkflowHowItWorksPage = () => {
           <AppDisplayStep {...step} step={i + 1} />
         </Fragment>
       ))}
+
+      <Divider />
+
+      <Flex align="center" vertical gap={32}>
+        <Typography.Title level={5}>Next Steps</Typography.Title>
+        <AppRow
+          gutter={[16, 16]}
+          style={{ width: "100%", justifyContent: "center" }}
+        >
+          {nextSteps.map((step, i) => (
+            <Col span={8} key={i}>
+              <AppNextActionCard {...step} />
+            </Col>
+          ))}
+        </AppRow>
+      </Flex>
     </AppSpace>
   );
 };

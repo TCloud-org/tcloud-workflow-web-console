@@ -3,7 +3,7 @@ import { AppNextActionCard } from "DataDisplayComponents/AppNextActionCard";
 import { PageTitle } from "DataDisplayComponents/PageTitle";
 import { AppRow } from "LayoutComponents/AppRow";
 import { AppSpace } from "LayoutComponents/AppSpace";
-import { Col, Flex, Typography } from "antd";
+import { Col, Divider, Flex, Typography } from "antd";
 
 const nextSteps = [
   {
@@ -76,6 +76,8 @@ export const ApiWorkflowIntroductionPage = () => {
         trust that their data is secure and compliant with relevant
         requirements.
       </Typography.Paragraph>
+
+      <Divider />
 
       <Flex align="center" vertical gap={32}>
         <Typography.Title level={5}>Next Steps</Typography.Title>
