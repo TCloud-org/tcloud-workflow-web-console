@@ -53,7 +53,7 @@ export const WorkflowCard = (props: { workflow?: Workflow }) => {
   return (
     <Card
       bordered={false}
-      title={`Workflow #${workflow?.workflowId}`}
+      title={workflow.workflowName}
       style={{ height: "100%", boxShadow: token.boxShadowSecondary }}
       styles={{
         actions: {
