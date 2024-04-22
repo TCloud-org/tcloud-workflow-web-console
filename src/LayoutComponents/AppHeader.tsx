@@ -1,17 +1,31 @@
 import {
   ClockCircleOutlined,
+  ContainerOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
+  SettingFilled,
+  UserOutlined,
 } from "@ant-design/icons";
+import Icon from "@ant-design/icons/lib/components/Icon";
+import { HeaderHeight } from "Config/LayoutConfig";
 import { AppButton } from "DataEntryComponents/AppButton";
+import { AppIconButton } from "DataEntryComponents/AppIconButton";
 import { AppSearchBar } from "DataEntryComponents/AppSearchBar";
-import { AutoCompleteProps, Flex, Select, Typography, theme } from "antd";
+import {
+  AutoCompleteProps,
+  Divider,
+  Dropdown,
+  Flex,
+  MenuProps,
+  Select,
+  Typography,
+  theme,
+} from "antd";
 import { Header } from "antd/es/layout/layout";
 import { DefaultOptionType } from "antd/es/select";
-import axios from "axios";
 import { clear, set } from "features/search/historySlice";
 import { LRUCache } from "lru-cache";
-import {
+import React, {
   Dispatch,
   KeyboardEvent,
   SetStateAction,
@@ -20,15 +34,9 @@ import {
 } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {
-  BRAND,
-  WOS_GET_WORKFLOWS_BY_CLIENT_ID_ENDPOINT,
-} from "../Config/WOSEndpointConfig";
-import { deserializeWorkflow, serializeWorkflow } from "../Utils/Serializer";
+import { BRAND } from "../Config/WOSEndpointConfig";
 import { setClientId } from "../features/workflow/clientSlice";
-import { setWorkflow } from "../features/workflow/workflowSlice";
-import Icon from "@ant-design/icons/lib/components/Icon";
-import { AppIconButton } from "DataEntryComponents/AppIconButton";
+import { AppSubHeader } from "./AppSubHeader";
 
 export const AppHeader = (props: {
   collapsed?: boolean;
@@ -40,37 +48,41 @@ export const AppHeader = (props: {
 
   const navigate = useNavigate();
 
+  const accountItems: MenuProps["items"] = [
+    {
+      key: "/account",
+      icon: <UserOutlined />,
+      label: "Account",
+      onClick: () => navigate("/account"),
+    },
+    {
+      key: "/general",
+      icon: <SettingFilled />,
+      label: "Settings",
+      onClick: () => navigate("/general"),
+    },
+    {
+      key: "/billing",
+      icon: <ContainerOutlined />,
+      label: "Billing",
+      onClick: () => navigate("/billing"),
+    },
+  ];
+
   const clientId = useSelector((state: any) => state.client.clientId);
-  const workflow = useSelector((state: any) => state.workflow.workflow);
   const historyCache: LRUCache<string, string | number, any> = useSelector(
     (state: any) => state.history.cache
   );
   const dispatch = useDispatch();
 
-  const [workflows, setWorkflows] = useState([]);
   const [searchInput, setSearchInput] = useState<string>("");
 
   useEffect(() => {
-    if (clientId) {
-      fetchWorkflows(clientId);
-    }
-  }, [clientId]);
-
-  const fetchWorkflows = (clientId: string) => {
-    axios
-      .get(`${WOS_GET_WORKFLOWS_BY_CLIENT_ID_ENDPOINT}?clientId=${clientId}`)
-      .then((response) => {
-        setWorkflows(response.data.workflows);
-      })
-      .catch((error) => console.error(error));
-  };
+    dispatch(setClientId("admin"));
+  }, [dispatch]);
 
   const handleClientIdChange = (value: string) => {
     dispatch(setClientId(value));
-  };
-
-  const handleWorkflowChange = (value: any) => {
-    dispatch(setWorkflow(deserializeWorkflow(value)));
   };
 
   const handleSearchEnter = (event: KeyboardEvent<HTMLDivElement>) => {
@@ -127,6 +139,16 @@ export const AppHeader = (props: {
     return parent;
   };
 
+  const contentStyle: React.CSSProperties = {
+    backgroundColor: token.colorBgElevated,
+    borderRadius: token.borderRadiusLG,
+    boxShadow: token.boxShadowSecondary,
+  };
+
+  const menuStyle: React.CSSProperties = {
+    boxShadow: "none",
+  };
+
   return (
     <Header
       style={{
@@ -134,97 +156,112 @@ export const AppHeader = (props: {
         top: 0,
         zIndex: 999,
         width: "100%",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        height: "64px",
-        gap: "56px",
+        height: HeaderHeight,
         background: token.colorBgContainer,
         borderBottom: `1px solid ${token.colorBorder}`,
         paddingLeft: 0,
+        paddingRight: 0,
       }}
     >
-      <Flex justify="center" align="center" gap={16}>
-        <AppIconButton
-          type="text"
-          onClick={() => setCollapsed(!collapsed)}
-          style={{
-            fontSize: "16px",
-            width: 64,
-            height: 64,
-            borderTopLeftRadius: 0,
-            borderBottomLeftRadius: 0,
-          }}
-        >
-          {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-        </AppIconButton>
-        <Typography.Link
-          style={{
-            flex: 1,
-            textAlign: "center",
-            borderRadius: token.borderRadiusLG,
-            color: "black",
-            fontSize: "18px",
-          }}
-          strong
-          href="/"
-        >
-          <Flex justify="center" align="center">
-            <Icon
-              component={() => (
-                <img
-                  alt={BRAND}
-                  src="https://tcw-icon.s3.us-west-2.amazonaws.com/7.png"
-                  width={24}
-                  height={24}
-                  style={{
-                    marginRight: "8px",
-                    // animation: "spin 2s linear infinite",
-                  }}
-                />
-              )}
-            />
-            {BRAND}
-          </Flex>
-        </Typography.Link>
-      </Flex>
       <Flex
-        style={{
-          borderRadius: token.borderRadiusLG,
-          flex: 2,
-        }}
+        align="center"
+        justify="space-between"
+        style={{ width: "100%", paddingRight: 32, height: 64 }}
+        gap={48}
       >
-        <AppSearchBar
-          placeholder="Search by work ID"
-          value={searchInput}
-          onChange={(value) => setSearchInput(value)}
-          options={getHistoryOptions()}
-          onSelect={handleSearchSelect}
-          onKeyDown={handleSearchEnter}
-        />
-      </Flex>
+        <Flex justify="center" align="center" gap={16}>
+          <AppIconButton
+            type="text"
+            onClick={() => setCollapsed(!collapsed)}
+            style={{
+              fontSize: "16px",
+              width: 64,
+              height: 40,
+              borderTopLeftRadius: 0,
+              borderBottomLeftRadius: 0,
+            }}
+          >
+            {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+          </AppIconButton>
+          <Typography.Link
+            style={{
+              flex: 1,
+              textAlign: "center",
+              borderRadius: token.borderRadiusLG,
+              color: "black",
+              fontSize: "18px",
+            }}
+            strong
+            href="/"
+          >
+            <Flex justify="center" align="center">
+              <Icon
+                component={() => (
+                  <img
+                    alt={BRAND}
+                    src="https://tcw-icon.s3.us-west-2.amazonaws.com/7.png"
+                    width={24}
+                    height={24}
+                    style={{
+                      marginRight: "8px",
+                      // animation: "spin 2s linear infinite",
+                    }}
+                  />
+                )}
+              />
+              {BRAND}
+            </Flex>
+          </Typography.Link>
+        </Flex>
+        <Flex
+          style={{
+            borderRadius: token.borderRadiusLG,
+            flex: 2,
+          }}
+        >
+          <AppSearchBar
+            placeholder="Search by work ID"
+            value={searchInput}
+            onChange={(value) => setSearchInput(value)}
+            options={getHistoryOptions()}
+            onSelect={handleSearchSelect}
+            onKeyDown={handleSearchEnter}
+          />
+        </Flex>
 
-      <Flex gap="8px" align="center" style={{ flex: 1 }} justify="flex-end">
-        <Select
-          style={{ width: 180 }}
-          variant="filled"
-          placeholder="Select workflow"
-          value={serializeWorkflow(workflow)}
-          onChange={handleWorkflowChange}
-          options={workflows.map((item: any) => ({
-            label: `${item.workflowName} (${item.workflowId})`,
-            value: `${item.workflowId}-${item.workflowName}`,
-          }))}
-        />
-        <Select
-          style={{ width: 180 }}
-          variant="filled"
-          placeholder="Select client ID"
-          value={clientId}
-          onChange={handleClientIdChange}
-          options={[{ value: "admin", label: "admin" }]}
-        />
+        <Flex gap="8px" align="center" style={{ flex: 1 }} justify="flex-end">
+          <Select
+            placeholder="Select client ID"
+            value={clientId}
+            variant="borderless"
+            onChange={handleClientIdChange}
+            options={[{ value: "admin", label: "admin" }]}
+          />
+          <Divider type="vertical" style={{ margin: "0 2px" }} />
+          <Dropdown
+            menu={{ items: accountItems }}
+            trigger={["click"]}
+            dropdownRender={(menu) => (
+              <div style={contentStyle}>
+                {React.cloneElement(menu as React.ReactElement, {
+                  style: menuStyle,
+                })}
+                <Divider style={{ margin: 0 }} />
+                <Flex justify="center" style={{ padding: 8 }}>
+                  <AppButton type="primary" size="small">
+                    Log out
+                  </AppButton>
+                </Flex>
+              </div>
+            )}
+          >
+            <AppButton type="text" icon={<UserOutlined />}>
+              Account
+            </AppButton>
+          </Dropdown>
+        </Flex>
       </Flex>
+      <AppSubHeader />
     </Header>
   );
 };

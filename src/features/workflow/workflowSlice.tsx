@@ -1,21 +1,19 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Workflow } from "Config/WorkflowConfig";
 
 export interface WorkflowState {
-  workflow: {
-    workflowId?: number | string;
-    workflowName?: string;
-  };
+  workflow?: Workflow;
 }
 
 const initialState: WorkflowState = {
-  workflow: {},
+  workflow: undefined,
 };
 
 export const workflowSlice = createSlice({
   name: "workflow",
   initialState,
   reducers: {
-    setWorkflow: (state, action: PayloadAction<any>) => {
+    setWorkflow: (state, action: PayloadAction<Workflow | undefined>) => {
       state.workflow = action.payload;
     },
   },

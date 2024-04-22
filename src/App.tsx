@@ -1,8 +1,14 @@
 import { SiderCollapseWidth, SiderWidth } from "Config/LayoutConfig";
+import { ApiWorkflowHowItWorksPage } from "Pages/ApiWorkflowGetStartedSider/ApiWorkflowHowItWorksPage";
+import { ApiWorkflowIntroductionPage } from "Pages/ApiWorkflowGetStartedSider/ApiWorkflowIntroductionPage";
+import { ApiWorkflowModelPage } from "Pages/ApiWorkflowGetStartedSider/ApiWorkflowModelPage";
+import { ApiWorkflowQuickstartPage } from "Pages/ApiWorkflowGetStartedSider/ApiWorkflowQuickstartPage";
 import { DevModePage } from "Pages/DevModeSider/DevModePage";
 import { MonitorTrafficPage } from "Pages/MonitorSider/MonitorTrafficPage";
 import { QueryPage } from "Pages/QuerySider/QueryPage";
 import { WorkflowStatisticPage } from "Pages/Statistic/WorkflowStatisticPage";
+import { CreateEmailNotificationWorkflowPage } from "Pages/WorkflowAutomationSider/CreateEmailNotificationWorkflowPage";
+import { EmailNotificationJobPage } from "Pages/WorkflowAutomationSider/EmailNotificationJobPage";
 import { EmailNotificationTemplateSelectionPage } from "Pages/WorkflowAutomationSider/EmailNotificationTemplateSelectionPage";
 import { EmailNotificationWorkflowDetailPage } from "Pages/WorkflowAutomationSider/EmailNotificationWorkflowDetailPage";
 import { EmailNotificationWorkflowPage } from "Pages/WorkflowAutomationSider/EmailNotificationWorkflowPage";
@@ -53,12 +59,8 @@ import { GeneralPage } from "./Pages/SettingsSider/GeneralPage";
 import { deserializeLocation } from "./Utils/Serializer";
 import { setItems } from "./features/navigation/breadcrumbSlice";
 import { setSelectedKeys } from "./features/navigation/siderSlice";
-import { CreateEmailNotificationWorkflowPage } from "Pages/WorkflowAutomationSider/CreateEmailNotificationWorkflowPage";
-import { EmailNotificationJobPage } from "Pages/WorkflowAutomationSider/EmailNotificationJobPage";
-import { ApiWorkflowIntroductionPage } from "Pages/ApiWorkflowGetStartedSider/ApiWorkflowIntroductionPage";
-import { ApiWorkflowQuickstartPage } from "Pages/ApiWorkflowGetStartedSider/ApiWorkflowQuickstartPage";
-import { ApiWorkflowHowItWorksPage } from "Pages/ApiWorkflowGetStartedSider/ApiWorkflowHowItWorksPage";
-import { ApiWorkflowModelPage } from "Pages/ApiWorkflowGetStartedSider/ApiWorkflowModelPage";
+import { WorkflowPage } from "Pages/ApiWorkflowConfigurationSider/WorkflowPage";
+import { NotFoundPage } from "Pages/NotFoundPage";
 
 export const App = () => {
   const {
@@ -129,6 +131,7 @@ export const App = () => {
   const router = createBrowserRouter([
     {
       element: <Wrapper />,
+      errorElement: <NotFoundPage />,
       children: [
         {
           path: "/",
@@ -189,6 +192,10 @@ export const App = () => {
         {
           path: "/bucket/batch-close",
           element: <BatchClosePage />,
+        },
+        {
+          path: "/workflow",
+          element: <WorkflowPage />,
         },
         {
           path: "/graph",

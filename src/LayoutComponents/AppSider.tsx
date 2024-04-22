@@ -7,7 +7,11 @@ import {
   SafetyOutlined,
   SettingOutlined,
 } from "@ant-design/icons";
-import { SiderCollapseWidth, SiderWidth } from "Config/LayoutConfig";
+import {
+  HeaderHeight,
+  SiderCollapseWidth,
+  SiderWidth,
+} from "Config/LayoutConfig";
 import { Menu, MenuProps, theme } from "antd";
 import Sider from "antd/es/layout/Sider";
 import { Dispatch, SetStateAction } from "react";
@@ -30,6 +34,7 @@ export const SiderHrefs = {
   "/query": "workflow",
   "/live": "workflow",
   "/bucket": "workflow",
+  "/workflow": "workflow",
   "/graph": "workflow",
   "/service": "workflow",
   "/retry-policy": "workflow",
@@ -50,6 +55,7 @@ export const SiderName = {
   "/query": "Query",
   "/live": "Live",
   "/bucket": "Bucket",
+  "/workflow": "Workflow",
   "/graph": "Graph",
   "/service": "Service",
   "/retry-policy": "Retry Policy",
@@ -150,6 +156,11 @@ export const AppSider = (props: {
           key: "configuration",
           label: "Configuration",
           children: [
+            {
+              key: "/workflow",
+              label: "Workflow",
+              onClick: () => navigate("/workflow"),
+            },
             {
               key: "/graph",
               label: "Graph",
@@ -257,7 +268,7 @@ export const AppSider = (props: {
         overflow: "auto",
         position: "fixed",
         left: 0,
-        top: 64,
+        top: HeaderHeight,
         bottom: 0,
         background: token.colorBgContainer,
         transition: "0.2s",

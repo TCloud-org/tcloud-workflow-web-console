@@ -4,7 +4,7 @@ import { AppSpace } from "../../LayoutComponents/AppSpace";
 export const BillingPage = () => {
   return (
     <AppSpace>
-      <PageTitle>BillingPage</PageTitle>
+      <PageTitle>Coming soon...</PageTitle>
     </AppSpace>
   );
 };

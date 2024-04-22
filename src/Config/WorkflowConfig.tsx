@@ -6,6 +6,32 @@ export type ResultType =
   | "notified"
   | undefined;
 
+export interface Workflow {
+  workflowId: number;
+  workflowName: string;
+  clientId: string;
+  createdAt: string;
+  updatedAt: string;
+  nextAvailableVersion?: number;
+  metadata?: WorkflowMetadata;
+}
+
+export interface WorkflowMetadata {
+  retentionPeriod: RetentionPeriod;
+}
+
+export interface RetentionPeriod {
+  period: number;
+  unit: DateUnit;
+}
+
+export enum DateUnit {
+  DAY = "DAY",
+  WEEK = "WEEK",
+  MONTH = "MONTH",
+  YEAR = "YEAR",
+}
+
 export interface Route {
   routeId: number;
   clientId: string;
