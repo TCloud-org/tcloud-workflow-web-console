@@ -19,6 +19,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Outlet,
+  RouteObject,
   RouterProvider,
   createBrowserRouter,
   useLocation,
@@ -63,6 +64,9 @@ import { WorkflowPage } from "Pages/ApiWorkflowConfigurationSider/WorkflowPage";
 import { NotFoundPage } from "Pages/NotFoundPage";
 import { LoginPage } from "Pages/Authentication/LoginPage";
 import { SignUpPage } from "Pages/Authentication/SignUpPage";
+import { TermsAndConditionsPage } from "Pages/Policy/TermsAndConditionsPage";
+import { PrivacyPolicyPage } from "Pages/Policy/PrivacyPolicyPage";
+import { ForgotPasswordPage } from "Pages/Authentication/ForgotPasswordPage";
 
 export const App = () => {
   const {
@@ -140,12 +144,24 @@ export const App = () => {
     );
   };
 
+  const globalRoutes: RouteObject[] = [
+    {
+      path: "/terms-and-conditions",
+      element: <TermsAndConditionsPage />,
+    },
+    {
+      path: "/privacy-policy",
+      element: <PrivacyPolicyPage />,
+    },
+  ];
+
   const router = createBrowserRouter([
     {
       element: <Wrapper />,
       errorElement: <NotFoundPage />,
       children: !authToken
         ? [
+            ...globalRoutes,
             {
               path: "/",
               element: <LoginPage />,
@@ -154,8 +170,13 @@ export const App = () => {
               path: "/sign-up",
               element: <SignUpPage />,
             },
+            {
+              path: "/forgot-your-password",
+              element: <ForgotPasswordPage />,
+            },
           ]
         : [
+            ...globalRoutes,
             {
               path: "/",
               element: <HomePage />,

@@ -26,8 +26,8 @@ export const AppForm = (
         props.layout === "vertical" ? Span[1] : formItemLayout.wrapperCol
       }
       variant="filled"
-      {...props}
       size="small"
+      {...props}
     >
       {props.children}
     </Form>
