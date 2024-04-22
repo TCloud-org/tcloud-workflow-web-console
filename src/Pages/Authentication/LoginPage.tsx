@@ -1,4 +1,5 @@
-import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
+import { TokenResponse } from "@react-oauth/google";
+import { GoogleLoginButton } from "AuthComponents/GoogleLoginButton";
 import { borderColor } from "Config/AutomationConfig";
 import { Span } from "Config/DataDisplayInterface";
 import { AppLogoText } from "DataDisplayComponents/AppLogoText";
@@ -8,7 +9,7 @@ import { AppForm } from "DataEntryComponents/AppForm";
 import { AppLine } from "LayoutComponents/AppLine";
 import { AuthContent } from "LayoutComponents/AuthContent";
 import { Col, Flex, Form, Input, Typography, theme } from "antd";
-import { jwtDecode } from "jwt-decode";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 export const LoginPage = () => {
@@ -25,25 +26,29 @@ export const LoginPage = () => {
   };
 
   const handleGoogleSuccessSignIn = (
-    credentialResponse: CredentialResponse
+    tokenResponse: Omit<
+      TokenResponse,
+      "error" | "error_description" | "error_uri"
+    >
   ) => {
-    console.log(jwtDecode(credentialResponse.credential || ""));
+    console.log(tokenResponse);
+    axios
+      .get(
+        `https://www.googleapis.com/oauth2/v3/userinfo?access_token=${tokenResponse.access_token}`
+      )
+      .then((res) => console.log(res.data))
+      .catch((err) => console.error(err));
     /**
      * {
-    "iss": "https://accounts.google.com",
-    "azp": "516814280647-7j117p175p3i4lhvcsfq9u1qe5muul28.apps.googleusercontent.com",
-    "aud": "516814280647-7j117p175p3i4lhvcsfq9u1qe5muul28.apps.googleusercontent.com",
+    {
     "sub": "109165758253213394821",
-    "email": "tungxd301@gmail.com",
-    "email_verified": true,
-    "nbf": 1713805244,
     "name": "Tung Dinh",
-    "picture": "https://lh3.googleusercontent.com/a/ACg8ocJWlM5H0DDUUPJcj4i-CgDlyHLTPvwU9_4crLlNf-87svEgal8=s96-c",
     "given_name": "Tung",
     "family_name": "Dinh",
-    "iat": 1713805544,
-    "exp": 1713809144,
-    "jti": "760cb26bf767ba126477190996cce2426f94db1c"
+    "picture": "https://lh3.googleusercontent.com/a/ACg8ocJWlM5H0DDUUPJcj4i-CgDlyHLTPvwU9_4crLlNf-87svEgal8=s96-c",
+    "email": "tungxd301@gmail.com",
+    "email_verified": true,
+    "locale": "en"
 }
      */
   };
@@ -126,11 +131,16 @@ export const LoginPage = () => {
                 <AppLine />
               </Flex>
             </Form.Item>
-            <Flex>
+            <Flex justify="center" align="center">
               <Form.Item style={{ width: "100%" }}>
-                <GoogleLogin
-                  onSuccess={handleGoogleSuccessSignIn}
-                  onError={() => {
+                <GoogleLoginButton
+                  style={{
+                    width: "100%",
+                    fontSize: 14,
+                  }}
+                  size="large"
+                  onSignInSuccess={handleGoogleSuccessSignIn}
+                  onSignInError={() => {
                     console.log("Login Failed");
                   }}
                 />
