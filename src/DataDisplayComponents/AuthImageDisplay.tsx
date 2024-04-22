@@ -19,7 +19,14 @@ export const AuthImageDisplay = (props: {
         height="100%"
       />
       <a
-        style={{ fontSize: 12, position: "absolute", bottom: 16, left: 16 }}
+        style={{
+          fontSize: 12,
+          position: "absolute",
+          bottom: 16,
+          left: 16,
+          color: token.colorWhite,
+          textDecoration: "underline",
+        }}
         href={props.resourceUrl}
       >
         {props.resourceLabel}
