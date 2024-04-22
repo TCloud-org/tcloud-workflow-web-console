@@ -70,6 +70,7 @@ export const App = () => {
     const location = useLocation();
 
     const [collapsed, setCollapsed] = useState<boolean>(true);
+    const [isSiderHovered, setIsSiderHovered] = useState<boolean>(false);
 
     useEffect(() => {
       const deserializedLocation = deserializeLocation(location.pathname);
@@ -90,11 +91,15 @@ export const App = () => {
         <AppHeader collapsed={collapsed} setCollapsed={setCollapsed} />
 
         <Layout hasSider>
-          <AppSider collapsed={collapsed} setCollapsed={setCollapsed} />
+          <AppSider
+            collapsed={collapsed}
+            isHovered={isSiderHovered}
+            setIsHovered={setIsSiderHovered}
+          />
 
           <Layout
             style={{
-              marginLeft: collapsed ? 80 : SiderWidth,
+              marginLeft: collapsed && !isSiderHovered ? 80 : SiderWidth,
               transition: "0.2s",
             }}
           >

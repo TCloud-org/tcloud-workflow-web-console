@@ -61,9 +61,10 @@ export const SiderName = {
 
 export const AppSider = (props: {
   collapsed?: boolean;
-  setCollapsed?: Dispatch<SetStateAction<boolean>>;
+  isHovered?: boolean;
+  setIsHovered?: Dispatch<SetStateAction<boolean>>;
 }) => {
-  const { collapsed } = props;
+  const { collapsed, isHovered, setIsHovered = () => {} } = props;
 
   const { token } = theme.useToken();
   const { isDevMode } = useSelector((state: any) => state.general);
@@ -72,7 +73,6 @@ export const AppSider = (props: {
   );
   const navigate = useNavigate();
   // const [currentOpenKeys, setCurrentOpenKeys] = useState<string[]>([]);
-  // const [isHovered, setIsHovered] = useState<boolean>(false);
 
   const siderMenus: MenuProps["items"] = [
     {
@@ -233,14 +233,6 @@ export const AppSider = (props: {
   //   }
   // }, [selectedKeys]);
 
-  // useEffect(() => {
-  //   if (isHovered && collapsed) {
-  //     setCollapsed(false);
-  //   } else if (!isHovered && !collapsed) {
-  //     setCollapsed(true);
-  //   }
-  // }, [isHovered]);
-
   // const onOpenKey = (openKeys: string[]) => {
   //   setCurrentOpenKeys(openKeys.slice(-1));
   // };
@@ -248,9 +240,17 @@ export const AppSider = (props: {
   return (
     <Sider
       width={SiderWidth}
-      collapsed={collapsed}
-      // onMouseEnter={() => setIsHovered(true)}
-      // onMouseLeave={() => setIsHovered(false)}
+      collapsed={collapsed && !isHovered}
+      onMouseEnter={() => {
+        if (!isHovered) {
+          setIsHovered(true);
+        }
+      }}
+      onMouseLeave={() => {
+        if (isHovered) {
+          setIsHovered(false);
+        }
+      }}
       style={{
         overflow: "auto",
         position: "fixed",

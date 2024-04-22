@@ -75,6 +75,12 @@ export const GraphPage = () => {
   const graphDescriptions: DescriptionsProps["items"] = [
     {
       key: "1",
+      label: "Workflow ID",
+      children: liveGraph?.workflowId,
+      span: Span[2],
+    },
+    {
+      key: "2",
       label: "Live version",
       span: Span[2],
       children: liveGraph?.graphId ? (
@@ -86,7 +92,7 @@ export const GraphPage = () => {
       ),
     },
     {
-      key: "2",
+      key: "3",
       label: "Next available version",
       children: nextAvailableVersion,
       span: Span[2],

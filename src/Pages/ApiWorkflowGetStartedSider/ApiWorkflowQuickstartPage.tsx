@@ -205,7 +205,7 @@ export const ApiWorkflowQuickstartPage = () => {
         want to work with
       </Typography.Text>
       <Segmented<string>
-        options={["Java", "Node.js"]}
+        options={["Java"]}
         onChange={setLanguage}
         value={language}
       />

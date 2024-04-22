@@ -4,9 +4,10 @@ import { TitleProps } from "antd/es/typography/Title";
 import { useState } from "react";
 
 export const scrollToHash = () => {
-  const hash = window.location.hash;
+  const hash = window.location.hash.slice(1);
+
   if (hash) {
-    const element = document.querySelector(hash);
+    const element = document.getElementById(hash);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
@@ -15,16 +16,17 @@ export const scrollToHash = () => {
 
 export const AppHeadingLink = (props: {
   level?: TitleProps["level"];
-  children?: string;
+  children: string;
 }) => {
   const { level, children } = props;
   const [isHovered, setIsHovered] = useState(false);
+  const id = children.replace(/\s/g, "");
 
   return (
-    <a href={`#${children}`} style={{ color: "black" }}>
+    <a href={`#${id}`} style={{ color: "black" }}>
       <Typography.Title
         level={level}
-        id={children}
+        id={id}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
