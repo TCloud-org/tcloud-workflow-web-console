@@ -8,16 +8,22 @@ export const AuthImageDisplay = (props: {
   const { token } = theme.useToken();
 
   return (
-    <Flex vertical justify="center" style={{ height: "100%" }}>
+    <Flex
+      vertical
+      justify="center"
+      style={{ height: "100%", backgroundColor: "#a7a5e7" }}
+    >
       <Image
         src={props.imageUrl}
-        style={{ borderRadius: token.borderRadiusLG }}
+        style={{ borderRadius: token.borderRadiusLG, objectFit: "contain" }}
+        height="100%"
       />
-      <Flex justify="flex-start">
-        <a style={{ fontSize: 12 }} href={props.resourceUrl}>
-          {props.resourceLabel}
-        </a>
-      </Flex>
+      <a
+        style={{ fontSize: 12, position: "absolute", bottom: 16, left: 16 }}
+        href={props.resourceUrl}
+      >
+        {props.resourceLabel}
+      </a>
     </Flex>
   );
 };

@@ -7,9 +7,9 @@ export const AuthContent = (props: { children?: ReactNode }) => {
     <Flex
       justify="center"
       align="center"
-      style={{ height: "100vh", width: "100vw", padding: 128 }}
+      style={{ height: "100vh", width: "100vw" }}
     >
-      <AppRow gutter={[32, 32]} style={{ height: "100%", width: "100%" }}>
+      <AppRow gutter={[0, 0]} style={{ height: "100%", width: "100%" }}>
         {props.children}
       </AppRow>
     </Flex>
