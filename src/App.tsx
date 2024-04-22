@@ -67,6 +67,7 @@ import { SignUpPage } from "Pages/Authentication/SignUpPage";
 import { TermsAndConditionsPage } from "Pages/Policy/TermsAndConditionsPage";
 import { PrivacyPolicyPage } from "Pages/Policy/PrivacyPolicyPage";
 import { ForgotPasswordPage } from "Pages/Authentication/ForgotPasswordPage";
+import { CookiePolicyPage } from "Pages/Policy/CookiePolicyPage";
 
 export const App = () => {
   const {
@@ -152,6 +153,10 @@ export const App = () => {
     {
       path: "/privacy-policy",
       element: <PrivacyPolicyPage />,
+    },
+    {
+      path: "/cookie-policy",
+      element: <CookiePolicyPage />,
     },
   ];
 

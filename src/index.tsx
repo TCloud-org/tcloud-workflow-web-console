@@ -13,6 +13,7 @@ import {
   EmptyText,
 } from "custom-types";
 import { BaseRange } from "slate";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 declare module "slate" {
   interface CustomTypes {
@@ -32,7 +33,11 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <App />
+        <GoogleOAuthProvider
+          clientId={process.env.REACT_APP_GOOGLE_OAUTH_CLIENT_ID as string}
+        >
+          <App />
+        </GoogleOAuthProvider>
       </PersistGate>
     </Provider>
   </React.StrictMode>

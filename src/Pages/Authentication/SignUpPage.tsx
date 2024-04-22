@@ -1,18 +1,11 @@
 import { borderColor } from "Config/AutomationConfig";
 import { Span } from "Config/DataDisplayInterface";
+import { AppLogoText } from "DataDisplayComponents/AppLogoText";
+import { AuthImageDisplay } from "DataDisplayComponents/AuthImageDisplay";
 import { AppButton } from "DataEntryComponents/AppButton";
 import { AppForm } from "DataEntryComponents/AppForm";
 import { AuthContent } from "LayoutComponents/AuthContent";
-import {
-  Checkbox,
-  Col,
-  Flex,
-  Form,
-  Image,
-  Input,
-  Typography,
-  theme,
-} from "antd";
+import { Checkbox, Col, Flex, Form, Input, Typography, theme } from "antd";
 import { useNavigate } from "react-router-dom";
 
 export const SignUpPage = () => {
@@ -27,20 +20,11 @@ export const SignUpPage = () => {
   return (
     <AuthContent>
       <Col span={12}>
-        <Flex vertical>
-          <Image
-            src="https://tcw-images.s3.us-west-2.amazonaws.com/6221508.jpg"
-            style={{ borderRadius: token.borderRadiusLG }}
-          />
-          <Flex justify="flex-start" style={{ fontSize: 12 }}>
-            <div>
-              <a href="https://www.freepik.com/free-vector/hand-drawn-innovation-concept_20286043.htm#&position=8&from_view=collections&uuid=5a145899-aec1-4149-aaa3-f325d2281b06">
-                Image by pikisuperstar
-              </a>{" "}
-              on Freepik
-            </div>
-          </Flex>
-        </Flex>
+        <AuthImageDisplay
+          imageUrl="https://tcw-images.s3.us-west-2.amazonaws.com/6221508.jpg"
+          resourceUrl="https://www.freepik.com/free-vector/hand-drawn-innovation-concept_20286043.htm#&position=8&from_view=collections&uuid=5a145899-aec1-4149-aaa3-f325d2281b06"
+          resourceLabel="Image by pikisuperstar on Freepik"
+        />
       </Col>
 
       <Col span={12}>
@@ -51,19 +35,7 @@ export const SignUpPage = () => {
           justify="center"
           style={{ height: "100%" }}
         >
-          <Flex align="center" gap={16}>
-            <Image
-              src="https://tcw-icon.s3.us-west-2.amazonaws.com/7.png"
-              width={60}
-              preview={false}
-              style={{
-                animation: "spin 10s linear infinite",
-              }}
-            />
-            <Typography.Title style={{ margin: 0 }} level={4}>
-              The Cloud World
-            </Typography.Title>
-          </Flex>
+          <AppLogoText />
 
           <Typography.Title level={3}>Welcome</Typography.Title>
           <AppForm
@@ -126,6 +98,7 @@ export const SignUpPage = () => {
                   backgroundColor: borderColor,
                   color: token.colorWhite,
                   width: "100%",
+                  fontSize: 14,
                 }}
                 size="large"
               >
