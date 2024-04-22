@@ -7,7 +7,7 @@ import {
   SafetyOutlined,
   SettingOutlined,
 } from "@ant-design/icons";
-import { SiderWidth } from "Config/LayoutConfig";
+import { SiderCollapseWidth, SiderWidth } from "Config/LayoutConfig";
 import { Menu, MenuProps, theme } from "antd";
 import Sider from "antd/es/layout/Sider";
 import { Dispatch, SetStateAction } from "react";
@@ -239,6 +239,7 @@ export const AppSider = (props: {
 
   return (
     <Sider
+      collapsedWidth={SiderCollapseWidth}
       width={SiderWidth}
       collapsed={collapsed && !isHovered}
       onMouseEnter={() => {
@@ -246,6 +247,7 @@ export const AppSider = (props: {
           setIsHovered(true);
         }
       }}
+      trigger={null}
       onMouseLeave={() => {
         if (isHovered) {
           setIsHovered(false);

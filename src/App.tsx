@@ -1,4 +1,4 @@
-import { SiderWidth } from "Config/LayoutConfig";
+import { SiderCollapseWidth, SiderWidth } from "Config/LayoutConfig";
 import { DevModePage } from "Pages/DevModeSider/DevModePage";
 import { MonitorTrafficPage } from "Pages/MonitorSider/MonitorTrafficPage";
 import { QueryPage } from "Pages/QuerySider/QueryPage";
@@ -99,7 +99,8 @@ export const App = () => {
 
           <Layout
             style={{
-              marginLeft: collapsed && !isSiderHovered ? 80 : SiderWidth,
+              marginLeft:
+                collapsed && !isSiderHovered ? SiderCollapseWidth : SiderWidth,
               transition: "0.2s",
             }}
           >
