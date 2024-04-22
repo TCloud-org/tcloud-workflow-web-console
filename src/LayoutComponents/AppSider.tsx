@@ -64,7 +64,7 @@ export const AppSider = (props: {
   isHovered?: boolean;
   setIsHovered?: Dispatch<SetStateAction<boolean>>;
 }) => {
-  const { collapsed, isHovered, setIsHovered = () => {} } = props;
+  const { collapsed, isHovered } = props;
 
   const { token } = theme.useToken();
   const { isDevMode } = useSelector((state: any) => state.general);
@@ -242,17 +242,17 @@ export const AppSider = (props: {
       collapsedWidth={SiderCollapseWidth}
       width={SiderWidth}
       collapsed={collapsed && !isHovered}
-      onMouseEnter={() => {
-        if (!isHovered) {
-          setIsHovered(true);
-        }
-      }}
+      // onMouseEnter={() => {
+      //   if (!isHovered) {
+      //     setIsHovered(true);
+      //   }
+      // }}
       trigger={null}
-      onMouseLeave={() => {
-        if (isHovered) {
-          setIsHovered(false);
-        }
-      }}
+      // onMouseLeave={() => {
+      //   if (isHovered) {
+      //     setIsHovered(false);
+      //   }
+      // }}
       style={{
         overflow: "auto",
         position: "fixed",

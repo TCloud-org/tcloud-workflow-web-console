@@ -177,7 +177,7 @@ thead {
   border-radius: 300px;
 }
 
-a>[id]::before {
+.heading-link>[id]::before {
   content   : '';
   display   : block;
   height    : 64px;

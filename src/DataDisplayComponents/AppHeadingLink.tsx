@@ -23,10 +23,11 @@ export const AppHeadingLink = (props: {
   const id = children.replace(/\s/g, "");
 
   return (
-    <a href={`#${id}`} style={{ color: "black" }}>
-      <Typography.Title
-        level={level}
+    <Typography.Title className="heading-link" level={level}>
+      <a
         id={id}
+        href={`#${id}`}
+        style={{ color: "black" }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
@@ -38,7 +39,7 @@ export const AppHeadingLink = (props: {
             transition: "opacity 0.2s ease-in-out",
           }}
         />
-      </Typography.Title>
-    </a>
+      </a>
+    </Typography.Title>
   );
 };
