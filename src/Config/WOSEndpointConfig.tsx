@@ -1,5 +1,4 @@
 export const BRAND = "TCW";
-export const AMS_ENDPOINT = "http://54.213.66.224:80/api/v1";
 export const IMS_ENDPOINT = "http://34.222.124.144:80/api/v1";
 export const WOS_ENDPOINT =
   "https://wos-server-142456886.us-west-2.elb.amazonaws.com/api/private/v1";

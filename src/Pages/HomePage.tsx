@@ -20,7 +20,9 @@ export const HomePage = () => {
   const start = searchParams.get("start") || undefined;
   const end = searchParams.get("end") || undefined;
   const clientId = useSelector((state: any) => state.client.clientId);
-  const { workflowId } = useSelector((state: any) => state.workflow.workflow);
+  const { workflowId } = useSelector(
+    (state: any) => state.workflow?.workflow || {}
+  );
 
   const [works, setWorks] = useState<Work[]>([]);
   const [selected, setSelected] = useState<Key[]>([]);

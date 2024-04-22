@@ -37,6 +37,7 @@ import { useNavigate } from "react-router-dom";
 import { BRAND } from "../Config/WOSEndpointConfig";
 import { setClientId } from "../features/workflow/clientSlice";
 import { AppSubHeader } from "./AppSubHeader";
+import { Account, logout } from "features/auth/authSlice";
 
 export const AppHeader = (props: {
   collapsed?: boolean;
@@ -47,6 +48,7 @@ export const AppHeader = (props: {
   const { collapsed, setCollapsed = () => {} } = props;
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const accountItems: MenuProps["items"] = [
     {
@@ -73,7 +75,7 @@ export const AppHeader = (props: {
   const historyCache: LRUCache<string, string | number, any> = useSelector(
     (state: any) => state.history.cache
   );
-  const dispatch = useDispatch();
+  const account: Account = useSelector((state: any) => state.auth.account);
 
   const [searchInput, setSearchInput] = useState<string>("");
 
@@ -99,6 +101,10 @@ export const AppHeader = (props: {
 
   const handleClear = () => {
     dispatch(clear());
+  };
+
+  const handleLogout = () => {
+    dispatch(logout());
   };
 
   const getHistoryOptions = (): AutoCompleteProps["options"] => {
@@ -241,6 +247,7 @@ export const AppHeader = (props: {
           <Dropdown
             menu={{ items: accountItems }}
             trigger={["click"]}
+            placement="bottomRight"
             dropdownRender={(menu) => (
               <div style={contentStyle}>
                 {React.cloneElement(menu as React.ReactElement, {
@@ -248,15 +255,15 @@ export const AppHeader = (props: {
                 })}
                 <Divider style={{ margin: 0 }} />
                 <Flex justify="center" style={{ padding: 8 }}>
-                  <AppButton type="primary" size="small">
+                  <AppButton type="primary" size="small" onClick={handleLogout}>
                     Log out
                   </AppButton>
                 </Flex>
               </div>
             )}
           >
-            <AppButton type="text" icon={<UserOutlined />}>
-              Account
+            <AppButton type="text">
+              {`${account.firstName} ${account.lastName}`}
             </AppButton>
           </Dropdown>
         </Flex>

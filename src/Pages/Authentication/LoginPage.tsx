@@ -1,5 +1,6 @@
 import { TokenResponse } from "@react-oauth/google";
 import { GoogleLoginButton } from "AuthComponents/GoogleLoginButton";
+import { AMS_SIGN_IN_ENDPOINT } from "Config/AMSEndpointConfig";
 import { borderColor } from "Config/AutomationConfig";
 import { Span } from "Config/DataDisplayInterface";
 import { AppLogoText } from "DataDisplayComponents/AppLogoText";
@@ -10,12 +11,21 @@ import { AppLine } from "LayoutComponents/AppLine";
 import { AuthContent } from "LayoutComponents/AuthContent";
 import { Col, Flex, Form, Input, Typography, theme } from "antd";
 import axios from "axios";
+import { login } from "features/auth/authSlice";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 export const LoginPage = () => {
   const { token } = theme.useToken();
+  const [form] = Form.useForm();
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const [googleSignInLoading, setGoogleSignInLoading] =
+    useState<boolean>(false);
+  const [emailSignInLoading, setEmailSignInLoading] = useState<boolean>(false);
 
   const handleSignUp = () => {
     navigate("/sign-up");
@@ -25,19 +35,32 @@ export const LoginPage = () => {
     navigate("/forgot-your-password");
   };
 
-  const handleGoogleSuccessSignIn = (
+  const handleGoogleSuccessSignIn = async (
     tokenResponse: Omit<
       TokenResponse,
       "error" | "error_description" | "error_uri"
     >
   ) => {
-    console.log(tokenResponse);
-    axios
+    setGoogleSignInLoading(true);
+
+    const res = await axios
       .get(
         `https://www.googleapis.com/oauth2/v3/userinfo?access_token=${tokenResponse.access_token}`
       )
-      .then((res) => console.log(res.data))
-      .catch((err) => console.error(err));
+      .then((res) => res.data);
+
+    dispatch(
+      login({
+        token: tokenResponse.access_token,
+        account: {
+          email: res.email,
+          firstName: res["given_name"],
+          lastName: res["family_name"],
+          emailVerified: res["email_verified"],
+        },
+      })
+    );
+    setGoogleSignInLoading(false);
     /**
      * {
     {
@@ -51,6 +74,25 @@ export const LoginPage = () => {
     "locale": "en"
 }
      */
+  };
+
+  const handleValuesChange = (_: any, values: any) => {
+    form.setFieldsValue(values);
+  };
+
+  const handleSignIn = async () => {
+    setEmailSignInLoading(true);
+
+    const formData = {
+      email: form.getFieldValue("email"),
+      password: form.getFieldValue("password"),
+    };
+    const res = await axios
+      .post(AMS_SIGN_IN_ENDPOINT, formData)
+      .then((res) => res.data);
+    dispatch(login({ token: res.token, account: res.account }));
+
+    setEmailSignInLoading(false);
   };
 
   return (
@@ -75,14 +117,16 @@ export const LoginPage = () => {
 
           <Typography.Title level={3}>Welcome</Typography.Title>
           <AppForm
+            form={form}
             wrapperCol={Span[1]}
+            onValuesChange={handleValuesChange}
             style={{
               width: "100%",
               padding: "0 64px",
               marginTop: 16,
             }}
           >
-            <Form.Item>
+            <Form.Item name="email">
               <Input
                 style={{
                   padding: "16px",
@@ -91,7 +135,7 @@ export const LoginPage = () => {
                 placeholder="Email address"
               />
             </Form.Item>
-            <Form.Item>
+            <Form.Item name="password">
               <Input.Password
                 style={{
                   padding: "16px",
@@ -120,6 +164,8 @@ export const LoginPage = () => {
                   fontSize: 14,
                 }}
                 size="large"
+                onClick={handleSignIn}
+                loading={emailSignInLoading}
               >
                 Login
               </AppButton>
@@ -134,11 +180,13 @@ export const LoginPage = () => {
             <Flex justify="center" align="center">
               <Form.Item style={{ width: "100%" }}>
                 <GoogleLoginButton
+                  loading={googleSignInLoading}
                   style={{
                     width: "100%",
                     fontSize: 14,
                   }}
                   size="large"
+                  initializeLoading={setGoogleSignInLoading}
                   onSignInSuccess={handleGoogleSuccessSignIn}
                   onSignInError={() => {
                     console.log("Login Failed");
