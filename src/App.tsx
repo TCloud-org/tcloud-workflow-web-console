@@ -16,7 +16,7 @@ import { WorkflowAutomationPage } from "Pages/WorkflowAutomationSider/WorkflowAu
 import { Layout, theme } from "antd";
 import { Content } from "antd/es/layout/layout";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Outlet,
   RouterProvider,
@@ -61,11 +61,15 @@ import { setItems } from "./features/navigation/breadcrumbSlice";
 import { setSelectedKeys } from "./features/navigation/siderSlice";
 import { WorkflowPage } from "Pages/ApiWorkflowConfigurationSider/WorkflowPage";
 import { NotFoundPage } from "Pages/NotFoundPage";
+import { LoginPage } from "Pages/Authentication/LoginPage";
+import { SignUpPage } from "Pages/Authentication/SignUpPage";
 
 export const App = () => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
+  const authToken = useSelector((state: any) => state.auth.token);
 
   const Wrapper = () => {
     const dispatch = useDispatch();
@@ -87,6 +91,14 @@ export const App = () => {
       }
       dispatch(setItems(deserializedLocation));
     }, [dispatch, location.pathname]);
+
+    if (!authToken) {
+      return (
+        <Layout style={{ minHeight: "100vh", background: colorBgContainer }}>
+          <Outlet />
+        </Layout>
+      );
+    }
 
     return (
       <Layout style={{ minHeight: "100vh" }}>
@@ -132,184 +144,195 @@ export const App = () => {
     {
       element: <Wrapper />,
       errorElement: <NotFoundPage />,
-      children: [
-        {
-          path: "/",
-          element: <HomePage />,
-        },
-        {
-          path: "/statistic",
-          element: <WorkflowStatisticPage />,
-        },
-        {
-          path: "/api-workflow-introduction",
-          element: <ApiWorkflowIntroductionPage />,
-        },
-        {
-          path: "/api-workflow-how-it-works",
-          element: <ApiWorkflowHowItWorksPage />,
-        },
-        {
-          path: "/api-workflow-onboarding",
-          element: <OnboardingPage />,
-        },
-        {
-          path: "/api-workflow-model",
-          element: <ApiWorkflowModelPage />,
-        },
-        {
-          path: "/api-workflow-quickstart",
-          element: <ApiWorkflowQuickstartPage />,
-        },
-        {
-          path: "/query",
-          element: <QueryPage />,
-        },
-        {
-          path: "/live",
-          element: <LiveWorkflowPage />,
-        },
-        {
-          path: "/live/:workId",
-          element: <WorkPage />,
-        },
-        {
-          path: "/bucket",
-          element: <BucketPage />,
-        },
-        {
-          path: "/bucket/batch-retry",
-          element: <BatchRetryPage />,
-        },
-        {
-          path: "/bucket/batch-rerun",
-          element: <BatchRerunPage />,
-        },
-        {
-          path: "/bucket/batch-transition",
-          element: <BatchTransitionPage />,
-        },
-        {
-          path: "/bucket/batch-close",
-          element: <BatchClosePage />,
-        },
-        {
-          path: "/workflow",
-          element: <WorkflowPage />,
-        },
-        {
-          path: "/graph",
-          element: <GraphPage />,
-        },
-        {
-          path: "/graph/:graphId",
-          element: <GraphDetailPage />,
-        },
-        {
-          path: "/graph/:graphId/edit",
-          element: <EditGraphPage />,
-        },
-        {
-          path: "/graph/create",
-          element: <CreateGraphPage />,
-        },
-        {
-          path: "/service",
-          element: <ServicePage />,
-        },
-        {
-          path: "/service/add",
-          element: <AddServicePage />,
-        },
-        {
-          path: "/service/:serviceName",
-          element: <ServiceDetailPage />,
-        },
-        {
-          path: "/service/:serviceName/create",
-          element: <CreateEndpointPage />,
-        },
-        {
-          path: "/service/:serviceName/:serviceId",
-          element: <ServiceEndpointSetting />,
-        },
-        {
-          path: "/service/:serviceName/:serviceId/edit",
-          element: <EditEndpointPage />,
-        },
-        {
-          path: "/retry-policy",
-          element: <RetryPolicyPage />,
-        },
-        {
-          path: "/retry-policy/add",
-          element: <AddRetryPolicyPage />,
-        },
-        {
-          path: "/retry-policy/:retryPolicyId",
-          element: <RetryPolicyDetailPage />,
-        },
-        {
-          path: "/retry-policy/:retryPolicyId/edit",
-          element: <EditRetryPolicyPage />,
-        },
-        {
-          path: "/auth-token",
-          element: <AuthTokenPage />,
-        },
-        {
-          path: "/auth-token/:tokenId",
-          element: <ViewTokenPage />,
-        },
-        {
-          path: "/auth-token/:tokenId/edit",
-          element: <EditTokenPage />,
-        },
-        {
-          path: "/auth-token/add",
-          element: <AddTokenPage />,
-        },
-        {
-          path: "/general",
-          element: <GeneralPage />,
-        },
-        {
-          path: "/billing",
-          element: <BillingPage />,
-        },
-        {
-          path: "/traffic",
-          element: <MonitorTrafficPage />,
-        },
-        {
-          path: "/development",
-          element: <DevModePage />,
-        },
-        {
-          path: "/workflow-automation",
-          element: <WorkflowAutomationPage />,
-        },
-        {
-          path: "/workflow-automation/email-notification-workflow",
-          element: <EmailNotificationWorkflowPage />,
-        },
-        {
-          path: "/workflow-automation/email-notification-workflow/choose-template",
-          element: <EmailNotificationTemplateSelectionPage />,
-        },
-        {
-          path: "/workflow-automation/email-notification-workflow/choose-template/create",
-          element: <CreateEmailNotificationWorkflowPage />,
-        },
-        {
-          path: "/workflow-automation/email-notification-workflow/:id",
-          element: <EmailNotificationWorkflowDetailPage />,
-        },
-        {
-          path: "/workflow-automation/email-notification-workflow/:id/job",
-          element: <EmailNotificationJobPage />,
-        },
-      ],
+      children: !authToken
+        ? [
+            {
+              path: "/",
+              element: <LoginPage />,
+            },
+            {
+              path: "/sign-up",
+              element: <SignUpPage />,
+            },
+          ]
+        : [
+            {
+              path: "/",
+              element: <HomePage />,
+            },
+            {
+              path: "/statistic",
+              element: <WorkflowStatisticPage />,
+            },
+            {
+              path: "/api-workflow-introduction",
+              element: <ApiWorkflowIntroductionPage />,
+            },
+            {
+              path: "/api-workflow-how-it-works",
+              element: <ApiWorkflowHowItWorksPage />,
+            },
+            {
+              path: "/api-workflow-onboarding",
+              element: <OnboardingPage />,
+            },
+            {
+              path: "/api-workflow-model",
+              element: <ApiWorkflowModelPage />,
+            },
+            {
+              path: "/api-workflow-quickstart",
+              element: <ApiWorkflowQuickstartPage />,
+            },
+            {
+              path: "/query",
+              element: <QueryPage />,
+            },
+            {
+              path: "/live",
+              element: <LiveWorkflowPage />,
+            },
+            {
+              path: "/live/:workId",
+              element: <WorkPage />,
+            },
+            {
+              path: "/bucket",
+              element: <BucketPage />,
+            },
+            {
+              path: "/bucket/batch-retry",
+              element: <BatchRetryPage />,
+            },
+            {
+              path: "/bucket/batch-rerun",
+              element: <BatchRerunPage />,
+            },
+            {
+              path: "/bucket/batch-transition",
+              element: <BatchTransitionPage />,
+            },
+            {
+              path: "/bucket/batch-close",
+              element: <BatchClosePage />,
+            },
+            {
+              path: "/workflow",
+              element: <WorkflowPage />,
+            },
+            {
+              path: "/graph",
+              element: <GraphPage />,
+            },
+            {
+              path: "/graph/:graphId",
+              element: <GraphDetailPage />,
+            },
+            {
+              path: "/graph/:graphId/edit",
+              element: <EditGraphPage />,
+            },
+            {
+              path: "/graph/create",
+              element: <CreateGraphPage />,
+            },
+            {
+              path: "/service",
+              element: <ServicePage />,
+            },
+            {
+              path: "/service/add",
+              element: <AddServicePage />,
+            },
+            {
+              path: "/service/:serviceName",
+              element: <ServiceDetailPage />,
+            },
+            {
+              path: "/service/:serviceName/create",
+              element: <CreateEndpointPage />,
+            },
+            {
+              path: "/service/:serviceName/:serviceId",
+              element: <ServiceEndpointSetting />,
+            },
+            {
+              path: "/service/:serviceName/:serviceId/edit",
+              element: <EditEndpointPage />,
+            },
+            {
+              path: "/retry-policy",
+              element: <RetryPolicyPage />,
+            },
+            {
+              path: "/retry-policy/add",
+              element: <AddRetryPolicyPage />,
+            },
+            {
+              path: "/retry-policy/:retryPolicyId",
+              element: <RetryPolicyDetailPage />,
+            },
+            {
+              path: "/retry-policy/:retryPolicyId/edit",
+              element: <EditRetryPolicyPage />,
+            },
+            {
+              path: "/auth-token",
+              element: <AuthTokenPage />,
+            },
+            {
+              path: "/auth-token/:tokenId",
+              element: <ViewTokenPage />,
+            },
+            {
+              path: "/auth-token/:tokenId/edit",
+              element: <EditTokenPage />,
+            },
+            {
+              path: "/auth-token/add",
+              element: <AddTokenPage />,
+            },
+            {
+              path: "/general",
+              element: <GeneralPage />,
+            },
+            {
+              path: "/billing",
+              element: <BillingPage />,
+            },
+            {
+              path: "/traffic",
+              element: <MonitorTrafficPage />,
+            },
+            {
+              path: "/development",
+              element: <DevModePage />,
+            },
+            {
+              path: "/workflow-automation",
+              element: <WorkflowAutomationPage />,
+            },
+            {
+              path: "/workflow-automation/email-notification-workflow",
+              element: <EmailNotificationWorkflowPage />,
+            },
+            {
+              path: "/workflow-automation/email-notification-workflow/choose-template",
+              element: <EmailNotificationTemplateSelectionPage />,
+            },
+            {
+              path: "/workflow-automation/email-notification-workflow/choose-template/create",
+              element: <CreateEmailNotificationWorkflowPage />,
+            },
+            {
+              path: "/workflow-automation/email-notification-workflow/:id",
+              element: <EmailNotificationWorkflowDetailPage />,
+            },
+            {
+              path: "/workflow-automation/email-notification-workflow/:id/job",
+              element: <EmailNotificationJobPage />,
+            },
+          ],
     },
   ]);
 
