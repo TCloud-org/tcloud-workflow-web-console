@@ -25,7 +25,9 @@ export const RetryConfiguration = forwardRef<
   const { workId } = useParams();
 
   const clientId = useSelector((state: any) => state.client.clientId);
-  const { workflowId } = useSelector((state: any) => state.workflow.workflow);
+  const { workflowId } = useSelector(
+    (state: any) => state.workflow.workflow || {}
+  );
 
   const [lastRoute, setLastRoute] = useState<Route>();
   const [configurations, setConfigurations] = useState<ServiceConfiguration[]>(

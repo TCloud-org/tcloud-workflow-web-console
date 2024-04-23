@@ -68,6 +68,8 @@ import { TermsAndConditionsPage } from "Pages/Policy/TermsAndConditionsPage";
 import { PrivacyPolicyPage } from "Pages/Policy/PrivacyPolicyPage";
 import { ForgotPasswordPage } from "Pages/Authentication/ForgotPasswordPage";
 import { CookiePolicyPage } from "Pages/Policy/CookiePolicyPage";
+import { ClientPage } from "Pages/PeopleSider/ClientPage";
+import { AddClientPage } from "Pages/PeopleSider/AddClientPage";
 
 export const App = () => {
   const {
@@ -75,6 +77,7 @@ export const App = () => {
   } = theme.useToken();
 
   const authToken = useSelector((state: any) => state.auth.token);
+  const account = useSelector((state: any) => state.auth.account);
 
   const Wrapper = () => {
     const dispatch = useDispatch();
@@ -97,7 +100,7 @@ export const App = () => {
       dispatch(setItems(deserializedLocation));
     }, [dispatch, location.pathname]);
 
-    if (!authToken) {
+    if (!authToken || !account) {
       return (
         <Layout style={{ minHeight: "100vh", background: colorBgContainer }}>
           <Outlet />
@@ -317,6 +320,14 @@ export const App = () => {
             {
               path: "/auth-token/add",
               element: <AddTokenPage />,
+            },
+            {
+              path: "/client",
+              element: <ClientPage />,
+            },
+            {
+              path: "/client/add",
+              element: <AddClientPage />,
             },
             {
               path: "/general",

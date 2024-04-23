@@ -6,6 +6,7 @@ import {
   PartitionOutlined,
   SafetyOutlined,
   SettingOutlined,
+  UsergroupAddOutlined,
 } from "@ant-design/icons";
 import {
   HeaderHeight,
@@ -22,8 +23,9 @@ export const SiderHrefs = {
   home: "home",
   workflow: "workflow",
   security: "security",
-  settings: "settings",
   monitor: "monitor",
+  people: "people",
+  settings: "settings",
   "/workflow-automation": "/workflow-automation",
   "/development": "/development",
   "/api-workflow-introduction": "workflow",
@@ -39,9 +41,10 @@ export const SiderHrefs = {
   "/service": "workflow",
   "/retry-policy": "workflow",
   "/auth-token": "security",
+  "/traffic": "monitor",
+  "/client": "people",
   "/general": "settings",
   "/billing": "settings",
-  "/traffic": "monitor",
 };
 
 export const SiderName = {
@@ -60,9 +63,10 @@ export const SiderName = {
   "/service": "Service",
   "/retry-policy": "Retry Policy",
   "/auth-token": "Auth Token",
+  "/traffic": "Traffic",
+  "/client": "Client",
   "/general": "General",
   "/billing": "Billing",
-  "/traffic": "Traffic",
 };
 
 export const AppSider = (props: {
@@ -202,6 +206,18 @@ export const AppSider = (props: {
           key: "/auth-token",
           label: "Auth Token",
           onClick: () => navigate("/auth-token"),
+        },
+      ],
+    },
+    {
+      key: "people",
+      icon: <UsergroupAddOutlined />,
+      label: "People",
+      children: [
+        {
+          key: "/client",
+          label: "Client",
+          onClick: () => navigate("/client"),
         },
       ],
     },

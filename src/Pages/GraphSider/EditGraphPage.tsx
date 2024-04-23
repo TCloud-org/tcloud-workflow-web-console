@@ -18,7 +18,9 @@ export const EditGraphPage = () => {
   const navigate = useNavigate();
 
   const clientId = useSelector((state: any) => state.client.clientId);
-  const { workflowId } = useSelector((state: any) => state.workflow.workflow);
+  const { workflowId } = useSelector(
+    (state: any) => state.workflow.workflow || {}
+  );
 
   const location = useLocation();
   const {

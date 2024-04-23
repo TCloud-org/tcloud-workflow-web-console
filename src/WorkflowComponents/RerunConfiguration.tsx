@@ -37,7 +37,7 @@ export const RerunConfiguration = forwardRef<
 >(({ onClose = () => {}, onRefresh = () => {} }, ref) => {
   const clientId = useSelector((state: any) => state.client.clientId);
   const { workflowId, workflowName } = useSelector(
-    (state: any) => state.workflow.workflow
+    (state: any) => state.workflow.workflow || {}
   );
 
   const { workId } = useParams();

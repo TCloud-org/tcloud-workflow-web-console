@@ -16,7 +16,9 @@ import { useSelector } from "react-redux";
 
 export const QueryPage = () => {
   const clientId = useSelector((state: any) => state.client.clientId);
-  const { workflowId } = useSelector((state: any) => state.workflow.workflow);
+  const { workflowId } = useSelector(
+    (state: any) => state.workflow.workflow || {}
+  );
   const { saved, active }: { saved: FilterQuery[]; active?: string } =
     useSelector((state: any) => state.workFilter);
 

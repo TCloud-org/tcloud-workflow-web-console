@@ -17,7 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 export const WorkflowPage = () => {
   const clientId = useSelector((state: any) => state.client.clientId);
   const activeWorkflow: Workflow | undefined = useSelector(
-    (state: any) => state.workflow.workflow
+    (state: any) => state.workflow.workflow || {}
   );
 
   const dispatch = useDispatch();

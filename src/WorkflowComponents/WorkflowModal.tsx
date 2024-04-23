@@ -17,7 +17,7 @@ export const WorkflowModal = (props: {
   onClose?: () => void;
 }) => {
   const { workflowId, workflowName } = useSelector(
-    (state: any) => state.workflow.workflow
+    (state: any) => state.workflow.workflow || {}
   );
 
   const { alias = "live", onClose } = props;

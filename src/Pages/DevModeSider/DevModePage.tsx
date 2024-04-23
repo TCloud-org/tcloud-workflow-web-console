@@ -10,7 +10,9 @@ import { v4 } from "uuid";
 
 export const DevModePage = () => {
   const clientId = useSelector((state: any) => state.client.clientId);
-  const { workflowId } = useSelector((state: any) => state.workflow.workflow);
+  const { workflowId } = useSelector(
+    (state: any) => state.workflow.workflow || {}
+  );
 
   const [initiatedId, setInitiatedId] = useState<string>("");
   const [initiatedLoading, setInitiatedLoading] = useState<boolean>(false);

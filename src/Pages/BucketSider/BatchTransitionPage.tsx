@@ -26,7 +26,9 @@ export const BatchTransitionPage = () => {
     location?.state || {};
 
   const clientId = useSelector((state: any) => state.client.clientId);
-  const { workflowId } = useSelector((state: any) => state.workflow.workflow);
+  const { workflowId } = useSelector(
+    (state: any) => state.workflow.workflow || {}
+  );
 
   const [current, setCurrent] = useState<number>(0);
   const [graph, setGraph] = useState<Graph>();

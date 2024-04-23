@@ -32,7 +32,9 @@ import { LiveGraphTab } from "../../WorkflowComponents/LiveTab/LiveGraphTab";
 
 export const WorkPage = () => {
   const { workId = "" } = useParams();
-  const { workflowId } = useSelector((state: any) => state.workflow.workflow);
+  const { workflowId } = useSelector(
+    (state: any) => state.workflow.workflow || {}
+  );
 
   const [workflowLoading, setWorkflowLoading] = useState<boolean>(false);
   const [graphLoading, setGraphLoading] = useState<boolean>(false);

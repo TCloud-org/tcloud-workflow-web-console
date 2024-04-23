@@ -10,7 +10,9 @@ import { AppEmpty } from "../../DataDisplayComponents/AppEmpty";
 
 export const BucketPage = () => {
   const clientId = useSelector((state: any) => state.client.clientId);
-  const { workflowId } = useSelector((state: any) => state.workflow.workflow);
+  const { workflowId } = useSelector(
+    (state: any) => state.workflow.workflow || {}
+  );
 
   const [bucketMap, setBucketMap] = useState<Record<string, Route[]>>({});
   const [loading, setLoading] = useState(false);

@@ -17,7 +17,9 @@ export const BatchClosePage = () => {
   const { workIds = [], bucketId }: { workIds: Key[]; bucketId: string } =
     location.state || {};
   const clientId = useSelector((state: any) => state.client.clientId);
-  const { workflowId } = useSelector((state: any) => state.workflow.workflow);
+  const { workflowId } = useSelector(
+    (state: any) => state.workflow.workflow || {}
+  );
 
   const [current, setCurrent] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);

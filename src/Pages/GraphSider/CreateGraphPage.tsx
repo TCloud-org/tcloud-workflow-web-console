@@ -33,7 +33,9 @@ import { AppRow } from "../../LayoutComponents/AppRow";
 export const CreateGraphPage = () => {
   const navigate = useNavigate();
   const clientId = useSelector((state: any) => state.client.clientId);
-  const { workflowId } = useSelector((state: any) => state.workflow.workflow);
+  const { workflowId } = useSelector(
+    (state: any) => state.workflow.workflow || {}
+  );
   const [isValidating, setIsValidating] = useState<boolean>(false);
   const [isXMLValidated, setIsXMLValidated] = useState<boolean>(false);
   const [showAlert, setShowAlert] = useState<boolean>(false);

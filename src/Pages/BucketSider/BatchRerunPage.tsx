@@ -33,7 +33,7 @@ export const BatchRerunPage = () => {
     location.state || {};
   const clientId = useSelector((state: any) => state.client.clientId);
   const { workflowId, workflowName } = useSelector(
-    (state: any) => state.workflow.workflow
+    (state: any) => state.workflow.workflow || {}
   );
 
   const [form] = Form.useForm();

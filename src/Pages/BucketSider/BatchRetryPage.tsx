@@ -28,7 +28,9 @@ export const BatchRetryPage = () => {
     bucketId,
   }: { workIds: Key[]; route: Route; bucketId: string } = location.state || {};
   const clientId = useSelector((state: any) => state.client.clientId);
-  const { workflowId } = useSelector((state: any) => state.workflow.workflow);
+  const { workflowId } = useSelector(
+    (state: any) => state.workflow.workflow || {}
+  );
 
   const [form] = Form.useForm();
 

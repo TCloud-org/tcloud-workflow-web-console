@@ -63,7 +63,7 @@ export const GraphPage = () => {
   const navigate = useNavigate();
 
   const { workflowId, workflowName } = useSelector(
-    (state: any) => state.workflow.workflow
+    (state: any) => state.workflow.workflow || {}
   );
 
   const [graphs, setGraphs] = useState<Graph[]>([]);

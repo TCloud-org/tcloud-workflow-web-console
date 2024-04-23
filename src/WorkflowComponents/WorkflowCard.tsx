@@ -33,7 +33,7 @@ export const WorkflowCard = (props: { workflow?: Workflow }) => {
   const dispatch = useDispatch();
 
   const activeWorkflow: Workflow | undefined = useSelector(
-    (state: any) => state.workflow.workflow
+    (state: any) => state.workflow.workflow || {}
   );
 
   const { workflow } = props;

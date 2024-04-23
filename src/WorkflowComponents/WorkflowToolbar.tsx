@@ -49,7 +49,9 @@ export const WorkflowToolbar = (props: {
 
   const { workId } = useParams();
   const clientId = useSelector((state: any) => state.client.clientId);
-  const { workflowId } = useSelector((state: any) => state.workflow.workflow);
+  const { workflowId } = useSelector(
+    (state: any) => state.workflow.workflow || {}
+  );
 
   const [messageApi, contextHolder] = message.useMessage();
 

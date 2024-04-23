@@ -29,7 +29,9 @@ export const LiveTransition = forwardRef<
   const { workId } = useParams();
 
   const clientId = useSelector((state: any) => state.client.clientId);
-  const { workflowId } = useSelector((state: any) => state.workflow.workflow);
+  const { workflowId } = useSelector(
+    (state: any) => state.workflow.workflow || {}
+  );
 
   const [from, setFrom] = useState<string>("None");
   const [to, setTo] = useState<string>("None");

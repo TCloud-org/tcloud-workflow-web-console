@@ -11,7 +11,7 @@ import { getWorksByClientIdAndWorkflowId } from "../../Network/WorkFetch";
 export const LiveWorkflowPage = () => {
   const clientId = useSelector((state: any) => state.client.clientId);
   const { workflowId, workflowName } = useSelector(
-    (state: any) => state.workflow.workflow
+    (state: any) => state.workflow.workflow || {}
   );
 
   const [works, setWorks] = useState<Work[]>([]);
