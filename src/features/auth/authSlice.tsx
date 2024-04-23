@@ -5,7 +5,7 @@ export interface Account {
   firstName?: string;
   lastName?: string;
   phoneNumber?: string;
-  emailVerified?: boolean;
+  isEmailVerified?: boolean;
 }
 
 export interface EmailAuth {

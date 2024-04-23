@@ -81,7 +81,7 @@ export const LoginPage = () => {
           email: res.email,
           firstName: res["given_name"],
           lastName: res["family_name"],
-          emailVerified: res["email_verified"],
+          isEmailVerified: res["email_verified"],
         },
       })
     );
