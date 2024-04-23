@@ -1,8 +1,10 @@
 import Icon from "@ant-design/icons/lib/components/Icon";
 import { FacebookSvg } from "SvgIcons/FacebookSvg";
 import { LinkedInSvg } from "SvgIcons/LinkedInSvg";
-import { Flex, Image, Typography, theme } from "antd";
+import { Col, Divider, Flex, Image, Typography, theme } from "antd";
 import { Footer } from "antd/es/layout/layout";
+import { AppRow } from "./AppRow";
+import { BRAND } from "Config/WOSEndpointConfig";
 
 export const AppFooter = () => {
   const { token } = theme.useToken();
@@ -18,6 +20,34 @@ export const AppFooter = () => {
           background: token.colorBgContainer,
         }}
       >
+        <AppRow gutter={[16, 16]}>
+          <Col span={6}>
+            <Typography.Title style={{ margin: 0 }} level={4}>
+              {BRAND}
+            </Typography.Title>
+          </Col>
+          <Col span={6}>
+            <Flex vertical align="flex-start" gap={16}>
+              <Typography.Text strong>Product</Typography.Text>
+              <Typography.Text>Automation</Typography.Text>
+              <Typography.Text>Cloud Infrastructure</Typography.Text>
+            </Flex>
+          </Col>
+          <Col span={6}>
+            <Flex vertical align="flex-start" gap={16}>
+              <Typography.Text strong>Support</Typography.Text>
+              <Typography.Text>Help</Typography.Text>
+              <Typography.Text>Contact</Typography.Text>
+            </Flex>
+          </Col>
+          <Col span={6}>
+            <Flex vertical align="flex-start" gap={16}>
+              <Typography.Text strong>Company</Typography.Text>
+              <Typography.Text>About</Typography.Text>
+            </Flex>
+          </Col>
+        </AppRow>
+        <Divider />
         <Flex align="center" justify="space-between">
           <Flex align="center" gap={32}>
             <Flex align="center" gap={8}>

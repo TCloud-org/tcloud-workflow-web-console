@@ -62,19 +62,6 @@ export const LoginPage = () => {
       })
     );
     setGoogleSignInLoading(false);
-    /**
-     * {
-    {
-    "sub": "109165758253213394821",
-    "name": "Tung Dinh",
-    "given_name": "Tung",
-    "family_name": "Dinh",
-    "picture": "https://lh3.googleusercontent.com/a/ACg8ocJWlM5H0DDUUPJcj4i-CgDlyHLTPvwU9_4crLlNf-87svEgal8=s96-c",
-    "email": "tungxd301@gmail.com",
-    "email_verified": true,
-    "locale": "en"
-}
-     */
   };
 
   const handleValuesChange = (_: any, values: any) => {
