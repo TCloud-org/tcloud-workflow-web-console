@@ -116,6 +116,7 @@ export const AppHeader = (props: {
 
   const handleLogout = () => {
     dispatch(logout());
+    navigate("/");
   };
 
   const getHistoryOptions = (): AutoCompleteProps["options"] => {

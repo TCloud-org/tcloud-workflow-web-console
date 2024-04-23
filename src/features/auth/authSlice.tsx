@@ -8,14 +8,21 @@ export interface Account {
   emailVerified?: boolean;
 }
 
+export interface EmailAuth {
+  email: string;
+  password: string;
+}
+
 export interface AuthState {
   token?: string;
   account?: Account;
+  rememberMeToken?: string;
 }
 
 const initialState: AuthState = {
   token: undefined,
   account: undefined,
+  rememberMeToken: undefined,
 };
 
 export const authSlice = createSlice({
@@ -25,6 +32,7 @@ export const authSlice = createSlice({
     login: (state, action: PayloadAction<AuthState>) => {
       state.token = action.payload.token;
       state.account = action.payload.account;
+      state.rememberMeToken = action.payload.rememberMeToken;
     },
     logout: (state) => {
       state.token = undefined;

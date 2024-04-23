@@ -9,17 +9,31 @@ import { AppButton } from "DataEntryComponents/AppButton";
 import { AppForm } from "DataEntryComponents/AppForm";
 import { AppLine } from "LayoutComponents/AppLine";
 import { AuthContent } from "LayoutComponents/AuthContent";
-import { Col, Flex, Form, Input, Typography, message, theme } from "antd";
+import {
+  Checkbox,
+  Col,
+  Flex,
+  Form,
+  Input,
+  Typography,
+  message,
+  theme,
+} from "antd";
 import axios from "axios";
 import { login } from "features/auth/authSlice";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
 export const LoginPage = () => {
   const { token } = theme.useToken();
   const [form] = Form.useForm();
   const [messageApi, contextHolder] = message.useMessage();
+
+  const rememberMeToken = useSelector(
+    (state: any) => state.auth.rememberMeToken
+  );
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -27,6 +41,16 @@ export const LoginPage = () => {
   const [googleSignInLoading, setGoogleSignInLoading] =
     useState<boolean>(false);
   const [emailSignInLoading, setEmailSignInLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (rememberMeToken) {
+      const decoded: any = jwtDecode(rememberMeToken);
+      form.setFieldsValue({
+        email: decoded.e,
+        rememberMe: true,
+      });
+    }
+  }, [rememberMeToken, form]);
 
   const handleSignUp = () => {
     navigate("/sign-up");
@@ -78,9 +102,19 @@ export const LoginPage = () => {
     const res = await axios
       .post(AMS_SIGN_IN_ENDPOINT, formData)
       .then((res) => res.data)
-      .catch((err) => messageApi.error("Login failed. Please try again"));
+      .catch((err) => {
+        console.error(err);
+        messageApi.error("Login failed. Please try again");
+      });
     if (res) {
-      dispatch(login({ token: res.token, account: res.account }));
+      const isRememberMe = form.getFieldValue("rememberMe");
+      dispatch(
+        login({
+          token: res.token,
+          account: res.account,
+          rememberMeToken: isRememberMe ? res.token : undefined,
+        })
+      );
     }
 
     setEmailSignInLoading(false);
@@ -137,8 +171,13 @@ export const LoginPage = () => {
                   placeholder="Password"
                 />
               </Form.Item>
-              <Form.Item>
-                <Flex justify="flex-end">
+              <Flex justify="space-between" align="center">
+                <Form.Item name="rememberMe" valuePropName="checked">
+                  <Checkbox style={{ color: token.colorTextSecondary }}>
+                    Remember me
+                  </Checkbox>
+                </Form.Item>
+                <Form.Item>
                   <AppButton
                     type="link"
                     style={{ color: token.colorTextSecondary }}
@@ -146,8 +185,8 @@ export const LoginPage = () => {
                   >
                     Forgot your password?
                   </AppButton>
-                </Flex>
-              </Form.Item>
+                </Form.Item>
+              </Flex>
               <Form.Item>
                 <AppButton
                   style={{

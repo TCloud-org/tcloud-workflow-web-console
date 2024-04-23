@@ -7,7 +7,7 @@ export const LinkedInSvg = () => {
       viewBox="0 0 72 72"
       id="linkedin"
     >
-      <g fill="none" fill-rule="evenodd">
+      <g fill="none" fillRule="evenodd">
         <g>
           <rect width="72" height="72" fill="#117EB8" rx="4"></rect>
           <path

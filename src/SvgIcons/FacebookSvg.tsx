@@ -13,9 +13,9 @@ export const FacebookSvg = () => {
       ></path>
       <path
         fill="#FAFAFA"
-        fill-rule="evenodd"
+        fillRule="evenodd"
         d="M13.5 8H11V6c0-.552.448-.5 1-.5h1V3h-2a3 3 0 0 0-3 3v2H6v2.5h2V16h3v-5.5h1.5l1-2.5z"
-        clip-rule="evenodd"
+        clipRule="evenodd"
       ></path>
     </svg>
   );

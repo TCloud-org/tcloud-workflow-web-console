@@ -28,9 +28,10 @@ export const AppSubHeader = () => {
     >
       {Object.entries(pinned)
         .filter(([_, isPinned]) => isPinned)
-        .map(([itemKey, _]) => (
+        .map(([itemKey, _], i) => (
           <Tag
             color={borderColor}
+            key={i}
             closable
             icon={<PushpinFilled />}
             onClick={() => navigate(itemKey)}
