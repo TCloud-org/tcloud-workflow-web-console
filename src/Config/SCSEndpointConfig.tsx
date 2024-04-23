@@ -4,3 +4,5 @@ export const SCS_ADD_AUTH_TOKEN_URL = SCS_BASE_URL + "/add-auth-token";
 export const SCS_GET_TOKENS_BY_CLIENT_ID =
   SCS_BASE_URL + "/get-tokens-by-client-id";
 export const SCS_GET_TOKEN_BY_ID_URL = SCS_BASE_URL + "/get-token-by-id";
+export const SCS_ADD_CLIENT_URL = SCS_BASE_URL + "/add-client";
+export const SCS_GET_CLIENTS_URL = SCS_BASE_URL + "/get-clients";

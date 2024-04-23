@@ -8,6 +8,7 @@ import generalReducer from "features/settings/generalSlice";
 import workFilterReducer from "features/filter/workFilterSlice";
 import historyReducer from "features/search/historySlice";
 import authReducer from "features/auth/authSlice";
+import menuFavoriteReducer from "features/favorite/menuFavoriteSlice";
 
 const rootReducer = combineReducers({
   breadcrumb: breadcrumbReducer,
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   workFilter: workFilterReducer,
   history: historyReducer,
   auth: authReducer,
+  menuFavorite: menuFavoriteReducer,
 });
 
 export default persistedReducer(rootReducer);

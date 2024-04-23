@@ -82,6 +82,14 @@ export const AppTable = (
   }>({});
   const [filteredActive, setFilteredActive] = useState<boolean>(false);
   const [settingsActive, setSettingsActive] = useState<boolean>(false);
+  const [attributeSelected, setAttributeSelected] = useState<{
+    [key: string]: boolean;
+  }>(
+    columns.reduce((res: { [key: string]: boolean }, col) => {
+      res[col.dataIndex || ""] = col.hidden === undefined ? true : !col.hidden;
+      return res;
+    }, {})
+  );
 
   const data = rows.map((row, i) => ({ ...row, key: row[rowId] || i }));
 
@@ -94,6 +102,10 @@ export const AppTable = (
         width: column.width,
         onResize: handleResize(i) as React.ReactEventHandler<any>,
       }),
+      hidden:
+        !col.dataIndex || !showSettings
+          ? false
+          : !attributeSelected[col.dataIndex as string],
     };
     if (!col.editable) {
       return newCol;
@@ -207,6 +219,8 @@ export const AppTable = (
           rows={rows}
           columns={editableColumns as EditableColumn[]}
           active={settingsActive}
+          onChange={setAttributeSelected}
+          disabled={{ [rowId]: true }}
         />
 
         <WorkflowFilterToolbar

@@ -2,6 +2,7 @@ import { SiderName } from "LayoutComponents/AppSider";
 import { Route } from "../Config/WorkflowConfig";
 import { BreadcrumbItem } from "../features/navigation/breadcrumbSlice";
 import { formatDate } from "./DateUtils";
+import { capitalizeEachWord } from "./StringUtils";
 
 export const serializeWorkflow = (workflow: any) => {
   if (!workflow) {
@@ -24,7 +25,10 @@ export const deserializeWorkflow = (value: string) => {
 export const deserializeLocation = (location: string): BreadcrumbItem[] => {
   const blocks = location.split("/").filter((item: string) => item);
   return blocks.map((item: string, i) => ({
-    title: SiderName[`/${item}` as keyof typeof SiderName],
+    title:
+      `/${item}` in SiderName
+        ? SiderName[`/${item}` as keyof typeof SiderName]
+        : capitalizeEachWord(item),
     href: "/" + blocks.slice(0, i + 1).join("/"),
   }));
 };

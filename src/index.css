@@ -104,12 +104,15 @@ code {
 
 .ant-form-item-required {
   flex-direction: row-reverse;
-  margin        : 0;
-  padding       : 0;
+}
+
+.ant-form-item-required::before {
+  margin-left: 4px;
 }
 
 .ant-form-item-required::after {
-  width: 0;
+  width : 0;
+  margin: 0 !important;
 }
 
 .focus {

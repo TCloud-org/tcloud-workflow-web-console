@@ -29,15 +29,19 @@ import React, {
   Dispatch,
   KeyboardEvent,
   SetStateAction,
+  useCallback,
   useEffect,
   useState,
 } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { BRAND } from "../Config/WOSEndpointConfig";
-import { setClientId } from "../features/workflow/clientSlice";
+import { setClientId, updateClients } from "../features/workflow/clientSlice";
 import { AppSubHeader } from "./AppSubHeader";
 import { Account, logout } from "features/auth/authSlice";
+import { getClients } from "Network/SecurityFetch";
+import { Client } from "Config/SCSConfig";
+import { setWorkflow } from "features/workflow/workflowSlice";
 
 export const AppHeader = (props: {
   collapsed?: boolean;
@@ -76,15 +80,22 @@ export const AppHeader = (props: {
     (state: any) => state.history.cache
   );
   const account: Account = useSelector((state: any) => state.auth.account);
+  const clients: Client[] = useSelector((state: any) => state.client.clients);
 
   const [searchInput, setSearchInput] = useState<string>("");
 
+  const fetchClients = useCallback(async () => {
+    const res = await getClients(account.email);
+    dispatch(updateClients(res.clients));
+  }, [account, dispatch]);
+
   useEffect(() => {
-    dispatch(setClientId("admin"));
-  }, [dispatch]);
+    fetchClients();
+  }, [fetchClients]);
 
   const handleClientIdChange = (value: string) => {
     dispatch(setClientId(value));
+    dispatch(setWorkflow(undefined));
   };
 
   const handleSearchEnter = (event: KeyboardEvent<HTMLDivElement>) => {
@@ -182,7 +193,7 @@ export const AppHeader = (props: {
             style={{
               fontSize: "16px",
               width: 64,
-              height: 40,
+              height: 64,
               borderTopLeftRadius: 0,
               borderBottomLeftRadius: 0,
             }}
@@ -210,7 +221,7 @@ export const AppHeader = (props: {
                     height={24}
                     style={{
                       marginRight: "8px",
-                      // animation: "spin 2s linear infinite",
+                      // animation: "spin 10s linear infinite",
                     }}
                   />
                 )}
@@ -237,11 +248,14 @@ export const AppHeader = (props: {
 
         <Flex gap="8px" align="center" style={{ flex: 1 }} justify="flex-end">
           <Select
-            placeholder="Select client ID"
+            placeholder="Select Client ID"
             value={clientId}
             variant="borderless"
             onChange={handleClientIdChange}
-            options={[{ value: "admin", label: "admin" }]}
+            options={clients.map((client) => ({
+              label: client.clientId,
+              value: client.clientId,
+            }))}
           />
           <Divider type="vertical" style={{ margin: "0 2px" }} />
           <Dropdown

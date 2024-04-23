@@ -4,14 +4,22 @@ import { AppAnimatedBox } from "LayoutComponents/AppAnimatedBox";
 import { AppRow } from "LayoutComponents/AppRow";
 import { AppSpace } from "LayoutComponents/AppSpace";
 import { Col, Flex, Switch, Typography } from "antd";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export const WorkflowSettingsToolbar = (props: {
   rows?: any[];
   columns?: EditableColumn[];
   active?: boolean;
+  onChange?: (selected: { [key: string]: boolean }) => void;
+  disabled?: { [key: string]: boolean };
 }) => {
-  const { rows = [], columns = [], active } = props;
+  const {
+    rows = [],
+    columns = [],
+    active,
+    onChange = () => {},
+    disabled = {},
+  } = props;
 
   const boxRef = useRef<HTMLDivElement>(null);
 
@@ -26,10 +34,12 @@ export const WorkflowSettingsToolbar = (props: {
     )
   );
 
-  const selected = columns.reduce((res: { [key: string]: boolean }, col) => {
-    res[col.dataIndex || ""] = true;
-    return res;
-  }, {});
+  const [selected, setSelected] = useState<{ [key: string]: boolean }>(
+    columns.reduce((res: { [key: string]: boolean }, col) => {
+      res[col.dataIndex || ""] = col.hidden === undefined ? true : !col.hidden;
+      return res;
+    }, {})
+  );
 
   useEffect(() => {
     if (boxRef.current) {
@@ -37,6 +47,12 @@ export const WorkflowSettingsToolbar = (props: {
       boxRef.current.style.maxHeight = active ? `${height}px` : "0";
     }
   }, [boxRef, active]);
+
+  const handleSelect = (attribute: string, checked: boolean) => {
+    const updatedSelected = { ...selected, [attribute]: checked };
+    setSelected(updatedSelected);
+    onChange(updatedSelected);
+  };
 
   return (
     <AppAnimatedBox ref={boxRef}>
@@ -50,8 +66,9 @@ export const WorkflowSettingsToolbar = (props: {
                 <Flex gap="8px" align="center">
                   <Switch
                     checked={selected[attribute]}
+                    disabled={disabled[attribute]}
                     size="small"
-                    onChange={(checked) => console.log(attribute, checked)}
+                    onChange={(checked) => handleSelect(attribute, checked)}
                   />
                   <Typography.Text>{attribute}</Typography.Text>
                 </Flex>

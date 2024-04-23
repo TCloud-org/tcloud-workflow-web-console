@@ -93,7 +93,7 @@ export const WorkflowPage = () => {
     <AppSpace loading={loading}>
       <PageTitle>Workflow</PageTitle>
 
-      {activeWorkflow && (
+      {activeWorkflow?.workflowId && (
         <>
           <Typography.Title level={5}>Active Workflow</Typography.Title>
           <AppRow gutter={[16, 16]} style={{ justifyContent: "center" }}>

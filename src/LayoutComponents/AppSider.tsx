@@ -13,6 +13,7 @@ import {
   SiderCollapseWidth,
   SiderWidth,
 } from "Config/LayoutConfig";
+import { AppMenuPin } from "DataDisplayComponents/AppMenuPin";
 import { Menu, MenuProps, theme } from "antd";
 import Sider from "antd/es/layout/Sider";
 import { Dispatch, SetStateAction } from "react";
@@ -108,27 +109,27 @@ export const AppSider = (props: {
           children: [
             {
               key: "/api-workflow-introduction",
-              label: "Introduction",
+              label: <AppMenuPin>/api-workflow-introduction</AppMenuPin>,
               onClick: () => navigate("/api-workflow-introduction"),
             },
             {
               key: "/api-workflow-how-it-works",
-              label: "How It Works",
+              label: <AppMenuPin>/api-workflow-how-it-works</AppMenuPin>,
               onClick: () => navigate("/api-workflow-how-it-works"),
             },
             {
               key: "/api-workflow-quickstart",
-              label: "Quickstart",
+              label: <AppMenuPin>/api-workflow-quickstart</AppMenuPin>,
               onClick: () => navigate("/api-workflow-quickstart"),
             },
             {
               key: "/api-workflow-onboarding",
-              label: "Onboarding",
+              label: <AppMenuPin>/api-workflow-onboarding</AppMenuPin>,
               onClick: () => navigate("/api-workflow-onboarding"),
             },
             {
               key: "/api-workflow-model",
-              label: "Model",
+              label: <AppMenuPin>/api-workflow-model</AppMenuPin>,
               onClick: () => navigate("/api-workflow-model"),
             },
           ],
@@ -140,17 +141,17 @@ export const AppSider = (props: {
           children: [
             {
               key: "/query",
-              label: "Query",
+              label: <AppMenuPin>/query</AppMenuPin>,
               onClick: () => navigate("/query"),
             },
             {
               key: "/live",
-              label: "Live",
+              label: <AppMenuPin>/live</AppMenuPin>,
               onClick: () => navigate("/live"),
             },
             {
               key: "/bucket",
-              label: "Bucket",
+              label: <AppMenuPin>/bucket</AppMenuPin>,
               onClick: () => navigate("/bucket"),
             },
           ],
@@ -162,22 +163,22 @@ export const AppSider = (props: {
           children: [
             {
               key: "/workflow",
-              label: "Workflow",
+              label: <AppMenuPin>/workflow</AppMenuPin>,
               onClick: () => navigate("/workflow"),
             },
             {
               key: "/graph",
-              label: "Graph",
+              label: <AppMenuPin>/graph</AppMenuPin>,
               onClick: () => navigate("/graph"),
             },
             {
               key: "/service",
-              label: "Service",
+              label: <AppMenuPin>/service</AppMenuPin>,
               onClick: () => navigate("/service"),
             },
             {
               key: "/retry-policy",
-              label: "Retry Policy",
+              label: <AppMenuPin>/retry-policy</AppMenuPin>,
               onClick: () => navigate("/retry-policy"),
             },
           ],
@@ -192,7 +193,7 @@ export const AppSider = (props: {
       children: [
         {
           key: "/traffic",
-          label: "Traffic",
+          label: <AppMenuPin>/traffic</AppMenuPin>,
           onClick: () => navigate("/traffic"),
         },
       ],
@@ -204,7 +205,7 @@ export const AppSider = (props: {
       children: [
         {
           key: "/auth-token",
-          label: "Auth Token",
+          label: <AppMenuPin>/auth-token</AppMenuPin>,
           onClick: () => navigate("/auth-token"),
         },
       ],
@@ -216,7 +217,7 @@ export const AppSider = (props: {
       children: [
         {
           key: "/client",
-          label: "Client",
+          label: <AppMenuPin>/client</AppMenuPin>,
           onClick: () => navigate("/client"),
         },
       ],
@@ -228,12 +229,12 @@ export const AppSider = (props: {
       children: [
         {
           key: "/general",
-          label: "General",
+          label: <AppMenuPin>/general</AppMenuPin>,
           onClick: () => navigate("/general"),
         },
         {
           key: "/billing",
-          label: "Billing",
+          label: <AppMenuPin>/billing</AppMenuPin>,
           onClick: () => navigate("/billing"),
         },
       ],
