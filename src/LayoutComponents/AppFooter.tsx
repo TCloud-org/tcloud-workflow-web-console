@@ -5,6 +5,7 @@ import { Col, Divider, Flex, Image, Typography, theme } from "antd";
 import { Footer } from "antd/es/layout/layout";
 import { AppRow } from "./AppRow";
 import { BRAND } from "Config/WOSEndpointConfig";
+import { HoveredLink } from "DataEntryComponents/HoveredLink";
 
 export const AppFooter = () => {
   const { token } = theme.useToken();
@@ -18,6 +19,8 @@ export const AppFooter = () => {
           borderTopLeftRadius: token.borderRadiusLG,
           borderTopRightRadius: token.borderRadiusLG,
           background: token.colorBgContainer,
+          fontSize: 12,
+          fontWeight: 500,
         }}
       >
         <AppRow gutter={[16, 16]}>
@@ -56,10 +59,14 @@ export const AppFooter = () => {
                 width={24}
                 preview={false}
               />
-              <Typography.Text>{`The Cloud World ©2024`}</Typography.Text>
+              <Typography.Text
+                style={{ fontSize: 12 }}
+              >{`The Cloud World ©2024`}</Typography.Text>
             </Flex>
-            <a href="/terms-and-conditions">Terms</a>
-            <a href="/privacy-policy">Privacy</a>
+
+            <HoveredLink href="/terms-and-conditions">Terms</HoveredLink>
+
+            <HoveredLink href="/privacy-policy">Privacy</HoveredLink>
           </Flex>
 
           <Flex align="center" wrap="wrap" gap={12}>
