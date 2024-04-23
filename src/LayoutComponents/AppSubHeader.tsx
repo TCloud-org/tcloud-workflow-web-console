@@ -24,6 +24,7 @@ export const AppSubHeader = () => {
         padding: "0 32px",
       }}
       align="center"
+      wrap="wrap"
     >
       {Object.entries(pinned)
         .filter(([_, isPinned]) => isPinned)
