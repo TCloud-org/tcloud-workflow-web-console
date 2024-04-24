@@ -8,6 +8,7 @@ import { AppForm } from "DataEntryComponents/AppForm";
 import { AuthContent } from "LayoutComponents/AuthContent";
 import { Col, Flex, Form, Input, Typography, message, theme } from "antd";
 import axios from "axios";
+import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 export const ResetPasswordPage = () => {
@@ -18,11 +19,15 @@ export const ResetPasswordPage = () => {
 
   const { resetToken } = useParams();
 
+  const [loading, setLoading] = useState<boolean>(false);
+
   const handleValuesChange = (_: any, values: any) => {
     form.setFieldsValue(values);
   };
 
   const handleSubmit = async () => {
+    setLoading(true);
+
     const newPassword = form.getFieldValue("newPassword");
     const confirmPassword = form.getFieldValue("confirmPassword");
     if (newPassword === confirmPassword) {
@@ -33,7 +38,6 @@ export const ResetPasswordPage = () => {
         })
         .then((res) => res)
         .catch((err) => {
-          messageApi.error("Failed to reset your password.");
           return undefined;
         });
       if (res) {
@@ -41,7 +45,10 @@ export const ResetPasswordPage = () => {
         setTimeout(() => {
           navigate("/");
         }, 1000);
+      } else {
+        messageApi.error("Failed to reset your password.");
       }
+      setLoading(false);
     }
   };
 
@@ -107,6 +114,7 @@ export const ResetPasswordPage = () => {
                   }}
                   size="large"
                   onClick={handleSubmit}
+                  loading={loading}
                 >
                   Submit
                 </AppButton>
