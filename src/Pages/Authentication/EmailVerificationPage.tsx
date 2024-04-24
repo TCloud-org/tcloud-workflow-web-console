@@ -92,9 +92,11 @@ export const EmailVerificationPage = () => {
     const res = await axios
       .post(AMS_SEND_VERIFICATION_CODE_ENDPOINT, formData)
       .then((res) => res.data);
-
     if (res) {
+      messageApi.success("Resent verification code.");
       setCodeExpiredAt(new Date(res.verificationToken?.expiredAt * 1000));
+    } else {
+      messageApi.error("Failed to resend verification code.");
     }
   };
 
