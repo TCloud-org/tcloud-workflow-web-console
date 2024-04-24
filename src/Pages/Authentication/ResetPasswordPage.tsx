@@ -1,4 +1,3 @@
-import { AMS_RESET_PASSWORD_ENDPOINT } from "Config/AMSEndpointConfig";
 import { borderColor } from "Config/AutomationConfig";
 import { Span } from "Config/DataDisplayInterface";
 import { AppLogoText } from "DataDisplayComponents/AppLogoText";
@@ -7,40 +6,25 @@ import { AppButton } from "DataEntryComponents/AppButton";
 import { AppForm } from "DataEntryComponents/AppForm";
 import { AuthContent } from "LayoutComponents/AuthContent";
 import { Col, Flex, Form, Input, Typography, theme } from "antd";
-import axios from "axios";
-import { useState } from "react";
 
-export const ForgotPasswordPage = () => {
-  const { token } = theme.useToken();
+export const ResetPasswordPage = () => {
   const [form] = Form.useForm();
-
-  const [loading, setLoading] = useState<boolean>(false);
+  const { token } = theme.useToken();
 
   const handleValuesChange = (_: any, values: any) => {
     form.setFieldsValue(values);
-  };
-
-  const handleSubmit = async () => {
-    setLoading(true);
-
-    await axios.post(AMS_RESET_PASSWORD_ENDPOINT, {
-      email: form.getFieldValue("email"),
-    });
-
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
   };
 
   return (
     <AuthContent>
       <Col span={12}>
         <AuthImageDisplay
-          imageUrl="https://tcw-images.s3.us-west-2.amazonaws.com/6221538.jpg"
-          resourceUrl="https://www.freepik.com/free-vector/hand-drawn-illustrated-business-planning_20124546.htm"
-          resourceLabel="Image by freepik"
+          imageUrl="https://tcw-images.s3.us-west-2.amazonaws.com/6221515.jpg"
+          resourceUrl="https://www.freepik.com/free-vector/hand-drawn-business-man-communicating_20125868.htm#from_view=detail_alsolike"
+          resourceLabel="Image by Freepik"
         />
       </Col>
+
       <Col span={12}>
         <Flex
           vertical
@@ -51,42 +35,36 @@ export const ForgotPasswordPage = () => {
         >
           <AppLogoText />
 
-          <Typography.Title level={3}>Forgot your password?</Typography.Title>
-          <Typography.Text>
-            Enter your email below to receive password reset instructions
-          </Typography.Text>
-          <Typography.Text type="secondary">
-            Didn't receive instructions?{" "}
-            <AppButton type="link" style={{ padding: 0 }}>
-              <Typography.Text
-                underline
-                style={{
-                  color: token.colorTextSecondary,
-                }}
-              >
-                Resend email
-              </Typography.Text>
-            </AppButton>
-          </Typography.Text>
+          <Typography.Title level={3}>Reset your password</Typography.Title>
+
           <AppForm
+            form={form}
             wrapperCol={Span[1]}
+            onValuesChange={handleValuesChange}
             style={{
               width: "100%",
               padding: "0 64px",
               marginTop: 16,
             }}
-            onValuesChange={handleValuesChange}
           >
             <Form.Item name="email">
-              <Input
+              <Input.Password
                 style={{
                   padding: "16px",
                   borderRadius: token.borderRadiusLG,
                 }}
-                placeholder="Email address"
+                placeholder="New password"
               />
             </Form.Item>
-
+            <Form.Item name="password">
+              <Input.Password
+                style={{
+                  padding: "16px",
+                  borderRadius: token.borderRadiusLG,
+                }}
+                placeholder="Confirm password"
+              />
+            </Form.Item>
             <Form.Item>
               <AppButton
                 style={{
@@ -96,8 +74,6 @@ export const ForgotPasswordPage = () => {
                   fontSize: 14,
                 }}
                 size="large"
-                onClick={handleSubmit}
-                loading={loading}
               >
                 Submit
               </AppButton>
