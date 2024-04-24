@@ -1,4 +1,7 @@
-import { AMS_VERIFY_ACCOUNT_ENDPOINT } from "Config/AMSEndpointConfig";
+import {
+  AMS_SEND_VERIFICATION_CODE_ENDPOINT,
+  AMS_VERIFY_ACCOUNT_ENDPOINT,
+} from "Config/AMSEndpointConfig";
 import { borderColor } from "Config/AutomationConfig";
 import { Span } from "Config/DataDisplayInterface";
 import { AppLogoText } from "DataDisplayComponents/AppLogoText";
@@ -19,6 +22,7 @@ import {
 } from "antd";
 import axios from "axios";
 import { login } from "features/auth/authSlice";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -33,8 +37,20 @@ export const EmailVerificationPage = () => {
   const [form] = Form.useForm();
   const { token } = theme.useToken();
 
+  const [codeExpiredAt, setCodeExpiredAt] = useState<Date>(new Date());
+  const [loading, setLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (data) {
+      setCodeExpiredAt(new Date(data.verificationToken?.expiredAt * 1000));
+    }
+  }, [data]);
+
   const handleValuesChange = (_: any, values: any) => {
     form.setFieldsValue(values);
+    if (values.otp && values.otp.length === 6) {
+      handleVerify();
+    }
   };
 
   const onFinish: CountdownProps["onFinish"] = () => {
@@ -42,6 +58,7 @@ export const EmailVerificationPage = () => {
   };
 
   const handleVerify = async () => {
+    setLoading(true);
     const formData = {
       email: data?.account?.email,
       verificationCode: form.getFieldValue("otp"),
@@ -50,17 +67,34 @@ export const EmailVerificationPage = () => {
       .post(AMS_VERIFY_ACCOUNT_ENDPOINT, formData)
       .then((res) => res.data);
 
-    if (isVerified) {
-      dispatch(
-        login({
-          token: data?.token,
-          account: data?.account,
-          rememberMeToken: data?.rememberMeToken,
-        })
-      );
-      navigate("/");
-    } else {
-      messageApi.error("OTP verification failed");
+    setTimeout(() => {
+      if (isVerified) {
+        dispatch(
+          login({
+            token: data?.token,
+            account: data?.account,
+            rememberMeToken: data?.rememberMeToken,
+          })
+        );
+        navigate("/");
+      } else {
+        messageApi.error("OTP verification failed");
+      }
+      form.resetFields();
+      setLoading(false);
+    }, 2000);
+  };
+
+  const handleResendVerificationCode = async () => {
+    const formData = {
+      email: data?.account?.email,
+    };
+    const res = await axios
+      .post(AMS_SEND_VERIFICATION_CODE_ENDPOINT, formData)
+      .then((res) => res.data);
+
+    if (res) {
+      setCodeExpiredAt(new Date(res.verificationToken?.expiredAt * 1000));
     }
   };
 
@@ -103,9 +137,7 @@ export const EmailVerificationPage = () => {
               </Typography.Text>
               <Statistic.Countdown
                 valueStyle={{ fontSize: 14, color: token.colorTextSecondary }}
-                value={new Date(
-                  data?.verificationToken?.expiredAt * 1000
-                ).getTime()}
+                value={codeExpiredAt.getTime()}
                 onFinish={onFinish}
                 format="mm:ss"
               />
@@ -138,6 +170,7 @@ export const EmailVerificationPage = () => {
                   }}
                   size="large"
                   onClick={handleVerify}
+                  loading={loading}
                 >
                   Verify
                 </AppButton>
@@ -147,7 +180,9 @@ export const EmailVerificationPage = () => {
                 <Form.Item style={{ marginTop: 8 }}>
                   <Typography.Text type="secondary">
                     Didn't receive the code?{" "}
-                    <Typography.Link>Resend email</Typography.Link>
+                    <Typography.Link onClick={handleResendVerificationCode}>
+                      Resend email
+                    </Typography.Link>
                   </Typography.Text>
                 </Form.Item>
               </Flex>
