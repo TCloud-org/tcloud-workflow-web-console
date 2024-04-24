@@ -39,6 +39,7 @@ export const EmailVerificationPage = () => {
 
   const [codeExpiredAt, setCodeExpiredAt] = useState<Date>(new Date());
   const [loading, setLoading] = useState<boolean>(false);
+  const [codeExpired, setCodeExpired] = useState<boolean>(false);
 
   useEffect(() => {
     if (data) {
@@ -54,7 +55,7 @@ export const EmailVerificationPage = () => {
   };
 
   const onFinish: CountdownProps["onFinish"] = () => {
-    console.log("finished!");
+    setCodeExpired(true);
   };
 
   const handleVerify = async () => {
@@ -94,6 +95,7 @@ export const EmailVerificationPage = () => {
       .then((res) => res.data);
     if (res) {
       messageApi.success("Resent verification code.");
+      setCodeExpired(false);
       setCodeExpiredAt(new Date(res.verificationToken?.expiredAt * 1000));
     } else {
       messageApi.error("Failed to resend verification code.");
@@ -131,19 +133,28 @@ export const EmailVerificationPage = () => {
               </Typography.Text>
             </Typography.Text>
 
-            <Flex gap={4}>
-              <Typography.Text
-                style={{ fontSize: 14, color: token.colorTextSecondary }}
-              >
-                Code expires in
+            {!codeExpired ? (
+              <Flex gap={4}>
+                <Typography.Text
+                  style={{ fontSize: 14, color: token.colorTextSecondary }}
+                >
+                  Code expires in
+                </Typography.Text>
+                <Statistic.Countdown
+                  valueStyle={{ fontSize: 14, color: token.colorTextSecondary }}
+                  value={codeExpiredAt.getTime()}
+                  onFinish={onFinish}
+                  format="mm:ss"
+                />
+              </Flex>
+            ) : (
+              <Typography.Text>
+                Code has expired.{" "}
+                <Typography.Link onClick={handleResendVerificationCode}>
+                  Click here to resend email
+                </Typography.Link>
               </Typography.Text>
-              <Statistic.Countdown
-                valueStyle={{ fontSize: 14, color: token.colorTextSecondary }}
-                value={codeExpiredAt.getTime()}
-                onFinish={onFinish}
-                format="mm:ss"
-              />
-            </Flex>
+            )}
 
             <AppForm
               onValuesChange={handleValuesChange}
