@@ -8,10 +8,11 @@ import { AppForm } from "DataEntryComponents/AppForm";
 import { AuthContent } from "LayoutComponents/AuthContent";
 import { Col, Flex, Form, Input, Typography, message, theme } from "antd";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export const ResetPasswordPage = () => {
   const [form] = Form.useForm();
+  const navigate = useNavigate();
   const { token } = theme.useToken();
   const [messageApi, contextHolder] = message.useMessage();
 
@@ -37,6 +38,9 @@ export const ResetPasswordPage = () => {
         });
       if (res) {
         messageApi.success("Your password has been resetted successfully.");
+        setTimeout(() => {
+          navigate("/");
+        }, 1000);
       }
     }
   };
