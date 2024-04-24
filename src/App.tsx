@@ -163,6 +163,10 @@ export const App = () => {
       path: "/cookie-policy",
       element: <CookiePolicyPage />,
     },
+    {
+      path: "/reset-your-password/:token",
+      element: <ResetPasswordPage />,
+    },
   ];
 
   const router = createBrowserRouter([
@@ -187,10 +191,6 @@ export const App = () => {
             {
               path: "/email-verification",
               element: <EmailVerificationPage />,
-            },
-            {
-              path: "/reset-your-password/:token",
-              element: <ResetPasswordPage />,
             },
           ]
         : [
