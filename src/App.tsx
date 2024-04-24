@@ -189,7 +189,7 @@ export const App = () => {
               element: <EmailVerificationPage />,
             },
             {
-              path: "/reset-your-password/:token",
+              path: "/reset-your-password/:resetToken",
               element: <ResetPasswordPage />,
             },
           ]
