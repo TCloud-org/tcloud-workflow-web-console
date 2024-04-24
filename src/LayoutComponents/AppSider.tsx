@@ -289,7 +289,6 @@ export const AppSider = (props: {
         bottom: 0,
         zIndex: 100,
         background: token.colorBgContainer,
-        transition: "0.2s",
         borderRight: "1px solid",
         borderRightColor: token.colorBorderSecondary,
       }}
