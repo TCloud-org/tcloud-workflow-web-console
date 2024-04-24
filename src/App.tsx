@@ -123,8 +123,7 @@ export const App = () => {
 
           <Layout
             style={{
-              marginLeft:
-                collapsed && !isSiderHovered ? SiderCollapseWidth : SiderWidth,
+              marginLeft: SiderCollapseWidth,
               transition: "0.2s",
             }}
           >

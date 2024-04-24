@@ -287,8 +287,11 @@ export const AppSider = (props: {
         left: 0,
         top: HeaderHeight,
         bottom: 0,
+        zIndex: 100,
         background: token.colorBgContainer,
         transition: "0.2s",
+        borderRight: "1px solid",
+        borderRightColor: token.colorBorderSecondary,
       }}
     >
       <Menu
