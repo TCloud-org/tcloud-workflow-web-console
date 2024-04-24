@@ -70,6 +70,7 @@ import { ForgotPasswordPage } from "Pages/Authentication/ForgotPasswordPage";
 import { CookiePolicyPage } from "Pages/Policy/CookiePolicyPage";
 import { ClientPage } from "Pages/PeopleSider/ClientPage";
 import { AddClientPage } from "Pages/PeopleSider/AddClientPage";
+import { EmailVerificationPage } from "Pages/Authentication/EmailVerificationPage";
 
 export const App = () => {
   const {
@@ -181,6 +182,10 @@ export const App = () => {
             {
               path: "/forgot-your-password",
               element: <ForgotPasswordPage />,
+            },
+            {
+              path: "/email-verification",
+              element: <EmailVerificationPage />,
             },
           ]
         : [

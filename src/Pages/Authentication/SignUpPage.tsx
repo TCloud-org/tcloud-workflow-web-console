@@ -17,9 +17,7 @@ import {
   theme,
 } from "antd";
 import axios from "axios";
-import { login } from "features/auth/authSlice";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 export const SignUpPage = () => {
@@ -28,7 +26,6 @@ export const SignUpPage = () => {
   const [messageApi, contextHolder] = message.useMessage();
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const [emailSignUpLoading, setEmailSignUpLoading] = useState<boolean>(false);
 
@@ -54,8 +51,11 @@ export const SignUpPage = () => {
       .then((res) => res.data)
       .catch((err) => messageApi.error("Sign up failed. Please try again"));
     if (res) {
-      dispatch(login({ token: res.token, account: res.account }));
-      navigate("/");
+      navigate("/email-verification", {
+        state: {
+          data: res,
+        },
+      });
     }
     setEmailSignUpLoading(false);
   };
@@ -82,7 +82,7 @@ export const SignUpPage = () => {
           >
             <AppLogoText />
 
-            <Typography.Title level={3}>Welcome</Typography.Title>
+            <Typography.Title level={3}>Create an account</Typography.Title>
             <AppForm
               onValuesChange={handleValuesChange}
               form={form}

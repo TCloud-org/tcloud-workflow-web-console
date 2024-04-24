@@ -21,6 +21,9 @@ export const GoogleLoginButton = (
   const login = useGoogleLogin({
     onSuccess: props.onSignInSuccess,
     onError: props.onSignInError,
+    onNonOAuthError: () => {
+      initializeLoading(false);
+    },
   });
 
   return (

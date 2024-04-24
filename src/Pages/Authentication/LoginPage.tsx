@@ -108,13 +108,27 @@ export const LoginPage = () => {
       });
     if (res) {
       const isRememberMe = form.getFieldValue("rememberMe");
-      dispatch(
-        login({
-          token: res.token,
-          account: res.account,
-          rememberMeToken: isRememberMe ? res.token : undefined,
-        })
-      );
+
+      if (res && res?.account?.isEmailVerified) {
+        dispatch(
+          login({
+            token: res.token,
+            account: res.account,
+            rememberMeToken: isRememberMe ? res.token : undefined,
+          })
+        );
+      } else {
+        navigate("/email-verification", {
+          state: {
+            data: {
+              token: res.token,
+              account: res.account,
+              rememberMeToken: isRememberMe ? res.token : undefined,
+              verificationToken: res.verificationToken,
+            },
+          },
+        });
+      }
     }
 
     setEmailSignInLoading(false);
@@ -222,6 +236,7 @@ export const LoginPage = () => {
                     onSignInSuccess={handleGoogleSuccessSignIn}
                     onSignInError={() => {
                       console.log("Login Failed");
+                      setGoogleSignInLoading(false);
                     }}
                   />
                 </Form.Item>

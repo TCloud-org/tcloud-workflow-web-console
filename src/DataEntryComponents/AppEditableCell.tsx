@@ -33,7 +33,7 @@ export const AppEditableCell: React.FC<AppEditableCellProps> = ({
 
   useEffect(() => {
     if (editing && inputRef.current) {
-      (inputRef.current as HTMLInputElement).focus();
+      inputRef.current.focus();
     }
   }, [editing]);
 

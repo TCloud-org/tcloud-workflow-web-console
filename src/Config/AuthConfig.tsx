@@ -108,3 +108,12 @@ export interface GetTokensByClientIdResponse {
 export interface GetTokenByIdResponse {
   token: AuthToken;
 }
+
+export interface AccountToken {
+  accountTokenId: number;
+  email: string;
+  token: string;
+  createdAt: string;
+  expiredAt: string;
+  verifiedAt?: string;
+}

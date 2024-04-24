@@ -74,7 +74,7 @@ export const AppSortableCard = (props: {
 
   useEffect(() => {
     if (titleEditing && inputRef.current) {
-      (inputRef.current as HTMLInputElement).focus();
+      inputRef.current.focus();
     }
   }, [titleEditing]);
 
