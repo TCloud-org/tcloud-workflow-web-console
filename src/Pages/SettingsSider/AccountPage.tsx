@@ -7,6 +7,7 @@ import {
 import { CountryCodeProps, CountryCodes } from "Config/CountryConfig";
 import { AppButton } from "DataEntryComponents/AppButton";
 import { AppForm } from "DataEntryComponents/AppForm";
+import { AppImageUploadInput } from "DataEntryComponents/Form/AppImageUploadInput";
 import { AppMaskInput } from "DataEntryComponents/Form/AppMaskInput";
 import { AppSpace } from "LayoutComponents/AppSpace";
 import {
@@ -34,6 +35,10 @@ export const AccountPage = () => {
   const [countryCode, setCountryCode] = useState<string>(
     CountryCodes.US.toString()
   );
+
+  const handleSave = () => {
+    console.log(form.getFieldsValue());
+  };
 
   useEffect(() => {
     if (account) {
@@ -169,24 +174,17 @@ export const AccountPage = () => {
         <Form.Item label="Profile picture">
           <Flex vertical gap={16}>
             <Typography.Text type="secondary">
-              We support JPEGs and PNGs under 5MB
+              We accept JPEGs (e.g., jpeg, jpg) and PNGs (e.g., png) under 5MB
             </Typography.Text>
-            <Flex align="center" gap={16}>
-              <Avatar
-                icon={<UserOutlined />}
-                size={64}
-                style={{ backgroundColor: token.colorPrimary }}
-              />
-              <Upload name="logo" action="/upload.do" listType="picture">
-                <AppButton icon={<UploadOutlined />}>Upload</AppButton>
-              </Upload>
-            </Flex>
+            <AppImageUploadInput />
           </Flex>
         </Form.Item>
 
         <Flex justify="flex-end">
           <Form.Item>
-            <AppButton type="primary">Save</AppButton>
+            <AppButton type="primary" onClick={handleSave}>
+              Save
+            </AppButton>
           </Form.Item>
         </Flex>
       </AppForm>

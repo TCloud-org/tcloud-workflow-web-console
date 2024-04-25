@@ -20,7 +20,7 @@ import {
   theme,
 } from "antd";
 import axios from "axios";
-import { Account, login } from "features/auth/authSlice";
+import { Account, AuthType, login } from "features/auth/authSlice";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -83,7 +83,7 @@ export const LoginPage = () => {
 
     const formData = {
       email: credentials.email,
-      authType: "GOOGLE",
+      authType: AuthType.GOOGLE,
       credentials: credentials,
     };
 
@@ -126,6 +126,7 @@ export const LoginPage = () => {
     const formData = {
       email: form.getFieldValue("email"),
       password: form.getFieldValue("password"),
+      authType: AuthType.EMAIL,
     };
     const res = await axios
       .post(AMS_SIGN_IN_ENDPOINT, formData)
@@ -134,6 +135,8 @@ export const LoginPage = () => {
         console.error(err);
         messageApi.error("Login failed. Please try again");
       });
+
+    console.log(res);
     if (res) {
       const isRememberMe = form.getFieldValue("rememberMe");
 

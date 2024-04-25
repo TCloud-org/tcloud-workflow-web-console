@@ -103,6 +103,10 @@ code {
   transition: 0.2s;
 }
 
+.ant-upload-list {
+  display: none;
+}
+
 .focus {
   border      : 1px solid;
   border-color: transparent;

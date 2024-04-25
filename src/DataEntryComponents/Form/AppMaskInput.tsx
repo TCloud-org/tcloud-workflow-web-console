@@ -9,17 +9,19 @@ export const AppMaskInput = (props: {
   placeholder?: string;
   style?: CSSProperties;
 }) => {
-  const { mask, value, onChange, placeholder, style } = props;
+  const { mask, value = "", onChange = () => {}, placeholder, style } = props;
   return (
     <ReactInputMask
       mask={mask}
-      autoComplete="off"
+      maskChar={null}
+      alwaysShowMask={false}
       value={value}
       onChange={onChange}
+      defaultValue=""
       placeholder={placeholder}
       style={style}
     >
-      <Input style={style} />
+      {((inputProps: any) => <Input style={style} {...inputProps} />) as any}
     </ReactInputMask>
   );
 };
