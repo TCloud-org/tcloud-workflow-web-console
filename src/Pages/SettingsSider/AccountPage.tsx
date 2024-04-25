@@ -43,21 +43,23 @@ export const AccountPage = () => {
       email: account.email,
       firstName: form.getFieldValue("firstName"),
       lastName: form.getFieldValue("lastName"),
-      phoneNumber: form.getFieldValue("phoneNumber"),
+    };
+    const config = {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
     };
     setTimeout(async () => {
       const updatedAccount = await axios
-        .post(AMS_UPDATE_ACCOUNT_ENDPOINT, formData, {
-          headers: { Authorization: `Bearer ${authToken}` },
-        })
-        .then((res) => res.data as Account)
+        .post(AMS_UPDATE_ACCOUNT_ENDPOINT, formData, config)
+        .then((res) => res.data?.account as Account)
         .catch((err) => {
           console.error(err);
           messageApi.error("Failed to update account.");
           return undefined;
         });
       if (updatedAccount) {
-        dispatch(setAccount({ ...updatedAccount }));
+        dispatch(setAccount(updatedAccount));
         messageApi.success("Account updated successfully.");
       }
 
