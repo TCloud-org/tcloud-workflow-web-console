@@ -1,11 +1,18 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+export enum AuthType {
+  "GOOGLE" = "GOOGLE",
+  "EMAIL" = "EMAIL",
+}
+
 export interface Account {
   email: string;
   firstName?: string;
   lastName?: string;
   phoneNumber?: string;
   isEmailVerified?: boolean;
+  authType?: AuthType;
+  createdAt?: string;
 }
 
 export interface EmailAuth {

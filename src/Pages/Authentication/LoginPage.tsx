@@ -20,7 +20,7 @@ import {
   theme,
 } from "antd";
 import axios from "axios";
-import { login } from "features/auth/authSlice";
+import { Account, login } from "features/auth/authSlice";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -74,17 +74,45 @@ export const LoginPage = () => {
       )
       .then((res) => res.data);
 
-    dispatch(
-      login({
-        token: tokenResponse.access_token,
-        account: {
-          email: res.email,
-          firstName: res["given_name"],
-          lastName: res["family_name"],
-          isEmailVerified: res["email_verified"],
-        },
-      })
-    );
+    const credentials = {
+      email: res["email"],
+      firstName: res["given_name"],
+      lastName: res["family_name"],
+      isEmailVerified: res["email_verified"],
+    };
+
+    const formData = {
+      email: credentials.email,
+      authType: "GOOGLE",
+      credentials: credentials,
+    };
+
+    const systemSignIn = await axios
+      .post(AMS_SIGN_IN_ENDPOINT, formData)
+      .then((res) => res.data)
+      .catch((err) => {
+        console.error(err);
+        messageApi.error("Login failed. Please try again");
+      });
+
+    if (systemSignIn?.account) {
+      const sysAccount: Account = systemSignIn.account;
+      dispatch(
+        login({
+          token: tokenResponse.access_token,
+          account: {
+            email: sysAccount.email,
+            firstName: sysAccount.firstName,
+            lastName: sysAccount.lastName,
+            authType: sysAccount.authType,
+            isEmailVerified: sysAccount.isEmailVerified,
+            phoneNumber: sysAccount.phoneNumber,
+            createdAt: sysAccount.createdAt,
+          },
+        })
+      );
+    }
+
     setGoogleSignInLoading(false);
   };
 
