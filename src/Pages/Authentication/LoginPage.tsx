@@ -73,12 +73,14 @@ export const LoginPage = () => {
         `https://www.googleapis.com/oauth2/v3/userinfo?access_token=${tokenResponse.access_token}`
       )
       .then((res) => res.data);
-
+    console.log(tokenResponse);
+    console.log(res);
     const credentials = {
       email: res["email"],
       firstName: res["given_name"],
       lastName: res["family_name"],
       isEmailVerified: res["email_verified"],
+      accessToken: tokenResponse.access_token,
     };
 
     const formData = {
@@ -99,7 +101,7 @@ export const LoginPage = () => {
       const sysAccount: Account = systemSignIn.account;
       dispatch(
         login({
-          token: tokenResponse.access_token,
+          token: systemSignIn.token,
           account: {
             email: sysAccount.email,
             firstName: sysAccount.firstName,

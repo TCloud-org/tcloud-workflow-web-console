@@ -9,9 +9,11 @@ export interface Account {
   email: string;
   firstName?: string;
   lastName?: string;
-  phoneNumber?: string;
-  isEmailVerified?: boolean;
   authType?: AuthType;
+  isEmailVerified?: boolean;
+  phoneNumber?: string;
+  countryCode?: string;
+  profileImageUrl?: string;
   createdAt?: string;
 }
 
@@ -45,9 +47,12 @@ export const authSlice = createSlice({
       state.token = undefined;
       state.account = undefined;
     },
+    setAccount: (state, action: PayloadAction<Account>) => {
+      state.account = action.payload;
+    },
   },
 });
 
-export const { login, logout } = authSlice.actions;
+export const { login, logout, setAccount } = authSlice.actions;
 
 export default authSlice.reducer;
