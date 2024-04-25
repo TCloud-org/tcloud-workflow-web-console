@@ -45,7 +45,7 @@ export const GraphDetailPage = () => {
     <AppSpace>
       <PageTitle
         endDecorator={
-          <AppIconButton onClick={handleEdit}>
+          <AppIconButton onClick={handleEdit} type="primary">
             <EditOutlined />
           </AppIconButton>
         }

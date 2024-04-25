@@ -1,6 +1,7 @@
 import {
   ClockCircleOutlined,
   ContainerOutlined,
+  DownOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   SettingFilled,
@@ -13,6 +14,7 @@ import { AppIconButton } from "DataEntryComponents/AppIconButton";
 import { AppSearchBar } from "DataEntryComponents/AppSearchBar";
 import {
   AutoCompleteProps,
+  Avatar,
   Divider,
   Dropdown,
   Flex,
@@ -129,13 +131,6 @@ export const AppHeader = (props: {
               <ClockCircleOutlined />
               <Typography.Text>{value}</Typography.Text>
             </Flex>
-            {/* <AppIconButton
-              onClick={() => handleRemoveHistory(key)}
-              type="text"
-              size="small"
-            >
-              <CloseOutlined />
-            </AppIconButton> */}
           </Flex>
         ),
         value: key,
@@ -249,9 +244,11 @@ export const AppHeader = (props: {
 
         <Flex gap="8px" align="center" style={{ flex: 1 }} justify="flex-end">
           <Select
-            placeholder="Select Client ID"
+            placeholder="Client"
             value={clientId}
             variant="borderless"
+            dropdownStyle={{ width: "auto" }}
+            placement="bottomRight"
             onChange={handleClientIdChange}
             options={clients.map((client) => ({
               label: client.clientId,
@@ -277,9 +274,20 @@ export const AppHeader = (props: {
               </div>
             )}
           >
-            <AppButton type="text">
-              {`${account.firstName} ${account.lastName}`}
-            </AppButton>
+            <Flex align="center" style={{ cursor: "pointer" }} gap={6}>
+              <Avatar
+                style={{ backgroundColor: token.colorPrimary }}
+                size="small"
+              >
+                {account.firstName?.[0]}
+              </Avatar>
+              <Typography.Text>
+                {`${account.firstName} ${account.lastName}`}
+              </Typography.Text>
+              <DownOutlined
+                style={{ fontSize: 12, color: token.colorTextQuaternary }}
+              />
+            </Flex>
           </Dropdown>
         </Flex>
       </Flex>

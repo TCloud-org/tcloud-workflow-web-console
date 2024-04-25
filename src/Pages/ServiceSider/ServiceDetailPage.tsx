@@ -155,7 +155,7 @@ export const ServiceDetailPage = () => {
           }`}
         </AppButton>
 
-        <AppButton onClick={handleCreateEndpoint}>
+        <AppButton onClick={handleCreateEndpoint} type="primary">
           Create a new endpoint
         </AppButton>
       </AppSpace>

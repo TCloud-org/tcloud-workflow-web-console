@@ -86,7 +86,16 @@ export const ResetPasswordPage = () => {
                 marginTop: 16,
               }}
             >
-              <Form.Item name="newPassword">
+              <Form.Item
+                name="newPassword"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input your password!",
+                  },
+                ]}
+                hasFeedback
+              >
                 <Input.Password
                   style={{
                     padding: "16px",
@@ -95,7 +104,29 @@ export const ResetPasswordPage = () => {
                   placeholder="New password"
                 />
               </Form.Item>
-              <Form.Item name="confirmPassword">
+              <Form.Item
+                name="confirmPassword"
+                dependencies={["password"]}
+                hasFeedback
+                rules={[
+                  {
+                    required: true,
+                    message: "Please confirm your password!",
+                  },
+                  ({ getFieldValue }) => ({
+                    validator(_, value) {
+                      if (!value || getFieldValue("password") === value) {
+                        return Promise.resolve();
+                      }
+                      return Promise.reject(
+                        new Error(
+                          "The new password that you entered do not match!"
+                        )
+                      );
+                    },
+                  }),
+                ]}
+              >
                 <Input.Password
                   style={{
                     padding: "16px",

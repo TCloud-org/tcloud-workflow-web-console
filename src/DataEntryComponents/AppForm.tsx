@@ -18,14 +18,25 @@ export const AppForm = (
     children?: ReactNode;
   }
 ) => {
+  const customizeRequiredMark = (
+    label: React.ReactNode,
+    { required }: { required: boolean }
+  ) => (
+    <>
+      {label}
+      {required && <span style={{ color: "red", marginLeft: 4 }}>*</span>}
+    </>
+  );
+
   return (
     <Form
       {...formItemLayout}
       colon={false}
+      requiredMark={customizeRequiredMark}
       wrapperCol={
         props.layout === "vertical" ? Span[1] : formItemLayout.wrapperCol
       }
-      variant="filled"
+      labelCol={props.layout === "vertical" ? Span[1] : formItemLayout.labelCol}
       labelAlign="left"
       size="small"
       {...props}

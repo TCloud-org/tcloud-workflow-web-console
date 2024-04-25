@@ -1,5 +1,6 @@
 * {
   overscroll-behavior: none;
+  scrollbar-width    : thin;
 }
 
 body {
@@ -100,19 +101,6 @@ code {
 
 .ant-card-head-title {
   transition: 0.2s;
-}
-
-.ant-form-item-required {
-  flex-direction: row-reverse;
-}
-
-.ant-form-item-required::before {
-  margin-left: 4px;
-}
-
-.ant-form-item-required::after {
-  width : 0;
-  margin: 0 !important;
 }
 
 .focus {

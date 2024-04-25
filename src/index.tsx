@@ -13,6 +13,7 @@ import { App } from "./App";
 import { persistor, store } from "./app/store";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
+import { ConfigProvider } from "antd";
 
 declare module "slate" {
   interface CustomTypes {
@@ -29,15 +30,23 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
-  <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
-      <GoogleOAuthProvider
-        clientId={process.env.REACT_APP_GOOGLE_OAUTH_CLIENT_ID as string}
-      >
-        <App />
-      </GoogleOAuthProvider>
-    </PersistGate>
-  </Provider>
+  <ConfigProvider
+    theme={{
+      token: {
+        colorPrimary: "#4312e5",
+      },
+    }}
+  >
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <GoogleOAuthProvider
+          clientId={process.env.REACT_APP_GOOGLE_OAUTH_CLIENT_ID as string}
+        >
+          <App />
+        </GoogleOAuthProvider>
+      </PersistGate>
+    </Provider>
+  </ConfigProvider>
 );
 
 reportWebVitals();

@@ -1,8 +1,10 @@
 import { WorkStatistic } from "Config/WorkflowConfig";
+import { AppEmpty } from "DataDisplayComponents/AppEmpty";
 import { AppPieChart } from "DataDisplayComponents/AppPieChart";
 import { AppSurface } from "DataDisplayComponents/AppSurface";
 import { AppRow } from "LayoutComponents/AppRow";
 import { Card, Col, Statistic, StatisticProps, theme } from "antd";
+import { CSSProperties } from "react";
 import CountUp from "react-countup";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -28,6 +30,10 @@ export const WorkStatisticDisplay = (props: { statistic?: WorkStatistic }) => {
     });
   };
 
+  const valueStyle: CSSProperties = {
+    fontWeight: 800,
+  };
+
   return (
     <AppSurface>
       <AppRow style={{ rowGap: "16px" }}>
@@ -36,6 +42,7 @@ export const WorkStatisticDisplay = (props: { statistic?: WorkStatistic }) => {
             <Statistic
               title="Works"
               value={statistic?.totalWorks}
+              valueStyle={{ ...valueStyle, color: token.colorPrimary }}
               formatter={formatter}
             />
           </Card>
@@ -48,10 +55,10 @@ export const WorkStatisticDisplay = (props: { statistic?: WorkStatistic }) => {
             size="small"
           >
             <Statistic
-              title="Successes"
+              title="Success"
               value={statistic?.successes.length}
               formatter={formatter}
-              valueStyle={{ color: token.colorSuccess }}
+              valueStyle={{ ...valueStyle, color: token.colorSuccess }}
             />
           </Card>
         </Col>
@@ -63,10 +70,10 @@ export const WorkStatisticDisplay = (props: { statistic?: WorkStatistic }) => {
             size="small"
           >
             <Statistic
-              title="Progresses"
+              title="In Progress"
               value={statistic?.progresses.length}
               formatter={formatter}
-              valueStyle={{ color: token.colorWarning }}
+              valueStyle={{ ...valueStyle, color: token.colorWarning }}
             />
           </Card>
         </Col>
@@ -78,10 +85,10 @@ export const WorkStatisticDisplay = (props: { statistic?: WorkStatistic }) => {
             size="small"
           >
             <Statistic
-              title="Failures"
+              title="Failure"
               value={statistic?.failures.length}
               formatter={formatter}
-              valueStyle={{ color: token.colorError }}
+              valueStyle={{ ...valueStyle, color: token.colorError }}
             />
           </Card>
         </Col>
@@ -95,29 +102,33 @@ export const WorkStatisticDisplay = (props: { statistic?: WorkStatistic }) => {
                 display: "flex",
                 alignItems: "center",
               }}
-              valueRender={(_) => (
-                <AppPieChart
-                  data={[
-                    {
-                      name: "Successes",
-                      value: statistic?.successes.length,
-                      fill: token.colorSuccess,
-                    },
-                    {
-                      name: "Progresses",
-                      value: statistic?.progresses.length,
-                      fill: token.colorWarning,
-                    },
-                    {
-                      name: "Failures",
-                      value: statistic?.failures.length,
-                      fill: token.colorError,
-                    },
-                  ]}
-                  width={400}
-                  height={300}
-                />
-              )}
+              valueRender={(_) =>
+                !statistic || statistic.totalWorks === 0 ? (
+                  <AppEmpty />
+                ) : (
+                  <AppPieChart
+                    data={[
+                      {
+                        name: "Success",
+                        value: statistic?.successes.length,
+                        fill: token.colorSuccess,
+                      },
+                      {
+                        name: "In Progress",
+                        value: statistic?.progresses.length,
+                        fill: token.colorWarning,
+                      },
+                      {
+                        name: "Failure",
+                        value: statistic?.failures.length,
+                        fill: token.colorError,
+                      },
+                    ]}
+                    width={400}
+                    height={300}
+                  />
+                )
+              }
             />
           </Card>
         </Col>

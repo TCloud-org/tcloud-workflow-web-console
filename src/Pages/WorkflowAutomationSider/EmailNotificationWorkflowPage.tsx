@@ -98,7 +98,7 @@ export const EmailNotificationWorkflowPage = () => {
     <AppSpace loading={loading}>
       <PageTitle
         endDecorator={
-          <AppButton onClick={handleCreateWorkflow}>
+          <AppButton onClick={handleCreateWorkflow} type="primary">
             Create a new workflow
           </AppButton>
         }

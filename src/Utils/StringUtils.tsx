@@ -20,3 +20,38 @@ export const getAbbreviation = (input?: string): string => {
   }
   return input.replace(/[a-z]/g, "");
 };
+
+export const maskPhoneNumber = (value: string, format: string) => {
+  let formattedNumber = value;
+
+  formattedNumber = formattedNumber.replace(/\D/g, "");
+
+  let formattedIndex = 0;
+  let result = "";
+
+  for (let i = 0; i < format.length; i++) {
+    if (format[i] === "9") {
+      if (formattedIndex < formattedNumber.length) {
+        result += formattedNumber[formattedIndex];
+        formattedIndex++;
+      } else {
+        break;
+      }
+    } else {
+      result += format[i];
+    }
+  }
+
+  return result;
+};
+
+export const unmaskPhoneNumber = (str: string) => {
+  const numbers = str.match(/\d+/g);
+  if (!numbers) return "";
+
+  return numbers.join("");
+};
+
+export const isLastCharacterNotANumber = (str: string) => {
+  return /\D$/.test(str);
+};

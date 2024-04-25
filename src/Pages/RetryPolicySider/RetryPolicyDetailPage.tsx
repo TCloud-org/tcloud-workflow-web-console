@@ -135,7 +135,11 @@ export const RetryPolicyDetailPage = () => {
     <AppSpace>
       <PageTitle
         endDecorator={
-          <AppIconButton onClick={handleEdit} tooltip="Edit retry policy">
+          <AppIconButton
+            onClick={handleEdit}
+            tooltip="Edit retry policy"
+            type="primary"
+          >
             <EditOutlined />
           </AppIconButton>
         }

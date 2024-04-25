@@ -78,7 +78,9 @@ export const ClientPage = () => {
     <AppSpace>
       <PageTitle
         endDecorator={
-          <AppButton onClick={handleAddClient}>Add a client</AppButton>
+          <AppButton onClick={handleAddClient} type="primary">
+            Add a client
+          </AppButton>
         }
       >
         Client

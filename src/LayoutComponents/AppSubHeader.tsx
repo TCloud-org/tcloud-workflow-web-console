@@ -22,9 +22,12 @@ export const AppSubHeader = () => {
         backgroundColor: token.colorBgContainer,
         height: 35,
         padding: "0 32px",
+        overflow: "auto",
+        scrollbarWidth: "none",
       }}
       align="center"
-      wrap="wrap"
+      wrap="nowrap"
+      gap={8}
     >
       {Object.entries(pinned)
         .filter(([_, isPinned]) => isPinned)
@@ -36,7 +39,7 @@ export const AppSubHeader = () => {
             icon={<PushpinFilled />}
             onClick={() => navigate(itemKey)}
             onClose={() => handleClose(itemKey)}
-            style={{ cursor: "pointer" }}
+            style={{ cursor: "pointer", margin: 0 }}
           >
             {SiderName[itemKey as keyof typeof SiderName]}
           </Tag>

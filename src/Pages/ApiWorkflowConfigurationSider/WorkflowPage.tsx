@@ -13,13 +13,14 @@ import axios from "axios";
 import { setWorkflow } from "features/workflow/workflowSlice";
 import { Key, useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export const WorkflowPage = () => {
   const clientId = useSelector((state: any) => state.client.clientId);
   const activeWorkflow: Workflow | undefined = useSelector(
     (state: any) => state.workflow.workflow || {}
   );
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const columns: EditableColumn[] = [
@@ -89,9 +90,21 @@ export const WorkflowPage = () => {
     fetchWorkflows();
   }, [fetchWorkflows]);
 
+  const handleAddWorkflow = () => {
+    navigate("/workflow/add");
+  };
+
   return (
     <AppSpace loading={loading}>
-      <PageTitle>Workflow</PageTitle>
+      <PageTitle
+        endDecorator={
+          <AppButton onClick={handleAddWorkflow} type="primary">
+            Add a new workflow
+          </AppButton>
+        }
+      >
+        Workflow
+      </PageTitle>
 
       {activeWorkflow?.workflowId && (
         <>

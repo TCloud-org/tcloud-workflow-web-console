@@ -28,13 +28,13 @@ export const AddWorkflowStep = (props: StepContentProps) => {
           onValuesChange={handleValuesChange}
         >
           <Form.Item
-            label="Workflow name"
+            label="Workflow"
             name="workflowName"
             rules={[
               { required: true, message: "Please enter a workflow name" },
             ]}
           >
-            <Input placeholder="Enter a workflow name" />
+            <Input placeholder="Workflow" />
           </Form.Item>
         </AppForm>
       </Flex>

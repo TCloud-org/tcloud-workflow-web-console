@@ -49,6 +49,13 @@ export interface AutomationStep {
 export const borderColor = "#4312e5";
 export const stepLineHeight = "8px";
 
+export enum DateUnit {
+  YEARS = "Years",
+  MONTHS = "Months",
+  WEEKS = "Weeks",
+  DAYS = "Days",
+}
+
 export enum TimeUnit {
   NANOSECONDS = "NANOSECONDS",
   MICROSECONDS = "MICROSECONDS",

@@ -156,7 +156,9 @@ export const GraphPage = () => {
             }`}
           </AppButton>
         </Popconfirm>
-        <AppButton onClick={handleCreateGraph}>Create a new graph</AppButton>
+        <AppButton onClick={handleCreateGraph} type="primary">
+          Create a new graph
+        </AppButton>
       </AppSpace>
 
       <AppTable

@@ -7,7 +7,7 @@ export const AppSelectAddDropdown = (props: {
   menu?: ReactNode;
   inputPlaceholder?: string;
   buttonLabel?: string;
-  buttonOnClick?: (value: string) => {};
+  buttonOnClick?: (value: string) => void;
 }) => {
   const inputRef = useRef<InputRef>(null);
   const [name, setName] = useState("");

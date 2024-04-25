@@ -64,7 +64,7 @@ export const EmailNotificationJobPage = () => {
     <AppSpace loading={loading}>
       <PageTitle
         endDecorator={
-          <AppIconButton onClick={fetchStages}>
+          <AppIconButton onClick={fetchStages} type="primary">
             <ReloadOutlined />
           </AppIconButton>
         }

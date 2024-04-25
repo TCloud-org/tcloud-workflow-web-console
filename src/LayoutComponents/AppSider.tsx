@@ -44,6 +44,7 @@ export const SiderHrefs = {
   "/auth-token": "security",
   "/traffic": "monitor",
   "/client": "people",
+  "/account": "settings",
   "/general": "settings",
   "/billing": "settings",
 };
@@ -66,6 +67,7 @@ export const SiderName = {
   "/auth-token": "Auth Token",
   "/traffic": "Traffic",
   "/client": "Client",
+  "/account": "Account",
   "/general": "General",
   "/billing": "Billing",
 };
@@ -74,8 +76,14 @@ export const AppSider = (props: {
   collapsed?: boolean;
   isHovered?: boolean;
   setIsHovered?: Dispatch<SetStateAction<boolean>>;
+  setCollapsed?: Dispatch<SetStateAction<boolean>>;
 }) => {
-  const { collapsed, isHovered, setIsHovered = () => {} } = props;
+  const {
+    collapsed,
+    isHovered,
+    setIsHovered = () => {},
+    setCollapsed = () => {},
+  } = props;
 
   const { token } = theme.useToken();
   const { isDevMode } = useSelector((state: any) => state.general);
@@ -228,6 +236,11 @@ export const AppSider = (props: {
       label: "Settings",
       children: [
         {
+          key: "/account",
+          label: <AppMenuPin>/account</AppMenuPin>,
+          onClick: () => navigate("/account"),
+        },
+        {
           key: "/general",
           label: <AppMenuPin>/general</AppMenuPin>,
           onClick: () => navigate("/general"),
@@ -276,6 +289,9 @@ export const AppSider = (props: {
         }
       }}
       trigger={null}
+      onBlur={() => {
+        setCollapsed(true);
+      }}
       onMouseLeave={() => {
         if (isHovered) {
           setIsHovered(false);

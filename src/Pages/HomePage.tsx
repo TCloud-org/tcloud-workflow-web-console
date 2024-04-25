@@ -13,8 +13,10 @@ import {
   getWorkStatisticInDateRange,
   getWorksInDateRange,
 } from "../Network/WorkFetch";
+import { Alert, Typography, theme } from "antd";
 
 export const HomePage = () => {
+  const { token } = theme.useToken();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const start = searchParams.get("start") || undefined;
@@ -70,6 +72,10 @@ export const HomePage = () => {
       );
       setStatistic(statRes.statistic);
       setLoading(false);
+    } else {
+      setStatistic(undefined);
+      setWorks([]);
+      setColumns([]);
     }
   }, [start, end, clientId, workflowId, period]);
 
@@ -80,6 +86,26 @@ export const HomePage = () => {
   return (
     <AppSpace>
       <PageTitle>Welcome!</PageTitle>
+
+      {!workflowId && (
+        <Alert
+          message="Notice"
+          banner
+          style={{ borderRadius: token.borderRadiusLG }}
+          description={
+            <Typography.Text>
+              No workflow is currently activated. Please go to{" "}
+              <Typography.Link href="/workflow">
+                API Workflow/Workflow
+              </Typography.Link>{" "}
+              and activate one.
+            </Typography.Text>
+          }
+          type="warning"
+          showIcon
+          closable
+        />
+      )}
 
       <WorkPeriodToolbar period={period} setPeriod={setPeriod} />
 

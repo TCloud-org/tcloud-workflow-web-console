@@ -1,10 +1,22 @@
-import { SiderCollapseWidth, SiderWidth } from "Config/LayoutConfig";
+import { SiderCollapseWidth } from "Config/LayoutConfig";
+import { WorkflowPage } from "Pages/ApiWorkflowConfigurationSider/WorkflowPage";
 import { ApiWorkflowHowItWorksPage } from "Pages/ApiWorkflowGetStartedSider/ApiWorkflowHowItWorksPage";
 import { ApiWorkflowIntroductionPage } from "Pages/ApiWorkflowGetStartedSider/ApiWorkflowIntroductionPage";
 import { ApiWorkflowModelPage } from "Pages/ApiWorkflowGetStartedSider/ApiWorkflowModelPage";
 import { ApiWorkflowQuickstartPage } from "Pages/ApiWorkflowGetStartedSider/ApiWorkflowQuickstartPage";
+import { EmailVerificationPage } from "Pages/Authentication/EmailVerificationPage";
+import { ForgotPasswordPage } from "Pages/Authentication/ForgotPasswordPage";
+import { LoginPage } from "Pages/Authentication/LoginPage";
+import { ResetPasswordPage } from "Pages/Authentication/ResetPasswordPage";
+import { SignUpPage } from "Pages/Authentication/SignUpPage";
 import { DevModePage } from "Pages/DevModeSider/DevModePage";
 import { MonitorTrafficPage } from "Pages/MonitorSider/MonitorTrafficPage";
+import { NotFoundPage } from "Pages/NotFoundPage";
+import { AddClientPage } from "Pages/PeopleSider/AddClientPage";
+import { ClientPage } from "Pages/PeopleSider/ClientPage";
+import { CookiePolicyPage } from "Pages/Policy/CookiePolicyPage";
+import { PrivacyPolicyPage } from "Pages/Policy/PrivacyPolicyPage";
+import { TermsAndConditionsPage } from "Pages/Policy/TermsAndConditionsPage";
 import { QueryPage } from "Pages/QuerySider/QueryPage";
 import { WorkflowStatisticPage } from "Pages/Statistic/WorkflowStatisticPage";
 import { CreateEmailNotificationWorkflowPage } from "Pages/WorkflowAutomationSider/CreateEmailNotificationWorkflowPage";
@@ -60,18 +72,8 @@ import { GeneralPage } from "./Pages/SettingsSider/GeneralPage";
 import { deserializeLocation } from "./Utils/Serializer";
 import { setItems } from "./features/navigation/breadcrumbSlice";
 import { setSelectedKeys } from "./features/navigation/siderSlice";
-import { WorkflowPage } from "Pages/ApiWorkflowConfigurationSider/WorkflowPage";
-import { NotFoundPage } from "Pages/NotFoundPage";
-import { LoginPage } from "Pages/Authentication/LoginPage";
-import { SignUpPage } from "Pages/Authentication/SignUpPage";
-import { TermsAndConditionsPage } from "Pages/Policy/TermsAndConditionsPage";
-import { PrivacyPolicyPage } from "Pages/Policy/PrivacyPolicyPage";
-import { ForgotPasswordPage } from "Pages/Authentication/ForgotPasswordPage";
-import { CookiePolicyPage } from "Pages/Policy/CookiePolicyPage";
-import { ClientPage } from "Pages/PeopleSider/ClientPage";
-import { AddClientPage } from "Pages/PeopleSider/AddClientPage";
-import { EmailVerificationPage } from "Pages/Authentication/EmailVerificationPage";
-import { ResetPasswordPage } from "Pages/Authentication/ResetPasswordPage";
+import { AccountPage } from "Pages/SettingsSider/AccountPage";
+import { AddWorkflowPage } from "Pages/ApiWorkflowConfigurationSider/AddWorkflowPage";
 
 export const App = () => {
   const {
@@ -114,9 +116,10 @@ export const App = () => {
       <Layout style={{ minHeight: "100vh" }}>
         <AppHeader collapsed={collapsed} setCollapsed={setCollapsed} />
 
-        <Layout hasSider>
+        <Layout style={{ minHeight: "100vh" }}>
           <AppSider
             collapsed={collapsed}
+            setCollapsed={setCollapsed}
             isHovered={isSiderHovered}
             setIsHovered={setIsSiderHovered}
           />
@@ -259,6 +262,10 @@ export const App = () => {
               element: <WorkflowPage />,
             },
             {
+              path: "/workflow/add",
+              element: <AddWorkflowPage />,
+            },
+            {
               path: "/graph",
               element: <GraphPage />,
             },
@@ -337,6 +344,10 @@ export const App = () => {
             {
               path: "/client/add",
               element: <AddClientPage />,
+            },
+            {
+              path: "/account",
+              element: <AccountPage />,
             },
             {
               path: "/general",
