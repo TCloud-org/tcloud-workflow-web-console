@@ -28,7 +28,7 @@ import {
 } from "antd";
 import { Header } from "antd/es/layout/layout";
 import { DefaultOptionType } from "antd/es/select";
-import { Account, logout } from "features/auth/authSlice";
+import { Account, logout, setAccount } from "features/auth/authSlice";
 import { clear, set } from "features/search/historySlice";
 import { setWorkflow } from "features/workflow/workflowSlice";
 import { LRUCache } from "lru-cache";
@@ -82,12 +82,11 @@ export const AppHeader = (props: {
   const historyCache: LRUCache<string, string | number, any> = useSelector(
     (state: any) => state.history.cache
   );
-  const reduxAccount: Account = useSelector((state: any) => state.auth.account);
+  const account: Account = useSelector((state: any) => state.auth.account);
   const clients: Client[] = useSelector((state: any) => state.client.clients);
   const authToken = useSelector((state: any) => state.auth.token);
 
   const [searchInput, setSearchInput] = useState<string>("");
-  const [account, setAccount] = useState<Account>(reduxAccount);
 
   const fetchClients = useCallback(async () => {
     const res = await getClients(account.email);
@@ -96,8 +95,10 @@ export const AppHeader = (props: {
 
   const fetchAccount = useCallback(async () => {
     const res = await getAccount(authToken);
-    setAccount(res.account);
-  }, [authToken]);
+    if (JSON.stringify(res.account) !== JSON.stringify(account)) {
+      dispatch(setAccount(res.account));
+    }
+  }, [authToken, dispatch, account]);
 
   useEffect(() => {
     fetchAccount();
@@ -293,7 +294,14 @@ export const AppHeader = (props: {
               >
                 <UserOutlined />
               </Avatar>
-              <Typography.Text>
+              <Typography.Text
+                style={{
+                  maxWidth: 100,
+                  textOverflow: "ellipsis",
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                }}
+              >
                 {`${account.firstName} ${account.lastName}`}
               </Typography.Text>
               <DownOutlined
