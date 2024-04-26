@@ -9,9 +9,12 @@ import {
 } from "@ant-design/icons";
 import Icon from "@ant-design/icons/lib/components/Icon";
 import { HeaderHeight } from "Config/LayoutConfig";
+import { Client } from "Config/SCSConfig";
 import { AppButton } from "DataEntryComponents/AppButton";
 import { AppIconButton } from "DataEntryComponents/AppIconButton";
 import { AppSearchBar } from "DataEntryComponents/AppSearchBar";
+import { getAccount } from "Network/AuthFetch";
+import { getClients } from "Network/SecurityFetch";
 import {
   AutoCompleteProps,
   Avatar,
@@ -25,7 +28,9 @@ import {
 } from "antd";
 import { Header } from "antd/es/layout/layout";
 import { DefaultOptionType } from "antd/es/select";
+import { Account, logout } from "features/auth/authSlice";
 import { clear, set } from "features/search/historySlice";
+import { setWorkflow } from "features/workflow/workflowSlice";
 import { LRUCache } from "lru-cache";
 import React, {
   Dispatch,
@@ -40,10 +45,6 @@ import { useNavigate } from "react-router-dom";
 import { BRAND } from "../Config/WOSEndpointConfig";
 import { setClientId, updateClients } from "../features/workflow/clientSlice";
 import { AppSubHeader } from "./AppSubHeader";
-import { Account, logout } from "features/auth/authSlice";
-import { getClients } from "Network/SecurityFetch";
-import { Client } from "Config/SCSConfig";
-import { setWorkflow } from "features/workflow/workflowSlice";
 
 export const AppHeader = (props: {
   collapsed?: boolean;
@@ -81,15 +82,26 @@ export const AppHeader = (props: {
   const historyCache: LRUCache<string, string | number, any> = useSelector(
     (state: any) => state.history.cache
   );
-  const account: Account = useSelector((state: any) => state.auth.account);
+  const reduxAccount: Account = useSelector((state: any) => state.auth.account);
   const clients: Client[] = useSelector((state: any) => state.client.clients);
+  const authToken = useSelector((state: any) => state.auth.token);
 
   const [searchInput, setSearchInput] = useState<string>("");
+  const [account, setAccount] = useState<Account>(reduxAccount);
 
   const fetchClients = useCallback(async () => {
     const res = await getClients(account.email);
     dispatch(updateClients(res.clients));
   }, [account, dispatch]);
+
+  const fetchAccount = useCallback(async () => {
+    const res = await getAccount(authToken);
+    setAccount(res.account);
+  }, [authToken]);
+
+  useEffect(() => {
+    fetchAccount();
+  }, [fetchAccount]);
 
   useEffect(() => {
     fetchClients();
