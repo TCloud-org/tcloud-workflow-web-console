@@ -36,6 +36,7 @@ export const AccountPage = () => {
   );
   const [saveLoading, setSaveLoading] = useState<boolean>(false);
 
+  console.log(account);
   const handleSave = () => {
     setSaveLoading(true);
 
@@ -43,6 +44,7 @@ export const AccountPage = () => {
       email: account.email,
       firstName: form.getFieldValue("firstName"),
       lastName: form.getFieldValue("lastName"),
+      phoneNumber: form.getFieldValue("phoneNumber"),
     };
     const config = {
       headers: {
@@ -69,7 +71,13 @@ export const AccountPage = () => {
 
   useEffect(() => {
     if (account) {
-      form.setFieldsValue({ ...account });
+      form.setFieldsValue({
+        ...account,
+        phoneNumber: {
+          number: account.phoneNumber,
+          countryCode: account.countryCode,
+        },
+      });
     }
   }, [account, form]);
 
