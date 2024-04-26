@@ -291,7 +291,7 @@ export const AppHeader = (props: {
                 style={{ backgroundColor: token.colorPrimary }}
                 size="small"
               >
-                {account.firstName?.[0] || <UserOutlined />}
+                <UserOutlined />
               </Avatar>
               <Typography.Text>
                 {`${account.firstName} ${account.lastName}`}
