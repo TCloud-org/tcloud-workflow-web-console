@@ -170,6 +170,10 @@ export const App = () => {
       path: "/cookie-policy",
       element: <CookiePolicyPage />,
     },
+    {
+      path: "/invitation/:token",
+      element: <InvitationPage />,
+    },
   ];
 
   const router = createBrowserRouter([
@@ -401,10 +405,6 @@ export const App = () => {
             {
               path: "/workflow-automation/email-notification-workflow/:id/job",
               element: <EmailNotificationJobPage />,
-            },
-            {
-              path: "/invitation/:token",
-              element: <InvitationPage />,
             },
           ],
     },
