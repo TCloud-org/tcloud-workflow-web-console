@@ -74,6 +74,8 @@ import { setItems } from "./features/navigation/breadcrumbSlice";
 import { setSelectedKeys } from "./features/navigation/siderSlice";
 import { AccountPage } from "Pages/SettingsSider/AccountPage";
 import { AddWorkflowPage } from "Pages/ApiWorkflowConfigurationSider/AddWorkflowPage";
+import { ClientDetailsPage } from "Pages/PeopleSider/ClientDetailsPage";
+import { InviteClientPage } from "Pages/PeopleSider/InviteClientPage";
 
 export const App = () => {
   const {
@@ -344,6 +346,14 @@ export const App = () => {
             {
               path: "/client/add",
               element: <AddClientPage />,
+            },
+            {
+              path: "/client/:clientId",
+              element: <ClientDetailsPage />,
+            },
+            {
+              path: "/client/:clientId/invite",
+              element: <InviteClientPage />,
             },
             {
               path: "/account",

@@ -7,12 +7,16 @@ export const EmailRecipients = (props: {
 }) => {
   const { recipients = [], label } = props;
 
-  if (recipients.length === 0) {
+  if (
+    recipients === undefined ||
+    recipients === null ||
+    recipients.length === 0
+  ) {
     return null;
   }
 
   return (
-    <Flex gap={4} wrap="wrap">
+    <Flex gap={4} wrap="wrap" align="center">
       {label && (
         <Typography.Text
           style={{ fontSize: "12px", width: "48px", textAlign: "end" }}
@@ -24,7 +28,12 @@ export const EmailRecipients = (props: {
         {recipients
           .map((recipient) => recipient.address)
           .map((address, i) => (
-            <Tag style={{ margin: 0 }} key={i}>
+            <Tag
+              style={{ margin: 0 }}
+              key={i}
+              bordered={false}
+              color="processing"
+            >
               {address}
             </Tag>
           ))}

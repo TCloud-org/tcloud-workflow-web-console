@@ -5,7 +5,7 @@ import {
   borderColor,
   stepLineHeight,
 } from "Config/AutomationConfig";
-import { EventWorkflowStatus } from "Config/EventWorkflowConfig";
+import { EventWorkflow, EventWorkflowStatus } from "Config/EventWorkflowConfig";
 import { AppIconHolder } from "DataDisplayComponents/AppIconHolder";
 import { AppSortableCard } from "DataEntryComponents/AppSortableCard";
 import { Divider, Dropdown, Flex, Typography, theme } from "antd";
@@ -22,6 +22,8 @@ export const EmailNotificationStep = (props: {
   index: number;
   showAdd?: boolean;
   status?: EventWorkflowStatus;
+  disabled?: boolean;
+  eventWorkflow?: EventWorkflow;
 }) => {
   const { token } = theme.useToken();
   const StatusColor: { [key: string]: string } = {
@@ -66,6 +68,8 @@ export const EmailNotificationStep = (props: {
           collect: collect,
           data: formData,
           index: index,
+          disabled: props.disabled,
+          eventWorkflow: props.eventWorkflow,
         })}
         label={step.label}
         setStep={setStep}

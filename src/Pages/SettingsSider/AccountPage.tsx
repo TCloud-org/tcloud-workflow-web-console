@@ -36,16 +36,29 @@ export const AccountPage = () => {
   );
   const [saveLoading, setSaveLoading] = useState<boolean>(false);
 
-  console.log(account);
   const handleSave = () => {
     setSaveLoading(true);
+
+    // const formData = new FormData();
+
+    // formData.append("email", account.email);
+    // formData.append("firstName", form.getFieldValue("firstName"));
+    // formData.append("lastName", form.getFieldValue("lastName"));
+    // formData.append("phoneNumber", form.getFieldValue("phoneNumber"));
+    // formData.append(
+    //   "base64Image",
+    //   form.getFieldValue("profilePicture")?.[0]?.originFileObj
+    // );
 
     const formData = {
       email: account.email,
       firstName: form.getFieldValue("firstName"),
       lastName: form.getFieldValue("lastName"),
       phoneNumber: form.getFieldValue("phoneNumber"),
+      // base64Image: form.getFieldValue("profilePicture")?.[0]
+      //   ?.originFileObj as Blob,
     };
+
     const config = {
       headers: {
         Authorization: `Bearer ${authToken}`,
@@ -82,6 +95,7 @@ export const AccountPage = () => {
   }, [account, form]);
 
   const handleValuesChange = (change: any, values: any) => {
+    console.log(change);
     if (change && change.phoneNumber && change.phoneNumber.countryCode) {
       setCountryCode(change.phoneNumber.countryCode);
     }
@@ -211,13 +225,8 @@ export const AccountPage = () => {
             <Divider />
           </Form.Item>
 
-          <Form.Item label="Profile picture">
-            <Flex vertical gap={16}>
-              <Typography.Text type="secondary">
-                We accept JPEGs (e.g., jpeg, jpg) and PNGs (e.g., png) under 5MB
-              </Typography.Text>
-              <AppImageUploadInput />
-            </Flex>
+          <Form.Item label="Profile picture" name="profilePicture">
+            <AppImageUploadInput />
           </Form.Item>
 
           <Flex justify="flex-end">

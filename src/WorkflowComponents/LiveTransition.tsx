@@ -86,7 +86,7 @@ export const LiveTransition = forwardRef<
           </Col>
           <Col span={24}>
             <Radio.Group
-              buttonStyle="outline"
+              buttonStyle="solid"
               style={{ width: "100%" }}
               value={from}
             >
@@ -102,7 +102,7 @@ export const LiveTransition = forwardRef<
           </Col>
           <Col span={24}>
             <Radio.Group
-              buttonStyle="outline"
+              buttonStyle="solid"
               style={{ width: "100%" }}
               value={to}
               onChange={(e) => setTo(e.target.value)}

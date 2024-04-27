@@ -9,8 +9,13 @@ import workFilterReducer from "features/filter/workFilterSlice";
 import historyReducer from "features/search/historySlice";
 import authReducer from "features/auth/authSlice";
 import menuFavoriteReducer from "features/favorite/menuFavoriteSlice";
+import storage from "redux-persist/lib/storage";
 
-const rootReducer = combineReducers({
+export const ActionType = {
+  logout: "LOG_OUT",
+};
+
+const appReducer = combineReducers({
   breadcrumb: breadcrumbReducer,
   client: clientReducer,
   workflow: workflowReducer,
@@ -21,5 +26,14 @@ const rootReducer = combineReducers({
   auth: authReducer,
   menuFavorite: menuFavoriteReducer,
 });
+
+const rootReducer = (state: any, action: any) => {
+  if (action.type === "LOG_OUT") {
+    storage.removeItem("persist:root");
+
+    return appReducer(undefined, action);
+  }
+  return appReducer(state, action);
+};
 
 export default persistedReducer(rootReducer);

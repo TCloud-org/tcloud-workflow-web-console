@@ -28,7 +28,8 @@ import {
 } from "antd";
 import { Header } from "antd/es/layout/layout";
 import { DefaultOptionType } from "antd/es/select";
-import { Account, logout, setAccount } from "features/auth/authSlice";
+import { ActionType } from "app/rootReducer";
+import { Account, setAccount } from "features/auth/authSlice";
 import { clear, set } from "features/search/historySlice";
 import { setWorkflow } from "features/workflow/workflowSlice";
 import { LRUCache } from "lru-cache";
@@ -130,7 +131,7 @@ export const AppHeader = (props: {
   };
 
   const handleLogout = () => {
-    dispatch(logout());
+    dispatch({ type: ActionType.logout });
     navigate("/");
   };
 

@@ -5,6 +5,7 @@ export const AppChipInput = (props: {
   value?: string[];
   onChange?: (values: string[]) => void;
   placeholder?: string;
+  disabled?: boolean;
 }) => {
   const { onChange = () => {}, placeholder, value = [] } = props;
 
@@ -41,6 +42,7 @@ export const AppChipInput = (props: {
   return (
     <Select
       mode="multiple"
+      disabled={props.disabled}
       placeholder={placeholder}
       onSearch={handleSearch}
       onInputKeyDown={handleInputEnter}

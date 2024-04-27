@@ -11,7 +11,7 @@ import { TriggerForm } from "WorkflowAutomationComponents/TriggerForm";
 import { InputNumber, MenuProps, Select, SelectProps } from "antd";
 import { Dispatch, ReactNode, SetStateAction } from "react";
 import { v4 } from "uuid";
-import { EventWorkflowStatus } from "./EventWorkflowConfig";
+import { EventWorkflow, EventWorkflowStatus } from "./EventWorkflowConfig";
 import { VerificationForm } from "WorkflowAutomationComponents/VerificationForm";
 
 export interface Utility {
@@ -32,6 +32,8 @@ export interface AutomationContentProps {
   data: any;
   collect: Dispatch<SetStateAction<any>>;
   index: number;
+  disabled?: boolean;
+  eventWorkflow?: EventWorkflow;
 }
 
 export interface AutomationStep {
@@ -44,6 +46,7 @@ export interface AutomationStep {
   hidden?: boolean;
   icon?: ReactNode;
   status?: EventWorkflowStatus;
+  initial?: { [key: string]: string };
 }
 
 export const borderColor = "#4312e5";
@@ -212,6 +215,9 @@ export const TemplateComponent: TemplateComponentProps = {
     fixed: true,
     content: (props: AutomationContentProps) => <VerificationForm {...props} />,
     icon: <IdcardOutlined />,
+    initial: {
+      type: "email",
+    },
   },
   trigger: {
     key: "trigger",
@@ -220,6 +226,9 @@ export const TemplateComponent: TemplateComponentProps = {
     fixed: true,
     content: (props: AutomationContentProps) => <TriggerForm {...props} />,
     icon: <CalendarOutlined />,
+    initial: {
+      method: "API",
+    },
   },
   email: {
     key: "email",
@@ -230,6 +239,9 @@ export const TemplateComponent: TemplateComponentProps = {
     ),
     icon: <MailOutlined />,
     removable: true,
+    initial: {
+      action: "send",
+    },
   },
   delay: {
     key: "delay",
@@ -238,6 +250,9 @@ export const TemplateComponent: TemplateComponentProps = {
     content: (props: AutomationContentProps) => <DelayForm {...props} />,
     icon: <ClockCircleOutlined />,
     removable: true,
+    initial: {
+      delay: "none",
+    },
   },
 };
 

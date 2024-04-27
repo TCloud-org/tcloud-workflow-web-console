@@ -75,7 +75,10 @@ export const VerificationForm = (props: AutomationContentProps) => {
         disabled={verificationCompleted}
       >
         <Form.Item name="type">
-          <Radio.Group style={{ display: "flex", gap: "16px" }}>
+          <Radio.Group
+            style={{ display: "flex", gap: "16px" }}
+            buttonStyle="solid"
+          >
             {InputTypes.map((inputType, i) => (
               <Radio.Button
                 value={inputType.value}

@@ -113,7 +113,7 @@ export const BatchTransitionPage = () => {
               <AppVerticalStepContent>
                 <Radio.Group
                   value={from}
-                  buttonStyle="outline"
+                  buttonStyle="solid"
                   style={{ width: "100%" }}
                 >
                   <Radio.Button style={{ width: "100%" }} value={from}>
@@ -128,7 +128,7 @@ export const BatchTransitionPage = () => {
             description: (
               <AppVerticalStepContent>
                 <Radio.Group
-                  buttonStyle="outline"
+                  buttonStyle="solid"
                   value={to}
                   style={{ width: "100%" }}
                   onChange={(e) => setTo(e.target.value)}

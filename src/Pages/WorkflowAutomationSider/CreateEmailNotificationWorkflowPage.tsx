@@ -30,26 +30,16 @@ export const CreateEmailNotificationWorkflowPage = () => {
   const [createLoading, setCreateLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    const triggerId = steps.find((step) => step.key === "trigger")?.id;
-    if (triggerId) {
-      const workflow = form.getFieldValue("workflow");
-      if (
-        !workflow ||
-        !workflow[triggerId] ||
-        !workflow[triggerId].trigger ||
-        !workflow[triggerId].trigger.method
-      ) {
-        form.setFieldValue("workflow", {
-          ...(workflow || {}),
-          [triggerId]: {
-            trigger: {
-              ...(workflow?.[triggerId]?.trigger || {}),
-              method: "API",
-            },
+    steps.forEach((step) => {
+      form.setFieldValue("workflow", {
+        ...form.getFieldValue("workflow"),
+        [step.id]: {
+          [step.key]: {
+            ...step.initial,
           },
-        });
-      }
-    }
+        },
+      });
+    });
   }, [form, steps]);
 
   const comparator = (a: [string, any], b: [string, any]): number => {
@@ -72,10 +62,15 @@ export const CreateEmailNotificationWorkflowPage = () => {
         },
       }));
     const params = {
-      clientId,
-      name: form.getFieldValue("name"),
-      steps: orders,
+      eventWorkflow: {
+        clientId,
+        name: form.getFieldValue("name"),
+        metadata: {
+          steps: orders,
+        },
+      },
     };
+
     await axios
       .post(WOS_SAVE_EVENT_WORKFLOW_ENDPOINT, params)
       .then((response) => {

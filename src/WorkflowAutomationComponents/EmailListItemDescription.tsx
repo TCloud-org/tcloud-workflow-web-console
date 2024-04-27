@@ -9,22 +9,28 @@ export const EmailListItemDescription = (props: { email: Email }) => {
   return (
     <Flex justify="space-between" align="flex-start">
       <Flex vertical gap="8px" style={{ flex: 4 }}>
-        <AppRow gutter={[16, 16]}>
-          <Col span={12}>
+        <AppRow gutter={[16, 16]} style={{ margin: 0, padding: 0 }}>
+          <Col span={24}>
             <EmailRecipients
               recipients={[{ address: email.sender }]}
               label="From"
             />
           </Col>
-          <Col span={12}>
-            <EmailRecipients recipients={email.recipients} label="To" />
-          </Col>
-          <Col span={12}>
-            <EmailRecipients recipients={email.cc} label="Cc" />
-          </Col>
-          <Col span={12}>
-            <EmailRecipients recipients={email.bcc} label="Bcc" />
-          </Col>
+          {email.recipients && email.recipients.length > 0 && (
+            <Col span={24}>
+              <EmailRecipients recipients={email.recipients} label="To" />
+            </Col>
+          )}
+          {email.cc && email.cc.length > 0 && (
+            <Col span={24}>
+              <EmailRecipients recipients={email.cc} label="Cc" />
+            </Col>
+          )}
+          {email.bcc && email.bcc.length > 0 && (
+            <Col span={24}>
+              <EmailRecipients recipients={email.bcc} label="Bcc" />
+            </Col>
+          )}
         </AppRow>
       </Flex>
       <Flex vertical align="flex-end" style={{ flex: 1 }}>

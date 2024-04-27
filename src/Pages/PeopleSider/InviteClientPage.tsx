@@ -1,47 +1,27 @@
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
-import { SCS_ADD_CLIENT_URL } from "Config/SCSEndpointConfig";
 import { AppButton } from "DataEntryComponents/AppButton";
 import { AppForm } from "DataEntryComponents/AppForm";
 import { AppSpace } from "LayoutComponents/AppSpace";
-import { Flex, Form, Input, Select, SelectProps, Typography } from "antd";
-import axios from "axios";
-import { Account } from "features/auth/authSlice";
+import { Flex, Form, Input, Select, Typography } from "antd";
 import { useState } from "react";
+import { ClientPermissionOptions } from "./AddClientPage";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Account } from "features/auth/authSlice";
+import axios from "axios";
+import { SCS_INVITE_TO_ORG_URL } from "Config/SCSEndpointConfig";
 
-export const ClientPermissionOptions: SelectProps["options"] = [
-  {
-    label: "Read",
-    value: "READ",
-  },
-  {
-    label: "Write",
-    value: "WRITE",
-  },
-  {
-    label: "Delete",
-    value: "DELETE",
-  },
-];
-
-export const AddClientPage = () => {
+export const InviteClientPage = () => {
+  const [form] = Form.useForm();
   const navigate = useNavigate();
 
+  const { clientId } = useParams();
   const account: Account = useSelector((state: any) => state.auth.account);
-
-  const [form] = Form.useForm();
 
   const [loading, setLoading] = useState<boolean>(false);
 
-  const handleValuesChange = (_: any, values: any) => {
-    form.setFieldsValue(values);
-  };
-
-  const handleAdd = async () => {
+  const handleInvite = async () => {
     setLoading(true);
-
-    const clientId = form.getFieldValue("clientId");
     const invitees: any[] = (form.getFieldValue("invitees") || [])
       .filter((invitee: any) => invitee.email !== account.email)
       .flatMap((invitee: any) =>
@@ -56,31 +36,25 @@ export const AddClientPage = () => {
         clientId,
         email: account.email,
       },
-      invitees: [
-        ...invitees,
-        {
-          clientId,
-          inviteeEmail: account.email,
-          permission: "ADMIN",
-        },
-      ],
+      invitees: invitees,
     };
-    await axios.post(SCS_ADD_CLIENT_URL, formData);
-
+    await axios.post(SCS_INVITE_TO_ORG_URL, formData);
     setLoading(false);
 
-    navigate("/client");
+    navigate(`/client/${clientId}`);
+  };
+
+  const handleValuesChange = (_: any, values: any) => {
+    form.setFieldsValue(values);
   };
 
   return (
     <AppSpace>
       <Flex justify="center">
-        <Typography.Title level={4}>Add a new client</Typography.Title>
+        <Typography.Title level={4}>Invite contributor</Typography.Title>
       </Flex>
+
       <AppForm form={form} onValuesChange={handleValuesChange}>
-        <Form.Item label="Client" name="clientId">
-          <Input placeholder="Enter a client name" />
-        </Form.Item>
         <Form.List name="invitees">
           {(fields, { add, remove }, { errors }) => (
             <>
@@ -153,8 +127,8 @@ export const AddClientPage = () => {
         </Form.List>
         <Flex justify="center">
           <Form.Item>
-            <AppButton onClick={handleAdd} type="primary" loading={loading}>
-              Add
+            <AppButton onClick={handleInvite} type="primary" loading={loading}>
+              Invite
             </AppButton>
           </Form.Item>
         </Flex>

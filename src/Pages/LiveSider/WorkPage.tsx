@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { SelectItem } from "../../Config/DataDisplayInterface";
 import {
   WOS_GET_GRAPH_BY_ID_ENDPOINT,
@@ -32,9 +32,11 @@ import { LiveGraphTab } from "../../WorkflowComponents/LiveTab/LiveGraphTab";
 
 export const WorkPage = () => {
   const { workId = "" } = useParams();
-  const { workflowId } = useSelector(
-    (state: any) => state.workflow.workflow || {}
-  );
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+
+  const workflow = useSelector((state: any) => state.workflow.workflow || {});
+  const workflowId = workflow?.workflowId || searchParams.get("workflowId");
 
   const [workflowLoading, setWorkflowLoading] = useState<boolean>(false);
   const [graphLoading, setGraphLoading] = useState<boolean>(false);

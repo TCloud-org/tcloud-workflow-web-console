@@ -108,15 +108,13 @@ code {
 }
 
 .focus {
-  border      : 1px solid;
-  border-color: transparent;
-  outline     : 0px solid transparent;
+  outline   : 1px solid transparent;
+  transition: all 0.2s;
 }
 
+.focus:hover,
 .focus:focus {
-  border      : 1px solid;
-  border-color: #4e96ff;
-  outline     : 0px solid transparent;
+  outline: 1px solid #4312e5be;
 }
 
 .editable {

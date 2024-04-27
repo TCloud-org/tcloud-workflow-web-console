@@ -43,7 +43,7 @@ export const EmailVerificationPage = () => {
 
   useEffect(() => {
     if (data) {
-      setCodeExpiredAt(new Date(data.verificationToken?.expiredAt * 1000));
+      setCodeExpiredAt(new Date(data.verificationToken?.expiredAt));
     }
   }, [data]);
 

@@ -159,7 +159,8 @@ export const AppRichTextEditor = (props: {
         onKeyDown={handleKeyDown}
         style={{
           padding: "8px",
-          backgroundColor: token.colorFillQuaternary,
+          border: "1px solid",
+          borderColor: token.colorBorder,
           borderRadius: token.borderRadiusSM,
           minHeight: "100px",
         }}

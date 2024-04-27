@@ -3,6 +3,7 @@ import { Client } from "Config/SCSConfig";
 import { AppTable } from "DataDisplayComponents/AppTable";
 import { PageTitle } from "DataDisplayComponents/PageTitle";
 import { AppButton } from "DataEntryComponents/AppButton";
+import { AppLink } from "DataEntryComponents/AppLink";
 import { AppSpace } from "LayoutComponents/AppSpace";
 import { getClients } from "Network/SecurityFetch";
 import { formatDate } from "Utils/DateUtils";
@@ -16,6 +17,9 @@ const columns: EditableColumn[] = [
   {
     title: "Client ID",
     dataIndex: "clientId",
+    render: (text: string) => (
+      <AppLink href={`/client/${text}`}>{text}</AppLink>
+    ),
   },
   {
     title: "Internal ID",

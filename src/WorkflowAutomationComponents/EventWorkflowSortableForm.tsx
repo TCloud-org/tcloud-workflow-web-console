@@ -29,6 +29,7 @@ import { Dispatch, Key, SetStateAction, useState } from "react";
 import { EmailNotificationStep } from "./EmailNotificationStep";
 import { RemovableDroppable } from "./RemovableDroppable";
 import { v4 } from "uuid";
+import { EventWorkflow } from "Config/EventWorkflowConfig";
 
 const measuringConfig = {
   droppable: {
@@ -44,6 +45,8 @@ export const EventWorkflowSortableForm = (props: {
   steps?: AutomationStep[];
   setSteps?: Dispatch<SetStateAction<AutomationStep[]>>;
   showAdd?: boolean;
+  disabled?: boolean;
+  eventWorkflow?: EventWorkflow;
 }) => {
   const {
     value,
@@ -51,6 +54,7 @@ export const EventWorkflowSortableForm = (props: {
     steps = EmailNotificationTemplates["blank"],
     setSteps = () => {},
     showAdd = true,
+    eventWorkflow,
   } = props;
 
   const [showRemovable, setShowRemovable] = useState<boolean>(false);
@@ -158,6 +162,8 @@ export const EventWorkflowSortableForm = (props: {
                   showAdd={showAdd}
                   index={i}
                   status={step.status}
+                  disabled={props.disabled}
+                  eventWorkflow={eventWorkflow}
                 />
               ))}
             </Flex>

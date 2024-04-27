@@ -27,6 +27,30 @@ import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
+export const transformData = (data: EventWorkflow | undefined) => {
+  const initialSteps = (data?.metadata?.steps || [])
+    .map((step) => step.type.toLowerCase())
+    .map((type) => TemplateComponent[type as keyof TemplateComponentProps])
+    .map((step) => ({ ...step, removable: false }));
+  const initialFormData: any = initialSteps
+    .map((step) => step.id)
+    .reduce((res: any, id, i) => {
+      res[id] = {
+        [EventWorkflowStepType[
+          data?.metadata?.steps[
+            i
+          ].type.toString() as keyof typeof EventWorkflowStepType
+        ]]: data?.metadata?.steps[i].form,
+      };
+      return res;
+    }, {});
+
+  return {
+    initialSteps,
+    initialFormData,
+  };
+};
+
 export const EmailNotificationWorkflowDetailPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -55,9 +79,10 @@ export const EmailNotificationWorkflowDetailPage = () => {
   const fetchSentEmails = useCallback(async () => {
     if (eventWorkflow) {
       const workflowId = eventWorkflow.id;
-      const senders: string[] = eventWorkflow.metadata.steps
-        .filter((step) => (step?.form as any)?.from)
-        .map((step) => (step?.form as any)?.from as string);
+      const senders: string[] =
+        eventWorkflow?.metadata?.steps
+          .filter((step) => (step?.form as any)?.from)
+          .map((step) => (step?.form as any)?.from as string) || [];
       senders.forEach(async (sender) => {
         const res = await queryEmailsPerWorkflow(sender, workflowId);
         setEmails(res.emails);
@@ -74,24 +99,9 @@ export const EmailNotificationWorkflowDetailPage = () => {
   }, [fetchEventWorkflow]);
 
   const updateEventWorkflowAttributes = (data: EventWorkflow) => {
-    const initialSteps = data?.metadata.steps
-      .map((step) => step.type.toLowerCase())
-      .map((type) => TemplateComponent[type as keyof TemplateComponentProps])
-      .map((step) => ({ ...step, removable: false }));
-    const initialFormData: any = initialSteps
-      .map((step) => step.id)
-      .reduce((res: any, id, i) => {
-        res[id] = {
-          [EventWorkflowStepType[
-            data.metadata.steps[
-              i
-            ].type.toString() as keyof typeof EventWorkflowStepType
-          ]]: data.metadata.steps[i].form,
-        };
-        return res;
-      }, {});
-    setSteps(initialSteps);
-    setFormData(initialFormData);
+    const transformedData = transformData(data);
+    setSteps(transformedData.initialSteps);
+    setFormData(transformedData.initialFormData);
   };
 
   const handleTest = async () => {
@@ -160,6 +170,7 @@ export const EmailNotificationWorkflowDetailPage = () => {
                 value={formData}
                 onChange={setFormData}
                 showAdd={false}
+                eventWorkflow={eventWorkflow}
               />
             ),
           },

@@ -12,17 +12,22 @@ import {
 import { PageTitle } from "DataDisplayComponents/PageTitle";
 import { AppIconButton } from "DataEntryComponents/AppIconButton";
 import { AppSpace } from "LayoutComponents/AppSpace";
-import { getEventWorkflowStages } from "Network/EventWorkflowFetch";
+import {
+  getEventWorkflowById,
+  getEventWorkflowStages,
+} from "Network/EventWorkflowFetch";
 import { EventWorkflowSortableForm } from "WorkflowAutomationComponents/EventWorkflowSortableForm";
 import { Flex, Tag } from "antd";
 import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
+import { transformData } from "./EmailNotificationWorkflowDetailPage";
 
 export const EmailNotificationJobPage = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const id = searchParams.get("id");
+  const jobId = searchParams.get("id");
+  const { id } = useParams();
 
   const clientId = useSelector((state: any) => state.client.clientId);
 
@@ -30,15 +35,28 @@ export const EmailNotificationJobPage = () => {
   const [steps, setSteps] = useState<AutomationStep[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [completed, setCompleted] = useState<boolean>(false);
+  const [formData, setFormData] = useState<any>({});
 
   const fetchStages = useCallback(async () => {
-    if (clientId && id) {
+    if (clientId && jobId) {
       setLoading(true);
-      const res = await getEventWorkflowStages(parseInt(id), clientId);
+      const res = await getEventWorkflowStages(parseInt(jobId), clientId);
       setStages(res.stages);
       setLoading(false);
     }
-  }, [clientId, id]);
+  }, [clientId, jobId]);
+
+  const fetchEventWorkflow = useCallback(async () => {
+    if (id) {
+      const res = await getEventWorkflowById(id);
+      const transformedData = transformData(res.eventWorkflow);
+      setFormData(transformedData.initialFormData);
+    }
+  }, [id]);
+
+  useEffect(() => {
+    fetchEventWorkflow();
+  }, [fetchEventWorkflow]);
 
   useEffect(() => {
     const currentSteps = stages
@@ -70,11 +88,16 @@ export const EmailNotificationJobPage = () => {
         }
       >
         <Flex align="center" gap={16}>
-          {`Job #${id}`}
+          {`Job #${jobId}`}
           {completed && <Tag color={borderColor}>Completed</Tag>}
         </Flex>
       </PageTitle>
-      <EventWorkflowSortableForm steps={steps} showAdd={false} />
+      <EventWorkflowSortableForm
+        steps={steps}
+        showAdd={false}
+        disabled
+        value={formData}
+      />
     </AppSpace>
   );
 };
