@@ -22,12 +22,10 @@ const columns: EditableColumn[] = [
   {
     title: "client",
     dataIndex: "clientId",
-    hidden: true,
   },
   {
     title: "workflow id",
     dataIndex: "workflowId",
-    hidden: true,
   },
   {
     title: "Status",
