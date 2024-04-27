@@ -11,13 +11,23 @@ import { useParams } from "react-router-dom";
 
 const columns: EditableColumn[] = [
   {
-    title: "Id",
+    title: "Job Id",
     dataIndex: "jobId",
     render: (text: string) => (
       <AppLink href={`${window.location.pathname}/job?id=${text}`}>
         {text}
       </AppLink>
     ),
+  },
+  {
+    title: "client",
+    dataIndex: "clientId",
+    hidden: true,
+  },
+  {
+    title: "workflow id",
+    dataIndex: "workflowId",
+    hidden: true,
   },
   {
     title: "Status",
