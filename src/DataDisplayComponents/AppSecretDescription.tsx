@@ -14,7 +14,7 @@ export const AppSecretDescription = (props: {
 
   const [messageApi, contextHolder] = message.useMessage();
 
-  const buttonStyle = { fontWeight: 600, color: token.colorInfoText };
+  const buttonStyle = { fontWeight: 600, color: token.colorPrimary };
 
   const [reveal, setReveal] = useState<boolean>(false);
 

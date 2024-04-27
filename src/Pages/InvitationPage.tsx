@@ -1,12 +1,124 @@
-import { PageTitle } from "DataDisplayComponents/PageTitle";
-import { AppSpace } from "LayoutComponents/AppSpace";
-import { useParams } from "react-router-dom";
+import { SCS_PROCESS_INVITATION_URL } from "Config/SCSEndpointConfig";
+import { AppLogo } from "DataDisplayComponents/AppLogo";
+import { AppButton } from "DataEntryComponents/AppButton";
+import {
+  InvitationStatus,
+  InvitationToken,
+  getInvitationToken,
+} from "Network/SecurityFetch";
+import { prettifyDate } from "Utils/DateUtils";
+import { Card, Flex, Typography } from "antd";
+import axios from "axios";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { useLocation, useParams } from "react-router-dom";
 
 export const InvitationPage = () => {
   const { token } = useParams();
+  const location = useLocation();
+  const searchParams = useMemo(
+    () => new URLSearchParams(location.search),
+    [location.search]
+  );
+  const isExternalLink = searchParams.get("isExternalLink");
+
+  const [invitationToken, setInvitationToken] = useState<InvitationToken>();
+  const [loading, setLoading] = useState<Record<string, boolean>>({});
+
+  const fetchInvitationToken = useCallback(async () => {
+    if (token) {
+      const res = await getInvitationToken(token);
+      setInvitationToken(res.invitationToken);
+    }
+  }, [token]);
+
+  useEffect(() => {
+    if (!isExternalLink) {
+      searchParams.append("isExternalLink", "true");
+      window.location.href = `${window.location.pathname}?${searchParams}`;
+    }
+  }, [isExternalLink, searchParams]);
+
+  useEffect(() => {
+    fetchInvitationToken();
+  }, [fetchInvitationToken]);
+
+  const handleUserAction = async (action: InvitationStatus) => {
+    setLoading({ [action]: true });
+
+    const formData = {
+      token: token,
+      action: action.toString(),
+    };
+    await axios.post(SCS_PROCESS_INVITATION_URL, formData);
+
+    setLoading({ [action]: false });
+  };
+
   return (
-    <AppSpace>
-      <PageTitle>Coming soon...</PageTitle>
-    </AppSpace>
+    <Flex justify="center" align="center" style={{ height: "100vh" }}>
+      <Card
+        hoverable
+        style={{
+          width: "50vw",
+        }}
+        title={
+          <Flex align="flex-start" vertical style={{ padding: "16px 0" }}>
+            <Typography.Text>Pending invite</Typography.Text>
+            <Typography.Text type="secondary">
+              {prettifyDate(new Date().toLocaleString())}
+            </Typography.Text>
+          </Flex>
+        }
+        actions={[
+          <AppButton
+            style={{ width: "80%" }}
+            loading={loading[InvitationStatus.REJECTED]}
+            onClick={() => handleUserAction(InvitationStatus.REJECTED)}
+          >
+            Reject
+          </AppButton>,
+          <AppButton
+            onClick={() => handleUserAction(InvitationStatus.ACCEPTED)}
+            type="primary"
+            style={{ width: "80%" }}
+            loading={loading[InvitationStatus.ACCEPTED]}
+          >
+            Accept Invitation
+          </AppButton>,
+        ]}
+      >
+        <Flex vertical gap={16}>
+          <Flex vertical justify="center" align="center" gap={16}>
+            <AppLogo />
+
+            <Typography.Title level={4} style={{ marginTop: 0 }}>
+              You've got an invitation
+            </Typography.Title>
+          </Flex>
+
+          <Typography.Paragraph>
+            <Typography.Link href={`mailto:${invitationToken?.sender}`}>
+              {invitationToken?.sender}
+            </Typography.Link>{" "}
+            invited you to join{" "}
+            <Typography.Text strong>
+              {invitationToken?.location}
+            </Typography.Text>{" "}
+            organization. Accepting this invitation will grant you{" "}
+            <Typography.Text strong>
+              {invitationToken?.grantedPermissions.join(", ")}
+            </Typography.Text>{" "}
+            access to valuable resources within the organization.
+          </Typography.Paragraph>
+          <Typography.Paragraph>
+            You can choose to accept or reject this invitation at your
+            convenience.
+          </Typography.Paragraph>
+          <Typography.Text type="secondary" style={{ fontSize: 12 }}>
+            Your invitation expires in 30 days.
+          </Typography.Text>
+        </Flex>
+      </Card>
+    </Flex>
   );
 };

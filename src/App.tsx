@@ -89,6 +89,8 @@ export const App = () => {
   const Wrapper = () => {
     const dispatch = useDispatch();
     const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const isExternalLink = searchParams.get("isExternalLink");
 
     const [collapsed, setCollapsed] = useState<boolean>(true);
     const [isSiderHovered, setIsSiderHovered] = useState<boolean>(false);
@@ -107,7 +109,7 @@ export const App = () => {
       dispatch(setItems(deserializedLocation));
     }, [dispatch, location.pathname]);
 
-    if (!authToken || !account) {
+    if (!authToken || !account || isExternalLink) {
       return (
         <Layout style={{ minHeight: "100vh", background: colorBgContainer }}>
           <Outlet />

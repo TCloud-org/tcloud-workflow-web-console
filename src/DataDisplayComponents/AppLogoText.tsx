@@ -1,16 +1,10 @@
-import { Flex, Image, Typography } from "antd";
+import { Flex, Typography } from "antd";
+import { AppLogo } from "./AppLogo";
 
 export const AppLogoText = () => {
   return (
     <Flex align="center" gap={16}>
-      <Image
-        src="https://tcw-icon.s3.us-west-2.amazonaws.com/7.png"
-        width={60}
-        preview={false}
-        style={{
-          animation: "spin 10s linear infinite",
-        }}
-      />
+      <AppLogo size={60} spin />
       <Typography.Title style={{ margin: 0 }} level={4}>
         The Cloud World
       </Typography.Title>
