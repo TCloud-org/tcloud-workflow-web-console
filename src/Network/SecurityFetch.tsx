@@ -2,6 +2,7 @@ import { Client, ClientInvitee } from "Config/SCSConfig";
 import {
   SCS_GET_CLIENTS_URL,
   SCS_GET_CLIENT_INVITEES_BY_CLIENT_ID,
+  SCS_GET_INVITATION_TOKENS_BY_SENDER_URL,
   SCS_GET_INVITATION_TOKEN_URL,
 } from "Config/SCSEndpointConfig";
 import axios from "axios";
@@ -45,6 +46,10 @@ export interface GetInvitationTokenResponse {
   invitationToken: InvitationToken;
 }
 
+export interface GetInvitationTokensBySenderResponse {
+  invitationTokens: InvitationToken[];
+}
+
 export const getClients = async (email: string) => {
   return await axios
     .get(`${SCS_GET_CLIENTS_URL}?email=${email}`)
@@ -61,4 +66,16 @@ export const getInvitationToken = async (token: string) => {
   return await axios
     .get(`${SCS_GET_INVITATION_TOKEN_URL}?token=${token}`)
     .then((res) => res.data as GetInvitationTokenResponse);
+};
+
+export const getInvitationTokensBySenderAndLocation = async (
+  email: string,
+  clientId: string
+) => {
+  const params = new URLSearchParams();
+  params.set("sender", email);
+  params.set("location", clientId);
+  return await axios
+    .get(`${SCS_GET_INVITATION_TOKENS_BY_SENDER_URL}?${params}`)
+    .then((res) => res.data as GetInvitationTokensBySenderResponse);
 };

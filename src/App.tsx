@@ -77,6 +77,7 @@ import { AddWorkflowPage } from "Pages/ApiWorkflowConfigurationSider/AddWorkflow
 import { ClientDetailsPage } from "Pages/PeopleSider/ClientDetailsPage";
 import { InviteClientPage } from "Pages/PeopleSider/InviteClientPage";
 import { InvitationPage } from "Pages/InvitationPage";
+import { ViewInvitationsPage } from "Pages/PeopleSider/ViewInvitationsPage";
 
 export const App = () => {
   const {
@@ -361,6 +362,10 @@ export const App = () => {
             {
               path: "/client/:clientId/invite",
               element: <InviteClientPage />,
+            },
+            {
+              path: "/client/:clientId/view-invitations",
+              element: <ViewInvitationsPage />,
             },
             {
               path: "/account",

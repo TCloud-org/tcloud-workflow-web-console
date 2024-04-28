@@ -276,11 +276,17 @@ export const AppHeader = (props: {
             placement="bottomRight"
             dropdownRender={(menu) => (
               <div style={contentStyle}>
+                <Flex style={{ padding: "8px 16px" }} justify="flex-start">
+                  <Typography.Text type="secondary">
+                    {account.email}
+                  </Typography.Text>
+                </Flex>
+                <Divider style={{ margin: 0 }} />
                 {React.cloneElement(menu as React.ReactElement, {
                   style: menuStyle,
                 })}
                 <Divider style={{ margin: 0 }} />
-                <Flex justify="center" style={{ padding: 8 }}>
+                <Flex justify="center" style={{ padding: "8px 16px" }}>
                   <AppButton type="primary" size="small" onClick={handleLogout}>
                     Log out
                   </AppButton>

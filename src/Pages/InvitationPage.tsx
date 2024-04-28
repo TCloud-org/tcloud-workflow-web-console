@@ -10,10 +10,11 @@ import { prettifyDate } from "Utils/DateUtils";
 import { Card, Flex, Typography } from "antd";
 import axios from "axios";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 export const InvitationPage = () => {
   const { token } = useParams();
+  const navigate = useNavigate();
   const location = useLocation();
   const searchParams = useMemo(
     () => new URLSearchParams(location.search),
@@ -51,7 +52,11 @@ export const InvitationPage = () => {
     };
     await axios.post(SCS_PROCESS_INVITATION_URL, formData);
 
-    setLoading({ [action]: false });
+    setTimeout(() => {
+      setLoading({ [action]: false });
+
+      navigate("/");
+    }, 2000);
   };
 
   return (

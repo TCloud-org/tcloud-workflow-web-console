@@ -115,17 +115,26 @@ export const ClientDetailsPage = () => {
     navigate(`${location.pathname}/invite`);
   };
 
+  const handleViewInvitations = () => {
+    navigate(`${location.pathname}/view-invitations`);
+  };
+
   return (
     <AppSpace>
       <PageTitle
         endDecorator={
-          <AppButton
-            icon={<SendOutlined />}
-            type="primary"
-            onClick={handleInvite}
-          >
-            Invite
-          </AppButton>
+          <>
+            <AppButton onClick={handleViewInvitations}>
+              View Invitations
+            </AppButton>
+            <AppButton
+              icon={<SendOutlined />}
+              type="primary"
+              onClick={handleInvite}
+            >
+              Invite
+            </AppButton>
+          </>
         }
       >
         {clientId}
