@@ -49,7 +49,10 @@ export const SignUpPage = () => {
     const res = await axios
       .post(AMS_SIGN_UP_ENDPOINT, formData)
       .then((res) => res.data)
-      .catch((err) => messageApi.error("Sign up failed. Please try again"));
+      .catch((err) => {
+        messageApi.error("Sign up failed. Please try again");
+        return undefined;
+      });
     if (res) {
       navigate("/email-verification", {
         state: {
