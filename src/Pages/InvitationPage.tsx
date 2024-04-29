@@ -7,7 +7,7 @@ import {
   getInvitationToken,
 } from "Network/SecurityFetch";
 import { prettifyDate } from "Utils/DateUtils";
-import { Card, Flex, Typography } from "antd";
+import { Card, Flex, Typography, message } from "antd";
 import axios from "axios";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
@@ -16,6 +16,7 @@ export const InvitationPage = () => {
   const { token } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
+  const [messageApi, contextHolder] = message.useMessage();
   const searchParams = useMemo(
     () => new URLSearchParams(location.search),
     [location.search]
@@ -50,13 +51,30 @@ export const InvitationPage = () => {
       token: token,
       action: action.toString(),
     };
-    await axios.post(SCS_PROCESS_INVITATION_URL, formData);
+    const res = await axios
+      .post(SCS_PROCESS_INVITATION_URL, formData)
+      .then((res) => res.data as InvitationToken)
+      .catch((err) => {
+        return undefined;
+      });
 
-    setTimeout(() => {
-      setLoading({ [action]: false });
+    if (!res) {
+      setTimeout(() => {
+        setLoading({ [action]: false });
 
-      navigate("/");
-    }, 2000);
+        messageApi.error("Failed to process the invitation response.");
+      }, 2000);
+    } else {
+      setTimeout(() => {
+        setLoading({ [action]: false });
+
+        if (res.status === InvitationStatus.PENDING) {
+          navigate("/sign-up");
+        } else {
+          navigate("/");
+        }
+      }, 2000);
+    }
   };
 
   return (
