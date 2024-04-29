@@ -7,7 +7,7 @@ import {
   getInvitationToken,
 } from "Network/SecurityFetch";
 import { prettifyDate } from "Utils/DateUtils";
-import { Card, Flex, Typography, message } from "antd";
+import { Card, Flex, Result, Typography, message } from "antd";
 import axios from "axios";
 import { logout } from "features/auth/authSlice";
 import { useCallback, useEffect, useMemo, useState } from "react";
@@ -81,6 +81,23 @@ export const InvitationPage = () => {
       }, 2000);
     }
   };
+
+  if (invitationToken?.confirmedAt) {
+    return (
+      <Flex justify="center" align="center" style={{ height: "100vh" }}>
+        <Result
+          status="403"
+          title="403"
+          subTitle="The invitation link has either expired or has already been confirmed!"
+          extra={
+            <AppButton type="primary" onClick={() => navigate("/")}>
+              Back Home
+            </AppButton>
+          }
+        />
+      </Flex>
+    );
+  }
 
   return (
     <>
