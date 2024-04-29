@@ -276,6 +276,8 @@ export const AppTable = (
       loading={props.loading}
       scroll={{ x: 1000 }}
       size="small"
+      locale={props.locale}
+      rowHoverable={props.rowHoverable}
     />
   );
 };

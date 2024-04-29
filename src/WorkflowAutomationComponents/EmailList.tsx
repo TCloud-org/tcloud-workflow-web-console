@@ -6,6 +6,7 @@ import { ListItemMetaProps } from "antd/es/list";
 import { EmailListItem } from "./EmailListItem";
 import { EmailListItemContent } from "./EmailListItemContent";
 import { EmailListItemDescription } from "./EmailListItemDescription";
+import { paginationConfig } from "Config/LayoutConfig";
 
 const emailComparator = (a: Email, b: Email) => {
   const dateA = new Date(a.sentAt);
@@ -30,12 +31,7 @@ export const EmailList = (props: { emails?: Email[] }) => {
           })) as (ListItemMetaProps & { email: Email })[]
         }
         renderItem={(item) => <EmailListItem item={item} />}
-        pagination={{
-          showSizeChanger: true,
-          defaultPageSize: 10,
-          showQuickJumper: true,
-          pageSizeOptions: [5, 10, 25, 50, 100],
-        }}
+        pagination={paginationConfig}
       />
     </AppSpace>
   );

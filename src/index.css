@@ -112,6 +112,16 @@ code {
   transition: all 0.2s;
 }
 
+.custom-link {
+  color      : black;
+  font-weight: 700;
+  transition : all 0.3s;
+}
+
+.custom-link:hover {
+  color: #4312e5;
+}
+
 .focus:hover,
 .focus:focus {
   outline: 1px solid #4312e5be;

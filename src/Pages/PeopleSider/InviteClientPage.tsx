@@ -38,7 +38,10 @@ export const InviteClientPage = () => {
       },
       invitees: invitees,
     };
-    await axios.post(SCS_INVITE_TO_ORG_URL, formData);
+    await axios
+      .post(SCS_INVITE_TO_ORG_URL, formData)
+      .then((res) => console.log(res))
+      .catch((err) => console.error(err));
     setLoading(false);
 
     navigate(`/client/${clientId}`);

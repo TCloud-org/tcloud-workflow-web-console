@@ -10,6 +10,7 @@ import {
 import Icon from "@ant-design/icons/lib/components/Icon";
 import { HeaderHeight } from "Config/LayoutConfig";
 import { Client } from "Config/SCSConfig";
+import { AppAvatar } from "DataDisplayComponents/AppAvatar";
 import { AppButton } from "DataEntryComponents/AppButton";
 import { AppIconButton } from "DataEntryComponents/AppIconButton";
 import { AppSearchBar } from "DataEntryComponents/AppSearchBar";
@@ -17,7 +18,6 @@ import { getAccount } from "Network/AuthFetch";
 import { getClients } from "Network/SecurityFetch";
 import {
   AutoCompleteProps,
-  Avatar,
   Divider,
   Dropdown,
   Flex,
@@ -170,6 +170,7 @@ export const AppHeader = (props: {
     backgroundColor: token.colorBgElevated,
     borderRadius: token.borderRadiusLG,
     boxShadow: token.boxShadowSecondary,
+    width: "20vw",
   };
 
   const menuStyle: React.CSSProperties = {
@@ -295,12 +296,7 @@ export const AppHeader = (props: {
             )}
           >
             <Flex align="center" style={{ cursor: "pointer" }} gap={6}>
-              <Avatar
-                style={{ backgroundColor: token.colorPrimary }}
-                size="small"
-              >
-                <UserOutlined />
-              </Avatar>
+              <AppAvatar />
               <Typography.Text
                 style={{
                   maxWidth: 100,
