@@ -78,6 +78,7 @@ import { ClientDetailsPage } from "Pages/PeopleSider/ClientDetailsPage";
 import { InviteClientPage } from "Pages/PeopleSider/InviteClientPage";
 import { InvitationPage } from "Pages/InvitationPage";
 import { ViewInvitationsPage } from "Pages/PeopleSider/ViewInvitationsPage";
+import { SupportPage } from "Pages/Support/SupportPage";
 
 export const App = () => {
   const {
@@ -410,6 +411,10 @@ export const App = () => {
             {
               path: "/workflow-automation/email-notification-workflow/:id/job",
               element: <EmailNotificationJobPage />,
+            },
+            {
+              path: "/support",
+              element: <SupportPage />,
             },
           ],
     },
