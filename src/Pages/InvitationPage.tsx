@@ -9,13 +9,16 @@ import {
 import { prettifyDate } from "Utils/DateUtils";
 import { Card, Flex, Typography, message } from "antd";
 import axios from "axios";
+import { logout } from "features/auth/authSlice";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 export const InvitationPage = () => {
   const { token } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useDispatch();
   const [messageApi, contextHolder] = message.useMessage();
   const searchParams = useMemo(
     () => new URLSearchParams(location.search),
@@ -70,6 +73,7 @@ export const InvitationPage = () => {
         setLoading({ [action]: false });
 
         if (res.status === InvitationStatus.PENDING) {
+          dispatch(logout());
           navigate("/sign-up");
         } else {
           navigate("/");
