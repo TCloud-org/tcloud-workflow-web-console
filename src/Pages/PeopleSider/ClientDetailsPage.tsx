@@ -14,9 +14,11 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 export const PermissionColor = {
   ADMIN: "#4312e5",
-  READ: "#87d068",
-  WRITE: "#f50",
+  READ: "#7fbfff",
+  WRITE: "#6abf69",
+  DELETE: "#f88b8b",
 };
+
 const columns: EditableColumn[] = [
   {
     title: "Owner/contributor",
