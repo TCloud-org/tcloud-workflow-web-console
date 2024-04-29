@@ -8,8 +8,8 @@ import {
 } from "Network/SecurityFetch";
 import { prettifyDate } from "Utils/DateUtils";
 import { Card, Flex, Result, Typography, message } from "antd";
+import { ActionType } from "app/rootReducer";
 import axios from "axios";
-import { logout } from "features/auth/authSlice";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
@@ -67,18 +67,22 @@ export const InvitationPage = () => {
         setLoading({ [action]: false });
 
         messageApi.error("Failed to process the invitation response.");
-      }, 2000);
+      }, 1000);
     } else {
-      setTimeout(() => {
+      setTimeout(async () => {
         setLoading({ [action]: false });
 
         if (res.status === InvitationStatus.PENDING) {
-          dispatch(logout());
-          navigate("/sign-up");
+          dispatch({ type: ActionType.logout });
+          navigate("/", {
+            state: {
+              redirectTo: `/sign-up?invitationToken=${token}`,
+            },
+          });
         } else {
           navigate("/");
         }
-      }, 2000);
+      }, 1000);
     }
   };
 

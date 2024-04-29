@@ -4,11 +4,13 @@ import {
 } from "Config/AMSEndpointConfig";
 import { borderColor } from "Config/AutomationConfig";
 import { Span } from "Config/DataDisplayInterface";
+import { SCS_PROCESS_INVITATION_URL } from "Config/SCSEndpointConfig";
 import { AppLogoText } from "DataDisplayComponents/AppLogoText";
 import { AuthImageDisplay } from "DataDisplayComponents/AuthImageDisplay";
 import { AppButton } from "DataEntryComponents/AppButton";
 import { AppForm } from "DataEntryComponents/AppForm";
 import { AuthContent } from "LayoutComponents/AuthContent";
+import { InvitationStatus, InvitationToken } from "Network/SecurityFetch";
 import {
   Col,
   CountdownProps,
@@ -28,6 +30,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 export const EmailVerificationPage = () => {
   const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const invitationToken = searchParams.get("invitationToken");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { data } = location.state || {};
@@ -67,6 +71,25 @@ export const EmailVerificationPage = () => {
     const isVerified = await axios
       .post(AMS_VERIFY_ACCOUNT_ENDPOINT, formData)
       .then((res) => res.data);
+    if (isVerified && invitationToken) {
+      const formData = {
+        token: invitationToken,
+        action: InvitationStatus.ACCEPTED.toString(),
+      };
+      const res = await axios
+        .post(SCS_PROCESS_INVITATION_URL, formData)
+        .then((res) => res.data as InvitationToken)
+        .catch((err) => {
+          console.error(err);
+          return undefined;
+        });
+
+      if (res) {
+        messageApi.success("Successfully processed the invitation acceptation");
+      } else {
+        messageApi.error("Failed to process the invitation request");
+      }
+    }
 
     setTimeout(() => {
       if (isVerified) {

@@ -6,6 +6,7 @@ import { AuthImageDisplay } from "DataDisplayComponents/AuthImageDisplay";
 import { AppButton } from "DataEntryComponents/AppButton";
 import { AppForm } from "DataEntryComponents/AppForm";
 import { AuthContent } from "LayoutComponents/AuthContent";
+import { getInvitationToken } from "Network/SecurityFetch";
 import {
   Checkbox,
   Col,
@@ -17,17 +18,31 @@ import {
   theme,
 } from "antd";
 import axios from "axios";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useCallback, useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export const SignUpPage = () => {
   const { token } = theme.useToken();
   const [form] = Form.useForm();
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const invitationToken = searchParams.get("invitationToken");
   const [messageApi, contextHolder] = message.useMessage();
 
   const navigate = useNavigate();
 
   const [emailSignUpLoading, setEmailSignUpLoading] = useState<boolean>(false);
+
+  const fetchInvitationToken = useCallback(async () => {
+    if (invitationToken) {
+      const res = await getInvitationToken(invitationToken);
+      form.setFieldValue("email", res.invitationToken.receiver);
+    }
+  }, [invitationToken, form]);
+
+  useEffect(() => {
+    fetchInvitationToken();
+  }, [fetchInvitationToken]);
 
   const handleLogin = () => {
     navigate("/");
@@ -54,7 +69,11 @@ export const SignUpPage = () => {
         return undefined;
       });
     if (res) {
-      navigate("/email-verification", {
+      let href = "/email-verification";
+      if (invitationToken) {
+        href += `?invitationToken=${invitationToken}`;
+      }
+      navigate(href, {
         state: {
           data: res,
         },

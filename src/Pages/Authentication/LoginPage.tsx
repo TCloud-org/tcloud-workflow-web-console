@@ -23,12 +23,14 @@ import axios from "axios";
 import { Account, AuthType, login } from "features/auth/authSlice";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 
 export const LoginPage = () => {
   const { token } = theme.useToken();
   const [form] = Form.useForm();
+  const location = useLocation();
+  const { redirectTo } = location.state || {};
   const [messageApi, contextHolder] = message.useMessage();
 
   const rememberMeToken = useSelector(
@@ -41,6 +43,12 @@ export const LoginPage = () => {
   const [googleSignInLoading, setGoogleSignInLoading] =
     useState<boolean>(false);
   const [emailSignInLoading, setEmailSignInLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (redirectTo) {
+      navigate(redirectTo);
+    }
+  }, [redirectTo, navigate]);
 
   useEffect(() => {
     if (rememberMeToken) {
