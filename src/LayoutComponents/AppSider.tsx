@@ -280,23 +280,23 @@ export const AppSider = (props: {
 
   return (
     <Sider
-      collapsedWidth={SiderCollapseWidth}
+      collapsedWidth={0}
       width={SiderWidth}
       collapsed={collapsed && !isHovered}
-      onMouseEnter={() => {
-        if (!isHovered) {
-          setIsHovered(true);
-        }
-      }}
+      // onMouseEnter={() => {
+      //   if (!isHovered) {
+      //     setIsHovered(true);
+      //   }
+      // }}
+      // onMouseLeave={() => {
+      //   if (isHovered) {
+      //     setIsHovered(false);
+      //   }
+      // }}
+      // onBlur={() => {
+      //   setCollapsed(true);
+      // }}
       trigger={null}
-      onBlur={() => {
-        setCollapsed(true);
-      }}
-      onMouseLeave={() => {
-        if (isHovered) {
-          setIsHovered(false);
-        }
-      }}
       style={{
         overflow: "auto",
         position: "fixed",

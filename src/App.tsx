@@ -131,12 +131,7 @@ export const App = () => {
             setIsHovered={setIsSiderHovered}
           />
 
-          <Layout
-            style={{
-              marginLeft: SiderCollapseWidth,
-              transition: "0.2s",
-            }}
-          >
+          <Layout>
             <Layout style={{ padding: "0 16px 0 16px" }}>
               <AppBreadcrumb />
 

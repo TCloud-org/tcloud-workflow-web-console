@@ -20,8 +20,9 @@ import { Flex, Tag } from "antd";
 import { Account } from "features/auth/authSlice";
 import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { PermissionColor } from "./ClientDetailsPage";
+import { AppButton } from "DataEntryComponents/AppButton";
 
 export const InvitationComponent = {
   ACCEPTED: {
@@ -120,6 +121,8 @@ const columns: EditableColumn[] = [
 ];
 
 export const ViewInvitationsPage = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const { clientId } = useParams();
   const account: Account = useSelector((state: any) => state.auth.account);
 
@@ -146,9 +149,27 @@ export const ViewInvitationsPage = () => {
     fetchInvitations();
   }, [fetchInvitations]);
 
+  const handleInvite = () => {
+    const paths = location.pathname.split("/");
+    paths.pop();
+    navigate(`${paths.join("/")}/invite`);
+  };
+
   return (
     <AppSpace>
-      <PageTitle>Invitations</PageTitle>
+      <PageTitle
+        endDecorator={
+          <AppButton
+            icon={<SendOutlined />}
+            onClick={handleInvite}
+            type="primary"
+          >
+            Invite
+          </AppButton>
+        }
+      >
+        Invitations
+      </PageTitle>
 
       <AppTable
         rowId="receiver"
