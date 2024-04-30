@@ -134,6 +134,15 @@ code {
   color: #4312e5;
 }
 
+.link {
+  color     : black;
+  transition: all 0.3s;
+}
+
+.link:hover {
+  color: #4312e5;
+}
+
 .focus:hover,
 .focus:focus {
   outline: 1px solid #4312e5be;

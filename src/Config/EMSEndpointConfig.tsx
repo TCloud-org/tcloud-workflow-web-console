@@ -3,3 +3,5 @@ export const EMS_BASE_URL =
 
 export const EMS_QUERY_EMAILS_SENT_PER_WORKFLOW_ENDPOINT =
   EMS_BASE_URL + "/query-emails-sent-per-workflow";
+export const EMS_CREATE_AND_VERIFY_EMAIL_IDENTITY_ENDPOINT =
+  EMS_BASE_URL + "/create-and-verify-email-identity";
