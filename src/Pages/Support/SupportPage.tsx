@@ -8,8 +8,7 @@ import { AppImageWithSource } from "DataDisplayComponents/AppImageWithSource";
 import { AppButton } from "DataEntryComponents/AppButton";
 import { AppSearchInput } from "DataEntryComponents/AppSearchInput";
 import { AppRow } from "LayoutComponents/AppRow";
-import { AppSpace } from "LayoutComponents/AppSpace";
-import { Card, Col, Flex, Typography, theme } from "antd";
+import { Card, Col, Collapse, Flex, Typography, theme } from "antd";
 import { cloneElement } from "react";
 
 const topics = [
@@ -91,10 +90,53 @@ export const SupportPage = () => {
         ))}
       </AppRow>
 
-      <Flex justify="center" style={{ padding: 64 }}>
+      <Flex
+        vertical
+        justify="center"
+        align="center"
+        gap={32}
+        style={{ padding: "64px 128px" }}
+      >
         <Typography.Title level={4} style={{ margin: 0 }}>
           FAQs
         </Typography.Title>
+
+        <Collapse
+          bordered={false}
+          style={{ background: token.colorBgContainer, width: "100%" }}
+          expandIconPosition="right"
+          ghost
+          items={[
+            {
+              key: "1",
+              label: (
+                <Typography.Text strong>This is panel header 1</Typography.Text>
+              ),
+              children: (
+                <p>
+                  A dog is a type of domesticated animal. Known for its loyalty
+                  and faithfulness, it can be found as a welcome guest in many
+                  households across the world.
+                </p>
+              ),
+              style: {},
+            },
+            {
+              key: "2",
+              label: (
+                <Typography.Text strong>This is panel header 2</Typography.Text>
+              ),
+              children: (
+                <p>
+                  A dog is a type of domesticated animal. Known for its loyalty
+                  and faithfulness, it can be found as a welcome guest in many
+                  households across the world.
+                </p>
+              ),
+              style: {},
+            },
+          ]}
+        />
       </Flex>
 
       <Flex
