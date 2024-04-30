@@ -17,6 +17,11 @@ code {
     monospace;
 }
 
+.inner-html {
+  overflow  : auto;
+  max-height: 250px;
+}
+
 .editable-cell {
   position: relative;
 }
@@ -94,6 +99,7 @@ code {
 }
 
 .scale {
+  cursor    : pointer;
   transition: all 0.3s;
 }
 

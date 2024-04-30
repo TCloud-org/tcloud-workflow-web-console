@@ -27,7 +27,7 @@ export const SiderHrefs = {
   people: "people",
   settings: "settings",
   help: "help",
-  "/shop": "/shop",
+  "/store": "/store",
   "/workflow-automation": "/workflow-automation",
   "/development": "/development",
   "/api-workflow-introduction": "workflow",
@@ -75,7 +75,7 @@ export const SiderName = {
   "/billing": "Billing",
   "/support": "Support",
   "/contact": "Contact",
-  "/shop": "Shop",
+  "/store": "Store",
 };
 
 export const AppSider = (props: {
@@ -230,10 +230,10 @@ export const AppSider = (props: {
       ],
     },
     {
-      key: "/shop",
+      key: "/store",
       icon: <ShopOutlined />,
-      label: "Shop",
-      onClick: () => navigate("/shop"),
+      label: "Store",
+      onClick: () => navigate("/store"),
     },
     {
       key: "settings",

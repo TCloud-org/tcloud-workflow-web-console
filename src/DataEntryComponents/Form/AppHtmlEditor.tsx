@@ -3,7 +3,7 @@ import { langs } from "@uiw/codemirror-extensions-langs";
 import { githubDarkInit, githubLightInit } from "@uiw/codemirror-theme-github";
 import ReactCodeMirror from "@uiw/react-codemirror";
 import { Icon } from "SlateRichTextEditorComponents/RichTextToolbarComponents";
-import { Divider, Flex, Segmented, Tooltip, theme } from "antd";
+import { Divider, Flex, Segmented, Tooltip, Typography, theme } from "antd";
 import { useState } from "react";
 
 export const AppHtmlEditor = (props: {
@@ -26,10 +26,14 @@ export const AppHtmlEditor = (props: {
         border: "1px solid",
         borderColor: token.colorBorder,
         borderRadius: token.borderRadiusSM,
-        transition: "all 0.2s",
+        transition: "all 0.3s",
       }}
     >
-      <Flex style={{ padding: 8 }}>
+      <Flex
+        style={{ padding: "8px 16px" }}
+        align="center"
+        justify="space-between"
+      >
         <Segmented
           value={panorama}
           onChange={setPanorama}
@@ -52,6 +56,7 @@ export const AppHtmlEditor = (props: {
             },
           ]}
         />
+        <Typography.Text>HTML</Typography.Text>
       </Flex>
       <Divider
         style={{ margin: 0, backgroundColor: token.colorBorderSecondary }}

@@ -2,6 +2,7 @@ import {
   ClockCircleOutlined,
   ContainerOutlined,
   DownOutlined,
+  LogoutOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   QuestionCircleOutlined,
@@ -316,7 +317,12 @@ export const AppHeader = (props: {
                 })}
                 <Divider style={{ margin: 0 }} />
                 <Flex justify="center" style={{ padding: "8px 16px" }}>
-                  <AppButton type="primary" size="small" onClick={handleLogout}>
+                  <AppButton
+                    type="primary"
+                    size="small"
+                    onClick={handleLogout}
+                    icon={<LogoutOutlined />}
+                  >
                     Log out
                   </AppButton>
                 </Flex>

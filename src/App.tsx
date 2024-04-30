@@ -79,7 +79,8 @@ import { deserializeLocation } from "./Utils/Serializer";
 import { setItems } from "./features/navigation/breadcrumbSlice";
 import { setSelectedKeys } from "./features/navigation/siderSlice";
 import { ContactPage } from "Pages/Support/ContactPage";
-import { ShopPage } from "Pages/Shop/ShopPage";
+import { StorePage } from "Pages/Shop/StorePage";
+import { PublishProductPage } from "Pages/Shop/PublishProductPage";
 
 export const App = () => {
   const {
@@ -403,8 +404,12 @@ export const App = () => {
               element: <EmailNotificationJobPage />,
             },
             {
-              path: "/shop",
-              element: <ShopPage />,
+              path: "/store",
+              element: <StorePage />,
+            },
+            {
+              path: "/store/publish",
+              element: <PublishProductPage />,
             },
             {
               path: "/support",
