@@ -10,6 +10,7 @@ import { AppSearchInput } from "DataEntryComponents/AppSearchInput";
 import { AppRow } from "LayoutComponents/AppRow";
 import { Card, Col, Collapse, Flex, Typography, theme } from "antd";
 import { cloneElement } from "react";
+import { useNavigate } from "react-router-dom";
 
 const topics = [
   {
@@ -38,6 +39,7 @@ const bgColor = "#f3f1ff";
 
 export const SupportPage = () => {
   const { token } = theme.useToken();
+  const navigate = useNavigate();
 
   return (
     <Flex vertical>
@@ -155,7 +157,9 @@ export const SupportPage = () => {
           Can't find what you're looking for?
         </Typography.Title>
 
-        <AppButton type="primary">Contact Us</AppButton>
+        <AppButton type="primary" onClick={() => navigate("/contact")}>
+          Contact Us
+        </AppButton>
       </Flex>
     </Flex>
   );

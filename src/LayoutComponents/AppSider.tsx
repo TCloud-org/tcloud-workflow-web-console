@@ -4,6 +4,7 @@ import {
   HomeOutlined,
   MonitorOutlined,
   PartitionOutlined,
+  QuestionCircleOutlined,
   SafetyOutlined,
   SettingOutlined,
   UsergroupAddOutlined,
@@ -23,6 +24,7 @@ export const SiderHrefs = {
   monitor: "monitor",
   people: "people",
   settings: "settings",
+  help: "help",
   "/workflow-automation": "/workflow-automation",
   "/development": "/development",
   "/api-workflow-introduction": "workflow",
@@ -43,6 +45,8 @@ export const SiderHrefs = {
   "/account": "settings",
   "/general": "settings",
   "/billing": "settings",
+  "/support": "help",
+  "/contact": "help",
 };
 
 export const SiderName = {
@@ -66,6 +70,8 @@ export const SiderName = {
   "/account": "Account",
   "/general": "General",
   "/billing": "Billing",
+  "/support": "Support",
+  "/contact": "Contact",
 };
 
 export const AppSider = (props: {
@@ -240,6 +246,23 @@ export const AppSider = (props: {
           key: "/billing",
           label: <AppMenuPin>/billing</AppMenuPin>,
           onClick: () => navigate("/billing"),
+        },
+      ],
+    },
+    {
+      key: "help",
+      icon: <QuestionCircleOutlined />,
+      label: "Help",
+      children: [
+        {
+          key: "/support",
+          label: <AppMenuPin>/support</AppMenuPin>,
+          onClick: () => navigate("/support"),
+        },
+        {
+          key: "/contact",
+          label: <AppMenuPin>/contact</AppMenuPin>,
+          onClick: () => navigate("/contact"),
         },
       ],
     },

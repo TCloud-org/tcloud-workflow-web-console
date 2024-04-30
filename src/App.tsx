@@ -78,6 +78,7 @@ import { GeneralPage } from "./Pages/SettingsSider/GeneralPage";
 import { deserializeLocation } from "./Utils/Serializer";
 import { setItems } from "./features/navigation/breadcrumbSlice";
 import { setSelectedKeys } from "./features/navigation/siderSlice";
+import { ContactPage } from "Pages/Support/ContactPage";
 
 export const App = () => {
   const {
@@ -409,6 +410,10 @@ export const App = () => {
             {
               path: "/support",
               element: <SupportPage />,
+            },
+            {
+              path: "/contact",
+              element: <ContactPage />,
             },
           ],
     },
