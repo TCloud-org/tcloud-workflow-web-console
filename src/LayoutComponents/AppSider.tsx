@@ -8,11 +8,7 @@ import {
   SettingOutlined,
   UsergroupAddOutlined,
 } from "@ant-design/icons";
-import {
-  HeaderHeight,
-  SiderCollapseWidth,
-  SiderWidth,
-} from "Config/LayoutConfig";
+import { HeaderHeight, SiderWidth } from "Config/LayoutConfig";
 import { AppMenuPin } from "DataDisplayComponents/AppMenuPin";
 import { Menu, MenuProps, theme } from "antd";
 import Sider from "antd/es/layout/Sider";
@@ -78,12 +74,7 @@ export const AppSider = (props: {
   setIsHovered?: Dispatch<SetStateAction<boolean>>;
   setCollapsed?: Dispatch<SetStateAction<boolean>>;
 }) => {
-  const {
-    collapsed,
-    isHovered,
-    setIsHovered = () => {},
-    setCollapsed = () => {},
-  } = props;
+  const { collapsed, isHovered } = props;
 
   const { token } = theme.useToken();
   const { isDevMode } = useSelector((state: any) => state.general);

@@ -1,4 +1,4 @@
-import { SiderCollapseWidth } from "Config/LayoutConfig";
+import { AddWorkflowPage } from "Pages/ApiWorkflowConfigurationSider/AddWorkflowPage";
 import { WorkflowPage } from "Pages/ApiWorkflowConfigurationSider/WorkflowPage";
 import { ApiWorkflowHowItWorksPage } from "Pages/ApiWorkflowGetStartedSider/ApiWorkflowHowItWorksPage";
 import { ApiWorkflowIntroductionPage } from "Pages/ApiWorkflowGetStartedSider/ApiWorkflowIntroductionPage";
@@ -10,15 +10,21 @@ import { LoginPage } from "Pages/Authentication/LoginPage";
 import { ResetPasswordPage } from "Pages/Authentication/ResetPasswordPage";
 import { SignUpPage } from "Pages/Authentication/SignUpPage";
 import { DevModePage } from "Pages/DevModeSider/DevModePage";
+import { InvitationPage } from "Pages/InvitationPage";
 import { MonitorTrafficPage } from "Pages/MonitorSider/MonitorTrafficPage";
 import { NotFoundPage } from "Pages/NotFoundPage";
 import { AddClientPage } from "Pages/PeopleSider/AddClientPage";
+import { ClientDetailsPage } from "Pages/PeopleSider/ClientDetailsPage";
 import { ClientPage } from "Pages/PeopleSider/ClientPage";
+import { InviteClientPage } from "Pages/PeopleSider/InviteClientPage";
+import { ViewInvitationsPage } from "Pages/PeopleSider/ViewInvitationsPage";
 import { CookiePolicyPage } from "Pages/Policy/CookiePolicyPage";
 import { PrivacyPolicyPage } from "Pages/Policy/PrivacyPolicyPage";
 import { TermsAndConditionsPage } from "Pages/Policy/TermsAndConditionsPage";
 import { QueryPage } from "Pages/QuerySider/QueryPage";
+import { AccountPage } from "Pages/SettingsSider/AccountPage";
 import { WorkflowStatisticPage } from "Pages/Statistic/WorkflowStatisticPage";
+import { SupportPage } from "Pages/Support/SupportPage";
 import { CreateEmailNotificationWorkflowPage } from "Pages/WorkflowAutomationSider/CreateEmailNotificationWorkflowPage";
 import { EmailNotificationJobPage } from "Pages/WorkflowAutomationSider/EmailNotificationJobPage";
 import { EmailNotificationTemplateSelectionPage } from "Pages/WorkflowAutomationSider/EmailNotificationTemplateSelectionPage";
@@ -72,13 +78,6 @@ import { GeneralPage } from "./Pages/SettingsSider/GeneralPage";
 import { deserializeLocation } from "./Utils/Serializer";
 import { setItems } from "./features/navigation/breadcrumbSlice";
 import { setSelectedKeys } from "./features/navigation/siderSlice";
-import { AccountPage } from "Pages/SettingsSider/AccountPage";
-import { AddWorkflowPage } from "Pages/ApiWorkflowConfigurationSider/AddWorkflowPage";
-import { ClientDetailsPage } from "Pages/PeopleSider/ClientDetailsPage";
-import { InviteClientPage } from "Pages/PeopleSider/InviteClientPage";
-import { InvitationPage } from "Pages/InvitationPage";
-import { ViewInvitationsPage } from "Pages/PeopleSider/ViewInvitationsPage";
-import { SupportPage } from "Pages/Support/SupportPage";
 
 export const App = () => {
   const {

@@ -4,6 +4,7 @@ import {
   DownOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
+  QuestionCircleOutlined,
   SettingFilled,
   UserOutlined,
 } from "@ant-design/icons";
@@ -264,6 +265,18 @@ export const AppHeader = (props: {
         </Flex>
 
         <Flex align="center" style={{ flex: 1 }} justify="flex-end">
+          <AppIconButton
+            onClick={() => navigate("/support")}
+            type="text"
+            tooltip="Support"
+            style={{
+              borderRadius: 0,
+              height: topHeaderHeight,
+              width: topHeaderHeight,
+            }}
+          >
+            <QuestionCircleOutlined />
+          </AppIconButton>
           <Select
             placeholder="Client"
             value={clientId}
