@@ -52,7 +52,9 @@ export const EmailVerificationForm = (props: {
       <Form.Item>
         <Typography.Paragraph strong>
           Upon submission, an email containing verification instructions will be
-          promptly sent to the provided email addresses.
+          promptly sent to the provided email addresses. Please check your
+          inbox, including your spam folder, for correspondence from{" "}
+          <Typography.Link>no-reply-aws@amazon.com</Typography.Link>.
         </Typography.Paragraph>
       </Form.Item>
     </>
