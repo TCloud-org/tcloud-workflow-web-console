@@ -26,6 +26,7 @@
     "axios": "^1.6.8",
     "crypto": "^1.0.1",
     "dayjs": "^1.11.10",
+    "dotted-map": "^2.2.3",
     "escape-html": "^1.0.3",
     "file-saver": "^2.0.5",
     "html-react-parser": "^5.1.10",
