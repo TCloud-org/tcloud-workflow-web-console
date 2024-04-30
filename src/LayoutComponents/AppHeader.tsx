@@ -206,6 +206,7 @@ export const AppHeader = (props: {
       >
         <Flex justify="flex-start" align="center" style={{ flex: 1 }}>
           <AppIconButton
+            id="menu-button"
             type="text"
             onClick={() => setCollapsed(!collapsed)}
             style={{

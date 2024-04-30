@@ -96,7 +96,6 @@ export const App = () => {
     const isExternalLink = searchParams.get("isExternalLink");
 
     const [collapsed, setCollapsed] = useState<boolean>(true);
-    const [isSiderHovered, setIsSiderHovered] = useState<boolean>(false);
 
     useEffect(() => {
       const deserializedLocation = deserializeLocation(location.pathname);
@@ -125,12 +124,7 @@ export const App = () => {
         <AppHeader collapsed={collapsed} setCollapsed={setCollapsed} />
 
         <Layout style={{ minHeight: "100vh" }}>
-          <AppSider
-            collapsed={collapsed}
-            setCollapsed={setCollapsed}
-            isHovered={isSiderHovered}
-            setIsHovered={setIsSiderHovered}
-          />
+          <AppSider collapsed={collapsed} setCollapsed={setCollapsed} />
 
           <Layout>
             <Layout style={{ padding: "0 16px 0 16px" }}>

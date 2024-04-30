@@ -10,6 +10,7 @@ import {
   ShopOutlined,
   UsergroupAddOutlined,
 } from "@ant-design/icons";
+import { useClickAway } from "@uidotdev/usehooks";
 import { HeaderHeight, SiderWidth } from "Config/LayoutConfig";
 import { AppMenuPin } from "DataDisplayComponents/AppMenuPin";
 import { Menu, MenuProps, theme } from "antd";
@@ -79,11 +80,9 @@ export const SiderName = {
 
 export const AppSider = (props: {
   collapsed?: boolean;
-  isHovered?: boolean;
-  setIsHovered?: Dispatch<SetStateAction<boolean>>;
   setCollapsed?: Dispatch<SetStateAction<boolean>>;
 }) => {
-  const { collapsed, isHovered } = props;
+  const { collapsed, setCollapsed = () => {} } = props;
 
   const { token } = theme.useToken();
   const { isDevMode } = useSelector((state: any) => state.general);
@@ -301,11 +300,19 @@ export const AppSider = (props: {
   //   setCurrentOpenKeys(openKeys.slice(-1));
   // };
 
+  const siderRef = useClickAway((e: any) => {
+    const elementId = (e.target || e.srcElement).id;
+    if (elementId !== "menu-button") {
+      setCollapsed(true);
+    }
+  });
+
   return (
     <Sider
       collapsedWidth={0}
+      ref={siderRef as any}
       width={SiderWidth}
-      collapsed={collapsed && !isHovered}
+      collapsed={collapsed}
       // onMouseEnter={() => {
       //   if (!isHovered) {
       //     setIsHovered(true);

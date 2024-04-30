@@ -20,6 +20,7 @@ export const AppIconButton = (
   return (
     <Tooltip title={props.tooltip}>
       <Button
+        id={props.id}
         loading={props.loading}
         onClick={props.onClick}
         icon={modifiedChildren}

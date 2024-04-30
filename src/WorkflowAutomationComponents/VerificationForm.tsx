@@ -99,7 +99,7 @@ export const VerificationForm = (props: AutomationContentProps) => {
 
     setTimeout(() => {
       setLoading(false);
-    }, 3000);
+    }, 1000 * emails.length);
   };
 
   return (
