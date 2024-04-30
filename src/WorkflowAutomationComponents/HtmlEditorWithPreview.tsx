@@ -1,4 +1,9 @@
-import { CloudUploadOutlined, CodeOutlined } from "@ant-design/icons";
+import {
+  CloudUploadOutlined,
+  CodeOutlined,
+  SearchOutlined,
+} from "@ant-design/icons";
+import { AppButton } from "DataEntryComponents/AppButton";
 import { AppHtmlEditor } from "DataEntryComponents/Form/AppHtmlEditor";
 import { AppHtmlInjection } from "DataEntryComponents/Form/AppHtmlInjection";
 import { AppSpace } from "LayoutComponents/AppSpace";
@@ -7,6 +12,9 @@ import { Flex, Form, Tabs, Typography } from "antd";
 export const HtmlEditorWithPreview = (props: { disabled?: boolean }) => {
   return (
     <AppSpace>
+      <AppButton type="primary" icon={<SearchOutlined />}>
+        Browse email template
+      </AppButton>
       <Tabs
         items={[
           //   {

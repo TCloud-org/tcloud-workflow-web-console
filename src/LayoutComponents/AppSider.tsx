@@ -7,6 +7,7 @@ import {
   QuestionCircleOutlined,
   SafetyOutlined,
   SettingOutlined,
+  ShopOutlined,
   UsergroupAddOutlined,
 } from "@ant-design/icons";
 import { HeaderHeight, SiderWidth } from "Config/LayoutConfig";
@@ -25,6 +26,7 @@ export const SiderHrefs = {
   people: "people",
   settings: "settings",
   help: "help",
+  "/shop": "/shop",
   "/workflow-automation": "/workflow-automation",
   "/development": "/development",
   "/api-workflow-introduction": "workflow",
@@ -72,6 +74,7 @@ export const SiderName = {
   "/billing": "Billing",
   "/support": "Support",
   "/contact": "Contact",
+  "/shop": "Shop",
 };
 
 export const AppSider = (props: {
@@ -226,6 +229,12 @@ export const AppSider = (props: {
           onClick: () => navigate("/client"),
         },
       ],
+    },
+    {
+      key: "/shop",
+      icon: <ShopOutlined />,
+      label: "Shop",
+      onClick: () => navigate("/shop"),
     },
     {
       key: "settings",

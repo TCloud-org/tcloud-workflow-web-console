@@ -1,10 +1,11 @@
 import { Utility } from "Config/AutomationConfig";
-import { AppSurface } from "DataDisplayComponents/AppSurface";
-import { Flex, Typography } from "antd";
+import { Card, Flex, Typography, theme } from "antd";
+import { ReactElement, cloneElement } from "react";
 import { useNavigate } from "react-router-dom";
 
 export const ApplicationUtility = (props: { utility: Utility }) => {
   const navigate = useNavigate();
+  const { token } = theme.useToken();
 
   const { utility } = props;
 
@@ -15,24 +16,23 @@ export const ApplicationUtility = (props: { utility: Utility }) => {
   };
 
   return (
-    <Flex
-      vertical
-      align="center"
-      wrap="wrap"
-      gap="8px"
-      style={{
-        width: 120,
-        textAlign: "center",
-        padding: "16px",
-        cursor: "pointer",
-      }}
-      className="hover"
-      onClick={handleClick}
-    >
-      <AppSurface>{utility.icon}</AppSurface>
-      <Typography.Text style={{ fontSize: "small" }}>
-        {utility.label}
-      </Typography.Text>
-    </Flex>
+    <Card hoverable onClick={handleClick}>
+      <Flex vertical justify="center" gap={16}>
+        <Flex justify="flex-start">
+          <div
+            style={{
+              padding: "12px 16px",
+              backgroundColor: token.colorPrimary,
+              borderRadius: token.borderRadiusLG,
+            }}
+          >
+            {cloneElement(utility.icon as ReactElement, {
+              style: { fontSize: 14, color: token.colorWhite },
+            })}
+          </div>
+        </Flex>
+        <Typography.Text strong>{utility.label}</Typography.Text>
+      </Flex>
+    </Card>
   );
 };
