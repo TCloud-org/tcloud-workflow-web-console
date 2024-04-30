@@ -146,7 +146,6 @@ export const LoginPage = () => {
         messageApi.error("Login failed. Please try again");
       });
 
-    console.log(res);
     if (res) {
       const isRememberMe = form.getFieldValue("rememberMe");
 

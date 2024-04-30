@@ -8,9 +8,10 @@ import { AppEmpty } from "DataDisplayComponents/AppEmpty";
 export const AppSearchInput = (
   props: InputProps & {
     renderFilter?: ReactNode;
+    showFilter?: boolean;
   }
 ) => {
-  const { renderFilter } = props;
+  const { renderFilter, showFilter = true } = props;
 
   const { token } = theme.useToken();
 
@@ -52,9 +53,11 @@ export const AppSearchInput = (
         ref={inputRef}
         prefix={<SearchOutlined />}
         suffix={
-          <AppIconButton type="text" size="small" onClick={handleFilterClick}>
-            <Icon>tune</Icon>
-          </AppIconButton>
+          showFilter && (
+            <AppIconButton type="text" size="small" onClick={handleFilterClick}>
+              <Icon>tune</Icon>
+            </AppIconButton>
+          )
         }
         placeholder="Type to search"
         {...props}
