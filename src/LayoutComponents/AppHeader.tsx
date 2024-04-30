@@ -222,7 +222,7 @@ export const AppHeader = (props: {
               alignContent: "center",
               borderRadius: 0,
               color: "black",
-              fontSize: "18px",
+              fontSize: "16px",
               padding: "0px 16px",
               height: topHeaderHeight,
               transition: "all 0.3s",
@@ -267,7 +267,7 @@ export const AppHeader = (props: {
           />
         </Flex>
 
-        <Flex align="center" style={{ flex: 1 }} justify="flex-end">
+        <Flex align="center" style={{ flex: 2 }} justify="flex-end">
           <AppIconButton
             onClick={() => navigate("/support")}
             type="text"
