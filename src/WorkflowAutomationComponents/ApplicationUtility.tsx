@@ -16,7 +16,12 @@ export const ApplicationUtility = (props: { utility: Utility }) => {
   };
 
   return (
-    <Card hoverable onClick={handleClick}>
+    <Card
+      bordered={false}
+      onClick={handleClick}
+      className="scale"
+      style={{ boxShadow: token.boxShadowSecondary, cursor: "pointer" }}
+    >
       <Flex vertical justify="center" gap={16}>
         <Flex justify="flex-start">
           <div

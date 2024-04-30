@@ -1,11 +1,9 @@
-import Icon from "@ant-design/icons/lib/components/Icon";
-import { FacebookSvg } from "SvgIcons/FacebookSvg";
-import { LinkedInSvg } from "SvgIcons/LinkedInSvg";
+import { FacebookFilled, LinkedinFilled } from "@ant-design/icons";
+import { BRAND } from "Config/WOSEndpointConfig";
+import { HoveredLink } from "DataEntryComponents/HoveredLink";
 import { Col, Divider, Flex, Image, Typography, theme } from "antd";
 import { Footer } from "antd/es/layout/layout";
 import { AppRow } from "./AppRow";
-import { BRAND } from "Config/WOSEndpointConfig";
-import { HoveredLink } from "DataEntryComponents/HoveredLink";
 
 export const AppFooter = () => {
   const { token } = theme.useToken();
@@ -71,10 +69,10 @@ export const AppFooter = () => {
 
           <Flex align="center" wrap="wrap" gap={12}>
             <a href="https://www.facebook.com/profile.php?id=61558007322573">
-              <Icon component={FacebookSvg} style={{ fontSize: 24 }} />
+              <FacebookFilled style={{ fontSize: 24 }} />
             </a>
             <a href="https://www.linkedin.com/company/101706949">
-              <Icon component={LinkedInSvg} style={{ fontSize: 24 }} />
+              <LinkedinFilled style={{ fontSize: 24 }} />
             </a>
           </Flex>
         </Flex>

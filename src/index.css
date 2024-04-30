@@ -93,6 +93,14 @@ code {
   opacity: 0.7;
 }
 
+.scale {
+  transition: all 0.3s;
+}
+
+.scale:hover {
+  scale: 1.025;
+}
+
 .container-hover:hover {
   background-color: rgba(0, 0, 0, 0.06);
 }

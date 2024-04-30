@@ -66,7 +66,7 @@ export const AppSortableCard = (props: {
   const [open, setOpen] = useState(false);
   const [titleEditing, setTitleEditing] = useState<boolean>(false);
   const [title, setTitle] = useState<string>(props.label || "");
-  const [drawerExpanded, setDrawerExpanded] = useState<boolean>(false);
+  const [drawerExpanded, setDrawerExpanded] = useState<boolean>(true);
 
   useEffect(() => {
     setTitle(props.label || "");
