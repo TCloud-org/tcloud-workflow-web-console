@@ -7,6 +7,7 @@ import { PushpinFilled } from "@ant-design/icons";
 import { setPinned } from "features/favorite/menuFavoriteSlice";
 import { Workflow } from "Config/WorkflowConfig";
 
+const subHeaderHeight = 40;
 export const AppSubHeader = () => {
   const { token } = theme.useToken();
   const navigate = useNavigate();
@@ -21,12 +22,17 @@ export const AppSubHeader = () => {
   };
 
   return (
-    <Flex align="center" gap={16} justify="space-between">
+    <Flex
+      align="center"
+      gap={16}
+      justify="space-between"
+      style={{ height: subHeaderHeight }}
+    >
       <Flex
         style={{
           backgroundColor: token.colorBgContainer,
           height: 35,
-          padding: "0 32px",
+          padding: "0 16px",
           overflow: "auto",
           scrollbarWidth: "none",
           flexGrow: 1,
@@ -52,7 +58,10 @@ export const AppSubHeader = () => {
           ))}
       </Flex>
       <Flex style={{ flexGrow: 1 }} justify="flex-end">
-        <Tag color={workflow ? "green-inverse" : "warning"} bordered={false}>
+        <Tag
+          color={workflow ? "green-inverse" : "gold-inverse"}
+          bordered={false}
+        >
           {workflow ? `Active: ${workflow.workflowName}` : "No active workflow"}
         </Tag>
       </Flex>

@@ -47,6 +47,8 @@ import { BRAND } from "../Config/WOSEndpointConfig";
 import { setClientId, updateClients } from "../features/workflow/clientSlice";
 import { AppSubHeader } from "./AppSubHeader";
 
+const topHeaderHeight = 40;
+
 export const AppHeader = (props: {
   collapsed?: boolean;
   setCollapsed?: Dispatch<SetStateAction<boolean>>;
@@ -187,26 +189,25 @@ export const AppHeader = (props: {
         height: HeaderHeight,
         background: token.colorBgContainer,
         borderBottom: `1px solid ${token.colorBorder}`,
-        paddingLeft: 0,
-        paddingRight: 0,
+        padding: 0,
       }}
     >
       <Flex
         align="center"
         justify="space-between"
-        style={{ width: "100%", paddingRight: 32, height: 64 }}
+        style={{
+          width: "100%",
+        }}
         gap={48}
       >
-        <Flex justify="center" align="center" gap={16}>
+        <Flex justify="center" align="center">
           <AppIconButton
             type="text"
             onClick={() => setCollapsed(!collapsed)}
             style={{
-              fontSize: "16px",
-              width: 64,
-              height: 64,
-              borderTopLeftRadius: 0,
-              borderBottomLeftRadius: 0,
+              borderRadius: 0,
+              width: 56,
+              height: topHeaderHeight,
             }}
           >
             {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
@@ -215,25 +216,28 @@ export const AppHeader = (props: {
             style={{
               flex: 1,
               textAlign: "center",
-              borderRadius: token.borderRadiusLG,
+              alignContent: "center",
+              borderRadius: 0,
               color: "black",
               fontSize: "18px",
+              padding: "0px 16px",
+              height: topHeaderHeight,
+              transition: "all 0.3s",
+              lineHeight: 0,
+              margin: 0,
             }}
+            className="container-hover"
             strong
             href="/"
           >
-            <Flex justify="center" align="center">
+            <Flex justify="center" align="center" gap={8}>
               <Icon
                 component={() => (
                   <img
                     alt={BRAND}
                     src="https://tcw-icon.s3.us-west-2.amazonaws.com/7.png"
-                    width={24}
-                    height={24}
-                    style={{
-                      marginRight: "8px",
-                      // animation: "spin 10s linear infinite",
-                    }}
+                    width={18}
+                    height={18}
                   />
                 )}
               />
@@ -245,7 +249,9 @@ export const AppHeader = (props: {
           style={{
             borderRadius: token.borderRadiusLG,
             flex: 2,
+            height: topHeaderHeight,
           }}
+          align="center"
         >
           <AppSearchBar
             placeholder="Search by work ID"
@@ -257,11 +263,17 @@ export const AppHeader = (props: {
           />
         </Flex>
 
-        <Flex gap="8px" align="center" style={{ flex: 1 }} justify="flex-end">
+        <Flex align="center" style={{ flex: 1 }} justify="flex-end">
           <Select
             placeholder="Client"
             value={clientId}
             variant="borderless"
+            className="container-hover"
+            style={{
+              transition: "all 0.3s",
+              height: topHeaderHeight,
+              padding: "0 8px",
+            }}
             dropdownStyle={{ width: "auto" }}
             placement="bottomRight"
             onChange={handleClientIdChange}
@@ -270,7 +282,6 @@ export const AppHeader = (props: {
               value: client.clientId,
             }))}
           />
-          <Divider type="vertical" style={{ margin: "0 2px" }} />
           <Dropdown
             menu={{ items: accountItems }}
             trigger={["click"]}
@@ -295,7 +306,17 @@ export const AppHeader = (props: {
               </div>
             )}
           >
-            <Flex align="center" style={{ cursor: "pointer" }} gap={6}>
+            <Flex
+              align="center"
+              style={{
+                cursor: "pointer",
+                transition: "all 0.3s",
+                padding: "0px 16px",
+                height: topHeaderHeight,
+              }}
+              className="container-hover"
+              gap={6}
+            >
               <AppAvatar />
               <Typography.Text
                 style={{
