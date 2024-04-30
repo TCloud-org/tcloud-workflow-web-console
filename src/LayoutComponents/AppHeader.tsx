@@ -207,7 +207,7 @@ export const AppHeader = (props: {
             onClick={() => setCollapsed(!collapsed)}
             style={{
               borderRadius: 0,
-              width: 56,
+              width: topHeaderHeight,
               height: topHeaderHeight,
             }}
           >
