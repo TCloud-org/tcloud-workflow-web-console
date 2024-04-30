@@ -14,14 +14,17 @@ const contactOptions = [
   {
     icon: <PhoneOutlined />,
     value: "+1 (425) 229-8028",
+    href: "tel:+14252298028",
   },
   {
     icon: <MailOutlined />,
     value: "thecloudworld24@outlook.com",
+    href: "mailto:thecloudworld24@outlook.com",
   },
   {
     icon: <EnvironmentOutlined />,
     value: "Bellevue, WA",
+    href: "https://www.google.com/maps/search/?api=1&query=47.610378,-122.200676",
   },
 ];
 export const ContactPage = () => {
@@ -43,7 +46,12 @@ export const ContactPage = () => {
               Any question? We would be happy to help
             </Typography.Text>
             {contactOptions.map((option, i) => (
-              <Card style={{ width: 450 }} hoverable key={i}>
+              <Card
+                style={{ width: 450 }}
+                hoverable
+                key={i}
+                onClick={() => (window.location.href = option.href)}
+              >
                 <Flex gap={16}>
                   {option.icon}
                   <Typography.Text>{option.value}</Typography.Text>
