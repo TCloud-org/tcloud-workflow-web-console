@@ -12,6 +12,7 @@ export const AppSearchBar = (props: AutoCompleteProps) => {
         width: "100%",
         ...props.style,
       }}
+      size={props.size}
       variant="filled"
       placeholder={props.placeholder}
     />

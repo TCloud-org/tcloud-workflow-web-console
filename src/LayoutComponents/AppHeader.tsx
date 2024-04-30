@@ -198,10 +198,13 @@ export const AppHeader = (props: {
         justify="space-between"
         style={{
           width: "100%",
+          height: topHeaderHeight,
+          borderBottom: "1px solid",
+          borderBottomColor: token.colorBorderSecondary,
         }}
         gap={48}
       >
-        <Flex justify="center" align="center">
+        <Flex justify="flex-start" align="center" style={{ flex: 1 }}>
           <AppIconButton
             type="text"
             onClick={() => setCollapsed(!collapsed)}
@@ -215,7 +218,6 @@ export const AppHeader = (props: {
           </AppIconButton>
           <Typography.Link
             style={{
-              flex: 1,
               textAlign: "center",
               alignContent: "center",
               borderRadius: 0,
@@ -256,6 +258,7 @@ export const AppHeader = (props: {
         >
           <AppSearchBar
             placeholder="Search by work ID"
+            size="small"
             value={searchInput}
             onChange={(value) => setSearchInput(value)}
             options={getHistoryOptions()}
