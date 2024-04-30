@@ -31,7 +31,7 @@ export const EmailTemplateStore = () => {
     <AppSpace>
       <Typography.Title level={4}>Email Template Store</Typography.Title>
 
-      <AppRow gutter={[16, 16]}>
+      <AppRow gutter={[32, 32]}>
         {products.map((product, i) => (
           <Col span={12} key={i}>
             <EmailTemplateStoreItem data={product} />
