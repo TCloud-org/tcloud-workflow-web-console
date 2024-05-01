@@ -3,22 +3,26 @@ import { EmailTemplateProduct } from "Config/StoreConfig";
 import { AppButton } from "DataEntryComponents/AppButton";
 import { AppIconButton } from "DataEntryComponents/AppIconButton";
 import { Card, Flex, Typography, theme } from "antd";
-import { useNavigate } from "react-router-dom";
 
 export const EmailTemplateStoreItem = (props: {
   data: EmailTemplateProduct;
   use?: (template: EmailTemplateProduct) => void;
 }) => {
   const { token } = theme.useToken();
-  const navigate = useNavigate();
   const { data, use } = props;
 
   const handleEdit = () => {
-    navigate(`/store/${data.templateStoreId}/edit`);
+    window.open(
+      `https://www.tc-workflow.com/store/${data.templateStoreId}/edit`,
+      "_blank"
+    );
   };
 
   const handleView = () => {
-    navigate(`/store/${data.templateStoreId}`);
+    window.open(
+      `https://www.tc-workflow.com/store/${data.templateStoreId}`,
+      "_blank"
+    );
   };
 
   return (
