@@ -63,6 +63,10 @@ export const PublishProductPage = () => {
           <AppHtmlEditor />
         </Form.Item>
 
+        <Form.Item label="Theme" name="theme">
+          <AppHtmlEditor />
+        </Form.Item>
+
         <Form.Item label="Preview" name="preview">
           <AppHtmlEditor />
         </Form.Item>

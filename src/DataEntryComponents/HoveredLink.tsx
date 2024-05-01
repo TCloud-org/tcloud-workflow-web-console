@@ -1,7 +1,11 @@
 import { theme } from "antd";
-import { useState } from "react";
+import { CSSProperties, useState } from "react";
 
-export const HoveredLink = (props: { href?: string; children?: string }) => {
+export const HoveredLink = (props: {
+  href?: string;
+  children?: string;
+  style?: CSSProperties;
+}) => {
   const { token } = theme.useToken();
 
   const [isHovered, setIsHovered] = useState<boolean>(false);
@@ -9,8 +13,9 @@ export const HoveredLink = (props: { href?: string; children?: string }) => {
   return (
     <a
       style={{
-        transition: "0.1s",
+        transition: "all 0.3s",
         color: isHovered ? token.colorInfo : token.colorText,
+        ...props.style,
       }}
       href={props.href}
       onMouseEnter={() => {

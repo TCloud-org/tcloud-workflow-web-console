@@ -7,13 +7,13 @@ import { Divider, Flex, Segmented, Tooltip, Typography, theme } from "antd";
 import { useState } from "react";
 
 export const AppHtmlEditor = (props: {
-  value?: string;
+  value?: string | null;
   onChange?: (e: any) => void;
   disabled?: boolean;
 }) => {
   const { token } = theme.useToken();
 
-  const { value, onChange } = props;
+  const { value = "", onChange } = props;
 
   const [panorama, setPanorama] = useState<"horizontal" | "vertical">(
     "horizontal"
@@ -64,7 +64,7 @@ export const AppHtmlEditor = (props: {
       <Flex align="center" justify="center" vertical={panorama === "vertical"}>
         <ReactCodeMirror
           readOnly={props.disabled}
-          value={value}
+          value={value || ""}
           onChange={onChange}
           theme={
             codeTheme === "light"

@@ -37,18 +37,14 @@ export const AppFooter = () => {
           <Col span={6}>
             <Flex vertical align="flex-start" gap={16}>
               <Typography.Text strong>Help Center</Typography.Text>
-              <a href="/support" className="link">
-                Support
-              </a>
-              <a href="/contact" className="link">
-                Contact
-              </a>
+              <HoveredLink href="/support">Support</HoveredLink>
+              <HoveredLink href="/contact">Contact</HoveredLink>
             </Flex>
           </Col>
           <Col span={6}>
             <Flex vertical align="flex-start" gap={16}>
               <Typography.Text strong>Company</Typography.Text>
-              <Typography.Text>About</Typography.Text>
+              <HoveredLink href="/about">About</HoveredLink>
             </Flex>
           </Col>
         </AppRow>

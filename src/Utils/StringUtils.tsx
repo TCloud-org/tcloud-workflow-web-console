@@ -55,3 +55,23 @@ export const unmaskPhoneNumber = (str: string) => {
 export const isLastCharacterNotANumber = (str: string) => {
   return /\D$/.test(str);
 };
+
+export const extractKeywordsFromString = (input: string): string[] => {
+  const matches = input.match(/\${(.*?)}/g);
+  if (!matches) return [];
+
+  const keywords = matches.map((match) => match.substring(2, match.length - 1));
+  return Array.from(new Set(keywords));
+};
+
+export const replacePlaceholders = (
+  input: string,
+  replacements: { [key: string]: string }
+): string => {
+  let result = input;
+  Object.entries(replacements).forEach(([key, value]) => {
+    const regex = new RegExp(`\\$\\{${key}\\}`, "g");
+    result = result.replace(regex, value);
+  });
+  return result;
+};

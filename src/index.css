@@ -140,12 +140,13 @@ code {
   color: #4312e5;
 }
 
-.link {
-  color     : black;
-  transition: all 0.3s;
+.normal-link {
+  color      : black;
+  font-weight: 500;
+  transition : all 0.3s;
 }
 
-.link:hover {
+.normal-link:hover {
   color: #4312e5;
 }
 

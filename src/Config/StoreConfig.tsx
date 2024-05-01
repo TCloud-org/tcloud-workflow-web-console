@@ -1,6 +1,7 @@
 export interface EmailTemplateProduct {
   templateStoreId?: number;
   name: string;
+  theme?: string;
   preview?: string;
   raw: string;
   author: string;

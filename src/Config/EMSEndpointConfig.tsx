@@ -9,3 +9,7 @@ export const EMS_SAVE_EMAIL_TEMPLATE_PRODUCT_ENDPOINT =
   EMS_BASE_URL + "/save-email-template-product";
 export const EMS_GET_PAGINATED_TEMPLATES_ENDPOINT =
   EMS_BASE_URL + "/get-paginated-templates";
+export const EMS_GET_EMAIL_TEMPLATE_PRODUCT_ENDPOINT =
+  EMS_BASE_URL + "/get-email-template-product";
+export const EMS_REMOVE_EMAIL_TEMPLATE_PRODUCT_ENDPOINT =
+  EMS_BASE_URL + "/remove-email-template-product";

@@ -81,6 +81,8 @@ import { setSelectedKeys } from "./features/navigation/siderSlice";
 import { ContactPage } from "Pages/Support/ContactPage";
 import { StorePage } from "Pages/Shop/StorePage";
 import { PublishProductPage } from "Pages/Shop/PublishProductPage";
+import { EmailTemplateDetailPage } from "Pages/Shop/EmailTemplateDetailPage";
+import { EditEmailTemplatePage } from "Pages/Shop/EditEmailTemplatePage";
 
 export const App = () => {
   const {
@@ -410,6 +412,14 @@ export const App = () => {
             {
               path: "/store/publish",
               element: <PublishProductPage />,
+            },
+            {
+              path: "/store/:productId",
+              element: <EmailTemplateDetailPage />,
+            },
+            {
+              path: "/store/:productId/edit",
+              element: <EditEmailTemplatePage />,
             },
             {
               path: "/support",
