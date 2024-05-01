@@ -1,3 +1,4 @@
+import { RedoOutlined } from "@ant-design/icons";
 import { EMS_GET_EMAIL_TEMPLATE_PRODUCT_ENDPOINT } from "Config/EMSEndpointConfig";
 import { EmailTemplateProduct } from "Config/StoreConfig";
 import { AppEmpty } from "DataDisplayComponents/AppEmpty";
@@ -94,11 +95,15 @@ export const EmailTemplateDetailPage = () => {
       <Typography.Title level={4}>Customize theme</Typography.Title>
       <AppColorPicker
         value={themeColor}
-        onChange={(e) => {
-          console.log(e);
-          setThemeColor(e.metaColor.originalInput);
-        }}
+        onChange={(e) =>
+          setThemeColor(
+            `rgba(${e.metaColor.r}, ${e.metaColor.g}, ${e.metaColor.b}, ${e.metaColor.a})`
+          )
+        }
       />
+      <AppButton size="small" onClick={() => setThemeColor(token.colorPrimary)}>
+        Reset to default
+      </AppButton>
 
       <Typography.Title level={4}>Try with your input</Typography.Title>
       <AppForm form={form} onValuesChange={handleValuesChange}>
