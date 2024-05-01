@@ -3,28 +3,41 @@ import { EmailTemplateProduct } from "Config/StoreConfig";
 import { AppButton } from "DataEntryComponents/AppButton";
 import { AppIconButton } from "DataEntryComponents/AppIconButton";
 import { Card, Flex, Typography, theme } from "antd";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const EmailTemplateStoreItem = (props: {
   data: EmailTemplateProduct;
+  use?: (template: EmailTemplateProduct) => void;
 }) => {
   const { token } = theme.useToken();
   const navigate = useNavigate();
-  const location = useLocation();
-  const { data } = props;
+  const { data, use } = props;
 
   const handleEdit = () => {
-    navigate(`${location.pathname}/${data.templateStoreId}/edit`);
+    navigate(`/store/${data.templateStoreId}/edit`);
   };
 
   const handleView = () => {
-    navigate(`${location.pathname}/${data.templateStoreId}`);
+    navigate(`/store/${data.templateStoreId}`);
   };
 
   return (
     <Card
       bordered={false}
       style={{ boxShadow: token.boxShadowSecondary }}
+      actions={
+        use
+          ? [
+              <AppButton
+                style={{ width: "90%" }}
+                type="primary"
+                onClick={() => use(data)}
+              >
+                Use
+              </AppButton>,
+            ]
+          : []
+      }
       title={
         <Flex align="center" justify="space-between">
           <Typography.Text>{`${data.name} #${data.templateStoreId}`}</Typography.Text>

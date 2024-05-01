@@ -1,4 +1,3 @@
-import { RedoOutlined } from "@ant-design/icons";
 import { EMS_GET_EMAIL_TEMPLATE_PRODUCT_ENDPOINT } from "Config/EMSEndpointConfig";
 import { EmailTemplateProduct } from "Config/StoreConfig";
 import { AppEmpty } from "DataDisplayComponents/AppEmpty";

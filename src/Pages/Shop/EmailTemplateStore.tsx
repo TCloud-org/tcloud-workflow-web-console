@@ -10,7 +10,9 @@ import { Col, Typography } from "antd";
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 
-export const EmailTemplateStore = () => {
+export const EmailTemplateStore = (props: {
+  use?: (template: EmailTemplateProduct) => void;
+}) => {
   const [products, setProducts] = useState<EmailTemplateProduct[]>([]);
 
   const fetchStore = useCallback(async () => {
@@ -34,7 +36,7 @@ export const EmailTemplateStore = () => {
       <AppRow gutter={[32, 32]}>
         {products.map((product, i) => (
           <Col span={12} key={i}>
-            <EmailTemplateStoreItem data={product} />
+            <EmailTemplateStoreItem data={product} use={props.use} />
           </Col>
         ))}
       </AppRow>
