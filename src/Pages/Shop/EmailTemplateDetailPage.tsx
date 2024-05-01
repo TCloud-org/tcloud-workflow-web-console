@@ -72,7 +72,7 @@ export const EmailTemplateDetailPage = () => {
                 dangerouslySetInnerHTML={{
                   __html: template.theme
                     ? replacePlaceholders(template.theme, {
-                        themeColor: themeColor,
+                        themeColor: `${themeColor} !important`,
                       })
                     : template.raw,
                 }}
@@ -128,7 +128,7 @@ export const EmailTemplateDetailPage = () => {
           dangerouslySetInnerHTML={{
             __html: replacePlaceholders(template.theme || "", {
               ...form.getFieldsValue(),
-              themeColor,
+              themeColor: `${themeColor} !important`,
             }),
           }}
         />
