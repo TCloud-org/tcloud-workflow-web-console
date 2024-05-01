@@ -70,9 +70,11 @@ export const EmailTemplateDetailPage = () => {
             children: (
               <div
                 dangerouslySetInnerHTML={{
-                  __html: replacePlaceholders(template.theme || "", {
-                    themeColor,
-                  }),
+                  __html: template.theme
+                    ? replacePlaceholders(template.theme, {
+                        themeColor: themeColor,
+                      })
+                    : template.raw,
                 }}
               />
             ),
