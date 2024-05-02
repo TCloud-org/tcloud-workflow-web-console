@@ -48,6 +48,7 @@ export const SiderHrefs = {
   "/account": "settings",
   "/general": "settings",
   "/billing": "settings",
+  "/subscription": "settings",
   "/support": "help",
   "/contact": "help",
 };
@@ -76,6 +77,7 @@ export const SiderName = {
   "/support": "Support",
   "/contact": "Contact",
   "/store": "Store",
+  "/subscription": "Subscription",
 };
 
 export const AppSider = (props: {
@@ -254,6 +256,11 @@ export const AppSider = (props: {
           key: "/billing",
           label: <AppMenuPin>/billing</AppMenuPin>,
           onClick: () => navigate("/billing"),
+        },
+        {
+          key: "/subscription",
+          label: <AppMenuPin>/subscription</AppMenuPin>,
+          onClick: () => navigate("/subscription"),
         },
       ],
     },

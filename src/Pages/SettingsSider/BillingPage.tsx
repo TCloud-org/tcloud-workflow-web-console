@@ -105,7 +105,7 @@ export const BillingPage = () => {
             ))}
           </AppRow>
           <Flex justify="flex-end">
-            <Typography.Text>Total: $0.00</Typography.Text>
+            <Typography.Text strong>Total: $0.00</Typography.Text>
           </Flex>
         </Flex>
       </Card>

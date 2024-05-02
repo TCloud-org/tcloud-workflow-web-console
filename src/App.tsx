@@ -83,6 +83,8 @@ import { StorePage } from "Pages/Shop/StorePage";
 import { PublishProductPage } from "Pages/Shop/PublishProductPage";
 import { EmailTemplateDetailPage } from "Pages/Shop/EmailTemplateDetailPage";
 import { EditEmailTemplatePage } from "Pages/Shop/EditEmailTemplatePage";
+import { SubscriptionPlanPage } from "Pages/Subscription/SubscriptionPlanPage";
+import { SubscriptionPage } from "Pages/Subscription/SubscriptionPage";
 
 export const App = () => {
   const {
@@ -428,6 +430,14 @@ export const App = () => {
             {
               path: "/contact",
               element: <ContactPage />,
+            },
+            {
+              path: "/subscription/plan",
+              element: <SubscriptionPlanPage />,
+            },
+            {
+              path: "/subscription",
+              element: <SubscriptionPage />,
             },
           ],
     },
