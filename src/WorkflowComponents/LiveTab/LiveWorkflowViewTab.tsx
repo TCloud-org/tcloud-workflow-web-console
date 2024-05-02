@@ -1,7 +1,7 @@
 import { SyncOutlined } from "@ant-design/icons";
+import { AppWorkflowCollapse } from "DataDisplayComponents/AppWorkflowCollapse";
 import { SelectItem } from "../../Config/DataDisplayInterface";
 import { Route } from "../../Config/WorkflowConfig";
-import { AppCollapse } from "../../DataDisplayComponents/AppCollapse";
 import { AppCollapseLabel } from "../../DataDisplayComponents/AppCollapseLabel";
 import { TagVariantMapping } from "../../DataDisplayComponents/AppTag";
 import { getStatusCodeColor } from "../../Utils/ColorUtils";
@@ -19,7 +19,7 @@ export const LiveWorkflowViewTab = (props: {
   const routes: Route[] = (routeMap && version && routeMap[version]) || [];
 
   return (
-    <AppCollapse
+    <AppWorkflowCollapse
       items={routes.map((route: Route, i) => ({
         key: i,
         label: (

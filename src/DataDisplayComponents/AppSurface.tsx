@@ -20,6 +20,12 @@ const SizeMapping: any = {
   large: "20px",
 };
 
+export const dotStyle: CSSProperties = {
+  background: "white",
+  backgroundImage: `radial-gradient(black 1px, transparent 0)`,
+  backgroundSize: "40px 40px",
+};
+
 export const AppSurface = forwardRef<HTMLDivElement, AppSurfaceProps>(
   (
     {
@@ -41,12 +47,6 @@ export const AppSurface = forwardRef<HTMLDivElement, AppSurfaceProps>(
       borderColor:
         type === "form" ? token.colorBorder : token.colorBorderSecondary,
       backgroundColor: token.colorWhite,
-    };
-
-    const dotStyle: CSSProperties = {
-      background: "white",
-      backgroundImage: `radial-gradient(black 1px, transparent 0)`,
-      backgroundSize: "40px 40px",
     };
 
     return (

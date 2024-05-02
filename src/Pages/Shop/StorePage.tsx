@@ -4,6 +4,7 @@ import { EmailTemplateStore } from "./EmailTemplateStore";
 import { AppButton } from "DataEntryComponents/AppButton";
 import { FormOutlined } from "@ant-design/icons";
 import { useLocation, useNavigate } from "react-router-dom";
+import { AppSearchInput } from "DataEntryComponents/AppSearchInput";
 
 export const StorePage = () => {
   const navigate = useNavigate();
@@ -28,6 +29,8 @@ export const StorePage = () => {
       >
         Store
       </PageTitle>
+
+      <AppSearchInput />
 
       <EmailTemplateStore />
     </AppSpace>

@@ -1,13 +1,12 @@
 import { AutomationContentProps, EmailActions } from "Config/AutomationConfig";
+import { WOS_SAVE_EVENT_WORKFLOW_ENDPOINT } from "Config/WOSEndpointConfig";
+import { AppButton } from "DataEntryComponents/AppButton";
 import { AppForm } from "DataEntryComponents/AppForm";
-import { AppChipInput } from "DataEntryComponents/Form/AppChipInput";
 import { AppSpace } from "LayoutComponents/AppSpace";
 import { Flex, Form, Input, Select, message } from "antd";
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { HtmlEditorWithPreview } from "./HtmlEditorWithPreview";
-import { AppButton } from "DataEntryComponents/AppButton";
-import { WOS_SAVE_EVENT_WORKFLOW_ENDPOINT } from "Config/WOSEndpointConfig";
-import axios from "axios";
 
 export const EmailTemplateForm = (props: AutomationContentProps) => {
   const { collect, data, id, disabled, eventWorkflow, index } = props;
@@ -81,15 +80,6 @@ export const EmailTemplateForm = (props: AutomationContentProps) => {
           </Form.Item>
           <Form.Item label="From" name="from">
             <Input />
-          </Form.Item>
-          <Form.Item label="To" name="to">
-            <AppChipInput />
-          </Form.Item>
-          <Form.Item label="Cc" name="cc">
-            <AppChipInput />
-          </Form.Item>
-          <Form.Item label="Bcc" name="bcc">
-            <AppChipInput />
           </Form.Item>
           <Form.Item label="Subject" name="subject">
             <Input />

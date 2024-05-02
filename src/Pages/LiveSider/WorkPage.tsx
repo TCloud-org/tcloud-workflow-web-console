@@ -1,34 +1,33 @@
+import { Tabs, TreeDataNode } from "antd";
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation, useParams } from "react-router-dom";
+import { Edge, useEdgesState, useNodesState } from "reactflow";
 import { SelectItem } from "../../Config/DataDisplayInterface";
 import {
   WOS_GET_GRAPH_BY_ID_ENDPOINT,
   WOS_GET_ROUTES_BY_WORK_ID_ENDPOINT,
   WOS_VISUALIZE_ROUTES_FLOW_ENDPOINT,
 } from "../../Config/WOSEndpointConfig";
-import { AppCardTabs } from "../../DataDisplayComponents/AppCardTabs";
-import { FormSelect } from "../../DataEntryComponents/FormSelect";
-import { AppSpace } from "../../LayoutComponents/AppSpace";
-import { serializeRoute } from "../../Utils/Serializer";
-import { LiveWorkflowViewTab } from "../../WorkflowComponents/LiveTab/LiveWorkflowViewTab";
-import { LiveFlowTab } from "../../WorkflowComponents/LiveTab/LiveFlowTab";
-import { Edge, useEdgesState, useNodesState } from "reactflow";
-import { populateFlowNodeData } from "../../Utils/ObjectUtils";
-import { LiveTreeTab } from "../../WorkflowComponents/LiveTab/LiveTreeTab";
-import { TreeDataNode } from "antd";
 import {
   Graph,
   Route,
   WorkflowConfiguration,
 } from "../../Config/WorkflowConfig";
-import { LiveEntityTab } from "../../WorkflowComponents/LiveTab/LiveEntityTab";
-import { LiveLogTab } from "../../WorkflowComponents/LiveTab/LiveLogTab";
-import { WorkflowToolbar } from "../../WorkflowComponents/WorkflowToolbar";
+import { FormSelect } from "../../DataEntryComponents/FormSelect";
+import { AppSpace } from "../../LayoutComponents/AppSpace";
 import { getWorkflowConfiguration } from "../../Network/WorkflowFetch";
-import { WorkflowConfigurationInfo } from "../../WorkflowComponents/WorkflowConfigurationInfo";
+import { populateFlowNodeData } from "../../Utils/ObjectUtils";
+import { serializeRoute } from "../../Utils/Serializer";
+import { LiveEntityTab } from "../../WorkflowComponents/LiveTab/LiveEntityTab";
+import { LiveFlowTab } from "../../WorkflowComponents/LiveTab/LiveFlowTab";
 import { LiveGraphTab } from "../../WorkflowComponents/LiveTab/LiveGraphTab";
+import { LiveLogTab } from "../../WorkflowComponents/LiveTab/LiveLogTab";
+import { LiveTreeTab } from "../../WorkflowComponents/LiveTab/LiveTreeTab";
+import { LiveWorkflowViewTab } from "../../WorkflowComponents/LiveTab/LiveWorkflowViewTab";
+import { WorkflowConfigurationInfo } from "../../WorkflowComponents/WorkflowConfigurationInfo";
+import { WorkflowToolbar } from "../../WorkflowComponents/WorkflowToolbar";
 
 export const WorkPage = () => {
   const { workId = "" } = useParams();
@@ -191,7 +190,7 @@ export const WorkPage = () => {
         data={workflowConfigurationMap}
         version={versionSelected}
       />
-      <AppCardTabs
+      <Tabs
         items={[
           {
             label: "Live",
