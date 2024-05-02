@@ -5,6 +5,7 @@ import { Col } from "antd";
 
 const plans = [
   {
+    key: "FREE",
     plan: "Free",
     description: `The Free Plan is perfect for individuals or small teams who want to explore the basic features of our service. With limited usage and access, it provides a great way to get started with our platform at no cost.`,
     price: 0,
@@ -16,6 +17,7 @@ const plans = [
     ],
   },
   {
+    key: "INDIVIDUAL",
     plan: "Individual",
     description: `The Individual Plan is designed for solo entrepreneurs, freelancers, or individuals who need more capabilities and resources than the Free Plan offers. It provides increased usage limits and access to additional features, making it suitable for small-scale projects or personal use.`,
     price: 9,
@@ -28,6 +30,7 @@ const plans = [
     ],
   },
   {
+    key: "BUSINESS",
     plan: "Business",
     emphasized: true,
     description: `The Business Plan is ideal for small businesses, startups, or teams that require enhanced functionality, scalability, and support. With expanded usage limits, advanced features, and priority support, it offers everything you need to grow and manage your business efficiently.`,
@@ -51,7 +54,7 @@ export const SubscriptionPlanPage = () => {
           {...Span[3]}
           style={{ display: "flex", flexDirection: "column" }}
         >
-          <SubscriptionPlanCard data={plan} currentPlan="Free" />
+          <SubscriptionPlanCard data={plan} currentPlan="FREE" />
         </Col>
       ))}
     </AppRow>

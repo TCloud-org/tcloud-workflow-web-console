@@ -85,6 +85,7 @@ import { EmailTemplateDetailPage } from "Pages/Shop/EmailTemplateDetailPage";
 import { EditEmailTemplatePage } from "Pages/Shop/EditEmailTemplatePage";
 import { SubscriptionPlanPage } from "Pages/Subscription/SubscriptionPlanPage";
 import { SubscriptionPage } from "Pages/Subscription/SubscriptionPage";
+import { SubscriptionInvoicePage } from "Pages/Subscription/SubscriptionInvoicePage";
 
 export const App = () => {
   const {
@@ -438,6 +439,10 @@ export const App = () => {
             {
               path: "/subscription",
               element: <SubscriptionPage />,
+            },
+            {
+              path: "/invoice",
+              element: <SubscriptionInvoicePage />,
             },
           ],
     },

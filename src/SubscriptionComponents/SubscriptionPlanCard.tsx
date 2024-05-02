@@ -1,13 +1,45 @@
 import { CheckOutlined } from "@ant-design/icons";
+import { AMS_CREATE_CHECKOUT_SESSION_ENDPOINT } from "Config/AMSEndpointConfig";
 import { AppButton } from "DataEntryComponents/AppButton";
 import { Card, Flex, Typography, theme } from "antd";
+import axios from "axios";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 
 export const SubscriptionPlanCard = (props: {
   data: any;
   currentPlan?: string;
 }) => {
+  const accessToken = useSelector((state: any) => state.auth.token);
   const { token } = theme.useToken();
   const { data, currentPlan } = props;
+
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const handleSelect = async () => {
+    if (data.key === "FREE") {
+      return;
+    }
+    setLoading(true);
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    };
+
+    const formData = { plan: data.key };
+
+    const redirectedUrl = await axios
+      .post(AMS_CREATE_CHECKOUT_SESSION_ENDPOINT, formData, config)
+      .then((res) => res.data as string);
+
+    setTimeout(() => {
+      setLoading(false);
+
+      window.location.href = redirectedUrl;
+    }, 2000);
+  };
 
   return (
     <Card title={data.plan} style={{ flex: 1 }} hoverable>
@@ -32,8 +64,10 @@ export const SubscriptionPlanCard = (props: {
         <AppButton
           type={data.emphasized ? "primary" : "default"}
           disabled={currentPlan === data.plan}
+          onClick={handleSelect}
+          loading={loading}
         >
-          {currentPlan === data.plan ? "Current" : "Upgrade"}
+          {currentPlan === data.key ? "Current" : "Select"}
         </AppButton>
 
         {data.features.map((feature: string, i: number) => (
