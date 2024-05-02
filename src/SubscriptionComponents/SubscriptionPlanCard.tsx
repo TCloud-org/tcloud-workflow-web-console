@@ -3,6 +3,7 @@ import { AMS_CREATE_CHECKOUT_SESSION_ENDPOINT } from "Config/AMSEndpointConfig";
 import { AppButton } from "DataEntryComponents/AppButton";
 import { Card, Flex, Typography, theme } from "antd";
 import axios from "axios";
+import { Account } from "features/auth/authSlice";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
@@ -11,6 +12,7 @@ export const SubscriptionPlanCard = (props: {
   currentPlan?: string;
 }) => {
   const accessToken = useSelector((state: any) => state.auth.token);
+  const account: Account = useSelector((state: any) => state.auth.account);
   const { token } = theme.useToken();
   const { data, currentPlan } = props;
 
@@ -28,7 +30,7 @@ export const SubscriptionPlanCard = (props: {
       },
     };
 
-    const formData = { plan: data.key };
+    const formData = { plan: data.key, email: account.email };
 
     const session = await axios
       .post(AMS_CREATE_CHECKOUT_SESSION_ENDPOINT, formData, config)

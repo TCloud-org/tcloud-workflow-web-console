@@ -441,7 +441,7 @@ export const App = () => {
               element: <SubscriptionPage />,
             },
             {
-              path: "/invoice",
+              path: "/invoice/:paymentId",
               element: <SubscriptionInvoicePage />,
             },
           ],
