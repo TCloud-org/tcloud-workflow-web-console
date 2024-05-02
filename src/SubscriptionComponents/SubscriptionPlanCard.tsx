@@ -30,15 +30,13 @@ export const SubscriptionPlanCard = (props: {
 
     const formData = { plan: data.key };
 
-    const redirectedUrl = await axios
+    const session = await axios
       .post(AMS_CREATE_CHECKOUT_SESSION_ENDPOINT, formData, config)
-      .then((res) => res.data as string);
+      .then((res) => JSON.parse(JSON.stringify(res.data as string)));
 
-    setTimeout(() => {
-      setLoading(false);
+    setLoading(false);
 
-      window.location.href = redirectedUrl;
-    }, 2000);
+    window.location.href = session.url;
   };
 
   return (
@@ -47,7 +45,7 @@ export const SubscriptionPlanCard = (props: {
         <Typography.Paragraph
           style={{
             margin: 0,
-            height: 120,
+            height: 150,
             overflow: "auto",
           }}
         >
@@ -63,7 +61,7 @@ export const SubscriptionPlanCard = (props: {
 
         <AppButton
           type={data.emphasized ? "primary" : "default"}
-          disabled={currentPlan === data.plan}
+          disabled={currentPlan === data.key}
           onClick={handleSelect}
           loading={loading}
         >

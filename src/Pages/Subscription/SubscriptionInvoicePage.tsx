@@ -22,7 +22,7 @@ export const SubscriptionInvoicePage = () => {
               key="console"
               onClick={() => navigate("/")}
             >
-              Back Home
+              Explore
             </AppButton>
           }
         />

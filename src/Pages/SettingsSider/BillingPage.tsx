@@ -1,8 +1,8 @@
-import { Card, Col, Divider, Flex, Typography, theme } from "antd";
+import { AppRow } from "LayoutComponents/AppRow";
+import { Card, Col, Divider, Flex, Typography } from "antd";
+import { Fragment } from "react/jsx-runtime";
 import { PageTitle } from "../../DataDisplayComponents/PageTitle";
 import { AppSpace } from "../../LayoutComponents/AppSpace";
-import { AppRow } from "LayoutComponents/AppRow";
-import { Fragment } from "react/jsx-runtime";
 
 const headers = [
   {
@@ -43,15 +43,13 @@ const data = [
 ];
 
 export const BillingPage = () => {
-  const { token } = theme.useToken();
-
   return (
     <AppSpace>
       <PageTitle>Billing</PageTitle>
 
       <Card
         bordered={false}
-        style={{ boxShadow: token.boxShadowSecondary }}
+        style={{ boxShadow: "none" }}
         styles={{
           title: {
             padding: "16px 0",

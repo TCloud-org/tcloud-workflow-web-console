@@ -51,7 +51,11 @@ export const extractEntities = (routes: Route[] = []) => {
     .map((route) => deserializeDocument(route))
     .reduce((result, item) => {
       for (const [key, value] of Object.entries(item)) {
-        result[key] = value;
+        let val = value;
+        if (typeof value === "string") {
+          val = JSON.parse(value);
+        }
+        result[key] = val;
       }
       return result;
     }, {});
