@@ -27,7 +27,7 @@ export const BillingPage = () => {
   return (
     <AppSpace>
       <PageTitle>Coming soon...</PageTitle>
-      <AppButton onClick={handleTest}>Test</AppButton>
+      {/* <AppButton onClick={handleTest}>Test</AppButton> */}
     </AppSpace>
   );
 };
