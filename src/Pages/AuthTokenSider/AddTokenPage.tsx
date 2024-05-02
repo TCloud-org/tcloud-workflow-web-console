@@ -135,6 +135,7 @@ export const AddTokenPage = () => {
                           color: value.disabled
                             ? token.colorTextDisabled
                             : undefined,
+                          lineHeight: "16px",
                         }}
                       />
                     )}

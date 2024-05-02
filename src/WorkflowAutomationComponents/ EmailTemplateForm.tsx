@@ -94,7 +94,7 @@ export const EmailTemplateForm = (props: AutomationContentProps) => {
           <Form.Item label="Subject" name="subject">
             <Input />
           </Form.Item>
-          <Form.Item label="Message" name="message">
+          <Form.Item label="Body" name="message">
             <HtmlEditorWithPreview disabled={disabled} />
           </Form.Item>
           {eventWorkflow && (
