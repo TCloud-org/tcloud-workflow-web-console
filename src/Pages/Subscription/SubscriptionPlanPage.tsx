@@ -1,7 +1,7 @@
 import { Span } from "Config/DataDisplayInterface";
 import { AppRow } from "LayoutComponents/AppRow";
 import { SubscriptionPlanCard } from "SubscriptionComponents/SubscriptionPlanCard";
-import { Col } from "antd";
+import { Col, Flex } from "antd";
 
 const plans = [
   {
@@ -47,16 +47,18 @@ const plans = [
 ];
 export const SubscriptionPlanPage = () => {
   return (
-    <AppRow gutter={[16, 16]}>
-      {plans.map((plan, i) => (
-        <Col
-          key={i}
-          {...Span[3]}
-          style={{ display: "flex", flexDirection: "column" }}
-        >
-          <SubscriptionPlanCard data={plan} currentPlan="FREE" />
-        </Col>
-      ))}
-    </AppRow>
+    <Flex justify="center" align="center" style={{ height: "100%" }}>
+      <AppRow gutter={[16, 16]}>
+        {plans.map((plan, i) => (
+          <Col
+            key={i}
+            {...Span[3]}
+            style={{ display: "flex", flexDirection: "column" }}
+          >
+            <SubscriptionPlanCard data={plan} currentPlan="FREE" />
+          </Col>
+        ))}
+      </AppRow>
+    </Flex>
   );
 };
