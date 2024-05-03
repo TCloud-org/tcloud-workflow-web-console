@@ -3,6 +3,7 @@ import { AMS_GET_PAYMENT_ENDPOINT } from "Config/AMSEndpointConfig";
 import { Payment } from "Config/PaymentConfig";
 import { AppButton } from "DataEntryComponents/AppButton";
 import { AppRow } from "LayoutComponents/AppRow";
+import { prettifyDate } from "Utils/DateUtils";
 import { capitalizeEachWord } from "Utils/StringUtils";
 import { Col, Divider, Flex, Result, Typography } from "antd";
 import axios from "axios";
@@ -13,15 +14,18 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 const invoices = [
   {
     key: "amountDue",
-    label: "Due",
+    label: "Balance",
+    render: (text: string) => text,
   },
   {
     key: "amountPaid",
     label: "Paid",
+    render: (text: string) => `-${text}`,
   },
   {
     key: "amountRemaining",
-    label: "Remain",
+    label: "Due",
+    render: (text: string) => text,
   },
 ];
 export const SubscriptionInvoicePage = () => {
@@ -153,16 +157,43 @@ export const SubscriptionInvoicePage = () => {
               </Typography.Text>
             </Col>
             <Col span={12}>
-              <Flex vertical>
+              <Flex vertical gap={16}>
+                <AppRow gutter={[8, 8]}>
+                  <Col span={12}>
+                    <Typography.Text>Billed to:</Typography.Text>
+                  </Col>
+                  <Col
+                    span={12}
+                    style={{ justifyContent: "flex-end", display: "flex" }}
+                  >
+                    <Typography.Text>{payment?.email}</Typography.Text>
+                  </Col>
+                  <Col span={12}>
+                    <Typography.Text>Payment date:</Typography.Text>
+                  </Col>
+                  <Col
+                    span={12}
+                    style={{ justifyContent: "flex-end", display: "flex" }}
+                  >
+                    <Typography.Text>
+                      {prettifyDate(payment?.updatedAt)}
+                    </Typography.Text>
+                  </Col>
+                </AppRow>
+                <Divider style={{ margin: 0 }} />
                 {invoices.map((invoice, i) => (
                   <Fragment key={i}>
                     <Flex justify="space-between">
                       <Typography.Text>{invoice.label}</Typography.Text>
                       <Typography.Text>
-                        ${payment?.[invoice.key as keyof Payment]?.toFixed(2)}
+                        {invoice.render(
+                          `$${payment?.[invoice.key as keyof Payment]?.toFixed(
+                            2
+                          )}`
+                        )}
                       </Typography.Text>
                     </Flex>
-                    <Divider style={{ margin: "8px 0" }} />
+                    <Divider style={{ margin: 0 }} />
                   </Fragment>
                 ))}
               </Flex>
