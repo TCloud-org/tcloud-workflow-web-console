@@ -7,31 +7,32 @@ import {
 } from "@ant-design/icons";
 import { Tag, Tooltip } from "antd";
 import { CollapseTag } from "../Utils/ObjectUtils";
+import { borderColor } from "Config/AutomationConfig";
 
 export const TagVariantMapping: { [key: string]: CollapseTag } = {
   success: {
     icon: <CheckCircleOutlined />,
-    color: "success",
+    color: "green-inverse",
   },
   failure: {
     icon: <CloseCircleOutlined />,
-    color: "error",
+    color: "red-inverse",
   },
   notified: {
     icon: <BellOutlined />,
-    color: "processing",
+    color: "blue-inverse",
   },
   default: {
     icon: <MinusCircleOutlined />,
-    color: "geekblue",
+    color: "geekblue-inverse",
   },
   terminal: {
     icon: <CheckCircleOutlined />,
-    color: "purple",
+    color: borderColor,
   },
   pending: {
     icon: <ClockCircleOutlined />,
-    color: "warning",
+    color: "gold-inverse",
   },
 };
 

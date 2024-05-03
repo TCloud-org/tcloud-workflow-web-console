@@ -62,8 +62,8 @@ export const StateCardInfo = forwardRef<HTMLDivElement, StateCardInfoProps>(
           <AppTag
             color={
               data?.metadata?.httpResponse?.statusCode === 200
-                ? "success"
-                : "error"
+                ? "green-inverse"
+                : "red-inverse"
             }
           >
             {data?.metadata?.httpResponse?.statusCode}

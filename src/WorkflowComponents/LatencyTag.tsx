@@ -3,11 +3,11 @@ import { Color } from "../Utils/ObjectUtils";
 
 export const getLatencyColor = (latency: number): Color => {
   if (latency > 1000 && latency < 10000) {
-    return "warning";
+    return "gold-inverse";
   } else if (latency >= 10000) {
-    return "error";
+    return "red-inverse";
   }
-  return "success";
+  return "green-inverse";
 };
 
 export const LatencyTag = (props: { latency: number }) => {
