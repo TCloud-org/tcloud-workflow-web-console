@@ -11,3 +11,4 @@ export const AMS_UPDATE_ACCOUNT_ENDPOINT = AMS_ENDPOINT + "/update-account";
 export const AMS_GET_ACCOUNT_ENDPOINT = AMS_ENDPOINT + "/get-account";
 export const AMS_CREATE_CHECKOUT_SESSION_ENDPOINT =
   AMS_ENDPOINT + "/create-checkout-session";
+export const AMS_GET_PAYMENT_ENDPOINT = AMS_ENDPOINT + "/get-payment";
