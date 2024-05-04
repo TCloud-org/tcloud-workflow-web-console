@@ -96,7 +96,7 @@ export const HomePage = () => {
             <Typography.Text>
               No workflow is currently activated. Please go to{" "}
               <Typography.Link href="/workflow">
-                API Workflow/Workflow
+                Step Workflow/Workflow
               </Typography.Link>{" "}
               and activate one.
             </Typography.Text>

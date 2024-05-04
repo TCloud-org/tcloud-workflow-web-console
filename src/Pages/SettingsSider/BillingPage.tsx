@@ -21,7 +21,7 @@ const headers = [
 
 const data = [
   {
-    usage: "API Workflows",
+    usage: "Step Workflows",
     requests: 0,
     cost: "$0.00",
   },

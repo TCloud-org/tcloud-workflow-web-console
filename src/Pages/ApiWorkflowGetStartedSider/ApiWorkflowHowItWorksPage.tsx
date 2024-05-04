@@ -28,14 +28,14 @@ const nextSteps = [
     title: "Quickstart",
     description: "Follow our quickstart tutorial to build a sample workflow",
     icon: <RocketFilled />,
-    href: "/api-workflow-quickstart",
+    href: "/step-workflow-quickstart",
   },
   {
     title: "Onboarding",
     description:
       "Feel ready? Head over to our onboarding process to get started",
     icon: <ProfileFilled />,
-    href: "/api-workflow-onboarding",
+    href: "/step-workflow-onboarding",
   },
 ];
 
@@ -91,7 +91,7 @@ export const ApiWorkflowHowItWorksPage = () => {
         {
           "Explore our streamlined 5-step process to initiate your first workflow. To learn more details about each step, check out the "
         }
-        <a href="/api-workflow-quickstart">Quickstart</a>
+        <a href="/step-workflow-quickstart">Quickstart</a>
         {" tutorial."}
       </Typography.Paragraph>
       {steps.map((step, i) => (

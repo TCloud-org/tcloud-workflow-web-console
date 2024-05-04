@@ -275,7 +275,7 @@ export const wrapWordsWithAnchorTag = (input: string) => {
         if (modelName === word) {
           input = input.replace(
             new RegExp(`\\b${word}\\b`, "g"),
-            `<a href="/api-workflow-model#${word}">${word}</a>`
+            `<a href="/step-workflow-model#${word}">${word}</a>`
           );
         }
       }

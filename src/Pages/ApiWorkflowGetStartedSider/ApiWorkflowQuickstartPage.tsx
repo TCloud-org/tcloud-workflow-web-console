@@ -77,7 +77,7 @@ const nextSteps = [
     title: "Onboarding",
     description: "Check out our onboarding process to get started",
     icon: <ProfileFilled />,
-    href: "/api-workflow-onboarding",
+    href: "/step-workflow-onboarding",
   },
 ];
 
@@ -359,7 +359,7 @@ export const ApiWorkflowQuickstartPage = () => {
       <Typography.Paragraph>
         <ol>
           <li>
-            Under <strong>API Workflow</strong> menu, navigate to{" "}
+            Under <strong>Step Workflow</strong> menu, navigate to{" "}
             <strong>Service</strong> tab.
           </li>
           <li>
@@ -388,7 +388,7 @@ export const ApiWorkflowQuickstartPage = () => {
         tutorial.
         <ol>
           <li>
-            Under <strong>API Workflow</strong> menu, navigate to{" "}
+            Under <strong>Step Workflow</strong> menu, navigate to{" "}
             <strong>Retry Policy</strong> tab.
           </li>
           <li>
@@ -462,11 +462,11 @@ export const ApiWorkflowQuickstartPage = () => {
         <ol>
           <li>
             Now that you have a workflow graph ready, you can navigate to the{" "}
-            <a href="api-workflow-onboarding">Onboarding</a> tab to create a new
-            workflow and add the above graph with a <strong>live</strong> alias.
-            Since you have created service endpoint mapping and retry policy
-            ealier, you can simply skip these 2 steps during the onboarding
-            process.
+            <a href="step-workflow-onboarding">Onboarding</a> tab to create a
+            new workflow and add the above graph with a <strong>live</strong>{" "}
+            alias. Since you have created service endpoint mapping and retry
+            policy ealier, you can simply skip these 2 steps during the
+            onboarding process.
           </li>
           <li>
             Once completed, you should find your workflow name in the first

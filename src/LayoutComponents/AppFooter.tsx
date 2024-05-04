@@ -59,7 +59,7 @@ export const AppFooter = () => {
               />
               <Typography.Text
                 style={{ fontSize: 12 }}
-              >{`The Cloud World ©2024`}</Typography.Text>
+              >{`The Cloud World ©${new Date().getFullYear()}`}</Typography.Text>
             </Flex>
 
             <HoveredLink href="/terms-and-conditions">Terms</HoveredLink>

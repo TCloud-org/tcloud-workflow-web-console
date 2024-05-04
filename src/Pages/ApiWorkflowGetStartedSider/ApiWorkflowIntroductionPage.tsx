@@ -15,20 +15,20 @@ const nextSteps = [
     title: "How It Works",
     description: "Interested? Learn more about how it works",
     icon: <SettingFilled />,
-    href: "/api-workflow-how-it-works",
+    href: "/step-workflow-how-it-works",
   },
   {
     title: "Quickstart",
     description: "Follow our quickstart tutorial to build a sample workflow",
     icon: <RocketFilled />,
-    href: "/api-workflow-quickstart",
+    href: "/step-workflow-quickstart",
   },
   {
     title: "Onboarding",
     description:
       "Feel ready? Head over to our onboarding process to get started",
     icon: <ProfileFilled />,
-    href: "/api-workflow-onboarding",
+    href: "/step-workflow-onboarding",
   },
 ];
 
@@ -43,11 +43,11 @@ export const ApiWorkflowIntroductionPage = () => {
 
       <AppHeadingLink level={3}>Overview</AppHeadingLink>
       <Typography.Paragraph>
-        Our API Workflow Integration Platform offers a seamless solution for
-        clients seeking to optimize their API workflow processes. By integrating
-        with our platform, clients can streamline their operations, enhance
-        efficiency, and achieve greater productivity in managing their API
-        interactions.
+        Our Step Workflow Integration Platform offers a seamless solution for
+        clients seeking to optimize their Step Workflow processes. By
+        integrating with our platform, clients can streamline their operations,
+        enhance efficiency, and achieve greater productivity in managing their
+        API interactions.
       </Typography.Paragraph>
 
       <AppHeadingLink level={3}>Key Features</AppHeadingLink>
@@ -72,7 +72,7 @@ export const ApiWorkflowIntroductionPage = () => {
       <AppHeadingLink level={4}>Monitoring</AppHeadingLink>
       <Typography.Paragraph>
         Our platform offers comprehensive monitoring and analytics capabilities,
-        providing clients with insights into their API workflow performance.
+        providing clients with insights into their Step Workflow performance.
         Clients can track API usage, monitor response times, identify
         bottlenecks, and optimize workflows for enhanced efficiency.
       </Typography.Paragraph>

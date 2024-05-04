@@ -11,7 +11,7 @@ const plans = [
     price: 0,
     features: [
       "Limited to 1 user (individual)",
-      "Limited to 100 API workflows",
+      "Limited to 100 Step Workflows",
       "Limited to 50 emails",
       "Email support available",
     ],
@@ -23,7 +23,7 @@ const plans = [
     price: 9,
     features: [
       "Limited to 1 user (individual)",
-      "Limited to 1000 API workflows",
+      "Limited to 1000 Step Workflows",
       "Limited to 500 emails",
       "Limited to 1 store and 100 publications",
       "24/7 email support",
@@ -37,7 +37,7 @@ const plans = [
     price: 49,
     features: [
       "Limited to 100 users (business)",
-      "Limited to 10000 API workflows",
+      "Limited to 10000 Step Workflows",
       "Limited to 5000 emails",
       "Limited to 5 store and unlimited publications",
       "Metrics",
