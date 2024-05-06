@@ -27,7 +27,7 @@ export const WOS_GET_ROUTES_BY_WORK_ID_ENDPOINT =
   WOS_ENDPOINT + "/get-routes-by-work-id";
 export const WOS_GET_ALL_WORK_IDS_ENDPOINT = WOS_ENDPOINT + "/get-all-work-ids";
 export const WOS_INITIATE_TCA_WORKFLOW_ENDPOINT =
-  WOS_ENDPOINT + "/initiate-tca-workflow";
+  WOS_ENDPOINT + "/initiate-workflow";
 export const WOS_GET_WORK_IDS_BY_WORKFLOW_ID_ENDPOINT =
   WOS_ENDPOINT + "/get-work-ids-by-workflow-id";
 export const WOS_ADD_SERVICE_CONFIGURATION_ENDPOINT =

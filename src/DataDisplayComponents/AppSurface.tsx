@@ -9,7 +9,7 @@ interface AppSurfaceProps {
   hasSpace?: boolean;
   size?: SizeType;
   backgroundColor?: string;
-  type?: "default" | "form" | "dot" | "border" | "dashed";
+  type?: "default" | "form" | "dot" | "border" | "dashed" | "shadow";
   className?: string;
   onClick?: () => void;
 }
@@ -49,6 +49,12 @@ export const AppSurface = forwardRef<HTMLDivElement, AppSurfaceProps>(
       backgroundColor: token.colorWhite,
     };
 
+    const shadowStyle: CSSProperties = {
+      border: "none",
+      backgroundColor: token.colorWhite,
+      boxShadow: token.boxShadow,
+    };
+
     return (
       <Box
         ref={ref}
@@ -64,6 +70,7 @@ export const AppSurface = forwardRef<HTMLDivElement, AppSurfaceProps>(
           ...((type === "form" || type === "border" || type === "dashed") &&
             borderStyle),
           ...(type === "dot" && dotStyle),
+          ...(type === "shadow" && shadowStyle),
           ...style,
         }}
         className={className}

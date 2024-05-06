@@ -36,6 +36,7 @@ root.render(
         colorPrimary: "#4312e5",
         boxShadowSecondary: "0 30px 60px 0 rgba(90, 116, 148, 0.15)",
         boxShadow: "0 30px 60px 0 rgba(90, 116, 148, 0.15)",
+        colorBorder: "rgba(90, 116, 148, 0.15)",
       },
     }}
   >

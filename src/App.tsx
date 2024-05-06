@@ -213,23 +213,23 @@ export const App = () => {
               element: <WorkflowStatisticPage />,
             },
             {
-              path: "/step-workflow-introduction",
+              path: "/api-workflow-introduction",
               element: <ApiWorkflowIntroductionPage />,
             },
             {
-              path: "/step-workflow-how-it-works",
+              path: "/api-workflow-how-it-works",
               element: <ApiWorkflowHowItWorksPage />,
             },
             {
-              path: "/step-workflow-onboarding",
+              path: "/api-workflow-onboarding",
               element: <OnboardingPage />,
             },
             {
-              path: "/step-workflow-model",
+              path: "/api-workflow-model",
               element: <ApiWorkflowModelPage />,
             },
             {
-              path: "/step-workflow-quickstart",
+              path: "/api-workflow-quickstart",
               element: <ApiWorkflowQuickstartPage />,
             },
             {

@@ -13,7 +13,7 @@ export const GraphInfoCard = (props: { graph?: Graph }) => {
 
   if (!graph) {
     return (
-      <AppSurface>
+      <AppSurface type="form">
         <Flex justify="center" align="center">
           <AppEmpty />
         </Flex>
@@ -21,7 +21,7 @@ export const GraphInfoCard = (props: { graph?: Graph }) => {
     );
   }
   return (
-    <AppSurface style={{ paddingBottom: 0 }}>
+    <AppSurface type="form" style={{ paddingBottom: 0 }}>
       <AppDescriptions
         layout="vertical"
         items={[

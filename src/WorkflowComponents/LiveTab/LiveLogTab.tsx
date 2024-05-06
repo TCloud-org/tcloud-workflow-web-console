@@ -1,4 +1,4 @@
-import { Typography } from "antd";
+import { Flex, Typography } from "antd";
 import { Route } from "../../Config/WorkflowConfig";
 import { AppCollapse } from "../../DataDisplayComponents/AppCollapse";
 import { AppSurface } from "../../DataDisplayComponents/AppSurface";
@@ -12,32 +12,40 @@ export const LiveLogTab = (props: { routes?: Route[] }) => {
   const { routes = [] } = props;
 
   return (
-    <AppCollapse
-      items={routes.map((route, i) => ({
-        key: i,
-        label: (
-          <AppSpace direction="horizontal">
-            <Typography.Text>{route.source}</Typography.Text>
+    <Flex vertical gap={16}>
+      {routes.map((route, i) => (
+        <AppCollapse
+          items={[
+            {
+              key: i,
+              label: (
+                <AppSpace direction="horizontal">
+                  <Typography.Text>{route.source}</Typography.Text>
 
-            {extractNumOfChanges(route) && (
-              <AppTag color="processing">{extractNumOfChanges(route)}</AppTag>
-            )}
-          </AppSpace>
-        ),
-        children: (
-          <AppSurface backgroundColor="white" style={{ padding: 0 }}>
-            <CodeDisplay
-              code={JSON.stringify(
-                deserializeDocumentChangeLogs(route),
-                null,
-                2
-              )}
-              copyToClipboard
-              style={{ margin: "16px" }}
-            />
-          </AppSurface>
-        ),
-      }))}
-    />
+                  {extractNumOfChanges(route) && (
+                    <AppTag color="processing">
+                      {extractNumOfChanges(route)}
+                    </AppTag>
+                  )}
+                </AppSpace>
+              ),
+              children: (
+                <AppSurface backgroundColor="white" style={{ padding: 0 }}>
+                  <CodeDisplay
+                    code={JSON.stringify(
+                      deserializeDocumentChangeLogs(route),
+                      null,
+                      2
+                    )}
+                    copyToClipboard
+                    style={{ margin: "16px" }}
+                  />
+                </AppSurface>
+              ),
+            },
+          ]}
+        />
+      ))}
+    </Flex>
   );
 };

@@ -201,7 +201,7 @@ export const WorkflowToolbar = (props: {
   return (
     <>
       {contextHolder}
-      <AppSurface>
+      <AppSurface type="form">
         <Flex justify="center">
           <AppSpace
             direction="horizontal"
