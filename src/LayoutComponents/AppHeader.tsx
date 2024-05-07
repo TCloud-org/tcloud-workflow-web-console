@@ -224,7 +224,6 @@ export const AppHeader = (props: {
               alignContent: "center",
               borderRadius: 0,
               color: "black",
-              fontSize: "16px",
               padding: "0px 16px",
               height: topHeaderHeight,
               transition: "all 0.3s",
@@ -241,19 +240,19 @@ export const AppHeader = (props: {
                   <img
                     alt={BRAND}
                     src="https://tcw-icon.s3.us-west-2.amazonaws.com/7.png"
-                    width={18}
-                    height={18}
+                    width={24}
+                    height={24}
                   />
                 )}
               />
-              {BRAND}
+              <Typography.Text strong>{BRAND}</Typography.Text>
             </Flex>
           </Typography.Link>
         </Flex>
         <Flex
           style={{
             borderRadius: token.borderRadiusLG,
-            flex: 2,
+            flex: 1.5,
             height: topHeaderHeight,
           }}
           align="center"
@@ -269,7 +268,7 @@ export const AppHeader = (props: {
           />
         </Flex>
 
-        <Flex align="center" style={{ flex: 2 }} justify="flex-end">
+        <Flex align="center" style={{ flex: 1.5 }} justify="flex-end">
           <AppIconButton
             onClick={() => navigate("/support")}
             type="text"
