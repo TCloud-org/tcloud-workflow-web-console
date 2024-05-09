@@ -38,7 +38,9 @@ export const fetchServiceConfiguration = (service: string) => {
   return [];
 };
 
-export const fetchGraphsById = async (workflowId: string | undefined) => {
+export const fetchGraphsById = async (
+  workflowId: string | number | undefined
+) => {
   if (!workflowId) return undefined;
   return await axios
     .get(`${WOS_GET_GRAPHS_BY_WORKFLOW_ID_ENDPOINT}?workflowId=${workflowId}`)

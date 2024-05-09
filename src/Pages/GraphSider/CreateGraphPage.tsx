@@ -1,77 +1,95 @@
+import { textColor } from "Config/LayoutConfig";
+import { Client } from "Config/SCSConfig";
+import { AppCodeInput } from "DataEntryComponents/Form/AppCodeInput";
+import { getClients } from "Network/SecurityFetch";
 import {
   Alert,
-  Button,
-  Col,
   Flex,
   Form,
   Input,
   InputNumber,
+  Select,
   Typography,
 } from "antd";
 import axios from "axios";
+import { Account } from "features/auth/authSlice";
 import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { InputEvent } from "../../Config/DataEntryConfig";
 import {
   WOS_ADD_GRAPH_ENDPOINT,
+  WOS_GET_WORKFLOWS_BY_CLIENT_ID_ENDPOINT,
   WOS_VALIDATE_XML_WORKFLOW_ENDPOINT,
 } from "../../Config/WOSEndpointConfig";
-import { GetGraphsByWorkflowIdOutput } from "../../Config/WorkflowConfig";
 import {
-  CodeTheme,
-  XMLCodeEditor,
-} from "../../DataDisplayComponents/XMLCodeEditor";
+  GetGraphsByWorkflowIdOutput,
+  Workflow,
+} from "../../Config/WorkflowConfig";
 import { AppButton } from "../../DataEntryComponents/AppButton";
 import { AppForm } from "../../DataEntryComponents/AppForm";
 import { AppSpace } from "../../LayoutComponents/AppSpace";
 import { fetchGraphsById } from "../../Network/WorkflowFetch";
-import { AppSurface } from "../../DataDisplayComponents/AppSurface";
-import { DarkLightModeSwitch } from "../../DataEntryComponents/DarkLightModeSwitch";
-import { AppRow } from "../../LayoutComponents/AppRow";
 
 export const CreateGraphPage = () => {
+  const [form] = Form.useForm();
   const navigate = useNavigate();
-  const clientId = useSelector((state: any) => state.client.clientId);
-  const { workflowId } = useSelector(
-    (state: any) => state.workflow.workflow || {}
-  );
+  const account: Account = useSelector((state: any) => state.auth.account);
   const [isValidating, setIsValidating] = useState<boolean>(false);
   const [isXMLValidated, setIsXMLValidated] = useState<boolean>(false);
   const [showAlert, setShowAlert] = useState<boolean>(false);
-  const [formData, setFormData] = useState<{
-    [key: string]: string | number | undefined;
-  }>({});
   const [loading, setLoading] = useState<boolean>(false);
-  const [codeTheme, setCodeTheme] = useState<CodeTheme>("light");
+  const [clients, setClients] = useState<Client[]>([]);
+  const [clientId, setClientId] = useState<string>("");
+  const [workflowId, setWorkflowId] = useState<number>();
+  const [workflows, setWorkflows] = useState<Workflow[]>([]);
 
   const fetchGraphs = useCallback(() => {
-    fetchGraphsById(workflowId).then(
-      (response: GetGraphsByWorkflowIdOutput | undefined) => {
-        setFormData((prev) => ({
-          ...prev,
-          version: response?.nextAvailableVersion || 1,
-        }));
-      }
-    );
-  }, [workflowId]);
+    if (workflowId) {
+      fetchGraphsById(workflowId).then(
+        (response: GetGraphsByWorkflowIdOutput | undefined) => {
+          form.setFieldValue("version", response?.nextAvailableVersion || 1);
+        }
+      );
+    }
+  }, [workflowId, form]);
+
+  const fetchClients = useCallback(async () => {
+    if (account) {
+      const res = await getClients(account.email);
+      setClients(res.clients || []);
+    }
+  }, [account]);
+
+  const fetchWorkflows = useCallback(async () => {
+    if (clientId) {
+      const workflows = await axios
+        .get(`${WOS_GET_WORKFLOWS_BY_CLIENT_ID_ENDPOINT}?clientId=${clientId}`)
+        .then((response) => response.data.workflows as Workflow[]);
+      setWorkflows(workflows);
+    }
+  }, [clientId]);
 
   useEffect(() => {
     fetchGraphs();
   }, [fetchGraphs]);
 
-  const handleCodeChange = (value: string) => {
-    setFormData((prev) => ({ ...prev, xmlContent: value }));
-  };
+  useEffect(() => {
+    fetchClients();
+  }, [fetchClients]);
+
+  useEffect(() => {
+    fetchWorkflows();
+  }, [fetchWorkflows]);
 
   const handleValidate = async () => {
-    if (!formData.xmlContent) {
+    const xmlContent = form.getFieldValue("xmlContent");
+    if (!xmlContent) {
       return;
     }
     setIsValidating(true);
 
     await axios
-      .post(WOS_VALIDATE_XML_WORKFLOW_ENDPOINT, { xml: formData.xmlContent })
+      .post(WOS_VALIDATE_XML_WORKFLOW_ENDPOINT, { xml: xmlContent })
       .then((response) => {
         setIsXMLValidated(response.data?.isValidated || false);
       })
@@ -87,18 +105,16 @@ export const CreateGraphPage = () => {
     setShowAlert(false);
   };
 
-  const handleInputChange = (e: InputEvent) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
-
   const handleCreate = async () => {
     setLoading(true);
 
+    const workflow = JSON.parse(form.getFieldValue("workflow")) || {};
     const params = {
-      workflowId,
-      clientId,
-      ...formData,
+      ...form.getFieldsValue(),
+      workflowId: workflow.workflowId,
+      workflow: undefined,
     };
+
     await axios
       .post(WOS_ADD_GRAPH_ENDPOINT, params)
       .then((_) => {
@@ -109,12 +125,19 @@ export const CreateGraphPage = () => {
     setLoading(false);
   };
 
-  const handleDarkLightModeSwitch = (isLightMode: boolean) => {
-    if (isLightMode) {
-      setCodeTheme("light");
-    } else {
-      setCodeTheme("dark");
+  const handleValuesChange = (change: any, values: any) => {
+    if (change.clientId) {
+      setClientId(change.clientId);
+      setWorkflowId(undefined);
+      values.workflow = undefined;
+      values.version = undefined;
     }
+    if (change.workflow) {
+      const workflow = JSON.parse(change.workflow);
+      setWorkflowId(workflow.workflowId);
+    }
+
+    form.setFieldsValue(values);
   };
 
   return (
@@ -122,17 +145,32 @@ export const CreateGraphPage = () => {
       <Flex justify="center">
         <Typography.Title level={4}>Create a new graph</Typography.Title>
       </Flex>
-      <AppForm>
+      <AppForm form={form} onValuesChange={handleValuesChange}>
+        <Form.Item label="Client" name="clientId">
+          <Select
+            options={clients.map((client) => ({
+              label: client.clientId,
+              value: client.clientId,
+            }))}
+            placeholder="Select a client"
+          />
+        </Form.Item>
+        <Form.Item label="Workflow" name="workflow">
+          <Select
+            options={workflows.map((workflow) => ({
+              label: workflow.workflowName,
+              value: JSON.stringify(workflow),
+            }))}
+            placeholder="Select a workflow"
+            disabled={!clientId}
+          />
+        </Form.Item>
         <Form.Item
           label="Alias"
           name="alias"
           tooltip="If this field is left empty, it will be automatically assigned a generated ID"
         >
-          <Input
-            name="alias"
-            value={formData["alias"]}
-            onChange={handleInputChange}
-          />
+          <Input name="alias" disabled={!workflowId} />
         </Form.Item>
 
         <Form.Item
@@ -140,80 +178,47 @@ export const CreateGraphPage = () => {
           name="description"
           tooltip="This description offers helpful context for this graph version"
         >
-          <Input.TextArea
-            name="description"
-            value={formData["description"]}
-            onChange={handleInputChange}
-          />
+          <Input.TextArea disabled={!workflowId} />
         </Form.Item>
 
-        <Form.Item
-          label="Version"
-          name="version"
-          valuePropName="1"
-          tooltip="Next available version"
-        >
-          <InputNumber
-            style={{ width: "100%" }}
-            disabled
-            value={formData.version}
-          />
+        <Form.Item label="Version" name="version" tooltip="Next version">
+          <InputNumber style={{ width: "100%" }} disabled />
+        </Form.Item>
+
+        <Form.Item label="Graph" name="xmlContent">
+          <Flex vertical gap={16}>
+            {showAlert && isXMLValidated ? (
+              <Alert
+                message="XML validated successfully"
+                type="success"
+                showIcon
+                closable
+                onClose={handleCloseAlert}
+              />
+            ) : showAlert && !isXMLValidated ? (
+              <Alert
+                message="XML validation failed"
+                type="error"
+                showIcon
+                closable
+                onClose={handleCloseAlert}
+              />
+            ) : null}
+            <AppCodeInput
+              endDecorator={
+                <AppButton
+                  style={{ padding: 0, color: textColor }}
+                  type="link"
+                  onClick={handleValidate}
+                  loading={isValidating}
+                >
+                  Validate
+                </AppButton>
+              }
+            />
+          </Flex>
         </Form.Item>
       </AppForm>
-
-      <AppSurface>
-        <AppRow style={{ alignItems: "center" }}>
-          <Col span={8} />
-
-          <Col
-            span={8}
-            style={{
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            <AppSpace direction="horizontal" style={{ flexGrow: 1 }}>
-              <Button loading={isValidating} onClick={handleValidate}>
-                Validate
-              </Button>
-            </AppSpace>
-          </Col>
-
-          <Col
-            span={8}
-            style={{
-              display: "flex",
-              justifyContent: "flex-end",
-            }}
-          >
-            <AppSpace direction="horizontal" style={{ flexGrow: 1 }}>
-              <DarkLightModeSwitch onChange={handleDarkLightModeSwitch} />
-            </AppSpace>
-          </Col>
-        </AppRow>
-      </AppSurface>
-      {showAlert && isXMLValidated ? (
-        <Alert
-          message="XML validated successfully"
-          type="success"
-          showIcon
-          closable
-          onClose={handleCloseAlert}
-        />
-      ) : showAlert && !isXMLValidated ? (
-        <Alert
-          message="XML validation failed"
-          type="error"
-          showIcon
-          closable
-          onClose={handleCloseAlert}
-        />
-      ) : null}
-      <XMLCodeEditor
-        theme={codeTheme}
-        onChange={handleCodeChange}
-        style={{ width: "100%" }}
-      />
 
       <Flex justify="center">
         <AppButton

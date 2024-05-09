@@ -2,6 +2,7 @@ import { autocompletion } from "@codemirror/autocomplete";
 import { langs } from "@uiw/codemirror-extensions-langs";
 import { githubDarkInit, githubLightInit } from "@uiw/codemirror-theme-github";
 import ReactCodeMirror, { ViewUpdate } from "@uiw/react-codemirror";
+import { textColor } from "Config/LayoutConfig";
 import { CSSProperties } from "react";
 
 export type CodeTheme = "light" | "dark" | undefined;
@@ -73,7 +74,9 @@ export const XMLCodeEditor = (props: {
             })
           : githubDarkInit({
               settings: {
-                caret: "#c6c6c6",
+                background: "#0a1021",
+                caret: textColor,
+                gutterBackground: "#0a1021",
                 fontFamily: "monospace",
               },
             })
