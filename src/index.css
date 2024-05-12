@@ -112,7 +112,7 @@ code {
 }
 
 .container-hover:hover {
-  background-color: rgba(0, 0, 0, 0.06);
+  background-color: rgb(226 232 240 / 0.6);
 }
 
 .dot-background {
