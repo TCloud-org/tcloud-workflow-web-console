@@ -124,7 +124,7 @@ export const App = () => {
         </Layout>
       );
     }
-
+    //rgb(248 250 252 / 1)
     return (
       <Layout style={{ minHeight: "100vh" }}>
         <AppHeader collapsed={collapsed} setCollapsed={setCollapsed} />
@@ -132,8 +132,11 @@ export const App = () => {
         <Layout style={{ minHeight: "100vh" }}>
           <AppSider collapsed={collapsed} setCollapsed={setCollapsed} />
 
-          <Layout>
-            <Layout style={{ padding: "0 16px 0 16px" }}>
+          <Layout className="bg-slate-50">
+            <Layout
+              style={{ padding: "0 16px 0 16px" }}
+              className="bg-slate-50"
+            >
               <AppBreadcrumb />
 
               <Content

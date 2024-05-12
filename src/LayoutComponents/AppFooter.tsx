@@ -8,14 +8,12 @@ import { AppRow } from "./AppRow";
 export const AppFooter = () => {
   const { token } = theme.useToken();
   return (
-    <Footer style={{ padding: "0 16px", marginTop: 16 }}>
+    <Footer style={{ padding: "0 16px" }} className="bg-slate-50">
       <div
         style={{
           backgroundColor: "blue",
           width: "100%",
           padding: 24,
-          borderTopLeftRadius: token.borderRadiusLG,
-          borderTopRightRadius: token.borderRadiusLG,
           background: token.colorBgContainer,
           fontSize: 12,
           fontWeight: 500,
