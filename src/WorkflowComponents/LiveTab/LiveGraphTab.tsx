@@ -38,12 +38,18 @@ export const LiveGraphTab = (props: { graph?: Graph }) => {
 
   const fetchVisual = useCallback(async () => {
     if (graph && graph.xmlContent) {
-      const output = await getGraphVisualization(graph.xmlContent, authToken);
+      const output = await getGraphVisualization(
+        graph.xmlContent,
+        authToken
+      ).catch((err) => {
+        console.error(err.response.status);
+        return undefined;
+      });
 
-      setNodes(populateFlowNodeData(output.nodes));
-      setEdges(output.edges);
-      setTreeNodes(output.treeNodes || []);
-      setTreeNodeIds(output.treeNodeIds || []);
+      setNodes(populateFlowNodeData(output?.nodes || []));
+      setEdges(output?.edges || []);
+      setTreeNodes(output?.treeNodes || []);
+      setTreeNodeIds(output?.treeNodeIds || []);
     }
   }, [graph, setNodes, setEdges, authToken]);
 
