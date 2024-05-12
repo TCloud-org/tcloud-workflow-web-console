@@ -255,6 +255,7 @@ export const AppHeader = (props: {
             flex: 1.5,
             height: topHeaderHeight,
           }}
+          className="hidden lg:flex"
           align="center"
         >
           <AppSearchBar

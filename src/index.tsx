@@ -33,7 +33,8 @@ root.render(
   <ConfigProvider
     theme={{
       token: {
-        colorPrimary: "#4312e5",
+        // colorPrimary: "#4312e5",
+        colorPrimary: "rgb(88 86 214 / 1)",
         boxShadow: "0 30px 60px 0 rgba(90, 116, 148, 0.15)",
         boxShadowSecondary: "0 30px 60px 0 rgba(90, 116, 148, 0.1)",
         colorBorder: "rgba(90, 116, 148, 0.15)",
@@ -42,6 +43,10 @@ root.render(
         colorFillSecondary: "rgb(226 232 240 / 0.6)",
         colorFillTertiary: "rgb(241 245 249 / 0.6)",
         colorFillQuaternary: "rgb(248 250 252 / 0.6)",
+        colorSuccess: "rgb(40 205 65 / 1)",
+        colorError: "rgb(255 59 48 / 1)",
+        colorInfo: "rgb(0 122 255 / 1)",
+        colorWarning: "rgb(255 204 0 / 1)",
       },
     }}
   >
