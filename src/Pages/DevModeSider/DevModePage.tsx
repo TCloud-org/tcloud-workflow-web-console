@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { v4 } from "uuid";
 
 export const DevModePage = () => {
+  const authToken = useSelector((state: any) => state.auth.token);
   const clientId = useSelector((state: any) => state.client.clientId);
   const { workflowId } = useSelector(
     (state: any) => state.workflow.workflow || {}
@@ -28,8 +29,14 @@ export const DevModePage = () => {
       workflowId,
     };
 
+    const config = {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    };
+
     await axios
-      .post(WOS_INITIATE_TCA_WORKFLOW_ENDPOINT, formData)
+      .post(WOS_INITIATE_TCA_WORKFLOW_ENDPOINT, formData, config)
       .then((_) => {
         setInitiatedId(id);
       })

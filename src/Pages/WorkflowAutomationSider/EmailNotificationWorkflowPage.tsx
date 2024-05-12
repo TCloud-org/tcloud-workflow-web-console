@@ -53,6 +53,7 @@ export const EmailNotificationWorkflowPage = () => {
     },
   ];
 
+  const authToken = useSelector((state: any) => state.auth.token);
   const clientId = useSelector((state: any) => state.client.clientId);
   const navigate = useNavigate();
   const location = useLocation();
@@ -65,12 +66,12 @@ export const EmailNotificationWorkflowPage = () => {
     if (clientId) {
       setLoading(true);
 
-      const res = await getEventWorkflowsByClientId(clientId);
+      const res = await getEventWorkflowsByClientId(clientId, authToken);
       setWorkflows(res.workflows);
 
       setLoading(false);
     }
-  }, [clientId]);
+  }, [clientId, authToken]);
 
   const handleCreateWorkflow = () => {
     navigate(`${location.pathname}/choose-template`);
@@ -81,8 +82,13 @@ export const EmailNotificationWorkflowPage = () => {
   };
 
   const handleDelete = (value: EventWorkflow) => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    };
     axios
-      .delete(`${WOS_DELETE_EVENT_WORKFLOW_ENDPOINT}?id=${value.id}`)
+      .delete(`${WOS_DELETE_EVENT_WORKFLOW_ENDPOINT}?id=${value.id}`, config)
       .then((res) => {
         if (res.data) {
           fetchEventWorkflows();

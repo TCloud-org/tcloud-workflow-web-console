@@ -24,6 +24,7 @@ export const RetryConfiguration = forwardRef<
 >(({ onClose = () => {}, routes = [] }, ref) => {
   const { workId } = useParams();
 
+  const authToken = useSelector((state: any) => state.auth.token);
   const clientId = useSelector((state: any) => state.client.clientId);
   const { workflowId } = useSelector(
     (state: any) => state.workflow.workflow || {}
@@ -46,11 +47,13 @@ export const RetryConfiguration = forwardRef<
         [last.source]: prev[last.source] || "live",
       }));
       setLastRoute(last);
-      setConfigurations(await fetchServiceConfiguration(last.service));
+      setConfigurations(
+        await fetchServiceConfiguration(last.service, authToken)
+      );
 
       setLoading(false);
     }
-  }, [routes]);
+  }, [routes, authToken]);
 
   useEffect(() => {
     fetchConfig();
@@ -74,8 +77,14 @@ export const RetryConfiguration = forwardRef<
       },
     };
 
+    const config = {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    };
+
     await axios
-      .post(WOS_RETRY_WORKFLOW_ENDPOINT, params)
+      .post(WOS_RETRY_WORKFLOW_ENDPOINT, params, config)
       .then((_) => {
         setFormData({});
       })

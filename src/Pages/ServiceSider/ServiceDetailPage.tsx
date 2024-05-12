@@ -15,11 +15,14 @@ import { AppLink } from "../../DataEntryComponents/AppLink";
 import { AppSpace } from "../../LayoutComponents/AppSpace";
 import { getConfigurationsByService } from "../../Network/WorkflowFetch";
 import { formatDate } from "../../Utils/DateUtils";
+import { useSelector } from "react-redux";
 
 export const ServiceDetailPage = () => {
   const { serviceName } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
+
+  const authToken = useSelector((state: any) => state.auth.token);
 
   const columns: EditableColumn[] = [
     {
@@ -59,7 +62,16 @@ export const ServiceDetailPage = () => {
           alias: value.alias,
         };
         setLoading(true);
-        await axios.post(WOS_ADD_SERVICE_CONFIGURATION_ENDPOINT, formData);
+        const config = {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        };
+        await axios.post(
+          WOS_ADD_SERVICE_CONFIGURATION_ENDPOINT,
+          formData,
+          config
+        );
         fetchConfig();
       },
     },
@@ -89,12 +101,15 @@ export const ServiceDetailPage = () => {
 
   const fetchConfig = useCallback(async () => {
     setLoading(true);
-    const serviceConfig = await getConfigurationsByService(serviceName);
+    const serviceConfig = await getConfigurationsByService(
+      serviceName,
+      authToken
+    );
     setConfigurations(serviceConfig?.configurations || []);
     setLiveService(serviceConfig?.liveService);
     setNextAvailableVersion(serviceConfig?.nextAvailableVersion || 1);
     setLoading(false);
-  }, [serviceName]);
+  }, [serviceName, authToken]);
 
   useEffect(() => {
     fetchConfig();

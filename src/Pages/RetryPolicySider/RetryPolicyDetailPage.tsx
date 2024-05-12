@@ -21,6 +21,7 @@ import { AppIconButton } from "../../DataEntryComponents/AppIconButton";
 import { AppSpace } from "../../LayoutComponents/AppSpace";
 import { getRetryPolicy } from "../../Network/RetryFetch";
 import { formatTime, formatTimeShort } from "../../Utils/DateUtils";
+import { useSelector } from "react-redux";
 
 const columns: EditableColumn[] = [
   {
@@ -45,6 +46,7 @@ export const RetryPolicyDetailPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { retryPolicyId } = useParams();
+  const authToken = useSelector((state: any) => state.auth.token);
 
   const [retryPolicy, setRetryPolicy] = useState<RetryPolicy>();
   const [retryPolicyDescriptions, setRetryPolicyDescriptions] = useState<any[]>(
@@ -60,13 +62,13 @@ export const RetryPolicyDetailPage = () => {
 
   const fetchRetryPolicy = useCallback(async () => {
     if (retryPolicyId) {
-      const data = await getRetryPolicy(retryPolicyId);
+      const data = await getRetryPolicy(retryPolicyId, authToken);
       const policy = data?.retryPolicy;
       setRetryPolicy(policy);
       updateRetryPolicyDescriptions(policy);
       updateRetryStimulation(policy);
     }
-  }, [retryPolicyId]);
+  }, [retryPolicyId, authToken]);
 
   const updateRetryStimulation = (policy: RetryPolicy | undefined) => {
     const stimulation = policy?.metadata?.retryStimulation || [];

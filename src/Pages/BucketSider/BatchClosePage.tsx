@@ -16,6 +16,7 @@ export const BatchClosePage = () => {
   const location = useLocation();
   const { workIds = [], bucketId }: { workIds: Key[]; bucketId: string } =
     location.state || {};
+  const authToken = useSelector((state: any) => state.auth.token);
   const clientId = useSelector((state: any) => state.client.clientId);
   const { workflowId } = useSelector(
     (state: any) => state.workflow.workflow || {}
@@ -27,13 +28,18 @@ export const BatchClosePage = () => {
   const handleClose = async () => {
     setLoading(true);
 
+    const config = {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    };
     const formData = {
       clientId,
       workIds,
       workflowId,
     };
 
-    await axios.post(WOS_CLOSE_WORKFLOW_ENDPOINT, formData);
+    await axios.post(WOS_CLOSE_WORKFLOW_ENDPOINT, formData, config);
     setLoading(false);
     navigate("/bucket");
   };

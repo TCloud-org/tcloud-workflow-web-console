@@ -19,6 +19,7 @@ export const WorkflowModal = (props: {
   const { workflowId, workflowName } = useSelector(
     (state: any) => state.workflow.workflow || {}
   );
+  const authToken = useSelector((state: any) => state.auth.token);
 
   const { alias = "live", onClose } = props;
 
@@ -32,9 +33,16 @@ export const WorkflowModal = (props: {
       const params = new URLSearchParams();
       params.set("workflowId", workflowId);
       params.set("alias", alias);
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      };
       await axios
         .get(
-          `${WOS_GET_GRAPH_BY_WORKFLOW_ID_AND_ALIAS_ENDPOINT}?${params.toString()}`
+          `${WOS_GET_GRAPH_BY_WORKFLOW_ID_AND_ALIAS_ENDPOINT}?${params.toString()}`,
+          config
         )
         .then((response) => {
           setGraph(response.data?.graph || {});
@@ -43,7 +51,7 @@ export const WorkflowModal = (props: {
 
       setLoading(false);
     }
-  }, [workflowId, alias]);
+  }, [workflowId, alias, authToken]);
 
   useEffect(() => {
     fetchGraph();

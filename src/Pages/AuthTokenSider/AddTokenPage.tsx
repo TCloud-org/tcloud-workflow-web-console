@@ -25,6 +25,7 @@ export const AddTokenPage = () => {
   const [form] = Form.useForm();
   const { token } = theme.useToken();
 
+  const authToken = useSelector((state: any) => state.auth.token);
   const clientId = useSelector((state: any) => state.client.clientId);
 
   const [inputs, setInputs] = useState<any[]>([]);
@@ -35,7 +36,10 @@ export const AddTokenPage = () => {
   const fetchServices = useCallback(async () => {
     if (clientId) {
       setLoading(true);
-      const serviceConfigurations = await getServiceConfigurations(clientId);
+      const serviceConfigurations = await getServiceConfigurations(
+        clientId,
+        authToken
+      );
       const serviceConfigMap =
         serviceConfigurations?.serviceConfigurationMap || {};
       setServices(
@@ -49,7 +53,7 @@ export const AddTokenPage = () => {
       });
       setLoading(false);
     }
-  }, [clientId, form]);
+  }, [clientId, form, authToken]);
 
   useEffect(() => {
     fetchServices();

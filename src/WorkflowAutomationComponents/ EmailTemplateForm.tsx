@@ -7,9 +7,12 @@ import { Flex, Form, Input, Select, message } from "antd";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { HtmlEditorWithPreview } from "./HtmlEditorWithPreview";
+import { useSelector } from "react-redux";
 
 export const EmailTemplateForm = (props: AutomationContentProps) => {
   const { collect, data, id, disabled, eventWorkflow, index } = props;
+
+  const authToken = useSelector((state: any) => state.auth.token);
 
   const [form] = Form.useForm();
   const [messageApi, contextHolder] = message.useMessage();
@@ -51,8 +54,13 @@ export const EmailTemplateForm = (props: AutomationContentProps) => {
     const formData = {
       eventWorkflow: savedEventWorkflow,
     };
+    const config = {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    };
     const res = await axios
-      .post(WOS_SAVE_EVENT_WORKFLOW_ENDPOINT, formData)
+      .post(WOS_SAVE_EVENT_WORKFLOW_ENDPOINT, formData, config)
       .then((res) => res)
       .catch((err) => err);
 

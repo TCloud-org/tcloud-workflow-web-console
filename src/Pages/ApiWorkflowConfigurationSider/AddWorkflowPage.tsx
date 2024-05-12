@@ -22,6 +22,7 @@ import { AppForm } from "../../DataEntryComponents/AppForm";
 export const AddWorkflowPage = () => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
+  const authToken = useSelector((state: any) => state.auth.token);
   const clients: Client[] = useSelector((state: any) => state.client.clients);
 
   const [addLoading, setAddLoading] = useState<boolean>(false);
@@ -40,11 +41,16 @@ export const AddWorkflowPage = () => {
   const handleAdd = async () => {
     setAddLoading(true);
 
+    const config = {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    };
     const formData = {
       ...form.getFieldsValue(),
     };
 
-    await axios.post(WOS_REGISTER_WORKFLOW_ENDPOINT, formData);
+    await axios.post(WOS_REGISTER_WORKFLOW_ENDPOINT, formData, config);
 
     setTimeout(() => {
       setAddLoading(false);

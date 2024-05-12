@@ -27,6 +27,7 @@ export const BatchRetryPage = () => {
     route,
     bucketId,
   }: { workIds: Key[]; route: Route; bucketId: string } = location.state || {};
+  const authToken = useSelector((state: any) => state.auth.token);
   const clientId = useSelector((state: any) => state.client.clientId);
   const { workflowId } = useSelector(
     (state: any) => state.workflow.workflow || {}
@@ -40,11 +41,11 @@ export const BatchRetryPage = () => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const fetchConfigurations = useCallback(async () => {
-    const data = await getConfigurationsByService(route.service);
+    const data = await getConfigurationsByService(route.service, authToken);
     const configs = data?.configurations || [];
     setConfigs(configs);
     setConfig(configs.find((config) => config.alias === "live"));
-  }, [route]);
+  }, [route, authToken]);
 
   useEffect(() => {
     fetchConfigurations();
@@ -91,7 +92,13 @@ export const BatchRetryPage = () => {
       },
     };
 
-    await axios.post(WOS_RETRY_WORKFLOW_ENDPOINT, request);
+    const config = {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    };
+
+    await axios.post(WOS_RETRY_WORKFLOW_ENDPOINT, request, config);
 
     setLoading(false);
     navigate("/bucket");

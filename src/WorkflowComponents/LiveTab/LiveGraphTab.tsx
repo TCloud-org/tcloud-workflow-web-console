@@ -9,6 +9,7 @@ import { AppSpace } from "../../LayoutComponents/AppSpace";
 import { getGraphVisualization } from "../../Network/GraphFetch";
 import { populateFlowNodeData } from "../../Utils/ObjectUtils";
 import { GraphInfoCard } from "../GraphInfoCard";
+import { useSelector } from "react-redux";
 
 const OPTIONS = [
   {
@@ -27,6 +28,7 @@ const OPTIONS = [
 
 export const LiveGraphTab = (props: { graph?: Graph }) => {
   const { graph } = props;
+  const authToken = useSelector((state: any) => state.auth.token);
 
   const [nodes, setNodes] = useNodesState<Node[]>([]);
   const [edges, setEdges] = useEdgesState<Edge[]>([]);
@@ -36,14 +38,14 @@ export const LiveGraphTab = (props: { graph?: Graph }) => {
 
   const fetchVisual = useCallback(async () => {
     if (graph && graph.xmlContent) {
-      const output = await getGraphVisualization(graph.xmlContent);
+      const output = await getGraphVisualization(graph.xmlContent, authToken);
 
       setNodes(populateFlowNodeData(output.nodes));
       setEdges(output.edges);
       setTreeNodes(output.treeNodes || []);
       setTreeNodeIds(output.treeNodeIds || []);
     }
-  }, [graph, setNodes, setEdges]);
+  }, [graph, setNodes, setEdges, authToken]);
 
   useEffect(() => {
     fetchVisual();

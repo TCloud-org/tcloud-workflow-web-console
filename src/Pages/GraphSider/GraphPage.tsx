@@ -62,6 +62,7 @@ const columns: EditableColumn[] = [
 export const GraphPage = () => {
   const navigate = useNavigate();
 
+  const authToken = useSelector((state: any) => state.auth.token);
   const { workflowId, workflowName } = useSelector(
     (state: any) => state.workflow.workflow || {}
   );
@@ -101,7 +102,12 @@ export const GraphPage = () => {
 
   const saveGraph = async (value: any) => {
     setLoading(true);
-    await axios.post(WOS_ADD_GRAPH_ENDPOINT, value);
+    const config = {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    };
+    await axios.post(WOS_ADD_GRAPH_ENDPOINT, value, config);
     fetchGraphs();
     setLoading(false);
   };
@@ -109,7 +115,7 @@ export const GraphPage = () => {
   const fetchGraphs = useCallback(() => {
     if (workflowId) {
       setLoading(true);
-      fetchGraphsById(workflowId)
+      fetchGraphsById(workflowId, authToken)
         .then((response: GetGraphsByWorkflowIdOutput | undefined) => {
           setGraphs(response?.graphs || []);
           setNextAvailableVersion(response?.nextAvailableVersion || 1);
@@ -118,7 +124,7 @@ export const GraphPage = () => {
         })
         .catch((_) => setLoading(false));
     }
-  }, [workflowId]);
+  }, [workflowId, authToken]);
 
   useEffect(() => {
     fetchGraphs();

@@ -33,6 +33,7 @@ import { fetchGraphsById } from "../../Network/WorkflowFetch";
 export const CreateGraphPage = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
+  const authToken = useSelector((state: any) => state.auth.token);
   const account: Account = useSelector((state: any) => state.auth.account);
   const [isValidating, setIsValidating] = useState<boolean>(false);
   const [isXMLValidated, setIsXMLValidated] = useState<boolean>(false);
@@ -45,13 +46,13 @@ export const CreateGraphPage = () => {
 
   const fetchGraphs = useCallback(() => {
     if (workflowId) {
-      fetchGraphsById(workflowId).then(
+      fetchGraphsById(workflowId, authToken).then(
         (response: GetGraphsByWorkflowIdOutput | undefined) => {
           form.setFieldValue("version", response?.nextAvailableVersion || 1);
         }
       );
     }
-  }, [workflowId, form]);
+  }, [workflowId, form, authToken]);
 
   const fetchClients = useCallback(async () => {
     if (account) {
@@ -62,12 +63,20 @@ export const CreateGraphPage = () => {
 
   const fetchWorkflows = useCallback(async () => {
     if (clientId) {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      };
       const workflows = await axios
-        .get(`${WOS_GET_WORKFLOWS_BY_CLIENT_ID_ENDPOINT}?clientId=${clientId}`)
+        .get(
+          `${WOS_GET_WORKFLOWS_BY_CLIENT_ID_ENDPOINT}?clientId=${clientId}`,
+          config
+        )
         .then((response) => response.data.workflows as Workflow[]);
       setWorkflows(workflows);
     }
-  }, [clientId]);
+  }, [clientId, authToken]);
 
   useEffect(() => {
     fetchGraphs();
@@ -88,8 +97,14 @@ export const CreateGraphPage = () => {
     }
     setIsValidating(true);
 
+    const config = {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    };
+
     await axios
-      .post(WOS_VALIDATE_XML_WORKFLOW_ENDPOINT, { xml: xmlContent })
+      .post(WOS_VALIDATE_XML_WORKFLOW_ENDPOINT, { xml: xmlContent }, config)
       .then((response) => {
         setIsXMLValidated(response.data?.isValidated || false);
       })
@@ -114,9 +129,14 @@ export const CreateGraphPage = () => {
       workflowId: workflow.workflowId,
       workflow: undefined,
     };
+    const config = {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    };
 
     await axios
-      .post(WOS_ADD_GRAPH_ENDPOINT, params)
+      .post(WOS_ADD_GRAPH_ENDPOINT, params, config)
       .then((_) => {
         navigate("/graph");
       })

@@ -51,6 +51,7 @@ export const WorkflowToolbar = (props: {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
 
+  const authToken = useSelector((state: any) => state.auth.token);
   const clientId =
     useSelector((state: any) => state.client.clientId) ||
     searchParams.get("clientId");
@@ -130,8 +131,13 @@ export const WorkflowToolbar = (props: {
       workIds: [workId],
       workflowId,
     };
+    const config = {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    };
     await axios
-      .post(WOS_RETRY_WORKFLOW_ENDPOINT, formData)
+      .post(WOS_RETRY_WORKFLOW_ENDPOINT, formData, config)
       .catch((error) => console.error(error));
 
     setRetryLoading(false);
@@ -139,7 +145,11 @@ export const WorkflowToolbar = (props: {
 
   const handleRerun = () => {
     setRerunLoading(true);
-
+    const config = {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    };
     const formData = {
       workIds: [workId],
       clientId,
@@ -147,7 +157,7 @@ export const WorkflowToolbar = (props: {
     };
 
     axios
-      .post(WOS_RERUN_WORKFLOW_ENDPOINT, formData)
+      .post(WOS_RERUN_WORKFLOW_ENDPOINT, formData, config)
       .then((_) => {
         setRerunLoading(false);
       })
@@ -159,7 +169,11 @@ export const WorkflowToolbar = (props: {
 
   const handleClose = () => {
     setCloseLoading(true);
-
+    const config = {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    };
     const formData = {
       clientId,
       workIds: [workId],
@@ -167,7 +181,7 @@ export const WorkflowToolbar = (props: {
     };
 
     axios
-      .post(WOS_CLOSE_WORKFLOW_ENDPOINT, formData)
+      .post(WOS_CLOSE_WORKFLOW_ENDPOINT, formData, config)
       .then((_) => {
         setCloseLoading(false);
       })

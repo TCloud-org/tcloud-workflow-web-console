@@ -13,6 +13,7 @@ import { AppForm } from "../../DataEntryComponents/AppForm";
 import { AppButton } from "../../DataEntryComponents/AppButton";
 import { WOS_SAVE_RETRY_POLICY_ENDPOINT } from "../../Config/WOSEndpointConfig";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 export const EditRetryPolicyPage = () => {
   const { retryPolicyId } = useParams();
@@ -21,6 +22,8 @@ export const EditRetryPolicyPage = () => {
   const data: RetryPolicy = location.state?.data;
 
   const [form] = Form.useForm();
+
+  const authToken = useSelector((state: any) => state.auth.token);
 
   const [inputs, setInputs] = useState<RetryInput[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -59,8 +62,14 @@ export const EditRetryPolicyPage = () => {
       } as RetryPolicy,
     };
 
+    const config = {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    };
+
     await axios
-      .post(WOS_SAVE_RETRY_POLICY_ENDPOINT, params)
+      .post(WOS_SAVE_RETRY_POLICY_ENDPOINT, params, config)
       .then((_) => navigate(`/retry-policy/${retryPolicyId}`))
       .catch((_) => {});
 

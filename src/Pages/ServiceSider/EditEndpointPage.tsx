@@ -10,11 +10,14 @@ import { AppForm } from "../../DataEntryComponents/AppForm";
 import { AppSpace } from "../../LayoutComponents/AppSpace";
 import axios from "axios";
 import { WOS_ADD_SERVICE_CONFIGURATION_ENDPOINT } from "../../Config/WOSEndpointConfig";
+import { useSelector } from "react-redux";
 
 export const EditEndpointPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const data = location.state?.data as ServiceConfiguration;
+
+  const authToken = useSelector((state: any) => state.auth.token);
 
   const [formData, setFormData] = useState<{
     [key: string]: string | number | undefined;
@@ -46,9 +49,13 @@ export const EditEndpointPage = () => {
 
   const handleUpdate = () => {
     setLoading(true);
-
+    const config = {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    };
     axios
-      .post(WOS_ADD_SERVICE_CONFIGURATION_ENDPOINT, formData)
+      .post(WOS_ADD_SERVICE_CONFIGURATION_ENDPOINT, formData, config)
       .then((_) => {
         setLoading(false);
         navigate(`/service/${data.serviceName}/${data.serviceId}`);

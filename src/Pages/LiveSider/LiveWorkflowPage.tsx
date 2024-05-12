@@ -9,6 +9,7 @@ import { AppSpace } from "../../LayoutComponents/AppSpace";
 import { getWorksByClientIdAndWorkflowId } from "../../Network/WorkFetch";
 
 export const LiveWorkflowPage = () => {
+  const authToken = useSelector((state: any) => state.auth.token);
   const clientId = useSelector((state: any) => state.client.clientId);
   const { workflowId, workflowName } = useSelector(
     (state: any) => state.workflow.workflow || {}
@@ -25,7 +26,11 @@ export const LiveWorkflowPage = () => {
     }
     setLoading(true);
 
-    const res = await getWorksByClientIdAndWorkflowId(clientId, workflowId);
+    const res = await getWorksByClientIdAndWorkflowId(
+      clientId,
+      workflowId,
+      authToken
+    );
     setWorks(res.works);
     setColumns((prev: EditableColumn[]) =>
       prev.map((col) => {
@@ -47,7 +52,7 @@ export const LiveWorkflowPage = () => {
       })
     );
     setLoading(false);
-  }, [workflowId, clientId]);
+  }, [workflowId, clientId, authToken]);
 
   useEffect(() => {
     fetchWorkIds();

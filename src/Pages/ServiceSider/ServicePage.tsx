@@ -10,6 +10,7 @@ import { PageTitle } from "../../DataDisplayComponents/PageTitle";
 export const ServicePage = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const authToken = useSelector((state: any) => state.auth.token);
   const clientId = useSelector((state: any) => state.client.clientId);
 
   const [services, setServices] = useState<any[]>([]);
@@ -17,7 +18,10 @@ export const ServicePage = () => {
 
   const fetchServices = useCallback(async () => {
     setLoading(true);
-    const serviceConfigurations = await getServiceConfigurations(clientId);
+    const serviceConfigurations = await getServiceConfigurations(
+      clientId,
+      authToken
+    );
     const serviceConfigMap =
       serviceConfigurations?.serviceConfigurationMap || {};
     setServices(
@@ -27,7 +31,7 @@ export const ServicePage = () => {
       }))
     );
     setLoading(false);
-  }, [clientId, location.pathname]);
+  }, [clientId, location.pathname, authToken]);
 
   useEffect(() => {
     fetchServices();

@@ -12,6 +12,7 @@ import { AppButton } from "../../DataEntryComponents/AppButton";
 export const AddServicePage = () => {
   const navigate = useNavigate();
   const clientId = useSelector((state: any) => state.client.clientId);
+  const authToken = useSelector((state: any) => state.auth.token);
 
   const [formData, setFormData] = useState<{
     [key: string]: string | number | undefined;
@@ -33,8 +34,13 @@ export const AddServicePage = () => {
 
   const handleCreate = async () => {
     setLoading(true);
+    const config = {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    };
     await axios
-      .post(WOS_ADD_SERVICE_CONFIGURATION_ENDPOINT, formData)
+      .post(WOS_ADD_SERVICE_CONFIGURATION_ENDPOINT, formData, config)
       .then((_) => {
         navigate(`/service`);
       })

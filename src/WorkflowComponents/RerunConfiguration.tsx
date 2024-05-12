@@ -36,6 +36,7 @@ export const RerunConfiguration = forwardRef<
   { onClose?: () => void; onRefresh?: () => void }
 >(({ onClose = () => {}, onRefresh = () => {} }, ref) => {
   const clientId = useSelector((state: any) => state.client.clientId);
+  const authToken = useSelector((state: any) => state.auth.token);
   const { workflowId, workflowName } = useSelector(
     (state: any) => state.workflow.workflow || {}
   );
@@ -71,7 +72,7 @@ export const RerunConfiguration = forwardRef<
 
     try {
       const promises = services.map(async (service) => {
-        const configs = await fetchServiceConfiguration(service);
+        const configs = await fetchServiceConfiguration(service, authToken);
         configMap[service] = configs;
       });
 
@@ -83,15 +84,21 @@ export const RerunConfiguration = forwardRef<
     }
 
     setFetchConfigMapLoading(false);
-  }, [services]);
+  }, [services, authToken]);
 
   const fetchWorkflowAliases = useCallback(async () => {
     if (workflowId) {
       setFetchWorkflowAliasLoading(true);
 
+      const config = {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      };
       await axios
         .get(
-          `${WOS_GET_GRAPHS_BY_WORKFLOW_ID_ENDPOINT}?workflowId=${workflowId}`
+          `${WOS_GET_GRAPHS_BY_WORKFLOW_ID_ENDPOINT}?workflowId=${workflowId}`,
+          config
         )
         .then((response) => {
           setGraphs(response.data.graphs);
@@ -100,7 +107,7 @@ export const RerunConfiguration = forwardRef<
 
       setFetchWorkflowAliasLoading(false);
     }
-  }, [workflowId]);
+  }, [workflowId, authToken]);
 
   const updateStatesForEndpointConfigByState = useCallback(() => {
     if (workflowAlias && graphs.length > 0) {

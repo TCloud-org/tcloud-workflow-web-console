@@ -11,13 +11,14 @@ import { useNavigate } from "react-router-dom";
 export const RetryPolicyPage = () => {
   const navigate = useNavigate();
   const clientId = useSelector((state: any) => state.client.clientId);
+  const authToken = useSelector((state: any) => state.auth.token);
 
   const [retryPolicies, setRetryPolicies] = useState<ListItem[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
   const fetchRetryPolicies = useCallback(async () => {
     setLoading(true);
-    const data = await getRetryPolicies(clientId);
+    const data = await getRetryPolicies(clientId, authToken);
     const policies = data?.retryPolicies || [];
     setRetryPolicies(
       policies.map((policy) => ({
@@ -26,7 +27,7 @@ export const RetryPolicyPage = () => {
       }))
     );
     setLoading(false);
-  }, [clientId]);
+  }, [clientId, authToken]);
 
   useEffect(() => {
     fetchRetryPolicies();

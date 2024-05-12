@@ -21,6 +21,7 @@ export const HomePage = () => {
   const searchParams = new URLSearchParams(location.search);
   const start = searchParams.get("start") || undefined;
   const end = searchParams.get("end") || undefined;
+  const authToken = useSelector((state: any) => state.auth.token);
   const clientId = useSelector((state: any) => state.client.clientId);
   const { workflowId } = useSelector(
     (state: any) => state.workflow?.workflow || {}
@@ -39,18 +40,26 @@ export const HomePage = () => {
       const workRes = await getWorksInDateRange(
         clientId,
         workflowId,
+        authToken,
         start,
         end,
         period
-      );
+      ).catch((err) => {
+        console.error(err.response.status);
+        return undefined;
+      });
       const statRes = await getWorkStatisticInDateRange(
         clientId,
         workflowId,
+        authToken,
         start,
         end,
         period
-      );
-      setWorks(workRes.works);
+      ).catch((err) => {
+        console.error(err.response.status);
+        return undefined;
+      });
+      setWorks(workRes?.works || []);
       setColumns((prev: EditableColumn[]) =>
         prev.map((col) => {
           if (col.dataIndex !== "source") {
@@ -59,10 +68,13 @@ export const HomePage = () => {
           return {
             ...col,
             customFilters: Object.keys(
-              workRes.works.reduce((res: { [key: string]: string }, work) => {
-                res[work.source] = work.source;
-                return res;
-              }, {})
+              (workRes?.works || []).reduce(
+                (res: { [key: string]: string }, work) => {
+                  res[work.source] = work.source;
+                  return res;
+                },
+                {}
+              )
             ).map((state) => ({
               text: state,
               value: state,
@@ -70,14 +82,14 @@ export const HomePage = () => {
           } as EditableColumn;
         })
       );
-      setStatistic(statRes.statistic);
+      setStatistic(statRes?.statistic);
       setLoading(false);
     } else {
       setStatistic(undefined);
       setWorks([]);
       setColumns([]);
     }
-  }, [start, end, clientId, workflowId, period]);
+  }, [start, end, clientId, workflowId, period, authToken]);
 
   useEffect(() => {
     fetchWorksInRange();

@@ -32,6 +32,7 @@ export const BatchRerunPage = () => {
   const { workIds = [], bucketId }: { workIds: Key[]; bucketId: string } =
     location.state || {};
   const clientId = useSelector((state: any) => state.client.clientId);
+  const authToken = useSelector((state: any) => state.auth.token);
   const { workflowId, workflowName } = useSelector(
     (state: any) => state.workflow.workflow || {}
   );
@@ -57,7 +58,7 @@ export const BatchRerunPage = () => {
     const configMap: { [service: string]: ServiceConfiguration[] } = {};
 
     const promises = services.map(async (service) => {
-      const configs = await fetchServiceConfiguration(service);
+      const configs = await fetchServiceConfiguration(service, authToken);
       configMap[service] = configs;
     });
 
@@ -66,17 +67,17 @@ export const BatchRerunPage = () => {
     setServiceConfigMap(configMap);
 
     setLoading(false);
-  }, [services]);
+  }, [services, authToken]);
 
   const fetchWorkflowAliases = useCallback(async () => {
     setLoading(true);
 
-    const response = await fetchGraphsById(workflowId);
+    const response = await fetchGraphsById(workflowId, authToken);
     setGraphs(response?.graphs || []);
     setLiveGraph(response?.liveGraph);
 
     setLoading(false);
-  }, [workflowId]);
+  }, [workflowId, authToken]);
 
   useEffect(() => {
     if (graphs.length > 0) {
@@ -165,7 +166,13 @@ export const BatchRerunPage = () => {
       } as WorkflowConfiguration,
     };
 
-    await axios.post(WOS_RERUN_WORKFLOW_ENDPOINT, request);
+    const config = {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    };
+
+    await axios.post(WOS_RERUN_WORKFLOW_ENDPOINT, request, config);
 
     setRerunLoading(false);
     navigate("/bucket");

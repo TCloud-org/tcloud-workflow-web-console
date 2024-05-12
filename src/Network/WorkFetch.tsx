@@ -14,19 +14,25 @@ import {
 
 export const getWorksByClientIdAndWorkflowId = async (
   clientId: string,
-  workflowId: string
+  workflowId: string,
+  token: string
 ): Promise<GetWorksByClientIdAndWorkflowIdOutput> => {
   const params = new URLSearchParams();
   params.set("clientId", clientId);
   params.set("workflowId", workflowId);
   return await axios
-    .get(`${WOS_GET_WORKS_BY_CLIENT_ID_AND_WORKFLOW_ID_ENDPOINT}?${params}`)
+    .get(`${WOS_GET_WORKS_BY_CLIENT_ID_AND_WORKFLOW_ID_ENDPOINT}?${params}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
     .then((res) => res.data as GetWorksByClientIdAndWorkflowIdOutput);
 };
 
 export const getWorksInDateRange = async (
   clientId: string,
   workflowId: string,
+  token: string,
   start?: string,
   end?: string,
   period?: string
@@ -39,13 +45,18 @@ export const getWorksInDateRange = async (
     period,
   };
   return await axios
-    .post(WOS_GET_WORKS_IN_DATE_RANGE_ENDPOINT, formData)
+    .post(WOS_GET_WORKS_IN_DATE_RANGE_ENDPOINT, formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
     .then((res) => res.data as GetWorksInDateRangeOutput);
 };
 
 export const getWorkStatisticInDateRange = async (
   clientId: string,
   workflowId: string,
+  token: string,
   start?: string,
   end?: string,
   period?: string
@@ -58,14 +69,19 @@ export const getWorkStatisticInDateRange = async (
     period,
   };
   return await axios
-    .post(WOS_GET_WORK_STATISTIC_IN_DATE_RANGE_ENDPOINT, formData)
+    .post(WOS_GET_WORK_STATISTIC_IN_DATE_RANGE_ENDPOINT, formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
     .then((res) => res.data as GetWorkStatisticInDateRangeOutput);
 };
 
 export const queryWorks = async (
   clientId: string,
   workflowId: string,
-  clauses: any[]
+  clauses: any[],
+  token: string
 ) => {
   const formData = {
     clientId,
@@ -73,7 +89,11 @@ export const queryWorks = async (
     clauses,
   };
   return await axios
-    .post(WOS_QUERY_WORKS_ENDPOINT, formData)
+    .post(WOS_QUERY_WORKS_ENDPOINT, formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
     .then((res) => res.data as QueryWorksOutput)
     .catch((_) => undefined);
 };

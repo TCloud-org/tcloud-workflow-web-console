@@ -25,6 +25,7 @@ export const BatchTransitionPage = () => {
   }: { route: Route; bucketId: string; workIds: string[] } =
     location?.state || {};
 
+  const authToken = useSelector((state: any) => state.auth.token);
   const clientId = useSelector((state: any) => state.client.clientId);
   const { workflowId } = useSelector(
     (state: any) => state.workflow.workflow || {}
@@ -43,12 +44,12 @@ export const BatchTransitionPage = () => {
     if (route && route.graphId) {
       setLoading(true);
 
-      const output = await getGraphById(route.graphId);
+      const output = await getGraphById(route.graphId, authToken);
       setGraph(output.graph);
 
       setLoading(false);
     }
-  }, [route]);
+  }, [route, authToken]);
 
   useEffect(() => {
     if (graph && route) {
@@ -74,7 +75,12 @@ export const BatchTransitionPage = () => {
         from,
         to,
       };
-      await axios.post(WOS_TRANSITION_STATE_ENDPOINT, formData);
+      const config = {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      };
+      await axios.post(WOS_TRANSITION_STATE_ENDPOINT, formData, config);
 
       setTransitionLoading(false);
     }

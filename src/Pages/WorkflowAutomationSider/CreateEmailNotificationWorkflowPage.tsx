@@ -21,6 +21,7 @@ export const CreateEmailNotificationWorkflowPage = () => {
   const template = searchParams.get("template") || "blank";
   const [form] = Form.useForm();
   const clientId = useSelector((state: any) => state.client.clientId);
+  const authToken = useSelector((state: any) => state.auth.token);
 
   const [messageApi, contextHolder] = message.useMessage();
 
@@ -71,8 +72,13 @@ export const CreateEmailNotificationWorkflowPage = () => {
       },
     };
 
+    const config = {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    };
     await axios
-      .post(WOS_SAVE_EVENT_WORKFLOW_ENDPOINT, params)
+      .post(WOS_SAVE_EVENT_WORKFLOW_ENDPOINT, params, config)
       .then((response) => {
         if (response.data) {
           navigate("/workflow-automation/email-notification-workflow");

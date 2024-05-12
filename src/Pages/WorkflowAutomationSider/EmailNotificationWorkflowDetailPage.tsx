@@ -25,7 +25,7 @@ import { ListItemMetaProps } from "antd/es/list";
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 export const transformData = (data: EventWorkflow | undefined) => {
   const initialSteps = (data?.metadata?.steps || [])
@@ -52,12 +52,10 @@ export const transformData = (data: EventWorkflow | undefined) => {
 };
 
 export const EmailNotificationWorkflowDetailPage = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
-
   const { id } = useParams();
 
   const clientId = useSelector((state: any) => state.client.clientId);
+  const authToken = useSelector((state: any) => state.auth.token);
 
   const [eventWorkflow, setEventWorkflow] = useState<EventWorkflow>();
   const [loading, setLoading] = useState<boolean>(false);
@@ -69,12 +67,12 @@ export const EmailNotificationWorkflowDetailPage = () => {
   const fetchEventWorkflow = useCallback(async () => {
     if (id) {
       setLoading(true);
-      const res = await getEventWorkflowById(id);
+      const res = await getEventWorkflowById(id, authToken);
       setEventWorkflow(res.eventWorkflow);
       updateEventWorkflowAttributes(res.eventWorkflow);
       setLoading(false);
     }
-  }, [id]);
+  }, [id, authToken]);
 
   const fetchSentEmails = useCallback(async () => {
     if (eventWorkflow) {
@@ -84,11 +82,11 @@ export const EmailNotificationWorkflowDetailPage = () => {
           .filter((step) => (step?.form as any)?.from)
           .map((step) => (step?.form as any)?.from as string) || [];
       senders.forEach(async (sender) => {
-        const res = await queryEmailsPerWorkflow(sender, workflowId);
+        const res = await queryEmailsPerWorkflow(sender, workflowId, authToken);
         setEmails(res.emails);
       });
     }
-  }, [eventWorkflow]);
+  }, [eventWorkflow, authToken]);
 
   useEffect(() => {
     fetchSentEmails();
@@ -110,13 +108,18 @@ export const EmailNotificationWorkflowDetailPage = () => {
       clientId,
       id,
     };
-    const jobId = await axios
-      .post(WOS_TRIGGER_EMAIL_NOTIFICATION_WORKFLOW_ENDPOINT, req)
+    const config = {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    };
+    await axios
+      .post(WOS_TRIGGER_EMAIL_NOTIFICATION_WORKFLOW_ENDPOINT, req, config)
       .then((res) => res.data);
 
     setTimeout(() => {
       setTestRunLoading(false);
-      navigate(`${location.pathname}/job?id=${jobId}`);
+      // navigate(`${location.pathname}/job?id=${jobId}`);
     }, 2000);
   };
 

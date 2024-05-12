@@ -9,6 +9,7 @@ import { PageTitle } from "../../DataDisplayComponents/PageTitle";
 import { AppEmpty } from "../../DataDisplayComponents/AppEmpty";
 
 export const BucketPage = () => {
+  const authToken = useSelector((state: any) => state.auth.token);
   const clientId = useSelector((state: any) => state.client.clientId);
   const { workflowId } = useSelector(
     (state: any) => state.workflow.workflow || {}
@@ -19,10 +20,10 @@ export const BucketPage = () => {
 
   const fetchBuckets = useCallback(async () => {
     setLoading(true);
-    const data = await getBuckets(clientId, workflowId);
+    const data = await getBuckets(clientId, workflowId, authToken);
     setBucketMap(data?.bucketMap || {});
     setLoading(false);
-  }, [clientId, workflowId]);
+  }, [clientId, workflowId, authToken]);
 
   useEffect(() => {
     fetchBuckets();

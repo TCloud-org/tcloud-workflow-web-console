@@ -18,6 +18,7 @@ export const EditGraphPage = () => {
   const navigate = useNavigate();
 
   const clientId = useSelector((state: any) => state.client.clientId);
+  const authToken = useSelector((state: any) => state.auth.token);
   const { workflowId } = useSelector(
     (state: any) => state.workflow.workflow || {}
   );
@@ -71,9 +72,14 @@ export const EditGraphPage = () => {
       workflowId,
       ...form.getFieldsValue(),
     };
+    const config = {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    };
 
     await axios
-      .post(WOS_ADD_GRAPH_ENDPOINT, params)
+      .post(WOS_ADD_GRAPH_ENDPOINT, params, config)
       .then((_) => {
         setLoading(false);
         navigate(`/graph/${graph.graphId}`);

@@ -30,6 +30,7 @@ export const EmailNotificationJobPage = () => {
   const { id } = useParams();
 
   const clientId = useSelector((state: any) => state.client.clientId);
+  const authToken = useSelector((state: any) => state.auth.token);
 
   const [stages, setStages] = useState<EventWorkflowStage[]>([]);
   const [steps, setSteps] = useState<AutomationStep[]>([]);
@@ -40,19 +41,23 @@ export const EmailNotificationJobPage = () => {
   const fetchStages = useCallback(async () => {
     if (clientId && jobId) {
       setLoading(true);
-      const res = await getEventWorkflowStages(parseInt(jobId), clientId);
+      const res = await getEventWorkflowStages(
+        parseInt(jobId),
+        clientId,
+        authToken
+      );
       setStages(res.stages);
       setLoading(false);
     }
-  }, [clientId, jobId]);
+  }, [clientId, jobId, authToken]);
 
   const fetchEventWorkflow = useCallback(async () => {
     if (id) {
-      const res = await getEventWorkflowById(id);
+      const res = await getEventWorkflowById(id, authToken);
       const transformedData = transformData(res.eventWorkflow);
       setFormData(transformedData.initialFormData);
     }
-  }, [id]);
+  }, [id, authToken]);
 
   useEffect(() => {
     fetchEventWorkflow();

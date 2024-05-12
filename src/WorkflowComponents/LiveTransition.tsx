@@ -28,6 +28,7 @@ export const LiveTransition = forwardRef<
 >(({ onClose = () => {}, routes = [], graph }, ref) => {
   const { workId } = useParams();
 
+  const authToken = useSelector((state: any) => state.auth.token);
   const clientId = useSelector((state: any) => state.client.clientId);
   const { workflowId } = useSelector(
     (state: any) => state.workflow.workflow || {}
@@ -60,7 +61,12 @@ export const LiveTransition = forwardRef<
         from,
         to,
       };
-      await axios.post(WOS_TRANSITION_STATE_ENDPOINT, params);
+      const config = {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      };
+      await axios.post(WOS_TRANSITION_STATE_ENDPOINT, params, config);
 
       setLoading(false);
     }

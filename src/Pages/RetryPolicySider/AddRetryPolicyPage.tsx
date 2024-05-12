@@ -18,6 +18,7 @@ import { useNavigate } from "react-router-dom";
 export const AddRetryPolicyPage = () => {
   const navigate = useNavigate();
   const clientId = useSelector((state: any) => state.client.clientId);
+  const authToken = useSelector((state: any) => state.auth.token);
 
   const [form] = Form.useForm();
 
@@ -49,8 +50,14 @@ export const AddRetryPolicyPage = () => {
       } as RetryPolicy,
     };
 
+    const config = {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    };
+
     await axios
-      .post(WOS_SAVE_RETRY_POLICY_ENDPOINT, params)
+      .post(WOS_SAVE_RETRY_POLICY_ENDPOINT, params, config)
       .then((_) => navigate("/retry-policy"))
       .catch((err) => console.error(err));
 

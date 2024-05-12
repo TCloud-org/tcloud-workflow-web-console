@@ -34,6 +34,7 @@ export const WorkPage = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
 
+  const authToken = useSelector((state: any) => state.auth.token);
   const workflow = useSelector((state: any) => state.workflow.workflow || {});
   const workflowId = workflow?.workflowId || searchParams.get("workflowId");
 
@@ -63,8 +64,13 @@ export const WorkPage = () => {
       setGraphLoading(true);
       const graphId = routeMap[versionSelected][0].graphId;
 
+      const config = {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      };
       await axios
-        .get(`${WOS_GET_GRAPH_BY_ID_ENDPOINT}?graphId=${graphId}`)
+        .get(`${WOS_GET_GRAPH_BY_ID_ENDPOINT}?graphId=${graphId}`, config)
         .then((response) => {
           setGraph(response.data.graph as Graph);
         })
@@ -72,15 +78,20 @@ export const WorkPage = () => {
 
       setGraphLoading(false);
     }
-  }, [versionSelected, routeMap]);
+  }, [versionSelected, routeMap, authToken]);
 
   const fetchWorkflow = useCallback(() => {
     setWorkflowLoading(true);
+    const config = {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    };
     const params = new URLSearchParams();
     params.set("workId", workId);
     params.set("workflowId", workflowId);
     axios
-      .get(`${WOS_GET_ROUTES_BY_WORK_ID_ENDPOINT}?${params}`)
+      .get(`${WOS_GET_ROUTES_BY_WORK_ID_ENDPOINT}?${params}`, config)
       .then((response) => {
         const routeMapFromRes = response.data.routeMap || {};
         const versionOptions = Object.entries(routeMapFromRes)
@@ -101,7 +112,7 @@ export const WorkPage = () => {
         console.error(error);
         setWorkflowLoading(false);
       });
-  }, [workId, workflowId]);
+  }, [workId, workflowId, authToken]);
 
   const fetchFlowVisualization = useCallback(async () => {
     if (graph && graph.graphId && !isNaN(versionSelected)) {
@@ -111,8 +122,13 @@ export const WorkPage = () => {
         workId,
         version: versionSelected,
       };
+      const config = {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      };
       await axios
-        .post(WOS_VISUALIZE_ROUTES_FLOW_ENDPOINT, formData)
+        .post(WOS_VISUALIZE_ROUTES_FLOW_ENDPOINT, formData, config)
         .then((response) => {
           setNodes(populateFlowNodeData(response.data.nodes));
           setEdges(response.data.edges);
@@ -122,7 +138,7 @@ export const WorkPage = () => {
         .catch((error) => console.error(error));
       setFlowVisualLoading(false);
     }
-  }, [graph, setEdges, setNodes, versionSelected, workId]);
+  }, [graph, setEdges, setNodes, versionSelected, workId, authToken]);
 
   const fetchWorkflowConfiguration = useCallback(async () => {
     setConfigLoading(true);
@@ -131,14 +147,16 @@ export const WorkPage = () => {
       [key: string]: WorkflowConfiguration | undefined;
     } = {};
     await Object.keys(routeMap).forEach(async (version) => {
-      await getWorkflowConfiguration(workId, version).then((data) => {
-        workflowConfigMap[version] = data?.configuration;
-      });
+      await getWorkflowConfiguration(workId, version, authToken).then(
+        (data) => {
+          workflowConfigMap[version] = data?.configuration;
+        }
+      );
     });
     setWorkflowConfigurationMap(workflowConfigMap);
 
     setConfigLoading(false);
-  }, [routeMap, workId]);
+  }, [routeMap, workId, authToken]);
 
   const reload = async () => {
     setLoading(true);

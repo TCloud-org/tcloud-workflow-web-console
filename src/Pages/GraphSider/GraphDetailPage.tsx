@@ -8,25 +8,28 @@ import { AppIconButton } from "../../DataEntryComponents/AppIconButton";
 import { AppSpace } from "../../LayoutComponents/AppSpace";
 import { getGraphById } from "../../Network/WorkflowFetch";
 import { GraphInfoCard } from "../../WorkflowComponents/GraphInfoCard";
+import { useSelector } from "react-redux";
 
 export const GraphDetailPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { graphId } = useParams();
 
+  const authToken = useSelector((state: any) => state.auth.token);
+
   const [graph, setGraph] = useState<Graph>();
   const [nextAvailableVersion, setNextAvailableVersion] = useState<number>(1);
 
   const fetchGraph = useCallback(() => {
     if (graphId) {
-      getGraphById(graphId)
+      getGraphById(graphId, authToken)
         .then((response) => {
           setGraph(response.graph);
           setNextAvailableVersion(response.nextAvailableVersion);
         })
         .catch((err) => console.error(err));
     }
-  }, [graphId]);
+  }, [graphId, authToken]);
 
   useEffect(() => {
     fetchGraph();

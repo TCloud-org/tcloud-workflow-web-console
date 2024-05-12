@@ -15,6 +15,7 @@ export const CreateEndpointPage = () => {
   const navigate = useNavigate();
   const { serviceName } = location?.state || {};
 
+  const authToken = useSelector((state: any) => state.auth.token);
   const clientId = useSelector((state: any) => state.client.clientId);
 
   const [formData, setFormData] = useState<{
@@ -26,7 +27,7 @@ export const CreateEndpointPage = () => {
   const fetchServices = useCallback(async () => {
     setLoading(true);
     const configMap =
-      ((await getServiceConfigurations(clientId)) || {})
+      ((await getServiceConfigurations(clientId, authToken)) || {})
         .serviceConfigurationMap || {};
     setServices(
       Object.keys(configMap).map((serviceName) => ({
@@ -35,7 +36,7 @@ export const CreateEndpointPage = () => {
       }))
     );
     setLoading(false);
-  }, [clientId]);
+  }, [clientId, authToken]);
 
   useEffect(() => {
     fetchServices();
@@ -57,8 +58,13 @@ export const CreateEndpointPage = () => {
   };
 
   const handleCreate = () => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    };
     axios
-      .post(WOS_ADD_SERVICE_CONFIGURATION_ENDPOINT, formData)
+      .post(WOS_ADD_SERVICE_CONFIGURATION_ENDPOINT, formData, config)
       .then((_) => {
         navigate(`/service/${serviceName}`);
       })

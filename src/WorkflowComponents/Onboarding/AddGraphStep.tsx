@@ -14,9 +14,12 @@ import { AppForm } from "../../DataEntryComponents/AppForm";
 import { DarkLightModeSwitch } from "../../DataEntryComponents/DarkLightModeSwitch";
 import { AppRow } from "../../LayoutComponents/AppRow";
 import { AppSpace } from "../../LayoutComponents/AppSpace";
+import { useSelector } from "react-redux";
 
 export const AddGraphStep = (props: StepContentProps) => {
   const { form, formData, stepKey } = props;
+
+  const authToken = useSelector((state: any) => state.auth.token);
 
   const [isValidating, setIsValidating] = useState<boolean>(false);
   const [isXMLValidated, setIsXMLValidated] = useState<boolean>(false);
@@ -50,10 +53,19 @@ export const AddGraphStep = (props: StepContentProps) => {
 
     setIsValidating(true);
 
+    const config = {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    };
     await axios
-      .post(WOS_VALIDATE_XML_WORKFLOW_ENDPOINT, {
-        xml: form.getFieldValue("xmlContent"),
-      })
+      .post(
+        WOS_VALIDATE_XML_WORKFLOW_ENDPOINT,
+        {
+          xml: form.getFieldValue("xmlContent"),
+        },
+        config
+      )
       .then((response) => {
         setIsXMLValidated(response.data?.isValidated || false);
       })

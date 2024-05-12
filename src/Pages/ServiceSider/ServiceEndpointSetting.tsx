@@ -11,18 +11,20 @@ import { AppSpace } from "../../LayoutComponents/AppSpace";
 import { getConfigurationById } from "../../Network/WorkflowFetch";
 import { formatDate } from "../../Utils/DateUtils";
 import { formatCamelCaseKey } from "../../Utils/ObjectUtils";
+import { useSelector } from "react-redux";
 
 export const ServiceEndpointSetting = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { serviceName, serviceId } = useParams();
+  const authToken = useSelector((state: any) => state.auth.token);
 
   const [configuration, setConfiguration] = useState<ServiceConfiguration>();
 
   const fetchConfig = useCallback(async () => {
-    const data = await getConfigurationById(serviceId);
+    const data = await getConfigurationById(serviceId, authToken);
     setConfiguration(data?.configuration);
-  }, [serviceId]);
+  }, [serviceId, authToken]);
 
   useEffect(() => {
     fetchConfig();

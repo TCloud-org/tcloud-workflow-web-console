@@ -17,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 
 export const WorkflowPage = () => {
   const clientId = useSelector((state: any) => state.client.clientId);
+  const authToken = useSelector((state: any) => state.auth.token);
   const activeWorkflow: Workflow | undefined = useSelector(
     (state: any) => state.workflow.workflow || {}
   );
@@ -77,14 +78,23 @@ export const WorkflowPage = () => {
     if (clientId) {
       setLoading(true);
 
+      const config = {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      };
+
       const workflows = await axios
-        .get(`${WOS_GET_WORKFLOWS_BY_CLIENT_ID_ENDPOINT}?clientId=${clientId}`)
+        .get(
+          `${WOS_GET_WORKFLOWS_BY_CLIENT_ID_ENDPOINT}?clientId=${clientId}`,
+          config
+        )
         .then((response) => response.data.workflows as Workflow[]);
       setWorkflows(workflows);
 
       setLoading(false);
     }
-  }, [clientId]);
+  }, [clientId, authToken]);
 
   useEffect(() => {
     fetchWorkflows();

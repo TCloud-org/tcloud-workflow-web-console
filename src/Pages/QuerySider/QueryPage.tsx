@@ -15,6 +15,7 @@ import { Key, useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 export const QueryPage = () => {
+  const authToken = useSelector((state: any) => state.auth.token);
   const clientId = useSelector((state: any) => state.client.clientId);
   const { workflowId } = useSelector(
     (state: any) => state.workflow.workflow || {}
@@ -31,7 +32,7 @@ export const QueryPage = () => {
   const fetchQueriedWorks = useCallback(async () => {
     setLoading(true);
 
-    const res = await queryWorks(clientId, workflowId, clauses);
+    const res = await queryWorks(clientId, workflowId, clauses, authToken);
     setWorks(res?.works || []);
     setColumns((prev: EditableColumn[]) =>
       prev.map((col) => {
@@ -57,7 +58,7 @@ export const QueryPage = () => {
     );
 
     setLoading(false);
-  }, [clientId, workflowId, clauses]);
+  }, [clientId, workflowId, clauses, authToken]);
 
   useEffect(() => {
     fetchQueriedWorks();

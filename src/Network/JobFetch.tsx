@@ -17,13 +17,18 @@ export interface EventWorkflowJob {
 
 export const queryJobsByWorkflowId = async (
   workflowId: number | string,
-  clientId: string
+  clientId: string,
+  token: string
 ) => {
   const formData = {
     workflowId,
     clientId,
   };
   return await axios
-    .post(WOS_QUERY_JOBS_PER_WORKFLOW_ENDPOINT, formData)
+    .post(WOS_QUERY_JOBS_PER_WORKFLOW_ENDPOINT, formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
     .then((res) => res.data as QueryJobsPerWorkflowOutput);
 };

@@ -20,10 +20,13 @@ import {
   WOS_SAVE_RETRY_POLICY_ENDPOINT,
 } from "../../Config/WOSEndpointConfig";
 import { RegisterWorkflowOutput } from "../../Config/WorkflowConfig";
+import { useSelector } from "react-redux";
 
 export const OnboardingPage = () => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
+
+  const authToken = useSelector((state: any) => state.auth.token);
 
   const [current, setCurrent] = useState(0);
   const [formData, setFormData] = useState<any>({});
@@ -100,12 +103,17 @@ export const OnboardingPage = () => {
     const { clientId } = allForm["Client"] || {};
     const { workflowName } = allForm["Workflow"] || {};
 
+    const config = {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    };
     const request = {
       workflowName,
       clientId,
     };
     return await axios
-      .post(WOS_REGISTER_WORKFLOW_ENDPOINT, request)
+      .post(WOS_REGISTER_WORKFLOW_ENDPOINT, request, config)
       .then((response) => response.data as RegisterWorkflowOutput);
   };
 
@@ -116,7 +124,11 @@ export const OnboardingPage = () => {
     const { clientId } = allForm["Client"] || {};
     const { alias, description, version, xmlContent } = allForm["Graph"] || {};
     if (!xmlContent) return;
-
+    const config = {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    };
     const request = {
       workflowId,
       clientId,
@@ -125,7 +137,7 @@ export const OnboardingPage = () => {
       version,
       xmlContent,
     };
-    await axios.post(WOS_ADD_GRAPH_ENDPOINT, request);
+    await axios.post(WOS_ADD_GRAPH_ENDPOINT, request, config);
   };
 
   const addEndpoints = async (allForm: { [key: string]: any }) => {
@@ -134,6 +146,11 @@ export const OnboardingPage = () => {
     if (Object.keys(endpointInputs).length === 0) {
       return;
     }
+    const config = {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    };
 
     await Object.entries(endpointInputs).forEach(
       async ([serviceName, input]) => {
@@ -142,7 +159,11 @@ export const OnboardingPage = () => {
           serviceName,
           ...(input as { [key: string]: any }),
         };
-        await axios.post(WOS_ADD_SERVICE_CONFIGURATION_ENDPOINT, request);
+        await axios.post(
+          WOS_ADD_SERVICE_CONFIGURATION_ENDPOINT,
+          request,
+          config
+        );
       }
     );
   };
@@ -152,6 +173,12 @@ export const OnboardingPage = () => {
     const retryPolicyForm = allForm["Retry Policy"] || {};
     if (Object.values(retryPolicyForm).length === 0) return;
 
+    const config = {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    };
+
     const request = {
       retryPolicy: {
         ...retryPolicyForm,
@@ -159,7 +186,7 @@ export const OnboardingPage = () => {
       },
     };
 
-    await axios.post(WOS_SAVE_RETRY_POLICY_ENDPOINT, request);
+    await axios.post(WOS_SAVE_RETRY_POLICY_ENDPOINT, request, config);
   };
 
   const items = steps.map((item) => ({ key: item.key, title: item.title }));

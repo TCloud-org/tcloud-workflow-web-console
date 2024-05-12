@@ -8,13 +8,18 @@ export interface QueryEmailsSentPerWorkflowResponse {
 
 export const queryEmailsPerWorkflow = async (
   from: string,
-  workflowId: number
+  workflowId: number,
+  token: string
 ) => {
   const formData = {
     from,
     workflowId,
   };
   return await axios
-    .post(EMS_QUERY_EMAILS_SENT_PER_WORKFLOW_ENDPOINT, formData)
+    .post(EMS_QUERY_EMAILS_SENT_PER_WORKFLOW_ENDPOINT, formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
     .then((res) => res.data as QueryEmailsSentPerWorkflowResponse);
 };

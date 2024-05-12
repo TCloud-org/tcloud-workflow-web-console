@@ -47,6 +47,7 @@ const columns: EditableColumn[] = [
 export const EmailNotificationJobList = () => {
   const { id } = useParams();
 
+  const authToken = useSelector((state: any) => state.auth.token);
   const clientId = useSelector((state: any) => state.client.clientId);
 
   const [jobs, setJobs] = useState<EventWorkflowJob[]>([]);
@@ -55,11 +56,11 @@ export const EmailNotificationJobList = () => {
   const fetchJobs = useCallback(async () => {
     if (id && clientId) {
       setLoading(true);
-      const res = await queryJobsByWorkflowId(id, clientId);
+      const res = await queryJobsByWorkflowId(id, clientId, authToken);
       setJobs(res.jobs);
       setLoading(false);
     }
-  }, [id, clientId]);
+  }, [id, clientId, authToken]);
 
   useEffect(() => {
     fetchJobs();

@@ -5,9 +5,12 @@ import { AppEmpty } from "../../DataDisplayComponents/AppEmpty";
 import { AppStepContentBox } from "../../DataDisplayComponents/AppStepContentBox";
 import { getServicesFromGraph } from "../../Network/WorkflowFetch";
 import { ServiceForm } from "./ServiceForm";
+import { useSelector } from "react-redux";
 
 export const AddEndpointStep = (props: StepContentProps) => {
   const { form, formData, stepKey } = props;
+
+  const authToken = useSelector((state: any) => state.auth.token);
 
   const [services, setServices] = useState<string[]>([]);
 
@@ -15,11 +18,11 @@ export const AddEndpointStep = (props: StepContentProps) => {
     const graphStepKey = "Graph";
     if (formData[graphStepKey] && formData[graphStepKey].xmlContent) {
       const xml = formData[graphStepKey].xmlContent;
-      const data = await getServicesFromGraph(xml);
+      const data = await getServicesFromGraph(xml, authToken);
       const fetchedServices = data?.services || [];
       setServices(fetchedServices);
     }
-  }, [formData]);
+  }, [formData, authToken]);
 
   useEffect(() => {
     fetchServicesFromGraph();

@@ -21,29 +21,42 @@ import {
   ServiceConfiguration,
 } from "../Config/WorkflowConfig";
 
-export const fetchServiceConfiguration = (service: string) => {
-  if (service) {
-    return axios
-      .get(
-        `${WOS_GET_CONFIGURATIONS_BY_SERVICE_NAME_ENDPOINT}?serviceName=${service}`
-      )
-      .then((response) => {
-        return response.data.configurations as ServiceConfiguration[];
-      })
-      .catch((error) => {
-        console.error(error);
-        return [];
-      });
-  }
-  return [];
+export const fetchServiceConfiguration = (service: string, token: string) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  return axios
+    .get(
+      `${WOS_GET_CONFIGURATIONS_BY_SERVICE_NAME_ENDPOINT}?serviceName=${service}`,
+      config
+    )
+    .then((response) => {
+      return response.data.configurations as ServiceConfiguration[];
+    })
+    .catch((error) => {
+      console.error(error);
+      return [];
+    });
 };
 
 export const fetchGraphsById = async (
-  workflowId: string | number | undefined
+  workflowId: string | number | undefined,
+  token: string
 ) => {
   if (!workflowId) return undefined;
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
   return await axios
-    .get(`${WOS_GET_GRAPHS_BY_WORKFLOW_ID_ENDPOINT}?workflowId=${workflowId}`)
+    .get(
+      `${WOS_GET_GRAPHS_BY_WORKFLOW_ID_ENDPOINT}?workflowId=${workflowId}`,
+      config
+    )
     .then((response) => {
       return response.data as GetGraphsByWorkflowIdOutput;
     })
@@ -53,12 +66,19 @@ export const fetchGraphsById = async (
 };
 
 export const getServiceConfigurations = async (
-  clientId: string | undefined
+  clientId: string | undefined,
+  token: string
 ) => {
   if (!clientId) return undefined;
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
   return await axios
     .get(
-      `${WOS_GET_SERVICE_CONFIGURATIONS_BY_CLIENT_ID_ENDPOINT}?clientId=${clientId}`
+      `${WOS_GET_SERVICE_CONFIGURATIONS_BY_CLIENT_ID_ENDPOINT}?clientId=${clientId}`,
+      config
     )
     .then((response) => {
       return response.data as GetServiceConfigurationsByClientIdOutput;
@@ -67,11 +87,18 @@ export const getServiceConfigurations = async (
 };
 
 export const getConfigurationsByService = async (
-  service: string | undefined
+  service: string | undefined,
+  token: string
 ) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
   return await axios
     .get(
-      `${WOS_GET_CONFIGURATIONS_BY_SERVICE_NAME_ENDPOINT}?serviceName=${service}`
+      `${WOS_GET_CONFIGURATIONS_BY_SERVICE_NAME_ENDPOINT}?serviceName=${service}`,
+      config
     )
     .then((response) => {
       return response.data as GetConfigurationsByServiceNameOutput;
@@ -80,23 +107,43 @@ export const getConfigurationsByService = async (
 };
 
 export const getConfigurationById = async (
-  serviceId: string | number | undefined
+  serviceId: string | number | undefined,
+  token: string
 ) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
   return await axios
-    .get(`${WOS_GET_CONFIGURATION_BY_ID_ENDPOINT}?serviceId=${serviceId}`)
+    .get(
+      `${WOS_GET_CONFIGURATION_BY_ID_ENDPOINT}?serviceId=${serviceId}`,
+      config
+    )
     .then((response) => {
       return response.data as GetConfigurationByIdOutput;
     })
     .catch((_) => undefined);
 };
 
-export const getBuckets = async (clientId: string, workflowId: string) => {
+export const getBuckets = async (
+  clientId: string,
+  workflowId: string,
+  token: string
+) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
   const params = new URLSearchParams();
   params.set("clientId", clientId);
   params.set("workflowId", workflowId);
   return await axios
     .get(
-      `${WOS_GET_WORKFLOW_BUCKETS_BY_CLIENT_ID_AND_WORKFLOW_ID_ENDPOINT}?${params}`
+      `${WOS_GET_WORKFLOW_BUCKETS_BY_CLIENT_ID_AND_WORKFLOW_ID_ENDPOINT}?${params}`,
+      config
     )
     .then((response) => {
       return response.data as GetWorkflowBucketsByClientIdAndWorkflowIdOutput;
@@ -106,29 +153,47 @@ export const getBuckets = async (clientId: string, workflowId: string) => {
 
 export const getWorkflowConfiguration = async (
   workId: string,
-  version: string
+  version: string,
+  token: string
 ) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
   const params = new URLSearchParams();
   params.set("workId", workId);
   params.set("version", version);
   return await axios
-    .get(`${WOS_GET_WORKFLOW_CONFIGURATION_ENDPOINT}?${params}`)
+    .get(`${WOS_GET_WORKFLOW_CONFIGURATION_ENDPOINT}?${params}`, config)
     .then((response) => response.data as GetWorkflowConfigurationOutput)
     .catch((_) => undefined);
 };
 
-export const getServicesFromGraph = async (xml: string) => {
+export const getServicesFromGraph = async (xml: string, token: string) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
   const formData = {
     xml,
   };
   return await axios
-    .post(WOS_GET_SERVICES_FROM_GRAPH_ENDPOINT, formData)
+    .post(WOS_GET_SERVICES_FROM_GRAPH_ENDPOINT, formData, config)
     .then((response) => response.data as GetServicesFromGraphOutput)
     .catch((_) => undefined);
 };
 
-export const getGraphById = async (graphId: string | number) => {
+export const getGraphById = async (graphId: string | number, token: string) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
   return await axios
-    .get(`${WOS_GET_GRAPH_BY_ID_ENDPOINT}?graphId=${graphId}`)
+    .get(`${WOS_GET_GRAPH_BY_ID_ENDPOINT}?graphId=${graphId}`, config)
     .then((response) => response.data as GetGraphByIdOutput);
 };
