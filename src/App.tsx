@@ -103,7 +103,7 @@ export const App = () => {
     const searchParams = new URLSearchParams(location.search);
     const isExternalLink = searchParams.get("isExternalLink");
 
-    const [collapsed, setCollapsed] = useState<boolean>(false);
+    const [collapsed, setCollapsed] = useState<boolean>(true);
 
     useEffect(() => {
       const deserializedLocation = deserializeLocation(location.pathname);
@@ -119,21 +119,21 @@ export const App = () => {
       dispatch(setItems(deserializedLocation));
     }, [dispatch, location.pathname]);
 
-    useEffect(() => {
-      const handleResize = () => {
-        if (window.innerWidth < 1024) {
-          setCollapsed(true);
-        } else {
-          setCollapsed(false);
-        }
-      };
+    // useEffect(() => {
+    //   const handleResize = () => {
+    //     if (window.innerWidth < 1024) {
+    //       setCollapsed(true);
+    //     } else {
+    //       setCollapsed(false);
+    //     }
+    //   };
 
-      window.addEventListener("resize", handleResize);
+    //   window.addEventListener("resize", handleResize);
 
-      return () => {
-        window.removeEventListener("resize", handleResize);
-      };
-    }, []);
+    //   return () => {
+    //     window.removeEventListener("resize", handleResize);
+    //   };
+    // }, []);
 
     if (!authToken || !account || isExternalLink) {
       return (

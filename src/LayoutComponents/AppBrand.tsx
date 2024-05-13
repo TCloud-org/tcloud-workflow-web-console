@@ -36,7 +36,7 @@ export const AppBrand = (props: {
           )}
         />
         <Typography.Text strong className="text-xs">
-          {window.innerWidth < 1024 ? "TCW" : BRAND}
+          {BRAND}
         </Typography.Text>
       </Flex>
     </Typography.Link>
