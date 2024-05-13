@@ -363,7 +363,6 @@ export const AppSider = (props: {
             overflow: "auto",
           }}
           items={siderMenus}
-          className="py-4"
         />
       </Flex>
     </Sider>
