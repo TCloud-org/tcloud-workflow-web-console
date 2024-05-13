@@ -148,7 +148,7 @@ export const RetryPolicyDetailPage = () => {
       >
         {retryPolicy?.name}
       </PageTitle>
-      <AppSurface style={{ paddingBottom: 0 }}>
+      <AppSurface type="form" style={{ paddingBottom: 0 }}>
         <AppDescriptions
           title="Details"
           items={retryPolicyDescriptions}
@@ -159,31 +159,35 @@ export const RetryPolicyDetailPage = () => {
       <AppSpace>
         <TableTitle>Retry Stimulation Chart</TableTitle>
 
-        <Flex justify="center">
-          <AppAreaChart
-            data={retryStimulationData}
-            yAxisTick={renderYTick}
-            dataKey="nextRetry"
-            height={300}
-            syncId={retryPolicy?.retryPolicyId}
-          />
-        </Flex>
-        <Flex justify="center">
-          <AppAreaChart
-            data={retryStimulationDelays}
-            yAxisTick={renderYTick}
-            dataKey="delay"
-            yMaxLabel="Max Delay"
-            height={300}
-            yMax={retryPolicy?.maxDelay}
-            syncId={retryPolicy?.retryPolicyId}
-          />
-        </Flex>
+        <AppSurface type="form">
+          <Flex justify="center">
+            <AppAreaChart
+              data={retryStimulationData}
+              yAxisTick={renderYTick}
+              dataKey="nextRetry"
+              height={300}
+              syncId={retryPolicy?.retryPolicyId}
+            />
+          </Flex>
+        </AppSurface>
+        <AppSurface type="form">
+          <Flex justify="center">
+            <AppAreaChart
+              data={retryStimulationDelays}
+              yAxisTick={renderYTick}
+              dataKey="delay"
+              yMaxLabel="Max Delay"
+              height={300}
+              yMax={retryPolicy?.maxDelay}
+              syncId={retryPolicy?.retryPolicyId}
+            />
+          </Flex>
+        </AppSurface>
       </AppSpace>
 
       <AppTable
-        title={() => <TableTitle>Retry Stimulation Table</TableTitle>}
         rowId="attempt"
+        heading="Retry Stimulation Table"
         rows={retryStimulationItems}
         columns={columns}
       />
