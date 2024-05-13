@@ -11,6 +11,7 @@ import { AppSpace } from "../../LayoutComponents/AppSpace";
 import axios from "axios";
 import { WOS_ADD_SERVICE_CONFIGURATION_ENDPOINT } from "../../Config/WOSEndpointConfig";
 import { useSelector } from "react-redux";
+import { AppSurface } from "DataDisplayComponents/AppSurface";
 
 export const EditEndpointPage = () => {
   const navigate = useNavigate();
@@ -73,68 +74,72 @@ export const EditEndpointPage = () => {
         </Typography.Title>
       </Flex>
 
-      <AppForm onValuesChange={handleFormChange}>
-        <Form.Item
-          label="Service Id"
-          name="serviceId"
-          valuePropName="serviceId"
-        >
-          <Input value={formData["serviceId"]} disabled />
-        </Form.Item>
+      <AppSurface type="form">
+        <AppForm onValuesChange={handleFormChange}>
+          <Form.Item
+            label="Service Id"
+            name="serviceId"
+            valuePropName="serviceId"
+          >
+            <Input value={formData["serviceId"]} disabled />
+          </Form.Item>
 
-        <Form.Item label="Client Id" name="clientId" valuePropName="clientId">
-          <Input value={formData["clientId"]} disabled />
-        </Form.Item>
+          <Form.Item label="Client Id" name="clientId" valuePropName="clientId">
+            <Input value={formData["clientId"]} disabled />
+          </Form.Item>
 
-        <Form.Item
-          label="Service"
-          name="serviceName"
-          valuePropName="serviceName"
-        >
-          <Input value={formData["serviceName"]} disabled />
-        </Form.Item>
+          <Form.Item
+            label="Service"
+            name="serviceName"
+            valuePropName="serviceName"
+          >
+            <Input value={formData["serviceName"]} disabled />
+          </Form.Item>
 
-        <Form.Item
-          label="Endpoint"
-          name="baseUrl"
-          valuePropName=""
-          rules={[
-            { required: true, message: "Please enter a service endpoint" },
-          ]}
-        >
-          <Input
-            value={formData["baseUrl"]}
-            placeholder="Enter a service endpoint"
-          />
-        </Form.Item>
+          <Form.Item
+            label="Endpoint"
+            name="baseUrl"
+            valuePropName=""
+            rules={[
+              { required: true, message: "Please enter a service endpoint" },
+            ]}
+          >
+            <Input
+              value={formData["baseUrl"]}
+              placeholder="Enter a service endpoint"
+            />
+          </Form.Item>
 
-        <Form.Item
-          label="Environment"
-          name="environment"
-          valuePropName="environment"
-          rules={[{ required: true, message: "Please select an environment" }]}
-        >
-          <Select
-            value={formData["environment"]}
-            options={EnvironmentOptions}
-            placeholder="Select an environment"
-          />
-        </Form.Item>
+          <Form.Item
+            label="Environment"
+            name="environment"
+            valuePropName="environment"
+            rules={[
+              { required: true, message: "Please select an environment" },
+            ]}
+          >
+            <Select
+              value={formData["environment"]}
+              options={EnvironmentOptions}
+              placeholder="Select an environment"
+            />
+          </Form.Item>
 
-        <Form.Item
-          label="Alias"
-          name="alias"
-          valuePropName="alias"
-          tooltip="If this field is left empty, it will be automatically assigned a generated ID"
-        >
-          <Input value={formData["alias"]} placeholder="Enter an alias" />
-        </Form.Item>
-      </AppForm>
-      <Flex justify="center">
-        <AppButton loading={loading} onClick={handleUpdate} type="primary">
-          Update
-        </AppButton>
-      </Flex>
+          <Form.Item
+            label="Alias"
+            name="alias"
+            valuePropName="alias"
+            tooltip="If this field is left empty, it will be automatically assigned a generated ID"
+          >
+            <Input value={formData["alias"]} placeholder="Enter an alias" />
+          </Form.Item>
+        </AppForm>
+        <Flex justify="center">
+          <AppButton loading={loading} onClick={handleUpdate} type="primary">
+            Update
+          </AppButton>
+        </Flex>
+      </AppSurface>
     </AppSpace>
   );
 };

@@ -152,7 +152,7 @@ export const ServiceDetailPage = () => {
     <AppSpace loading={loading}>
       <Typography.Title level={4}>{serviceName}</Typography.Title>
 
-      <AppSurface style={{ paddingBottom: 0 }}>
+      <AppSurface type="form" style={{ paddingBottom: 0 }}>
         <AppDescriptions
           layout="vertical"
           title="Details"
@@ -180,6 +180,7 @@ export const ServiceDetailPage = () => {
         selected={selected}
         setSelected={setSelected}
         rowId="serviceId"
+        heading="Versions"
       />
     </AppSpace>
   );

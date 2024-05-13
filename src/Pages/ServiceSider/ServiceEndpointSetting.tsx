@@ -58,7 +58,7 @@ export const ServiceEndpointSetting = () => {
         </AppIconButton>
       </Flex>
 
-      <AppSurface style={{ paddingBottom: 0 }}>
+      <AppSurface type="form" style={{ paddingBottom: 0 }}>
         <AppDescriptions layout="vertical" title="Details" items={items} />
       </AppSurface>
     </AppSpace>
