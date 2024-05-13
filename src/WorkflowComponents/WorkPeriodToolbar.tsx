@@ -1,7 +1,5 @@
 import { PeriodOptions } from "Config/MenuConfig";
-import { AppSurface } from "DataDisplayComponents/AppSurface";
-import { AppLine } from "LayoutComponents/AppLine";
-import { DatePicker, Flex, Radio } from "antd";
+import { DatePicker, Flex, Select, theme } from "antd";
 import dayjs, { Dayjs } from "dayjs";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
@@ -10,6 +8,7 @@ export const WorkPeriodToolbar = (props: {
   period?: string;
   setPeriod?: Dispatch<SetStateAction<string | undefined>>;
 }) => {
+  const { token } = theme.useToken();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const start = searchParams.get("start");
@@ -41,48 +40,39 @@ export const WorkPeriodToolbar = (props: {
   };
 
   return (
-    <AppSurface>
-      <Flex gap="16px" align="center">
-        <Flex style={{ flex: 2 }}>
-          <Radio.Group
-            buttonStyle="solid"
-            size="small"
-            value={period}
-            onChange={(e) => setPeriod(e.target.value)}
-            style={{ width: "100%" }}
-          >
-            <Flex wrap="wrap">
-              {PeriodOptions?.map((option, i) => (
-                <Radio.Button
-                  key={i}
-                  value={option.value}
-                  style={{ flexGrow: 1 }}
-                >
-                  {option.label}
-                </Radio.Button>
-              ))}
-            </Flex>
-          </Radio.Group>
-        </Flex>
-
-        <Flex style={{ flex: 1 }} align="center">
-          <AppLine />
-
-          <div style={{ padding: "0 16px" }}>OR</div>
-
-          <AppLine />
-        </Flex>
-
-        <Flex style={{ flex: 2 }}>
-          <DatePicker.RangePicker
-            size="small"
-            value={dateRange}
-            allowEmpty={[true, true]}
-            onChange={handleRangePickerChange}
-            style={{ width: "100%" }}
-          />
-        </Flex>
+    <Flex gap="16px" align="center">
+      <Flex style={{ flex: 2 }}>
+        <DatePicker.RangePicker
+          size="small"
+          value={dateRange}
+          allowEmpty={[true, true]}
+          onChange={handleRangePickerChange}
+          variant="borderless"
+          style={{
+            width: "100%",
+            borderTopRightRadius: 0,
+            borderBottomRightRadius: 0,
+            borderTop: `1px solid ${token.colorBorder}`,
+            borderLeft: `1px solid ${token.colorBorder}`,
+            borderBottom: `1px solid ${token.colorBorder}`,
+            backgroundColor: token.colorWhite,
+          }}
+        />
+        <Select
+          options={PeriodOptions}
+          onChange={setPeriod}
+          value={period}
+          placeholder="Period"
+          dropdownStyle={{ width: "auto" }}
+          style={{
+            borderTopRightRadius: token.borderRadius,
+            borderBottomRightRadius: token.borderRadius,
+            border: `1px solid ${token.colorBorder}`,
+            backgroundColor: token.colorWhite,
+          }}
+          variant="borderless"
+        />
       </Flex>
-    </AppSurface>
+    </Flex>
   );
 };

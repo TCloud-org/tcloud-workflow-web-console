@@ -1,8 +1,6 @@
-import { Flex, Typography, theme } from "antd";
-import { useParams } from "react-router-dom";
+import { Typography, theme } from "antd";
 import { Span } from "../Config/DataDisplayInterface";
 import { WorkflowConfiguration } from "../Config/WorkflowConfig";
-import { AppCopy } from "../DataDisplayComponents/AppCopy";
 import { AppDescriptions } from "../DataDisplayComponents/AppDescriptions";
 import { AppSurface } from "../DataDisplayComponents/AppSurface";
 import { AppTree } from "../DataDisplayComponents/AppTree";
@@ -14,25 +12,13 @@ export const WorkflowConfigurationInfo = (props: {
 }) => {
   const { token } = theme.useToken();
 
-  const { workId = "" } = useParams();
   const { data = {}, version = "" } = props;
 
   return (
-    <AppSurface type="form" style={{ paddingBottom: 0 }}>
+    <AppSurface type="form" style={{ paddingBottom: 0 }} className="h-full">
       <AppDescriptions
         title="Configuration"
         items={[
-          {
-            key: "workId",
-            label: "Work Id",
-            children: (
-              <Flex align="flex-start" style={{ gap: 4 }}>
-                {workId}
-                <AppCopy size="small" type="text" content={workId} />
-              </Flex>
-            ),
-            span: Span[2],
-          },
           {
             key: "workflowAlias",
             label: "Workflow alias",

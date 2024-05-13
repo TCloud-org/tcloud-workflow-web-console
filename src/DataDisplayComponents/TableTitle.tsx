@@ -1,6 +1,5 @@
 import { ReloadOutlined } from "@ant-design/icons";
-import { Flex } from "antd";
-import Title from "antd/es/typography/Title";
+import { Flex, Typography } from "antd";
 import { ReactNode } from "react";
 import { AppIconButton } from "../DataEntryComponents/AppIconButton";
 import { AppSpace } from "../LayoutComponents/AppSpace";
@@ -16,11 +15,14 @@ export const TableTitle = (props: {
     props;
 
   return (
-    <Flex justify="space-between" align="center" style={{ marginTop: "24px" }}>
+    <Flex justify="space-between" align="flex-start">
       <AppSpace direction="horizontal" size="small" align="center">
-        <Title style={{ margin: 0 }} level={5}>
+        <Typography.Text
+          style={{ margin: 0 }}
+          className="text-slate-700 font-semibold"
+        >
           {props.children}
-        </Title>
+        </Typography.Text>
         {startDecorator}
       </AppSpace>
       <AppSpace direction="horizontal" size="small" align="center">

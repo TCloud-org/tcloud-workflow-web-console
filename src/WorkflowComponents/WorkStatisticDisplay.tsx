@@ -1,8 +1,8 @@
+import { Span } from "Config/DataDisplayInterface";
 import { WorkStatistic } from "Config/WorkflowConfig";
-import { AppEmpty } from "DataDisplayComponents/AppEmpty";
-import { AppPieChart } from "DataDisplayComponents/AppPieChart";
+import { AppCard } from "DataDisplayComponents/AppCard";
 import { AppRow } from "LayoutComponents/AppRow";
-import { Card, Col, Statistic, StatisticProps, theme } from "antd";
+import { Col, Statistic, StatisticProps, Typography, theme } from "antd";
 import { CSSProperties } from "react";
 import CountUp from "react-countup";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -35,100 +35,73 @@ export const WorkStatisticDisplay = (props: { statistic?: WorkStatistic }) => {
 
   return (
     <AppRow gutter={[16, 16]}>
-      <Col span={6}>
-        <Card size="small" hoverable>
+      <Col {...Span[4]}>
+        <AppCard size="small">
           <Statistic
-            title="Works"
+            title={
+              <Typography.Text className="text-slate-700 font-semibold">
+                Works
+              </Typography.Text>
+            }
             value={statistic?.totalWorks}
             valueStyle={{ ...valueStyle, color: token.colorPrimary }}
             formatter={formatter}
           />
-        </Card>
+        </AppCard>
       </Col>
-      <Col span={6}>
-        <Card
-          hoverable
+      <Col {...Span[4]}>
+        <AppCard
           onClick={() => handleStatisticClick("successes")}
           style={{ cursor: "pointer" }}
           size="small"
         >
           <Statistic
-            title="Success"
+            title={
+              <Typography.Text className="text-slate-700 font-semibold">
+                Success
+              </Typography.Text>
+            }
             value={statistic?.successes.length}
             formatter={formatter}
             valueStyle={{ ...valueStyle, color: token.colorSuccess }}
           />
-        </Card>
+        </AppCard>
       </Col>
-      <Col span={6}>
-        <Card
-          hoverable
+      <Col {...Span[4]}>
+        <AppCard
           onClick={() => handleStatisticClick("progresses")}
           style={{ cursor: "pointer" }}
           size="small"
         >
           <Statistic
-            title="In Progress"
+            title={
+              <Typography.Text className="text-slate-700 font-semibold">
+                In Progress
+              </Typography.Text>
+            }
             value={statistic?.progresses.length}
             formatter={formatter}
             valueStyle={{ ...valueStyle, color: token.colorWarning }}
           />
-        </Card>
+        </AppCard>
       </Col>
-      <Col span={6}>
-        <Card
-          hoverable
+      <Col {...Span[4]}>
+        <AppCard
           onClick={() => handleStatisticClick("failures")}
           style={{ cursor: "pointer" }}
           size="small"
         >
           <Statistic
-            title="Failure"
+            title={
+              <Typography.Text className="text-slate-700 font-semibold">
+                Failure
+              </Typography.Text>
+            }
             value={statistic?.failures.length}
             formatter={formatter}
             valueStyle={{ ...valueStyle, color: token.colorError }}
           />
-        </Card>
-      </Col>
-      <Col span={24}>
-        <Card hoverable size="small">
-          <Statistic
-            title="Result Distribution Chart"
-            valueStyle={{
-              fontSize: "14px",
-              justifyContent: "center",
-              display: "flex",
-              alignItems: "center",
-            }}
-            valueRender={(_) =>
-              !statistic || statistic.totalWorks === 0 ? (
-                <AppEmpty />
-              ) : (
-                <AppPieChart
-                  data={[
-                    {
-                      name: "Success",
-                      value: statistic?.successes.length,
-                      fill: token.colorSuccess,
-                    },
-                    {
-                      name: "In Progress",
-                      value: statistic?.progresses.length,
-                      fill: token.colorWarning,
-                    },
-                    {
-                      name: "Failure",
-                      value: statistic?.failures.length,
-                      fill: token.colorError,
-                    },
-                  ]}
-                  width={400}
-                  height={300}
-                />
-              )
-            }
-          />
-        </Card>
+        </AppCard>
       </Col>
     </AppRow>
   );

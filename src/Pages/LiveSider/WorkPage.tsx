@@ -1,10 +1,12 @@
-import { Tabs, TreeDataNode } from "antd";
+import { AppSurface } from "DataDisplayComponents/AppSurface";
+import { AppRow } from "LayoutComponents/AppRow";
+import { Col, Tabs, TreeDataNode } from "antd";
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation, useParams } from "react-router-dom";
 import { Edge, useEdgesState, useNodesState } from "reactflow";
-import { SelectItem } from "../../Config/DataDisplayInterface";
+import { SelectItem, Span } from "../../Config/DataDisplayInterface";
 import {
   WOS_GET_GRAPH_BY_ID_ENDPOINT,
   WOS_GET_ROUTES_BY_WORK_ID_ENDPOINT,
@@ -28,6 +30,7 @@ import { LiveTreeTab } from "../../WorkflowComponents/LiveTab/LiveTreeTab";
 import { LiveWorkflowViewTab } from "../../WorkflowComponents/LiveTab/LiveWorkflowViewTab";
 import { WorkflowConfigurationInfo } from "../../WorkflowComponents/WorkflowConfigurationInfo";
 import { WorkflowToolbar } from "../../WorkflowComponents/WorkflowToolbar";
+import { WorkflowInfo } from "WorkflowComponents/WorkflowInfo";
 
 export const WorkPage = () => {
   const { workId = "" } = useParams();
@@ -54,6 +57,9 @@ export const WorkPage = () => {
   const [workflowConfigurationMap, setWorkflowConfigurationMap] = useState<{
     [key: string]: WorkflowConfiguration | undefined;
   }>({});
+  const [restrictedAccess, setRestrictedAccess] = useState<
+    Record<string, boolean>
+  >({});
 
   const fetchGraph = useCallback(async () => {
     if (
@@ -135,7 +141,12 @@ export const WorkPage = () => {
           setTreeNodes(response.data.treeNodes);
           setTreeNodeIds(response.data.treeNodeIds);
         })
-        .catch((error) => console.error(error));
+        .catch((error) => {
+          console.error(error);
+          if (error.response.status === 403) {
+            setRestrictedAccess((prev) => ({ ...prev, visual: true }));
+          }
+        });
       setFlowVisualLoading(false);
     }
   }, [graph, setEdges, setNodes, versionSelected, workId, authToken]);
@@ -193,63 +204,90 @@ export const WorkPage = () => {
         configLoading
       }
     >
-      <FormSelect
-        placeholder="Select a version"
-        options={versions}
-        value={versionSelected}
-        onChange={setVersionSelected}
-      />
-      <WorkflowToolbar
-        onReload={reload}
-        routes={routeMap[versionSelected]}
-        graph={graph}
-      />
-      <WorkflowConfigurationInfo
-        data={workflowConfigurationMap}
-        version={versionSelected}
-      />
-      <Tabs
-        items={[
-          {
-            label: "Live",
-            key: "live",
-            children: (
-              <LiveWorkflowViewTab
-                routeMap={routeMap}
-                versions={versions}
-                version={versionSelected}
+      <AppRow gutter={[16, 16]}>
+        <Col {...Span[2]}>
+          <AppRow gutter={[16, 16]}>
+            <Col {...Span[1]}>
+              <FormSelect
+                placeholder="Select a version"
+                options={versions}
+                value={versionSelected}
+                onChange={setVersionSelected}
               />
-            ),
-          },
-          {
-            label: "Flow",
-            key: "flow",
-            children: <LiveFlowTab nodes={nodes} edges={edges} />,
-          },
-          {
-            label: "Tree",
-            key: "tree",
-            children: (
-              <LiveTreeTab treeNodes={treeNodes} treeNodeIds={treeNodeIds} />
-            ),
-          },
-          {
-            label: "Entity",
-            key: "entity",
-            children: <LiveEntityTab routes={routeMap[versionSelected]} />,
-          },
-          {
-            label: "Log",
-            key: "log",
-            children: <LiveLogTab routes={routeMap[versionSelected]} />,
-          },
-          {
-            label: "Graph",
-            key: "graph",
-            children: <LiveGraphTab graph={graph} />,
-          },
-        ]}
-      />
+            </Col>
+            <Col {...Span[1]}>
+              <WorkflowToolbar
+                onReload={reload}
+                routes={routeMap[versionSelected]}
+                graph={graph}
+              />
+            </Col>
+            <Col {...Span[1]}>
+              <WorkflowInfo />
+            </Col>
+          </AppRow>
+        </Col>
+        <Col {...Span[2]}>
+          <WorkflowConfigurationInfo
+            data={workflowConfigurationMap}
+            version={versionSelected}
+          />
+        </Col>
+      </AppRow>
+      <AppSurface type="form" className="mb-4">
+        <Tabs
+          items={[
+            {
+              label: "Live",
+              key: "live",
+              children: (
+                <LiveWorkflowViewTab
+                  routeMap={routeMap}
+                  versions={versions}
+                  version={versionSelected}
+                />
+              ),
+            },
+            {
+              label: "Flow",
+              key: "flow",
+              children: (
+                <LiveFlowTab
+                  nodes={nodes}
+                  edges={edges}
+                  restrictedAccess={restrictedAccess}
+                />
+              ),
+            },
+            {
+              label: "Tree",
+              key: "tree",
+              children: (
+                <LiveTreeTab
+                  treeNodes={treeNodes}
+                  treeNodeIds={treeNodeIds}
+                  restrictedAccess={restrictedAccess}
+                />
+              ),
+            },
+            {
+              label: "Entity",
+              key: "entity",
+              children: <LiveEntityTab routes={routeMap[versionSelected]} />,
+            },
+            {
+              label: "Log",
+              key: "log",
+              children: <LiveLogTab routes={routeMap[versionSelected]} />,
+            },
+            {
+              label: "Graph",
+              key: "graph",
+              children: <LiveGraphTab graph={graph} />,
+            },
+          ]}
+        />
+      </AppSurface>
     </AppSpace>
   );
 };

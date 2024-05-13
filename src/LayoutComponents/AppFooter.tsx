@@ -4,14 +4,14 @@ import { HoveredLink } from "DataEntryComponents/HoveredLink";
 import { Col, Divider, Flex, Image, Typography, theme } from "antd";
 import { Footer } from "antd/es/layout/layout";
 import { AppRow } from "./AppRow";
+import { background } from "App";
 
 export const AppFooter = () => {
   const { token } = theme.useToken();
   return (
-    <Footer style={{ padding: "0 16px" }} className="bg-slate-50">
+    <Footer style={{ padding: 0, backgroundColor: background }}>
       <div
         style={{
-          backgroundColor: "blue",
           width: "100%",
           padding: 24,
           background: token.colorBgContainer,

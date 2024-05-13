@@ -37,11 +37,7 @@ export const AppCodeToolbar = (props: {
           size="small"
           value={language.toUpperCase()}
         />
-        <AppCopy
-          type="text"
-          size="small"
-          content={snippets[language]?.snippet}
-        />
+        <AppCopy content={snippets[language]?.snippet} />
       </Flex>
     </Flex>
   );

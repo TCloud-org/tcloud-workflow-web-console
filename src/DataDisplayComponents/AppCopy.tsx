@@ -1,52 +1,46 @@
-import { CheckSquareFilled, CopyOutlined } from "@ant-design/icons";
-import { ButtonSize, ButtonType } from "antd/es/button";
-import { CSSProperties, useRef, useState } from "react";
-import { AppIconButton } from "../DataEntryComponents/AppIconButton";
+import {
+  ContentCopyRounded,
+  LibraryAddCheckRounded,
+} from "@mui/icons-material";
+import { Tooltip } from "antd";
+import { CSSProperties, useState } from "react";
 
-interface AppCopyProps {
+export const AppCopy = (props: {
   content?: string;
+  color?: string;
+  className?: string;
   style?: CSSProperties;
-  size?: ButtonSize;
-  type?: ButtonType;
-  buttonStyle?: CSSProperties;
-}
+}) => {
+  const { content = "", className, style } = props;
 
-export const AppCopy = ({
-  content = "",
-  style,
-  size,
-  type,
-  buttonStyle,
-}: AppCopyProps) => {
-  const [copied, setCopied] = useState(false);
-  const timeoutIdRef = useRef<NodeJS.Timeout | null>(null);
+  const [copy, setCopy] = useState<boolean>(false);
 
-  const handleCopyToClipboard = (jsonString: string) => {
-    clearTimeout(timeoutIdRef.current!);
-    navigator.clipboard
-      .writeText(jsonString)
-      .then(() => {
-        setCopied(true);
-        timeoutIdRef.current = setTimeout(() => {
-          setCopied(false);
-        }, 2000);
-      })
-      .catch((error) =>
-        console.error("Error copying JSON to clipboard: ", error)
-      );
+  const handleCopy = () => {
+    navigator.clipboard.writeText(content);
+    setCopy(true);
+    setTimeout(() => {
+      setCopy(false);
+    }, 1500);
   };
 
+  if (copy) {
+    return (
+      <div style={{ lineHeight: 0, ...style }} className={className}>
+        <Tooltip title="Copied">
+          <LibraryAddCheckRounded style={{ fontSize: 16 }} />
+        </Tooltip>
+      </div>
+    );
+  }
+
   return (
-    <div style={{ ...style }}>
-      <AppIconButton
-        tooltip={copied ? "Copied" : "Copy to clipboard"}
-        size={size}
-        type={type}
-        style={buttonStyle}
-        onClick={() => handleCopyToClipboard(content)}
-      >
-        {!copied ? <CopyOutlined /> : <CheckSquareFilled />}
-      </AppIconButton>
+    <div style={{ lineHeight: 0, ...style }} className={className}>
+      <Tooltip title="Copy">
+        <ContentCopyRounded
+          style={{ cursor: "pointer", fontSize: 16 }}
+          onClick={handleCopy}
+        />
+      </Tooltip>
     </div>
   );
 };

@@ -10,10 +10,12 @@ import {
   ShopOutlined,
   UsergroupAddOutlined,
 } from "@ant-design/icons";
+import Icon from "@ant-design/icons/lib/components/Icon";
 import { useClickAway } from "@uidotdev/usehooks";
 import { HeaderHeight, SiderWidth } from "Config/LayoutConfig";
+import { BRAND } from "Config/WOSEndpointConfig";
 import { AppMenuPin } from "DataDisplayComponents/AppMenuPin";
-import { Menu, MenuProps, theme } from "antd";
+import { Flex, Menu, MenuProps, Typography, theme } from "antd";
 import Sider from "antd/es/layout/Sider";
 import { Dispatch, SetStateAction } from "react";
 import { useSelector } from "react-redux";
@@ -84,7 +86,7 @@ export const AppSider = (props: {
   collapsed?: boolean;
   setCollapsed?: Dispatch<SetStateAction<boolean>>;
 }) => {
-  const { collapsed, setCollapsed = () => {} } = props;
+  const { collapsed } = props;
 
   const { token } = theme.useToken();
   const { isDevMode } = useSelector((state: any) => state.general);
@@ -310,13 +312,13 @@ export const AppSider = (props: {
   const siderRef = useClickAway((e: any) => {
     const elementId = (e.target || e.srcElement).id;
     if (elementId !== "menu-button") {
-      setCollapsed(true);
+      // setCollapsed(true);
     }
   });
 
   return (
     <Sider
-      collapsedWidth={0}
+      // collapsedWidth={0}
       ref={siderRef as any}
       width={SiderWidth}
       collapsed={collapsed}
@@ -338,7 +340,7 @@ export const AppSider = (props: {
         overflow: "auto",
         position: "fixed",
         left: 0,
-        top: HeaderHeight,
+        top: 0,
         bottom: 0,
         zIndex: 100,
         background: token.colorBgContainer,
@@ -346,14 +348,49 @@ export const AppSider = (props: {
         borderRightColor: token.colorBorderSecondary,
       }}
     >
-      <Menu
-        mode="inline"
-        selectedKeys={selectedKeys}
-        // onOpenChange={onOpenKey}
-        // openKeys={currentOpenKeys}
-        style={{ borderRight: 0, overflow: "auto" }}
-        items={siderMenus}
-      />
+      <Flex vertical>
+        <Typography.Link
+          style={{
+            textAlign: "center",
+            alignContent: "center",
+            borderRadius: 0,
+            color: "black",
+            padding: "0px 16px",
+            height: HeaderHeight / 2,
+            transition: "all 0.3s",
+            lineHeight: 0,
+            margin: 0,
+            borderBottom: `1px solid ${token.colorBorder}`,
+          }}
+          // className="container-hover"
+          strong
+          href="/"
+        >
+          <Flex justify="center" align="center" gap={8}>
+            <Icon
+              component={() => (
+                <img
+                  alt={BRAND}
+                  src="https://tcw-icon.s3.us-west-2.amazonaws.com/7.png"
+                  width={24}
+                  height={24}
+                />
+              )}
+            />
+            <Typography.Text strong>{BRAND}</Typography.Text>
+          </Flex>
+        </Typography.Link>
+
+        <Menu
+          mode="inline"
+          selectedKeys={selectedKeys}
+          // onOpenChange={onOpenKey}
+          // openKeys={currentOpenKeys}
+          style={{ borderRight: 0, overflow: "auto" }}
+          items={siderMenus}
+          className="py-4"
+        />
+      </Flex>
     </Sider>
   );
 };

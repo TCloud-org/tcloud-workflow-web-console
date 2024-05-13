@@ -18,7 +18,7 @@ export const AppLink = (props: {
           {showIcon && <LinkOutlined />} {children}
         </a>
       </Tooltip>
-      <AppCopy size="small" content={children} type="text" />
+      <AppCopy content={children} />
     </Flex>
   );
 };

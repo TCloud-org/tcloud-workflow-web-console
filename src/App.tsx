@@ -86,7 +86,9 @@ import { EditEmailTemplatePage } from "Pages/Shop/EditEmailTemplatePage";
 import { SubscriptionPlanPage } from "Pages/Subscription/SubscriptionPlanPage";
 import { SubscriptionPage } from "Pages/Subscription/SubscriptionPage";
 import { SubscriptionInvoicePage } from "Pages/Subscription/SubscriptionInvoicePage";
+import { HeaderHeight, SiderWidth } from "Config/LayoutConfig";
 
+export const background = "rgb(249 250 251 / 1)";
 export const App = () => {
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -101,7 +103,7 @@ export const App = () => {
     const searchParams = new URLSearchParams(location.search);
     const isExternalLink = searchParams.get("isExternalLink");
 
-    const [collapsed, setCollapsed] = useState<boolean>(true);
+    const [collapsed, setCollapsed] = useState<boolean>(false);
 
     useEffect(() => {
       const deserializedLocation = deserializeLocation(location.pathname);
@@ -126,33 +128,33 @@ export const App = () => {
     }
     //rgb(248 250 252 / 1)
     return (
-      <Layout style={{ minHeight: "100vh" }}>
-        <AppHeader collapsed={collapsed} setCollapsed={setCollapsed} />
+      <Layout style={{ minHeight: "100vh", backgroundColor: background }}>
+        <AppSider collapsed={collapsed} setCollapsed={setCollapsed} />
 
-        <Layout style={{ minHeight: "100vh" }}>
-          <AppSider collapsed={collapsed} setCollapsed={setCollapsed} />
+        <Layout style={{ backgroundColor: background, marginLeft: SiderWidth }}>
+          <AppHeader collapsed={collapsed} setCollapsed={setCollapsed} />
 
-          <Layout className="bg-slate-50">
-            <Layout
-              style={{ padding: "0 16px 0 16px" }}
-              className="bg-slate-50"
+          <Layout
+            style={{
+              padding: "0 16px 0 16px",
+              marginTop: HeaderHeight,
+              backgroundColor: background,
+            }}
+          >
+            <AppBreadcrumb />
+
+            <Content
+              style={{
+                margin: 0,
+                minHeight: 280,
+                background: "transparent",
+                borderRadius: borderRadiusLG,
+              }}
             >
-              <AppBreadcrumb />
-
-              <Content
-                style={{
-                  padding: 24,
-                  margin: 0,
-                  minHeight: 280,
-                  background: colorBgContainer,
-                  borderRadius: borderRadiusLG,
-                }}
-              >
-                <Outlet />
-              </Content>
-            </Layout>
-            <AppFooter />
+              <Outlet />
+            </Content>
           </Layout>
+          <AppFooter />
         </Layout>
       </Layout>
     );

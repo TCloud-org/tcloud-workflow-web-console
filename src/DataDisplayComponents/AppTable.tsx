@@ -18,6 +18,7 @@ import { AppEditableCell } from "../DataEntryComponents/AppEditableCell";
 import { AppEditableRow } from "../DataEntryComponents/AppEditableRow";
 import { TableTitle } from "./TableTitle";
 import { WorkflowSettingsToolbar } from "WorkflowComponents/WorkflowSettingsToolbar";
+import { AppCard } from "./AppCard";
 
 const TableComponents: TableProps["components"] = {
   body: {
@@ -241,43 +242,52 @@ export const AppTable = (
   };
 
   return (
-    <Table
-      title={showTitle ? () => renderTitle() : undefined}
-      style={props.style}
-      components={TableComponents}
-      rowClassName={() => "editable-row"}
-      bordered={bordered}
-      pagination={{
-        showSizeChanger: true,
-        defaultPageSize: defaultPageSize,
-        pageSizeOptions: [5, 10, 25, 50, 100],
-        showQuickJumper: true,
+    <AppCard
+      styles={{
+        body: {
+          padding: "4px 8px",
+        },
       }}
-      rowSelection={
-        showSelected
-          ? {
-              type: selectionType,
-              selectedRowKeys: selected,
-              onSelect: onSelect,
-              onChange: onSelectedChange,
-            }
-          : undefined
-      }
-      columns={editableColumns as EditableColumnTypes}
-      dataSource={data.filter((work) => {
-        return (
-          !anyFilters() ||
-          Object.entries(filtered).some(
-            ([dataIndex, filter]) => filter[work[dataIndex] as string]
-          )
-        );
-      })}
-      onChange={props.onChange}
-      loading={props.loading}
-      scroll={{ x: 1000 }}
-      size="small"
-      locale={props.locale}
-      rowHoverable={props.rowHoverable}
-    />
+      className="h-full"
+    >
+      <Table
+        title={showTitle ? () => renderTitle() : undefined}
+        style={props.style}
+        components={TableComponents}
+        rowClassName={() => "editable-row"}
+        bordered={bordered}
+        pagination={{
+          showSizeChanger: true,
+          defaultPageSize: defaultPageSize,
+          pageSizeOptions: [5, 10, 25, 50, 100],
+          showQuickJumper: true,
+        }}
+        rowSelection={
+          showSelected
+            ? {
+                type: selectionType,
+                selectedRowKeys: selected,
+                onSelect: onSelect,
+                onChange: onSelectedChange,
+              }
+            : undefined
+        }
+        columns={editableColumns as EditableColumnTypes}
+        dataSource={data.filter((work) => {
+          return (
+            !anyFilters() ||
+            Object.entries(filtered).some(
+              ([dataIndex, filter]) => filter[work[dataIndex] as string]
+            )
+          );
+        })}
+        onChange={props.onChange}
+        loading={props.loading}
+        scroll={{ x: 1000 }}
+        size="small"
+        locale={props.locale}
+        rowHoverable={props.rowHoverable}
+      />
+    </AppCard>
   );
 };

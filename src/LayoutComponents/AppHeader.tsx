@@ -9,8 +9,7 @@ import {
   SettingFilled,
   UserOutlined,
 } from "@ant-design/icons";
-import Icon from "@ant-design/icons/lib/components/Icon";
-import { HeaderHeight } from "Config/LayoutConfig";
+import { HeaderHeight, SiderWidth } from "Config/LayoutConfig";
 import { Client } from "Config/SCSConfig";
 import { AppAvatar } from "DataDisplayComponents/AppAvatar";
 import { AppButton } from "DataEntryComponents/AppButton";
@@ -45,7 +44,6 @@ import React, {
 } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { BRAND } from "../Config/WOSEndpointConfig";
 import { setClientId, updateClients } from "../features/workflow/clientSlice";
 import { AppSubHeader } from "./AppSubHeader";
 
@@ -184,10 +182,11 @@ export const AppHeader = (props: {
   return (
     <Header
       style={{
-        position: "sticky",
+        position: "fixed",
         top: 0,
+        left: SiderWidth,
+        right: 0,
         zIndex: 999,
-        width: "100%",
         height: HeaderHeight,
         background: token.colorBgContainer,
         borderBottom: `1px solid ${token.colorBorder}`,
@@ -198,14 +197,18 @@ export const AppHeader = (props: {
         align="center"
         justify="space-between"
         style={{
-          width: "100%",
           height: topHeaderHeight,
           borderBottom: "1px solid",
           borderBottomColor: token.colorBorderSecondary,
         }}
         gap={48}
       >
-        <Flex justify="flex-start" align="center" style={{ flex: 1 }}>
+        <Flex
+          justify="flex-start"
+          align="center"
+          style={{ flex: 1 }}
+          className="flex lg:hidden"
+        >
           <AppIconButton
             id="menu-button"
             type="text"
@@ -218,36 +221,6 @@ export const AppHeader = (props: {
           >
             {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
           </AppIconButton>
-          <Typography.Link
-            style={{
-              textAlign: "center",
-              alignContent: "center",
-              borderRadius: 0,
-              color: "black",
-              padding: "0px 16px",
-              height: topHeaderHeight,
-              transition: "all 0.3s",
-              lineHeight: 0,
-              margin: 0,
-            }}
-            className="container-hover"
-            strong
-            href="/"
-          >
-            <Flex justify="center" align="center" gap={8}>
-              <Icon
-                component={() => (
-                  <img
-                    alt={BRAND}
-                    src="https://tcw-icon.s3.us-west-2.amazonaws.com/7.png"
-                    width={24}
-                    height={24}
-                  />
-                )}
-              />
-              <Typography.Text strong>{BRAND}</Typography.Text>
-            </Flex>
-          </Typography.Link>
         </Flex>
         <Flex
           style={{
@@ -255,7 +228,7 @@ export const AppHeader = (props: {
             flex: 1.5,
             height: topHeaderHeight,
           }}
-          className="hidden lg:flex"
+          className="hidden lg:flex px-4"
           align="center"
         >
           <AppSearchBar

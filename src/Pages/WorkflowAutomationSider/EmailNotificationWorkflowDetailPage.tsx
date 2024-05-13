@@ -140,11 +140,7 @@ export const EmailNotificationWorkflowDetailPage = () => {
               description: (
                 <Flex align="center" gap="4px">
                   {eventWorkflow?.id}
-                  <AppCopy
-                    type="text"
-                    size="small"
-                    content={eventWorkflow?.id.toString() || ""}
-                  />
+                  <AppCopy content={eventWorkflow?.id.toString() || ""} />
                 </Flex>
               ),
             },

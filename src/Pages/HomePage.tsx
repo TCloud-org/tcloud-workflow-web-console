@@ -1,8 +1,14 @@
+import { createSpan } from "Config/DataDisplayInterface";
 import { EditableColumn } from "Config/LayoutConfig";
 import { WorkColumns } from "Config/TableColumnConfig";
+import { AppCard } from "DataDisplayComponents/AppCard";
+import { AppEmpty } from "DataDisplayComponents/AppEmpty";
+import { AppPieChart } from "DataDisplayComponents/AppPieChart";
 import { PageTitle } from "DataDisplayComponents/PageTitle";
+import { AppRow } from "LayoutComponents/AppRow";
 import { WorkPeriodToolbar } from "WorkflowComponents/WorkPeriodToolbar";
 import { WorkStatisticDisplay } from "WorkflowComponents/WorkStatisticDisplay";
+import { Alert, Col, Statistic, Typography, theme } from "antd";
 import { Key, useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
@@ -13,7 +19,6 @@ import {
   getWorkStatisticInDateRange,
   getWorksInDateRange,
 } from "../Network/WorkFetch";
-import { Alert, Typography, theme } from "antd";
 
 export const HomePage = () => {
   const { token } = theme.useToken();
@@ -97,7 +102,13 @@ export const HomePage = () => {
 
   return (
     <AppSpace>
-      <PageTitle>Welcome!</PageTitle>
+      <PageTitle
+        endDecorator={
+          <WorkPeriodToolbar period={period} setPeriod={setPeriod} />
+        }
+      >
+        Welcome
+      </PageTitle>
 
       {!workflowId && (
         <Alert
@@ -119,24 +130,71 @@ export const HomePage = () => {
         />
       )}
 
-      <WorkPeriodToolbar period={period} setPeriod={setPeriod} />
-
       <WorkStatisticDisplay statistic={statistic} />
 
-      <AppTable
-        loading={loading}
-        heading="Workflows"
-        onReload={fetchWorksInRange}
-        rows={works}
-        columns={columns}
-        selected={selected}
-        setSelected={setSelected}
-        rowId="workId"
-        defaultPageSize={25}
-        showFilter
-        showDownload
-        exludedColumnsFromExport={{ metadata: true }}
-      />
+      <AppRow gutter={[16, 16]}>
+        <Col {...createSpan(8)} className="flex flex-col">
+          <AppCard size="small" className="h-full">
+            <Statistic
+              title={
+                <Typography.Text className="text-slate-700 font-semibold">
+                  Result Distribution Chart
+                </Typography.Text>
+              }
+              valueStyle={{
+                fontSize: "14px",
+                justifyContent: "center",
+                display: "flex",
+                alignItems: "center",
+              }}
+              valueRender={(_) =>
+                !statistic || statistic.totalWorks === 0 ? (
+                  <AppEmpty />
+                ) : (
+                  <AppPieChart
+                    data={[
+                      {
+                        name: "Success",
+                        value: statistic?.successes.length,
+                        fill: token.colorSuccess,
+                      },
+                      {
+                        name: "In Progress",
+                        value: statistic?.progresses.length,
+                        fill: token.colorWarning,
+                      },
+                      {
+                        name: "Failure",
+                        value: statistic?.failures.length,
+                        fill: token.colorError,
+                      },
+                    ]}
+                    width={350}
+                    height={300}
+                  />
+                )
+              }
+            />
+          </AppCard>
+        </Col>
+
+        <Col {...createSpan(16)} className="flex flex-col">
+          <AppTable
+            loading={loading}
+            heading="Workflows"
+            onReload={fetchWorksInRange}
+            rows={works}
+            columns={columns}
+            selected={selected}
+            setSelected={setSelected}
+            rowId="workId"
+            defaultPageSize={25}
+            showFilter
+            showDownload
+            exludedColumnsFromExport={{ metadata: true }}
+          />
+        </Col>
+      </AppRow>
     </AppSpace>
   );
 };

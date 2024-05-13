@@ -85,9 +85,7 @@ export const CodeDisplay = (props: {
       {copyToClipboard && (
         <AppCopy
           content={code}
-          size="small"
-          type="text"
-          style={{ position: "absolute", top: 0, right: 0 }}
+          style={{ position: "absolute", top: 4, right: 4 }}
         />
       )}
     </Box>

@@ -22,7 +22,7 @@ export const AppEndpointDoc = (props: {
             }}
           />
         </Flex>
-        <AppCopy type="text" size="small" content={endpoint} />
+        <AppCopy content={endpoint} />
       </Flex>
     </AppSurface>
   );
