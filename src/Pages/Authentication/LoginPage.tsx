@@ -97,7 +97,7 @@ export const LoginPage = () => {
       product && tier
         ? [
             {
-              product: product,
+              product: camelToUpperCaseUnderscore(product),
               tier: camelToUpperCaseUnderscore(tier),
             },
           ]
@@ -149,7 +149,7 @@ export const LoginPage = () => {
       product && tier
         ? [
             {
-              product: product,
+              product: camelToUpperCaseUnderscore(product),
               tier: camelToUpperCaseUnderscore(tier),
             },
           ]

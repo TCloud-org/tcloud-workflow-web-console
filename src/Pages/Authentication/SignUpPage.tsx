@@ -62,7 +62,7 @@ export const SignUpPage = () => {
       product && tier
         ? [
             {
-              product: product,
+              product: camelToUpperCaseUnderscore(product),
               tier: camelToUpperCaseUnderscore(tier),
             },
           ]
