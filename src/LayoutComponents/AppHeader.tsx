@@ -46,6 +46,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setClientId, updateClients } from "../features/workflow/clientSlice";
 import { AppSubHeader } from "./AppSubHeader";
+import { AppBrand } from "./AppBrand";
 
 const topHeaderHeight = 40;
 
@@ -184,14 +185,14 @@ export const AppHeader = (props: {
       style={{
         position: "fixed",
         top: 0,
-        left: SiderWidth,
         right: 0,
-        zIndex: 999,
+        zIndex: 50,
         height: HeaderHeight,
         background: token.colorBgContainer,
         borderBottom: `1px solid ${token.colorBorder}`,
         padding: 0,
       }}
+      className={`left-0 lg:left-[${SiderWidth}px]`}
     >
       <Flex
         align="center"
@@ -221,6 +222,8 @@ export const AppHeader = (props: {
           >
             {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
           </AppIconButton>
+
+          <AppBrand className="container-hover" />
         </Flex>
         <Flex
           style={{

@@ -119,6 +119,22 @@ export const App = () => {
       dispatch(setItems(deserializedLocation));
     }, [dispatch, location.pathname]);
 
+    useEffect(() => {
+      const handleResize = () => {
+        if (window.innerWidth < 1024) {
+          setCollapsed(true);
+        } else {
+          setCollapsed(false);
+        }
+      };
+
+      window.addEventListener("resize", handleResize);
+
+      return () => {
+        window.removeEventListener("resize", handleResize);
+      };
+    }, []);
+
     if (!authToken || !account || isExternalLink) {
       return (
         <Layout style={{ minHeight: "100vh", background: colorBgContainer }}>
@@ -131,7 +147,10 @@ export const App = () => {
       <Layout style={{ minHeight: "100vh", backgroundColor: background }}>
         <AppSider collapsed={collapsed} setCollapsed={setCollapsed} />
 
-        <Layout style={{ backgroundColor: background, marginLeft: SiderWidth }}>
+        <Layout
+          style={{ backgroundColor: background }}
+          className={`ml-0 lg:ml-[${SiderWidth}px]`}
+        >
           <AppHeader collapsed={collapsed} setCollapsed={setCollapsed} />
 
           <Layout

@@ -20,6 +20,7 @@ import Sider from "antd/es/layout/Sider";
 import { Dispatch, SetStateAction } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { AppBrand } from "./AppBrand";
 
 export const SiderHrefs = {
   home: "home",
@@ -318,7 +319,7 @@ export const AppSider = (props: {
 
   return (
     <Sider
-      // collapsedWidth={0}
+      collapsedWidth={0}
       ref={siderRef as any}
       width={SiderWidth}
       collapsed={collapsed}
@@ -340,53 +341,29 @@ export const AppSider = (props: {
         overflow: "auto",
         position: "fixed",
         left: 0,
-        top: 0,
         bottom: 0,
         zIndex: 100,
         background: token.colorBgContainer,
         borderRight: "1px solid",
         borderRightColor: token.colorBorderSecondary,
       }}
+      className="top-[80px] lg:top-0"
     >
       <Flex vertical>
-        <Typography.Link
-          style={{
-            textAlign: "center",
-            alignContent: "center",
-            borderRadius: 0,
-            color: "black",
-            padding: "0px 16px",
-            height: HeaderHeight / 2,
-            transition: "all 0.3s",
-            lineHeight: 0,
-            margin: 0,
-            borderBottom: `1px solid ${token.colorBorder}`,
-          }}
-          // className="container-hover"
-          strong
-          href="/"
-        >
-          <Flex justify="center" align="center" gap={8}>
-            <Icon
-              component={() => (
-                <img
-                  alt={BRAND}
-                  src="https://tcw-icon.s3.us-west-2.amazonaws.com/7.png"
-                  width={24}
-                  height={24}
-                />
-              )}
-            />
-            <Typography.Text strong>{BRAND}</Typography.Text>
-          </Flex>
-        </Typography.Link>
+        <AppBrand
+          style={{ borderBottom: `1px solid ${token.colorBorder}` }}
+          className="hidden lg:block"
+        />
 
         <Menu
           mode="inline"
           selectedKeys={selectedKeys}
           // onOpenChange={onOpenKey}
           // openKeys={currentOpenKeys}
-          style={{ borderRight: 0, overflow: "auto" }}
+          style={{
+            borderRight: 0,
+            overflow: "auto",
+          }}
           items={siderMenus}
           className="py-4"
         />
