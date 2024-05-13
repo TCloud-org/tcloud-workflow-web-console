@@ -1,7 +1,6 @@
 import { theme } from "antd";
 import { SizeType } from "antd/es/config-provider/SizeContext";
 import { CSSProperties, ReactNode, forwardRef } from "react";
-import { Box } from "../LayoutComponents/Box";
 
 interface AppSurfaceProps {
   children?: ReactNode;
@@ -56,7 +55,7 @@ export const AppSurface = forwardRef<HTMLDivElement, AppSurfaceProps>(
     };
 
     return (
-      <Box
+      <div
         ref={ref}
         onClick={onClick}
         style={{
@@ -65,7 +64,7 @@ export const AppSurface = forwardRef<HTMLDivElement, AppSurfaceProps>(
             (type === "dot" ? "transparent" : token.colorFillQuaternary),
           borderRadius: token.borderRadiusLG,
           padding: hasSpace ? `0 ${SizeMapping[size]}` : SizeMapping[size],
-          transition: "0.2s",
+          transition: "all 0.3s",
           overflow: "auto",
           ...((type === "form" || type === "border" || type === "dashed") &&
             borderStyle),
@@ -76,7 +75,7 @@ export const AppSurface = forwardRef<HTMLDivElement, AppSurfaceProps>(
         className={className}
       >
         {children}
-      </Box>
+      </div>
     );
   }
 );

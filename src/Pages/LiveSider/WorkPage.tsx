@@ -234,7 +234,7 @@ export const WorkPage = () => {
           />
         </Col>
       </AppRow>
-      <AppSurface type="form" className="mb-4">
+      <AppSurface type="form">
         <Tabs
           items={[
             {

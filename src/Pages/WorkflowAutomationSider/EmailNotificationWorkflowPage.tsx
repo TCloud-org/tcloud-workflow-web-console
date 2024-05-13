@@ -24,17 +24,28 @@ export const EmailNotificationWorkflowPage = () => {
       render: (text: string) => (
         <AppLink href={`${location.pathname}/${text}`}>{text}</AppLink>
       ),
+      width: "10%",
     },
     {
       title: "Name",
       dataIndex: "name",
       editable: true,
-      width: "30%",
+    },
+    {
+      title: "Client",
+      dataIndex: "clientId",
+      hidden: true,
     },
     {
       title: "Created",
       dataIndex: "createdAt",
       render: (text: string) => formatDate(text),
+    },
+    {
+      title: "Updated",
+      dataIndex: "updatedAt",
+      render: (text: string) => formatDate(text),
+      hidden: true,
     },
     {
       title: "Action",
@@ -113,12 +124,12 @@ export const EmailNotificationWorkflowPage = () => {
       </PageTitle>
 
       <AppTable
+        heading="Workflows"
         columns={columns}
         rows={workflows}
         rowId="id"
         selected={selected}
         setSelected={setSelected}
-        showTitle={false}
         defaultPageSize={100}
       />
     </AppSpace>

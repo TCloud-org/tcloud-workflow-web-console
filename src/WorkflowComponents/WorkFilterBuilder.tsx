@@ -343,8 +343,8 @@ export const WorkFilterBuilder = (props: {
   return (
     <Fragment>
       {contextHolder}
-      <AppSurface>
-        <AppSpace>
+      <AppSurface type="form" className="h-full">
+        <Flex vertical gap={16}>
           <Flex align="center" justify="space-between">
             <AppSurfaceTitle>Where</AppSurfaceTitle>
 
@@ -376,111 +376,109 @@ export const WorkFilterBuilder = (props: {
             wrapperCol={Span[1]}
             onValuesChange={handleValuesChange}
           >
-            <Card bordered={false}>
-              <Form.List name={parent}>
-                {(fields, { add, remove }) => (
-                  <Flex vertical gap="8px">
-                    {fields.map(({ key, name, ...restField }, index) => (
-                      <Flex gap="8px" vertical key={index}>
-                        {index > 0 && (
-                          <Flex
-                            justify="center"
-                            align="center"
-                            gap="8px"
-                            style={{ margin: "8px 0" }}
-                          >
-                            <AppLine />
-                            <Form.Item
-                              name={[name, "operator"]}
-                              style={{ marginBottom: 0 }}
-                            >
-                              <Select
-                                size="small"
-                                options={BitwiseOperatorOptions}
-                                style={{ width: operatorWidth }}
-                              />
-                            </Form.Item>
-                            <AppLine />
-                          </Flex>
-                        )}
-
-                        <Flex gap="8px" justify="space-between">
+            <Form.List name={parent}>
+              {(fields, { add, remove }) => (
+                <Flex vertical gap="8px">
+                  {fields.map(({ key, name, ...restField }, index) => (
+                    <Flex gap="8px" vertical key={index}>
+                      {index > 0 && (
+                        <Flex
+                          justify="center"
+                          align="center"
+                          gap="8px"
+                          style={{ margin: "8px 0" }}
+                        >
+                          <AppLine />
                           <Form.Item
-                            {...restField}
-                            name={[name, "attribute"]}
+                            name={[name, "operator"]}
                             style={{ marginBottom: 0 }}
                           >
                             <Select
                               size="small"
-                              showSearch
-                              style={{ width: attributeWidth }}
-                              options={Object.keys(
-                                data.length === 0 ? {} : data[0]
-                              )
-                                .filter((k) => !(k in excluded))
-                                .map((k) => ({
-                                  label: k,
-                                  value: k,
-                                }))}
-                              placeholder="Attribute"
+                              options={BitwiseOperatorOptions}
+                              style={{ width: operatorWidth }}
                             />
                           </Form.Item>
-
-                          {renderInputs(name)}
-
-                          <Form.Item style={{ marginBottom: 0 }}>
-                            <AppIconButton
-                              danger
-                              tooltip="Remove clause"
-                              onClick={() => handleRemoveClause(name)}
-                            >
-                              <MinusCircleOutlined />
-                            </AppIconButton>
-                          </Form.Item>
+                          <AppLine />
                         </Flex>
+                      )}
+
+                      <Flex gap="8px" justify="space-between">
+                        <Form.Item
+                          {...restField}
+                          name={[name, "attribute"]}
+                          style={{ marginBottom: 0 }}
+                        >
+                          <Select
+                            size="small"
+                            showSearch
+                            style={{ width: attributeWidth }}
+                            options={Object.keys(
+                              data.length === 0 ? {} : data[0]
+                            )
+                              .filter((k) => !(k in excluded))
+                              .map((k) => ({
+                                label: k,
+                                value: k,
+                              }))}
+                            placeholder="Attribute"
+                          />
+                        </Form.Item>
+
+                        {renderInputs(name)}
+
+                        <Form.Item style={{ marginBottom: 0 }}>
+                          <AppIconButton
+                            danger
+                            tooltip="Remove clause"
+                            onClick={() => handleRemoveClause(name)}
+                          >
+                            <MinusCircleOutlined />
+                          </AppIconButton>
+                        </Form.Item>
                       </Flex>
-                    ))}
-                    <Divider style={{ margin: "8px 0" }} />
-                    <Form.Item style={{ marginBottom: 0 }}>
-                      <Button
-                        type="dashed"
-                        onClick={() => handleAddClause(add)}
-                        icon={<PlusOutlined />}
-                      >
-                        Add clause
-                      </Button>
-                    </Form.Item>
-                    <Divider style={{ margin: "8px 0" }} />
-                    <Flex gap="8px" align="center">
-                      <Form.Item style={{ marginBottom: 0 }}>
-                        <AppButton
-                          type="primary"
-                          onClick={handleApply}
-                          disabled={
-                            (form.getFieldValue(parent) || []).length === 0
-                          }
-                        >
-                          Apply
-                        </AppButton>
-                      </Form.Item>
-                      <Form.Item style={{ marginBottom: 0 }}>
-                        <AppButton
-                          type="text"
-                          onClick={handleReset}
-                          disabled={
-                            (form.getFieldValue(parent) || []).length === 0
-                          }
-                        >
-                          Reset
-                        </AppButton>
-                      </Form.Item>
                     </Flex>
+                  ))}
+                  <Divider style={{ margin: "8px 0" }} />
+                  <Form.Item style={{ marginBottom: 0 }}>
+                    <Button
+                      type="dashed"
+                      onClick={() => handleAddClause(add)}
+                      icon={<PlusOutlined />}
+                    >
+                      Add clause
+                    </Button>
+                  </Form.Item>
+                  <Divider style={{ margin: "8px 0" }} />
+                  <Flex gap="8px" align="center">
+                    <Form.Item style={{ marginBottom: 0 }}>
+                      <AppButton
+                        type="primary"
+                        onClick={handleApply}
+                        disabled={
+                          (form.getFieldValue(parent) || []).length === 0
+                        }
+                      >
+                        Apply
+                      </AppButton>
+                    </Form.Item>
+                    <Form.Item style={{ marginBottom: 0 }}>
+                      <AppButton
+                        type="text"
+                        onClick={handleReset}
+                        disabled={
+                          (form.getFieldValue(parent) || []).length === 0
+                        }
+                      >
+                        Reset
+                      </AppButton>
+                    </Form.Item>
                   </Flex>
-                )}
-              </Form.List>
-            </Card>
+                </Flex>
+              )}
+            </Form.List>
           </AppForm>
-        </AppSpace>
+        </Flex>
       </AppSurface>
     </Fragment>
   );

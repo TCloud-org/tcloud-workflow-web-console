@@ -146,6 +146,7 @@ export const App = () => {
             <Content
               style={{
                 margin: 0,
+                paddingBottom: 16,
                 minHeight: 280,
                 background: "transparent",
                 borderRadius: borderRadiusLG,

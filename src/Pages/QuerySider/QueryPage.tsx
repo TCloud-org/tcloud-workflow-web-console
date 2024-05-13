@@ -1,15 +1,18 @@
+import { Span } from "Config/DataDisplayInterface";
 import { Clause } from "Config/FilterConfig";
 import { EditableColumn } from "Config/LayoutConfig";
 import { WorkColumns } from "Config/TableColumnConfig";
 import { Work } from "Config/WorkflowConfig";
 import { AppTable } from "DataDisplayComponents/AppTable";
 import { PageTitle } from "DataDisplayComponents/PageTitle";
+import { AppRow } from "LayoutComponents/AppRow";
 import { AppSpace } from "LayoutComponents/AppSpace";
 import { queryWorks } from "Network/WorkFetch";
 import { noFilters, transformClausesDate } from "Utils/ObjectUtils";
 import { WorkFilterBuilder } from "WorkflowComponents/WorkFilterBuilder";
 import { WorkFilterDisplay } from "WorkflowComponents/WorkFilterDisplay";
 import { WorkSavedFilterList } from "WorkflowComponents/WorkSavedFilterList";
+import { Col } from "antd";
 import { FilterQuery } from "features/filter/workFilterSlice";
 import { Key, useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -76,32 +79,43 @@ export const QueryPage = () => {
     <AppSpace>
       <PageTitle>Query</PageTitle>
 
-      <WorkSavedFilterList />
+      <AppRow gutter={[16, 16]}>
+        <Col {...Span[2]}>
+          <WorkFilterBuilder
+            clauses={clauses}
+            data={works}
+            setClauses={setClauses}
+          />
+        </Col>
 
-      {!noFilters(clauses) && (
-        <WorkFilterDisplay data={clauses} setClauses={setClauses} />
-      )}
+        <Col {...Span[2]}>
+          <AppRow gutter={[16, 16]}>
+            <Col {...Span[1]} className="flex flex-col">
+              <WorkSavedFilterList />
+            </Col>
+            <Col {...Span[1]} className="flex flex-col">
+              <WorkFilterDisplay data={clauses} setClauses={setClauses} />
+            </Col>
+          </AppRow>
+        </Col>
 
-      <WorkFilterBuilder
-        clauses={clauses}
-        data={works}
-        setClauses={setClauses}
-      />
-
-      <AppTable
-        loading={loading}
-        heading="Workflows"
-        onReload={fetchQueriedWorks}
-        rows={works}
-        columns={columns}
-        selected={selected}
-        setSelected={setSelected}
-        rowId="workId"
-        defaultPageSize={25}
-        showFilter
-        showDownload
-        exludedColumnsFromExport={{ metadata: true }}
-      />
+        <Col {...Span[1]}>
+          <AppTable
+            loading={loading}
+            heading="Workflows"
+            onReload={fetchQueriedWorks}
+            rows={works}
+            columns={columns}
+            selected={selected}
+            setSelected={setSelected}
+            rowId="workId"
+            defaultPageSize={25}
+            showFilter
+            showDownload
+            exludedColumnsFromExport={{ metadata: true }}
+          />
+        </Col>
+      </AppRow>
     </AppSpace>
   );
 };

@@ -1,12 +1,13 @@
-import { Alert, Flex, Typography } from "antd";
-import { AppSpace } from "../../LayoutComponents/AppSpace";
+import { AppSurface } from "DataDisplayComponents/AppSurface";
+import { Alert, Typography } from "antd";
 import { useCallback, useEffect, useState } from "react";
-import { getBuckets } from "../../Network/WorkflowFetch";
 import { useSelector } from "react-redux";
 import { Route } from "../../Config/WorkflowConfig";
-import { BucketTable } from "../../WorkflowComponents/BucketTable";
-import { PageTitle } from "../../DataDisplayComponents/PageTitle";
 import { AppEmpty } from "../../DataDisplayComponents/AppEmpty";
+import { PageTitle } from "../../DataDisplayComponents/PageTitle";
+import { AppSpace } from "../../LayoutComponents/AppSpace";
+import { getBuckets } from "../../Network/WorkflowFetch";
+import { BucketTable } from "../../WorkflowComponents/BucketTable";
 
 export const BucketPage = () => {
   const authToken = useSelector((state: any) => state.auth.token);
@@ -43,9 +44,9 @@ export const BucketPage = () => {
         showIcon
       />
       {Object.keys(bucketMap).length === 0 && (
-        <Flex justify="center">
+        <AppSurface type="form">
           <AppEmpty />
-        </Flex>
+        </AppSurface>
       )}
       {Object.entries(bucketMap).map(([bucketId, routes], i) => (
         <BucketTable bucketId={bucketId} routes={routes} key={i} />

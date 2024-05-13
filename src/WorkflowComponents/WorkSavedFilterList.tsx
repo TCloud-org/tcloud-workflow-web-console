@@ -1,3 +1,5 @@
+import { Span } from "Config/DataDisplayInterface";
+import { AppEmpty } from "DataDisplayComponents/AppEmpty";
 import { AppSurface } from "DataDisplayComponents/AppSurface";
 import { AppSurfaceTitle } from "DataDisplayComponents/AppSurfaceTitle";
 import { AppRow } from "LayoutComponents/AppRow";
@@ -11,8 +13,6 @@ export const WorkSavedFilterList = () => {
   const { saved, active }: { saved: FilterQuery[]; active: string } =
     useSelector((state: any) => state.workFilter);
 
-  if (saved.length === 0) return null;
-
   const comparator = (a: FilterQuery, b: FilterQuery) => {
     if (a.key === active) {
       return -1;
@@ -24,19 +24,24 @@ export const WorkSavedFilterList = () => {
   };
 
   return (
-    <AppSurface>
-      <AppSpace>
+    <AppSurface type="form" className="h-full">
+      <Flex vertical gap={16}>
         <AppSurfaceTitle>Saved Queries</AppSurfaceTitle>
-        <Flex style={{ maxHeight: "300px", overflow: "auto" }}>
+        <Flex style={{ overflow: "auto" }}>
           <AppRow gutter={[8, 8]} style={{ width: "100%" }}>
             {[...saved].sort(comparator).map((query, i) => (
-              <Col key={i} span={8}>
+              <Col key={i} {...Span[3]}>
                 <WorkQueryCard query={query} />
               </Col>
             ))}
+            {saved.length === 0 && (
+              <Col {...Span[1]}>
+                <AppEmpty />
+              </Col>
+            )}
           </AppRow>
         </Flex>
-      </AppSpace>
+      </Flex>
     </AppSurface>
   );
 };
