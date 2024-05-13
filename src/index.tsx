@@ -12,6 +12,7 @@ import { BaseRange } from "slate";
 import { App } from "./App";
 import { persistor, store } from "./app/store";
 import "./index.css";
+import "./output.css";
 import reportWebVitals from "./reportWebVitals";
 import { ConfigProvider } from "antd";
 
