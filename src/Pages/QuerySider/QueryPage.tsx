@@ -86,23 +86,20 @@ export const QueryPage = () => {
       <PageTitle>Query</PageTitle>
 
       <AppRow gutter={[16, 16]} style={{ position: "relative" }}>
-        <Col {...Span[2]}>
+        <Col {...Span[2]} className="flex flex-col">
+          <WorkSavedFilterList />
+        </Col>
+
+        <Col {...Span[2]} className="flex flex-col">
+          <WorkFilterDisplay data={clauses} setClauses={setClauses} />
+        </Col>
+
+        <Col {...Span[1]}>
           <WorkFilterBuilder
             clauses={clauses}
             data={works}
             setClauses={setClauses}
           />
-        </Col>
-
-        <Col {...Span[2]}>
-          <AppRow gutter={[16, 16]}>
-            <Col {...Span[1]} className="flex flex-col">
-              <WorkSavedFilterList />
-            </Col>
-            <Col {...Span[1]} className="flex flex-col">
-              <WorkFilterDisplay data={clauses} setClauses={setClauses} />
-            </Col>
-          </AppRow>
         </Col>
 
         <Col {...Span[1]}>
