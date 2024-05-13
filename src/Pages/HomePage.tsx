@@ -38,7 +38,7 @@ export const HomePage = () => {
   const [columns, setColumns] = useState<EditableColumn[]>(WorkColumns);
   const [loading, setLoading] = useState<boolean>(false);
   const [period, setPeriod] = useState<string | undefined>();
-
+  console.log(authToken);
   const fetchWorksInRange = useCallback(async () => {
     if (((start && end) || period) && clientId && workflowId) {
       setLoading(true);
