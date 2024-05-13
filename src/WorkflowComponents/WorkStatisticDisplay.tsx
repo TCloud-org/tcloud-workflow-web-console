@@ -96,10 +96,14 @@ export const WorkStatisticDisplay = (props: { statistic?: WorkStatistic }) => {
             title={<StatTitle>Infra Composition Chart</StatTitle>}
             valueStyle={{
               fontSize: "14px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
             }}
             valueRender={() => (
               <AppBarChart
-                width={400}
+                className="mr-12"
+                width={350}
                 height={300}
                 data={[
                   {
