@@ -25,11 +25,15 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
+import { camelToUpperCaseUnderscore } from "Utils/StringUtils";
 
 export const LoginPage = () => {
   const { token } = theme.useToken();
   const [form] = Form.useForm();
   const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const product = searchParams.get("product");
+  const tier = searchParams.get("tier");
   const { redirectTo } = location.state || {};
   const [messageApi, contextHolder] = message.useMessage();
 
@@ -61,7 +65,7 @@ export const LoginPage = () => {
   }, [rememberMeToken, form]);
 
   const handleSignUp = () => {
-    navigate("/sign-up");
+    navigate(`/sign-up?${searchParams}`);
   };
 
   const handleForgotPassword = () => {
@@ -81,8 +85,6 @@ export const LoginPage = () => {
         `https://www.googleapis.com/oauth2/v3/userinfo?access_token=${tokenResponse.access_token}`
       )
       .then((res) => res.data);
-    console.log(tokenResponse);
-    console.log(res);
     const credentials = {
       email: res["email"],
       firstName: res["given_name"],
@@ -91,10 +93,20 @@ export const LoginPage = () => {
       accessToken: tokenResponse.access_token,
     };
 
+    const productTiers =
+      product && tier
+        ? [
+            {
+              product: product,
+              tier: camelToUpperCaseUnderscore(tier),
+            },
+          ]
+        : [];
     const formData = {
       email: credentials.email,
       authType: AuthType.GOOGLE,
       credentials: credentials,
+      productTiers,
     };
 
     const systemSignIn = await axios
@@ -133,10 +145,20 @@ export const LoginPage = () => {
   const handleSignIn = async () => {
     setEmailSignInLoading(true);
 
+    const productTiers =
+      product && tier
+        ? [
+            {
+              product: product,
+              tier: camelToUpperCaseUnderscore(tier),
+            },
+          ]
+        : [];
     const formData = {
       email: form.getFieldValue("email"),
       password: form.getFieldValue("password"),
       authType: AuthType.EMAIL,
+      productTiers,
     };
     const res = await axios
       .post(AMS_SIGN_IN_ENDPOINT, formData)
