@@ -326,3 +326,11 @@ export interface GetWorkStatisticInDateRangeOutput {
 export interface QueryWorksOutput {
   works: Work[];
 }
+
+export interface InfraStatistic {
+  totalWorkflows: number;
+  totalGraphs: number;
+  totalServices: number;
+  totalRetryPolicies: number;
+  totalAuthTokens: number;
+}

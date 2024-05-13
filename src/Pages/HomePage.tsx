@@ -12,13 +12,14 @@ import { Alert, Col, Statistic, Typography, theme } from "antd";
 import { Key, useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { Work, WorkStatistic } from "../Config/WorkflowConfig";
+import { InfraStatistic, Work, WorkStatistic } from "../Config/WorkflowConfig";
 import { AppTable } from "../DataDisplayComponents/AppTable";
 import { AppSpace } from "../LayoutComponents/AppSpace";
 import {
   getWorkStatisticInDateRange,
   getWorksInDateRange,
 } from "../Network/WorkFetch";
+import { getInfraStat } from "Network/WorkflowFetch";
 
 export const HomePage = () => {
   const { token } = theme.useToken();
@@ -35,9 +36,29 @@ export const HomePage = () => {
   const [works, setWorks] = useState<Work[]>([]);
   const [selected, setSelected] = useState<Key[]>([]);
   const [statistic, setStatistic] = useState<WorkStatistic>();
+  const [infraStatistic, setInfraStatistic] = useState<InfraStatistic>();
+  const [infraStatisticLoading, setInfraStatisticLoading] =
+    useState<boolean>(false);
   const [columns, setColumns] = useState<EditableColumn[]>(WorkColumns);
   const [loading, setLoading] = useState<boolean>(false);
   const [period, setPeriod] = useState<string | undefined>();
+
+  const fetchInfraStat = useCallback(async () => {
+    if (clientId && authToken) {
+      setInfraStatisticLoading(true);
+
+      const res = await getInfraStat(clientId, authToken).catch((err) => {
+        console.error(err);
+        return undefined;
+      });
+
+      if (res?.infraStatistic) {
+        setInfraStatistic(res.infraStatistic);
+      }
+
+      setInfraStatisticLoading(false);
+    }
+  }, [clientId, authToken]);
 
   const fetchWorksInRange = useCallback(async () => {
     if (((start && end) || period) && clientId && workflowId) {
@@ -97,6 +118,10 @@ export const HomePage = () => {
   }, [start, end, clientId, workflowId, period, authToken]);
 
   useEffect(() => {
+    fetchInfraStat();
+  }, [fetchInfraStat]);
+
+  useEffect(() => {
     fetchWorksInRange();
   }, [fetchWorksInRange]);
 
@@ -130,7 +155,11 @@ export const HomePage = () => {
         />
       )}
 
-      <WorkStatisticDisplay statistic={statistic} />
+      <WorkStatisticDisplay
+        statistic={statistic}
+        infraStatistic={infraStatistic}
+        infraStatisticLoading={infraStatisticLoading}
+      />
 
       <AppRow gutter={[16, 16]}>
         <Col {...createSpan(8)} className="flex flex-col">

@@ -1,5 +1,5 @@
 import { Span } from "Config/DataDisplayInterface";
-import { WorkStatistic } from "Config/WorkflowConfig";
+import { InfraStatistic, WorkStatistic } from "Config/WorkflowConfig";
 import { AppBarChart } from "DataDisplayComponents/AppBarChart";
 import { AppCard } from "DataDisplayComponents/AppCard";
 import { AppEmpty } from "DataDisplayComponents/AppEmpty";
@@ -15,14 +15,18 @@ const formatter: StatisticProps["formatter"] = (value) => (
   <CountUp end={value as number} separator="," />
 );
 
-export const WorkStatisticDisplay = (props: { statistic?: WorkStatistic }) => {
+export const WorkStatisticDisplay = (props: {
+  statistic?: WorkStatistic;
+  infraStatistic?: InfraStatistic;
+  infraStatisticLoading?: boolean;
+}) => {
   const location = useLocation();
   const navigate = useNavigate();
   const params = new URLSearchParams(location.search);
 
   const { token } = theme.useToken();
 
-  const { statistic } = props;
+  const { statistic, infraStatistic, infraStatisticLoading } = props;
 
   const handleStatisticClick = (name: string) => {
     navigate(`/statistic?${params}`, {
@@ -144,6 +148,7 @@ export const WorkStatisticDisplay = (props: { statistic?: WorkStatistic }) => {
       <Col {...Span[2]} className="flex flex-col">
         <AppCard size="small" className="h-full">
           <Statistic
+            loading={infraStatisticLoading}
             title={<StatTitle>Infra Composition Chart</StatTitle>}
             valueStyle={{
               fontSize: "14px",
@@ -159,16 +164,16 @@ export const WorkStatisticDisplay = (props: { statistic?: WorkStatistic }) => {
                 data={[
                   {
                     name: "Workflow",
-                    value: 2,
+                    value: infraStatistic?.totalWorkflows || 0,
                   },
-                  { name: "Graph", value: 10 },
+                  { name: "Graph", value: infraStatistic?.totalGraphs || 0 },
                   {
                     name: "Service",
-                    value: 5,
+                    value: infraStatistic?.totalServices || 0,
                   },
                   {
                     name: "Retry Policy",
-                    value: 3,
+                    value: infraStatistic?.totalRetryPolicies || 0,
                   },
                 ]}
               />

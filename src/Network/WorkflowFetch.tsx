@@ -4,6 +4,7 @@ import {
   WOS_GET_CONFIGURATION_BY_ID_ENDPOINT,
   WOS_GET_GRAPHS_BY_WORKFLOW_ID_ENDPOINT,
   WOS_GET_GRAPH_BY_ID_ENDPOINT,
+  WOS_GET_INFRA_STAT_ENDPOINT,
   WOS_GET_SERVICES_FROM_GRAPH_ENDPOINT,
   WOS_GET_SERVICE_CONFIGURATIONS_BY_CLIENT_ID_ENDPOINT,
   WOS_GET_WORKFLOW_BUCKETS_BY_CLIENT_ID_AND_WORKFLOW_ID_ENDPOINT,
@@ -18,6 +19,7 @@ import {
   GetServicesFromGraphOutput,
   GetWorkflowBucketsByClientIdAndWorkflowIdOutput,
   GetWorkflowConfigurationOutput,
+  InfraStatistic,
   ServiceConfiguration,
 } from "../Config/WorkflowConfig";
 
@@ -196,4 +198,19 @@ export const getGraphById = async (graphId: string | number, token: string) => {
   return await axios
     .get(`${WOS_GET_GRAPH_BY_ID_ENDPOINT}?graphId=${graphId}`, config)
     .then((response) => response.data as GetGraphByIdOutput);
+};
+
+export interface GetInfraStatOutput {
+  infraStatistic: InfraStatistic;
+}
+
+export const getInfraStat = async (clientId: string, token: string) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  return await axios
+    .get(`${WOS_GET_INFRA_STAT_ENDPOINT}?clientId=${clientId}`, config)
+    .then((res) => res.data as GetInfraStatOutput);
 };
