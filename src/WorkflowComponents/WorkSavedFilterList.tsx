@@ -26,10 +26,13 @@ export const WorkSavedFilterList = () => {
     <AppSurface type="form" className="h-full">
       <Flex vertical gap={16}>
         <AppSurfaceTitle>Saved Queries</AppSurfaceTitle>
-        <Flex style={{ overflow: "auto" }}>
+        <Flex
+          style={{ overflow: "auto" }}
+          className="max-h-72 py-4 flex flex-col"
+        >
           <AppRow gutter={[8, 8]} style={{ width: "100%" }}>
             {[...saved].sort(comparator).map((query, i) => (
-              <Col key={i} {...Span[3]}>
+              <Col key={i} {...Span[1]}>
                 <WorkQueryCard query={query} />
               </Col>
             ))}

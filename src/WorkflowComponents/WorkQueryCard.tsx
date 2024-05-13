@@ -1,9 +1,10 @@
 import { CloseOutlined } from "@ant-design/icons";
 import { Clause } from "Config/FilterConfig";
+import { AppCard } from "DataDisplayComponents/AppCard";
 import { AppTag } from "DataDisplayComponents/AppTag";
 import { AppButton } from "DataEntryComponents/AppButton";
 import { AppIconButton } from "DataEntryComponents/AppIconButton";
-import { Card, Flex, message, theme } from "antd";
+import { Flex, message, theme } from "antd";
 import { FilterQuery, activate, remove } from "features/filter/workFilterSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Fragment } from "react/jsx-runtime";
@@ -102,9 +103,8 @@ export const WorkQueryCard = (props: { query: FilterQuery }) => {
   return (
     <Fragment>
       {contextHolder}
-      <Card
+      <AppCard
         title={`${key}${isActivated ? " (Active)" : ""}`}
-        bordered={false}
         size="small"
         extra={
           <AppIconButton size="small" type="text" onClick={handleRemove}>
@@ -148,7 +148,7 @@ export const WorkQueryCard = (props: { query: FilterQuery }) => {
             </AppTag>
           ))}
         </Flex>
-      </Card>
+      </AppCard>
     </Fragment>
   );
 };
