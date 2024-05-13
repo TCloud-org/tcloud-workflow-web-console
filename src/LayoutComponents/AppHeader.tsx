@@ -219,6 +219,7 @@ export const AppHeader = (props: {
               width: topHeaderHeight,
               height: topHeaderHeight,
             }}
+            className="sm:px-2"
           >
             {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
           </AppIconButton>

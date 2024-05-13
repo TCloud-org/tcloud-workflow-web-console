@@ -1,14 +1,14 @@
 import { EditOutlined } from "@ant-design/icons";
+import { CodeBeam } from "DataDisplayComponents/CodeBeam";
 import { useCallback, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Graph } from "../../Config/WorkflowConfig";
-import { CodeDisplay } from "../../DataDisplayComponents/CodeDisplay";
 import { PageTitle } from "../../DataDisplayComponents/PageTitle";
 import { AppIconButton } from "../../DataEntryComponents/AppIconButton";
 import { AppSpace } from "../../LayoutComponents/AppSpace";
 import { getGraphById } from "../../Network/WorkflowFetch";
 import { GraphInfoCard } from "../../WorkflowComponents/GraphInfoCard";
-import { useSelector } from "react-redux";
 
 export const GraphDetailPage = () => {
   const navigate = useNavigate();
@@ -55,14 +55,16 @@ export const GraphDetailPage = () => {
       >{`Graph #${graphId}`}</PageTitle>
 
       <GraphInfoCard graph={graph} />
-      <CodeDisplay
-        bordered
-        hovered
-        code={graph?.xmlContent}
-        showLineNumbers
-        language="xml"
-        copyToClipboard
-        style={{ margin: "16px" }}
+      <CodeBeam
+        value="xml"
+        snippets={[
+          {
+            key: "xml",
+            label: "XML",
+            value: graph?.xmlContent || "",
+            language: "xml",
+          },
+        ]}
       />
     </AppSpace>
   );

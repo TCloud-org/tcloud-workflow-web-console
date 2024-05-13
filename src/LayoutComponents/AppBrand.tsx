@@ -25,7 +25,7 @@ export const AppBrand = (props: {
       strong
       href="/"
     >
-      <Flex justify="center" align="center" className="gap-1 lg:gap-2">
+      <Flex justify="center" align="center" className="gap-2">
         <Icon
           component={() => (
             <img
@@ -36,7 +36,7 @@ export const AppBrand = (props: {
           )}
         />
         <Typography.Text strong className="text-xs">
-          {BRAND}
+          {window.innerWidth < 1024 ? "TCW" : BRAND}
         </Typography.Text>
       </Flex>
     </Typography.Link>

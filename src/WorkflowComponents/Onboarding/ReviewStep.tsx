@@ -1,3 +1,4 @@
+import { CodeBeam } from "DataDisplayComponents/CodeBeam";
 import { Span, StepContentProps } from "../../Config/DataDisplayInterface";
 import {
   RetryPolicyOptions,
@@ -5,7 +6,6 @@ import {
 } from "../../Config/RetryConfig";
 import { AppDescriptions } from "../../DataDisplayComponents/AppDescriptions";
 import { AppStepContentBox } from "../../DataDisplayComponents/AppStepContentBox";
-import { CodeDisplay } from "../../DataDisplayComponents/CodeDisplay";
 import { TableTitle } from "../../DataDisplayComponents/TableTitle";
 import { AppButton } from "../../DataEntryComponents/AppButton";
 import { AppDivider } from "../../LayoutComponents/AppDivider";
@@ -45,14 +45,16 @@ export const ReviewStep = (props: StepContentProps) => {
                 label: formatCamelCaseKey(k),
                 children:
                   k === "xmlContent" ? (
-                    <CodeDisplay
-                      code={v as string}
-                      language="xml"
-                      hovered
-                      showLineNumbers
-                      bordered
-                      copyToClipboard
-                      backgroundColor="white"
+                    <CodeBeam
+                      value="xml"
+                      snippets={[
+                        {
+                          key: "xml",
+                          label: "XML",
+                          language: "xml",
+                          value: v as string,
+                        },
+                      ]}
                     />
                   ) : k === "policyType" ? (
                     RetryPolicyOptions[

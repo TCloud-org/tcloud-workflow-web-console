@@ -1,10 +1,10 @@
+import { CodeBeam } from "DataDisplayComponents/CodeBeam";
 import { Typography } from "antd";
 import { useEffect, useState } from "react";
 import { Route } from "../../Config/WorkflowConfig";
 import { AppCollapse } from "../../DataDisplayComponents/AppCollapse";
 import { AppCollapseLabel } from "../../DataDisplayComponents/AppCollapseLabel";
 import { AppEmpty } from "../../DataDisplayComponents/AppEmpty";
-import { CodeDisplay } from "../../DataDisplayComponents/CodeDisplay";
 import { AppSpace } from "../../LayoutComponents/AppSpace";
 import {
   WorkRequestValue,
@@ -43,10 +43,16 @@ export const LiveEntityTab = (props: { routes: Route[] }) => {
                 key: `child-${i}`,
                 label: <AppCollapseLabel label={source} endTags={value.tags} />,
                 children: (
-                  <CodeDisplay
-                    code={JSON.stringify(value.workRequest, null, 2)}
-                    copyToClipboard
-                    style={{ margin: "16px" }}
+                  <CodeBeam
+                    value="json"
+                    snippets={[
+                      {
+                        key: "json",
+                        label: "JSON",
+                        language: "json",
+                        value: JSON.stringify(value.workRequest, null, 2),
+                      },
+                    ]}
                   />
                 ),
               },
@@ -62,10 +68,16 @@ export const LiveEntityTab = (props: { routes: Route[] }) => {
               key: `child-${i}`,
               label: <AppCollapseLabel label={k} />,
               children: (
-                <CodeDisplay
-                  code={JSON.stringify({ [k]: v }, null, 2)}
-                  copyToClipboard
-                  style={{ margin: "16px" }}
+                <CodeBeam
+                  value="json"
+                  snippets={[
+                    {
+                      key: "json",
+                      label: "JSON",
+                      language: "json",
+                      value: JSON.stringify({ [k]: v }, null, 2),
+                    },
+                  ]}
                 />
               ),
             },

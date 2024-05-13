@@ -105,6 +105,7 @@ export const WorkflowPage = () => {
     navigate("/workflow/add");
   };
 
+  console.log(workflows);
   return (
     <AppSpace loading={loading}>
       <PageTitle
@@ -147,15 +148,11 @@ export const WorkflowPage = () => {
         />
       ) : (
         <AppRow gutter={[24, 24]}>
-          {workflows
-            .filter(
-              (workflow) => workflow.workflowId !== activeWorkflow?.workflowId
-            )
-            .map((workflow, i) => (
-              <Col key={i} span={12}>
-                <WorkflowCard workflow={workflow} />
-              </Col>
-            ))}
+          {workflows.map((workflow, i) => (
+            <Col key={i} {...Span[2]}>
+              <WorkflowCard workflow={workflow} />
+            </Col>
+          ))}
         </AppRow>
       )}
     </AppSpace>

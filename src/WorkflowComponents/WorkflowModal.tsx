@@ -1,15 +1,15 @@
+import { CodeBeam } from "DataDisplayComponents/CodeBeam";
 import { DescriptionsProps, Modal } from "antd";
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { Span } from "../Config/DataDisplayInterface";
 import { WOS_GET_GRAPH_BY_WORKFLOW_ID_AND_ALIAS_ENDPOINT } from "../Config/WOSEndpointConfig";
 import { Graph } from "../Config/WorkflowConfig";
 import { AppDescriptions } from "../DataDisplayComponents/AppDescriptions";
-import { CodeDisplay } from "../DataDisplayComponents/CodeDisplay";
+import { AppSurface } from "../DataDisplayComponents/AppSurface";
 import { AppSpace } from "../LayoutComponents/AppSpace";
 import { Box } from "../LayoutComponents/Box";
-import { AppSurface } from "../DataDisplayComponents/AppSurface";
-import { Span } from "../Config/DataDisplayInterface";
 
 export const WorkflowModal = (props: {
   open?: boolean;
@@ -93,16 +93,16 @@ export const WorkflowModal = (props: {
 
         <Box>
           <AppSpace>
-            <CodeDisplay
-              hovered
-              showLineNumbers
-              bordered
-              copyToClipboard
-              style={{
-                width: "100%",
-              }}
-              language="xml"
-              code={graph?.xmlContent}
+            <CodeBeam
+              value="xml"
+              snippets={[
+                {
+                  key: "xml",
+                  label: "XML",
+                  value: graph?.xmlContent || "",
+                  language: "xml",
+                },
+              ]}
             />
           </AppSpace>
         </Box>

@@ -1,11 +1,11 @@
 import { AppSurface } from "DataDisplayComponents/AppSurface";
+import { CodeBeam } from "DataDisplayComponents/CodeBeam";
 import { DescriptionsProps } from "antd";
 import { CSSProperties, forwardRef } from "react";
 import { Span } from "../Config/DataDisplayInterface";
 import { Route } from "../Config/WorkflowConfig";
 import { AppDescriptions } from "../DataDisplayComponents/AppDescriptions";
 import { AppTag, TagVariantMapping } from "../DataDisplayComponents/AppTag";
-import { CodeDisplay } from "../DataDisplayComponents/CodeDisplay";
 import { formatDate } from "../Utils/DateUtils";
 import { parseError } from "../Utils/Serializer";
 import { LatencyTag } from "./LatencyTag";
@@ -115,9 +115,16 @@ export const StateCardInfo = forwardRef<HTMLDivElement, StateCardInfoProps>(
               label: "Error",
               children: (
                 <AppSurface size="small">
-                  <CodeDisplay
-                    code={parseError(data?.metadata.error)}
-                    copyToClipboard
+                  <CodeBeam
+                    value="json"
+                    snippets={[
+                      {
+                        key: "json",
+                        label: "JSON",
+                        language: "json",
+                        value: parseError(data?.metadata.error) || "",
+                      },
+                    ]}
                   />
                 </AppSurface>
               ),

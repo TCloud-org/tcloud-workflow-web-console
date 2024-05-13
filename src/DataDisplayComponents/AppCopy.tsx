@@ -11,7 +11,7 @@ export const AppCopy = (props: {
   className?: string;
   style?: CSSProperties;
 }) => {
-  const { content = "", className, style } = props;
+  const { content = "", className, style, color } = props;
 
   const [copy, setCopy] = useState<boolean>(false);
 
@@ -27,7 +27,7 @@ export const AppCopy = (props: {
     return (
       <div style={{ lineHeight: 0, ...style }} className={className}>
         <Tooltip title="Copied">
-          <LibraryAddCheckRounded style={{ fontSize: 16 }} />
+          <LibraryAddCheckRounded style={{ fontSize: 16, color: color }} />
         </Tooltip>
       </div>
     );
@@ -37,7 +37,7 @@ export const AppCopy = (props: {
     <div style={{ lineHeight: 0, ...style }} className={className}>
       <Tooltip title="Copy">
         <ContentCopyRounded
-          style={{ cursor: "pointer", fontSize: 16 }}
+          style={{ cursor: "pointer", fontSize: 16, color: color }}
           onClick={handleCopy}
         />
       </Tooltip>

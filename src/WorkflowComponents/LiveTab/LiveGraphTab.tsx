@@ -1,15 +1,15 @@
+import { CodeBeam } from "DataDisplayComponents/CodeBeam";
 import { Flex, Select } from "antd";
 import { Key, useCallback, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Edge, Node, useEdgesState, useNodesState } from "reactflow";
 import { Graph, XMLTreeNode } from "../../Config/WorkflowConfig";
 import { AppFlow } from "../../DataDisplayComponents/AppFlow";
 import { AppTree } from "../../DataDisplayComponents/AppTree";
-import { CodeDisplay } from "../../DataDisplayComponents/CodeDisplay";
 import { AppSpace } from "../../LayoutComponents/AppSpace";
 import { getGraphVisualization } from "../../Network/GraphFetch";
 import { populateFlowNodeData } from "../../Utils/ObjectUtils";
 import { GraphInfoCard } from "../GraphInfoCard";
-import { useSelector } from "react-redux";
 
 const OPTIONS = [
   {
@@ -69,14 +69,16 @@ export const LiveGraphTab = (props: { graph?: Graph }) => {
       return <AppTree treeData={treeNodes} defaultExpandedKeys={treeNodeIds} />;
     }
     return (
-      <CodeDisplay
-        language="xml"
-        code={graph?.xmlContent}
-        hovered
-        showLineNumbers
-        bordered
-        copyToClipboard
-        backgroundColor="white"
+      <CodeBeam
+        value="xml"
+        snippets={[
+          {
+            key: "xml",
+            label: "XML",
+            language: "xml",
+            value: graph?.xmlContent || "",
+          },
+        ]}
       />
     );
   };
