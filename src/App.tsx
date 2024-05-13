@@ -1,3 +1,4 @@
+import { HeaderHeight } from "Config/LayoutConfig";
 import { AddWorkflowPage } from "Pages/ApiWorkflowConfigurationSider/AddWorkflowPage";
 import { WorkflowPage } from "Pages/ApiWorkflowConfigurationSider/WorkflowPage";
 import { ApiWorkflowHowItWorksPage } from "Pages/ApiWorkflowGetStartedSider/ApiWorkflowHowItWorksPage";
@@ -23,7 +24,15 @@ import { PrivacyPolicyPage } from "Pages/Policy/PrivacyPolicyPage";
 import { TermsAndConditionsPage } from "Pages/Policy/TermsAndConditionsPage";
 import { QueryPage } from "Pages/QuerySider/QueryPage";
 import { AccountPage } from "Pages/SettingsSider/AccountPage";
+import { EditEmailTemplatePage } from "Pages/Shop/EditEmailTemplatePage";
+import { EmailTemplateDetailPage } from "Pages/Shop/EmailTemplateDetailPage";
+import { PublishProductPage } from "Pages/Shop/PublishProductPage";
+import { StorePage } from "Pages/Shop/StorePage";
 import { WorkflowStatisticPage } from "Pages/Statistic/WorkflowStatisticPage";
+import { SubscriptionInvoicePage } from "Pages/Subscription/SubscriptionInvoicePage";
+import { SubscriptionPage } from "Pages/Subscription/SubscriptionPage";
+import { SubscriptionPlanPage } from "Pages/Subscription/SubscriptionPlanPage";
+import { ContactPage } from "Pages/Support/ContactPage";
 import { SupportPage } from "Pages/Support/SupportPage";
 import { CreateEmailNotificationWorkflowPage } from "Pages/WorkflowAutomationSider/CreateEmailNotificationWorkflowPage";
 import { EmailNotificationJobPage } from "Pages/WorkflowAutomationSider/EmailNotificationJobPage";
@@ -78,15 +87,6 @@ import { GeneralPage } from "./Pages/SettingsSider/GeneralPage";
 import { deserializeLocation } from "./Utils/Serializer";
 import { setItems } from "./features/navigation/breadcrumbSlice";
 import { setSelectedKeys } from "./features/navigation/siderSlice";
-import { ContactPage } from "Pages/Support/ContactPage";
-import { StorePage } from "Pages/Shop/StorePage";
-import { PublishProductPage } from "Pages/Shop/PublishProductPage";
-import { EmailTemplateDetailPage } from "Pages/Shop/EmailTemplateDetailPage";
-import { EditEmailTemplatePage } from "Pages/Shop/EditEmailTemplatePage";
-import { SubscriptionPlanPage } from "Pages/Subscription/SubscriptionPlanPage";
-import { SubscriptionPage } from "Pages/Subscription/SubscriptionPage";
-import { SubscriptionInvoicePage } from "Pages/Subscription/SubscriptionInvoicePage";
-import { HeaderHeight, SiderWidth } from "Config/LayoutConfig";
 
 export const background = "rgb(249 250 251 / 1)";
 export const App = () => {
@@ -149,7 +149,7 @@ export const App = () => {
 
         <Layout
           style={{ backgroundColor: background }}
-          className={`ml-0 lg:ml-[${SiderWidth}px]`}
+          className={`ml-0 lg:ml-[250px]`}
         >
           <AppHeader collapsed={collapsed} setCollapsed={setCollapsed} />
 

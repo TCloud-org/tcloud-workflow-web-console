@@ -1304,6 +1304,14 @@ thead {
     top: 0px;
   }
 
+  .lg\:left-\[250px\] {
+    left: 250px;
+  }
+
+  .lg\:ml-\[250px\] {
+    margin-left: 250px;
+  }
+
   .lg\:block {
     display: block;
   }

@@ -9,7 +9,7 @@ import {
   SettingFilled,
   UserOutlined,
 } from "@ant-design/icons";
-import { HeaderHeight, SiderWidth } from "Config/LayoutConfig";
+import { HeaderHeight } from "Config/LayoutConfig";
 import { Client } from "Config/SCSConfig";
 import { AppAvatar } from "DataDisplayComponents/AppAvatar";
 import { AppButton } from "DataEntryComponents/AppButton";
@@ -45,8 +45,8 @@ import React, {
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setClientId, updateClients } from "../features/workflow/clientSlice";
-import { AppSubHeader } from "./AppSubHeader";
 import { AppBrand } from "./AppBrand";
+import { AppSubHeader } from "./AppSubHeader";
 
 const topHeaderHeight = 40;
 
@@ -192,7 +192,7 @@ export const AppHeader = (props: {
         borderBottom: `1px solid ${token.colorBorder}`,
         padding: 0,
       }}
-      className={`left-0 lg:left-[${SiderWidth}px]`}
+      className={`left-0 lg:left-[250px]`}
     >
       <Flex
         align="center"
