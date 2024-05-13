@@ -10,12 +10,10 @@ import {
   ShopOutlined,
   UsergroupAddOutlined,
 } from "@ant-design/icons";
-import Icon from "@ant-design/icons/lib/components/Icon";
 import { useClickAway } from "@uidotdev/usehooks";
-import { HeaderHeight, SiderWidth } from "Config/LayoutConfig";
-import { BRAND } from "Config/WOSEndpointConfig";
+import { SiderWidth } from "Config/LayoutConfig";
 import { AppMenuPin } from "DataDisplayComponents/AppMenuPin";
-import { Flex, Menu, MenuProps, Typography, theme } from "antd";
+import { Flex, Menu, MenuProps, theme } from "antd";
 import Sider from "antd/es/layout/Sider";
 import { Dispatch, SetStateAction } from "react";
 import { useSelector } from "react-redux";

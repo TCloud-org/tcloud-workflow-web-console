@@ -5,6 +5,7 @@ import { WorkColumns } from "Config/TableColumnConfig";
 import { Work } from "Config/WorkflowConfig";
 import { AppTable } from "DataDisplayComponents/AppTable";
 import { PageTitle } from "DataDisplayComponents/PageTitle";
+import { PremiumMask } from "DataEntryComponents/PremiumMask";
 import { AppRow } from "LayoutComponents/AppRow";
 import { AppSpace } from "LayoutComponents/AppSpace";
 import { queryWorks } from "Network/WorkFetch";
@@ -31,34 +32,39 @@ export const QueryPage = () => {
   const [columns, setColumns] = useState<EditableColumn[]>(WorkColumns);
   const [loading, setLoading] = useState<boolean>(false);
   const [selected, setSelected] = useState<Key[]>([]);
+  const [isRestrictedAccess, setIsRestrictedAccess] = useState<boolean>(false);
 
   const fetchQueriedWorks = useCallback(async () => {
     setLoading(true);
 
     const res = await queryWorks(clientId, workflowId, clauses, authToken);
-    setWorks(res?.works || []);
-    setColumns((prev: EditableColumn[]) =>
-      prev.map((col) => {
-        if (col.dataIndex !== "source") {
-          return col;
-        }
-        return {
-          ...col,
-          customFilters: Object.keys(
-            (res?.works || []).reduce(
-              (res: { [key: string]: string }, work) => {
-                res[work.source] = work.source;
-                return res;
-              },
-              {}
-            )
-          ).map((state) => ({
-            text: state,
-            value: state,
-          })),
-        } as EditableColumn;
-      })
-    );
+    if (res.response && res.response.status === 403) {
+      setIsRestrictedAccess(true);
+    } else {
+      setWorks(res?.works || []);
+      setColumns((prev: EditableColumn[]) =>
+        prev.map((col) => {
+          if (col.dataIndex !== "source") {
+            return col;
+          }
+          return {
+            ...col,
+            customFilters: Object.keys(
+              (res?.works || []).reduce(
+                (res: { [key: string]: string }, work: any) => {
+                  res[work.source] = work.source;
+                  return res;
+                },
+                {}
+              )
+            ).map((state) => ({
+              text: state,
+              value: state,
+            })),
+          } as EditableColumn;
+        })
+      );
+    }
 
     setLoading(false);
   }, [clientId, workflowId, clauses, authToken]);
@@ -79,7 +85,7 @@ export const QueryPage = () => {
     <AppSpace>
       <PageTitle>Query</PageTitle>
 
-      <AppRow gutter={[16, 16]}>
+      <AppRow gutter={[16, 16]} style={{ position: "relative" }}>
         <Col {...Span[2]}>
           <WorkFilterBuilder
             clauses={clauses}
@@ -115,6 +121,8 @@ export const QueryPage = () => {
             exludedColumnsFromExport={{ metadata: true }}
           />
         </Col>
+
+        {isRestrictedAccess && <PremiumMask />}
       </AppRow>
     </AppSpace>
   );

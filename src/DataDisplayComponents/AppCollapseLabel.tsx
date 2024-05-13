@@ -1,6 +1,8 @@
-import { Flex, Typography } from "antd";
+import { Col, Flex, Typography } from "antd";
 import { CollapseTag } from "../Utils/ObjectUtils";
 import { AppTag } from "./AppTag";
+import { AppRow } from "LayoutComponents/AppRow";
+import { Span } from "Config/DataDisplayInterface";
 
 export const AppCollapseLabel = (props: {
   label: string;
@@ -9,25 +11,26 @@ export const AppCollapseLabel = (props: {
 }) => {
   const { label, startTags = [], endTags = [] } = props;
   return (
-    <Flex justify="space-between" align="flex-start">
-      <Flex gap="16px" align="flex-start">
-        <Typography.Text>{label}</Typography.Text>
+    <AppRow gutter={[16, 16]}>
+      <Col {...Span[2]}>
+        <Flex gap="16px" align="flex-start">
+          <Typography.Text>{label}</Typography.Text>
 
-        <Flex gap="4px" wrap="wrap" style={{ justifyContent: "flex-start" }}>
-          {startTags.map((tag, i) => (
+          <Flex gap="4px" wrap="wrap" style={{ justifyContent: "flex-start" }}>
+            {startTags.map((tag, i) => (
+              <AppTag {...tag} key={i} />
+            ))}
+          </Flex>
+        </Flex>
+      </Col>
+
+      <Col {...Span[2]} className="flex justify-end">
+        <Flex gap="4px" wrap="wrap" className="justify-end">
+          {endTags.map((tag, i) => (
             <AppTag {...tag} key={i} />
           ))}
         </Flex>
-      </Flex>
-      <Flex
-        gap="4px"
-        wrap="wrap"
-        style={{ width: "60%", justifyContent: "flex-end" }}
-      >
-        {endTags.map((tag, i) => (
-          <AppTag {...tag} key={i} />
-        ))}
-      </Flex>
-    </Flex>
+      </Col>
+    </AppRow>
   );
 };

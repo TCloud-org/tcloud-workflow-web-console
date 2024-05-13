@@ -1,10 +1,10 @@
-import { Col, Flex, Typography } from "antd";
-import { ReactNode } from "react";
-import { AppSpace } from "../LayoutComponents/AppSpace";
-import { AppIconButton } from "../DataEntryComponents/AppIconButton";
 import { ReloadOutlined } from "@ant-design/icons";
-import { AppRow } from "LayoutComponents/AppRow";
 import { Span } from "Config/DataDisplayInterface";
+import { AppRow } from "LayoutComponents/AppRow";
+import { Col, Typography } from "antd";
+import { ReactNode } from "react";
+import { AppIconButton } from "../DataEntryComponents/AppIconButton";
+import { AppSpace } from "../LayoutComponents/AppSpace";
 
 export const PageTitle = (props: {
   children?: ReactNode;

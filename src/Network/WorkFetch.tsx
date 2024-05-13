@@ -95,5 +95,5 @@ export const queryWorks = async (
       },
     })
     .then((res) => res.data as QueryWorksOutput)
-    .catch((_) => undefined);
+    .catch((err) => err);
 };

@@ -1,4 +1,4 @@
-import { Flex, Typography } from "antd";
+import { Flex } from "antd";
 import { Key, useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -10,7 +10,6 @@ import {
 import { EditableColumn } from "../../Config/LayoutConfig";
 import { AppSecretText } from "../../DataDisplayComponents/AppSecretText";
 import { AppTable } from "../../DataDisplayComponents/AppTable";
-import { AppTag } from "../../DataDisplayComponents/AppTag";
 import { PageTitle } from "../../DataDisplayComponents/PageTitle";
 import { AppButton } from "../../DataEntryComponents/AppButton";
 import { AppLink } from "../../DataEntryComponents/AppLink";
@@ -70,21 +69,6 @@ export const AuthTokenPage = () => {
     navigate("/auth-token/add");
   };
 
-  const renderTitleStartDecorator = (type: string) => {
-    const authType =
-      AuthenticationTypes[type as keyof AuthenticationTypesProps];
-    return (
-      authType.tag && (
-        <Flex align="center" gap="16px">
-          <Typography.Title level={5} style={{ margin: 0 }}>
-            {authType.label}
-          </Typography.Title>
-          <AppTag color={authType.tag.color}>{authType.tag.children}</AppTag>
-        </Flex>
-      )
-    );
-  };
-
   const getColumns = (type: string): EditableColumn[] => {
     const inputs =
       AuthenticationTypes[type as keyof AuthenticationTypesProps].inputs || [];
@@ -114,11 +98,11 @@ export const AuthTokenPage = () => {
       {Object.entries(tokenMap).map(([type, tokens], i) => (
         <AppTable
           key={i}
-          titleStartDecorator={renderTitleStartDecorator(type)}
           rows={tokens}
           columns={getColumns(type)}
           selected={selected}
           setSelected={setSelected}
+          heading="Authentication Tokens"
           rowId="tokenId"
           showTitle
         />

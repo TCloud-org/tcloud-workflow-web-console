@@ -11,11 +11,12 @@ export const AppSheet = forwardRef<
     <div
       ref={ref}
       style={{
-        backgroundColor: token.colorFillAlter,
+        backgroundColor: token.colorBgContainer,
         borderRadius: token.borderRadiusLG,
-        transition: "0.2s",
+        transition: "all 0.3s",
         overflow: "hidden",
         padding: "16px",
+        border: `1px solid ${token.colorBorder}`,
         ...props.style,
       }}
     >

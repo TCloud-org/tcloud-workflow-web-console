@@ -27,8 +27,8 @@ export const AppWorkflowCollapse = (props: {
       )}
       style={{
         ...dotStyle,
-        padding: 128,
       }}
+      className="p-2 md:p-10 lg:p-20"
       items={items.map((item) => ({ ...item, style: panelStyle }))}
     />
   );

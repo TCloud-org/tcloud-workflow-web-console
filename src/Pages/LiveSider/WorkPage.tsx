@@ -223,7 +223,7 @@ export const WorkPage = () => {
               />
             </Col>
             <Col {...Span[1]}>
-              <WorkflowInfo />
+              <WorkflowInfo graph={graph} />
             </Col>
           </AppRow>
         </Col>

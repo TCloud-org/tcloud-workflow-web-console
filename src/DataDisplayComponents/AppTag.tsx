@@ -42,7 +42,12 @@ export const AppTag = (props: CollapseTag) => {
       <Tag
         bordered={false}
         {...props}
-        style={{ margin: 0, wordBreak: "break-word", ...props.style }}
+        style={{
+          margin: 0,
+          whiteSpace: "normal",
+          wordBreak: "break-all",
+          ...props.style,
+        }}
       >
         {props.children}
       </Tag>

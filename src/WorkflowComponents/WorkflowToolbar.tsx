@@ -6,6 +6,7 @@ import {
   MenuProps,
   Popconfirm,
   Radio,
+  Typography,
   message,
 } from "antd";
 import axios from "axios";
@@ -21,10 +22,9 @@ import {
 import { Graph, Route, WorkflowRunConfig } from "../Config/WorkflowConfig";
 import { AppSurface } from "../DataDisplayComponents/AppSurface";
 import { AppIconButton } from "../DataEntryComponents/AppIconButton";
-import { AppSpace } from "../LayoutComponents/AppSpace";
+import { LiveTransition } from "./LiveTransition";
 import { RerunConfiguration } from "./RerunConfiguration";
 import { RetryConfiguration } from "./RetryConfiguration";
-import { LiveTransition } from "./LiveTransition";
 
 const RetryOptions: MenuProps["items"] = [
   {
@@ -215,15 +215,16 @@ export const WorkflowToolbar = (props: {
   return (
     <>
       {contextHolder}
-      <AppSurface type="form">
-        <Flex justify="center">
-          <AppSpace
-            direction="horizontal"
-            loading={rerunLoading || closeLoading || retryLoading}
-          >
+      <AppSurface type="form" className="flex">
+        <Flex vertical gap={16}>
+          <Typography.Text className="font-semibold text-slate-800">
+            Action Panel
+          </Typography.Text>
+          <Flex gap={16}>
             <Dropdown.Button
               onClick={handleRetry}
               trigger={["click"]}
+              loading={retryLoading}
               menu={{
                 items: RetryOptions,
                 onClick: (e) => {
@@ -237,6 +238,7 @@ export const WorkflowToolbar = (props: {
             <Dropdown.Button
               onClick={handleRerun}
               trigger={["click"]}
+              loading={rerunLoading}
               menu={{
                 items: RerunOptions,
                 onClick: (e) => {
@@ -254,7 +256,9 @@ export const WorkflowToolbar = (props: {
               cancelText="No"
               onConfirm={handleClose}
             >
-              <Button danger>Close</Button>
+              <Button loading={closeLoading} danger type="primary">
+                Close
+              </Button>
             </Popconfirm>
 
             <Radio.Group value={runConfig} buttonStyle="solid">
@@ -272,14 +276,18 @@ export const WorkflowToolbar = (props: {
               </Radio.Button>
             </Radio.Group>
 
-            <AppIconButton onClick={onReload} tooltip="Reload">
-              <ReloadOutlined />
-            </AppIconButton>
+            <Flex>
+              <AppIconButton onClick={onReload} tooltip="Reload">
+                <ReloadOutlined />
+              </AppIconButton>
+            </Flex>
 
-            <AppIconButton onClick={handleShare} tooltip="Share">
-              <ShareAltOutlined />
-            </AppIconButton>
-          </AppSpace>
+            <Flex>
+              <AppIconButton onClick={handleShare} tooltip="Share">
+                <ShareAltOutlined />
+              </AppIconButton>
+            </Flex>
+          </Flex>
         </Flex>
       </AppSurface>
       <RetryConfiguration
