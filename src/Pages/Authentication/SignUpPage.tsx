@@ -7,6 +7,7 @@ import { AppButton } from "DataEntryComponents/AppButton";
 import { AppForm } from "DataEntryComponents/AppForm";
 import { AuthContent } from "LayoutComponents/AuthContent";
 import { getInvitationToken } from "Network/SecurityFetch";
+import { camelToUpperCaseUnderscore } from "Utils/StringUtils";
 import {
   Checkbox,
   Col,
@@ -27,6 +28,8 @@ export const SignUpPage = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const invitationToken = searchParams.get("invitationToken");
+  const product = searchParams.get("product");
+  const tier = searchParams.get("tier");
   const [messageApi, contextHolder] = message.useMessage();
 
   const navigate = useNavigate();
@@ -55,11 +58,22 @@ export const SignUpPage = () => {
   const handleSignUp = async () => {
     setEmailSignUpLoading(true);
 
+    const productTiers =
+      product && tier
+        ? [
+            {
+              product: product,
+              tier: camelToUpperCaseUnderscore(tier),
+            },
+          ]
+        : [];
+
     const formData = {
       email: form.getFieldValue("email"),
       password: form.getFieldValue("password"),
       firstName: form.getFieldValue("firstName"),
       lastName: form.getFieldValue("lastName"),
+      productTiers: productTiers,
     };
     const res = await axios
       .post(AMS_SIGN_UP_ENDPOINT, formData)
