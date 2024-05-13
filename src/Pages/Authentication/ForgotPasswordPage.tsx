@@ -69,14 +69,14 @@ export const ForgotPasswordPage = () => {
     <>
       {contextHolder}
       <AuthContent>
-        <Col span={12}>
+        <Col {...Span[2]}>
           <AuthImageDisplay
             imageUrl="https://tcw-images.s3.us-west-2.amazonaws.com/6221538.jpg"
             resourceUrl="https://www.freepik.com/free-vector/hand-drawn-illustrated-business-planning_20124546.htm"
             resourceLabel="Image by freepik"
           />
         </Col>
-        <Col span={12}>
+        <Col {...Span[2]}>
           <Flex
             vertical
             align="center"

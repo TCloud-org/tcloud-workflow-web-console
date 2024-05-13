@@ -200,7 +200,7 @@ export const LoginPage = () => {
     <>
       {contextHolder}
       <AuthContent>
-        <Col span={12}>
+        <Col {...Span[2]}>
           <AuthImageDisplay
             imageUrl="https://tcw-images.s3.us-west-2.amazonaws.com/6225958.jpg"
             resourceUrl="https://www.freepik.com/free-vector/hand-drawn-illustration-business-planning_20124625.htm#fromView=search&page=3&position=24&uuid=86237bfa-c9e7-4467-92b5-0606a5715ad3"
@@ -208,7 +208,7 @@ export const LoginPage = () => {
           />
         </Col>
 
-        <Col span={12}>
+        <Col {...Span[2]}>
           <Flex
             vertical
             align="center"
