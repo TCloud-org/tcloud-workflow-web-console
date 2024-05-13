@@ -24,7 +24,7 @@ export const AppBarChart = (props: {
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey="name" />
       <YAxis />
-      <Tooltip />
+      <Tooltip cursor={{ fill: token.colorBorder }} />
       <Legend />
       <Bar dataKey="value" fill={token.colorPrimary} />
     </BarChart>

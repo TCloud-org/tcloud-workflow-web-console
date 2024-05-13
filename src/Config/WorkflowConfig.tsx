@@ -313,7 +313,7 @@ export interface GetWorksInDateRangeOutput {
 }
 
 export interface WorkStatistic {
-  totalWorks: number;
+  works: Work[];
   successes: Work[];
   progresses: Work[];
   failures: Work[];

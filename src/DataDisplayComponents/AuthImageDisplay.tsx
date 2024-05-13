@@ -17,6 +17,7 @@ export const AuthImageDisplay = (props: {
         src={props.imageUrl}
         style={{ borderRadius: token.borderRadiusLG, objectFit: "contain" }}
         height="100%"
+        preview={false}
       />
       <a
         style={{

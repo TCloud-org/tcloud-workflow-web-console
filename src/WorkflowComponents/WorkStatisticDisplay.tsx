@@ -40,10 +40,14 @@ export const WorkStatisticDisplay = (props: { statistic?: WorkStatistic }) => {
   return (
     <AppRow gutter={[16, 16]}>
       <Col {...Span[4]}>
-        <AppCard size="small">
+        <AppCard
+          size="small"
+          onClick={() => handleStatisticClick("works")}
+          style={{ cursor: "pointer" }}
+        >
           <Statistic
             title={<StatTitle>Works</StatTitle>}
-            value={statistic?.totalWorks}
+            value={statistic?.works.length}
             valueStyle={{ ...valueStyle, color: token.colorPrimary }}
             formatter={formatter}
           />
@@ -107,7 +111,7 @@ export const WorkStatisticDisplay = (props: { statistic?: WorkStatistic }) => {
               alignItems: "center",
             }}
             valueRender={(_) =>
-              !statistic || statistic.totalWorks === 0 ? (
+              !statistic || statistic.works.length === 0 ? (
                 <AppEmpty />
               ) : (
                 <AppPieChart

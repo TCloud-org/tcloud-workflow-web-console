@@ -701,6 +701,10 @@ video {
   width: 20rem;
 }
 
+.w-full {
+  width: 100%;
+}
+
 .grow {
   flex-grow: 1;
 }
@@ -802,6 +806,11 @@ video {
 .bg-slate-400 {
   --tw-bg-opacity: 1;
   background-color: rgb(148 163 184 / var(--tw-bg-opacity));
+}
+
+.bg-black {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
 }
 
 .p-2 {
