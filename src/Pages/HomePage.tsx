@@ -3,8 +3,8 @@ import { EditableColumn } from "Config/LayoutConfig";
 import { WorkColumns } from "Config/TableColumnConfig";
 import { AppCard } from "DataDisplayComponents/AppCard";
 import { AppEmpty } from "DataDisplayComponents/AppEmpty";
-import { AppPieChart } from "DataDisplayComponents/AppPieChart";
 import { PageTitle } from "DataDisplayComponents/PageTitle";
+import { StatTitle } from "DataDisplayComponents/StatTitle";
 import { AppRow } from "LayoutComponents/AppRow";
 import { WorkPeriodToolbar } from "WorkflowComponents/WorkPeriodToolbar";
 import { WorkStatisticDisplay } from "WorkflowComponents/WorkStatisticDisplay";
@@ -136,44 +136,8 @@ export const HomePage = () => {
         <Col {...createSpan(8)} className="flex flex-col">
           <AppCard size="small" className="h-full">
             <Statistic
-              title={
-                <Typography.Text className="text-slate-700 font-semibold">
-                  Result Distribution Chart
-                </Typography.Text>
-              }
-              valueStyle={{
-                fontSize: "14px",
-                justifyContent: "center",
-                display: "flex",
-                alignItems: "center",
-              }}
-              valueRender={(_) =>
-                !statistic || statistic.totalWorks === 0 ? (
-                  <AppEmpty />
-                ) : (
-                  <AppPieChart
-                    data={[
-                      {
-                        name: "Success",
-                        value: statistic?.successes.length,
-                        fill: token.colorSuccess,
-                      },
-                      {
-                        name: "In Progress",
-                        value: statistic?.progresses.length,
-                        fill: token.colorWarning,
-                      },
-                      {
-                        name: "Failure",
-                        value: statistic?.failures.length,
-                        fill: token.colorError,
-                      },
-                    ]}
-                    width={350}
-                    height={300}
-                  />
-                )
-              }
+              title={<StatTitle>Billing</StatTitle>}
+              valueRender={() => <AppEmpty />}
             />
           </AppCard>
         </Col>
