@@ -3,7 +3,6 @@ import { AppEmpty } from "DataDisplayComponents/AppEmpty";
 import { AppSurface } from "DataDisplayComponents/AppSurface";
 import { AppSurfaceTitle } from "DataDisplayComponents/AppSurfaceTitle";
 import { AppRow } from "LayoutComponents/AppRow";
-import { AppSpace } from "LayoutComponents/AppSpace";
 import { Col, Flex } from "antd";
 import { FilterQuery } from "features/filter/workFilterSlice";
 import { useSelector } from "react-redux";

@@ -20,7 +20,7 @@ export const AppHeading = (props: {
   };
 
   return getSurface(
-    <Flex justify="space-between" align="center">
+    <Flex justify="space-between" align="flex-start">
       <Tooltip title={props.tooltip}>
         <Typography.Text strong>{props.children}</Typography.Text>
       </Tooltip>

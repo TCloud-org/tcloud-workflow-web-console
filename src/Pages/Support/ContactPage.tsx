@@ -4,11 +4,13 @@ import {
   MailOutlined,
   PhoneOutlined,
 } from "@ant-design/icons";
+import { AppCard } from "DataDisplayComponents/AppCard";
+import { AppSurface } from "DataDisplayComponents/AppSurface";
 import { PageTitle } from "DataDisplayComponents/PageTitle";
 import { AppButton } from "DataEntryComponents/AppButton";
 import { AppForm } from "DataEntryComponents/AppForm";
 import { AppRow } from "LayoutComponents/AppRow";
-import { Card, Col, Flex, Form, Input, Typography, theme } from "antd";
+import { Col, Flex, Form, Input, Typography } from "antd";
 
 const contactOptions = [
   {
@@ -28,8 +30,6 @@ const contactOptions = [
   },
 ];
 export const ContactPage = () => {
-  const { token } = theme.useToken();
-
   return (
     <div
       style={{
@@ -46,9 +46,8 @@ export const ContactPage = () => {
               Any question? We would be happy to help
             </Typography.Text>
             {contactOptions.map((option, i) => (
-              <Card
-                style={{ width: 450 }}
-                hoverable
+              <AppCard
+                style={{ width: 450, cursor: "pointer" }}
                 key={i}
                 onClick={() => (window.location.href = option.href)}
               >
@@ -56,58 +55,52 @@ export const ContactPage = () => {
                   {option.icon}
                   <Typography.Text>{option.value}</Typography.Text>
                 </Flex>
-              </Card>
+              </AppCard>
             ))}
           </Flex>
         </Col>
         <Col span={12}>
-          <Flex
-            vertical
-            gap={16}
-            style={{
-              padding: 32,
-              boxShadow: token.boxShadowSecondary,
-              borderRadius: token.borderRadiusLG,
-            }}
-          >
-            <Typography.Title level={3} style={{ marginTop: 0 }}>
-              Get in touch
-            </Typography.Title>
-            <AppForm layout="vertical" style={{ width: "100%" }}>
-              <Flex align="center" gap={16}>
-                <Form.Item
-                  style={{ flex: 1 }}
-                  label="First name"
-                  name="firstName"
-                >
+          <AppSurface type="form">
+            <Flex vertical gap={16}>
+              <Typography.Title level={3} style={{ marginTop: 0 }}>
+                Get in touch
+              </Typography.Title>
+              <AppForm layout="vertical" style={{ width: "100%" }}>
+                <Flex align="center" gap={16}>
+                  <Form.Item
+                    style={{ flex: 1 }}
+                    label="First name"
+                    name="firstName"
+                  >
+                    <Input />
+                  </Form.Item>
+                  <Form.Item
+                    style={{ flex: 1 }}
+                    label="Last name"
+                    name="lastName"
+                  >
+                    <Input />
+                  </Form.Item>
+                </Flex>
+                <Form.Item label="Email address" name="email">
                   <Input />
                 </Form.Item>
-                <Form.Item
-                  style={{ flex: 1 }}
-                  label="Last name"
-                  name="lastName"
-                >
-                  <Input />
+                <Form.Item label="Message" name="message">
+                  <Input.TextArea autoSize={{ minRows: 5, maxRows: 10 }} />
                 </Form.Item>
-              </Flex>
-              <Form.Item label="Email address" name="email">
-                <Input />
-              </Form.Item>
-              <Form.Item label="Message" name="message">
-                <Input.TextArea autoSize={{ minRows: 5, maxRows: 10 }} />
-              </Form.Item>
 
-              <Form.Item style={{ flex: 1 }}>
-                <AppButton
-                  type="primary"
-                  style={{ width: "100%" }}
-                  icon={<ArrowRightOutlined />}
-                >
-                  Submit
-                </AppButton>
-              </Form.Item>
-            </AppForm>
-          </Flex>
+                <Form.Item style={{ flex: 1 }}>
+                  <AppButton
+                    type="primary"
+                    style={{ width: "100%" }}
+                    icon={<ArrowRightOutlined />}
+                  >
+                    Submit
+                  </AppButton>
+                </Form.Item>
+              </AppForm>
+            </Flex>
+          </AppSurface>
         </Col>
       </AppRow>
     </div>

@@ -1,7 +1,8 @@
 import { Workflow } from "Config/WorkflowConfig";
+import { AppCard } from "DataDisplayComponents/AppCard";
 import { AppButton } from "DataEntryComponents/AppButton";
 import { formatDateString } from "Utils/DateUtils";
-import { Card, Flex, Typography, theme } from "antd";
+import { Flex, Typography } from "antd";
 import { setWorkflow } from "features/workflow/workflowSlice";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -29,7 +30,6 @@ const data = [
   },
 ];
 export const WorkflowCard = (props: { workflow?: Workflow }) => {
-  const { token } = theme.useToken();
   const dispatch = useDispatch();
 
   const activeWorkflow: Workflow | undefined = useSelector(
@@ -51,10 +51,9 @@ export const WorkflowCard = (props: { workflow?: Workflow }) => {
   if (!workflow) return null;
 
   return (
-    <Card
-      bordered={false}
+    <AppCard
       title={workflow.workflowName}
-      style={{ height: "100%", boxShadow: token.boxShadowSecondary }}
+      style={{ height: "100%" }}
       styles={{
         actions: {
           flex: 1,
@@ -87,6 +86,6 @@ export const WorkflowCard = (props: { workflow?: Workflow }) => {
           </Flex>
         ))}
       </Flex>
-    </Card>
+    </AppCard>
   );
 };

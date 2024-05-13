@@ -74,7 +74,7 @@ export const SupportPage = () => {
         style={{
           justifyContent: "center",
           padding: "64px 128px",
-          backgroundColor: token.colorFillQuaternary,
+          background: token.colorBgContainer,
           margin: 0,
         }}
       >
@@ -97,7 +97,10 @@ export const SupportPage = () => {
         justify="center"
         align="center"
         gap={32}
-        style={{ padding: "64px 128px" }}
+        style={{
+          padding: "64px 128px",
+          background: token.colorBgContainer,
+        }}
       >
         <Typography.Title level={4} style={{ margin: 0 }}>
           FAQs

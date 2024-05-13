@@ -148,7 +148,7 @@ export const getBuckets = async (
     .then((response) => {
       return response.data as GetWorkflowBucketsByClientIdAndWorkflowIdOutput;
     })
-    .catch((_) => undefined);
+    .catch((err) => err);
 };
 
 export const getWorkflowConfiguration = async (

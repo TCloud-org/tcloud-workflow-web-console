@@ -138,7 +138,7 @@ export const GraphPage = () => {
     <AppSpace loading={loading}>
       <PageTitle>{workflowName}</PageTitle>
 
-      <AppSurface style={{ paddingBottom: 0 }}>
+      <AppSurface type="form" style={{ paddingBottom: 0 }}>
         <AppDescriptions title="Details" items={graphDescriptions} />
       </AppSurface>
 
@@ -173,6 +173,7 @@ export const GraphPage = () => {
           !col.editable ? col : { ...col, handleSave: saveGraph }
         )}
         selected={selected}
+        heading="Graphs"
         setSelected={setSelected}
         rowId="graphId"
       />

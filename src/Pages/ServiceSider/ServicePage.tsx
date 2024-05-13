@@ -6,6 +6,7 @@ import { AppSpace } from "../../LayoutComponents/AppSpace";
 import { getServiceConfigurations } from "../../Network/WorkflowFetch";
 import { Button } from "antd";
 import { PageTitle } from "../../DataDisplayComponents/PageTitle";
+import { AppSurface } from "DataDisplayComponents/AppSurface";
 
 export const ServicePage = () => {
   const location = useLocation();
@@ -44,15 +45,17 @@ export const ServicePage = () => {
   return (
     <AppSpace>
       <PageTitle>Service</PageTitle>
-      <AppList
-        data={services}
-        header="Services"
-        onReload={fetchServices}
-        loading={loading}
-        headerEndDecorator={
-          <Button onClick={handleAddService}>Add a new service</Button>
-        }
-      />
+      <AppSurface type="form">
+        <AppList
+          data={services}
+          header="Services"
+          onReload={fetchServices}
+          loading={loading}
+          headerEndDecorator={
+            <Button onClick={handleAddService}>Add a new service</Button>
+          }
+        />
+      </AppSurface>
     </AppSpace>
   );
 };

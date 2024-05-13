@@ -1,5 +1,6 @@
 import { AppSurface } from "DataDisplayComponents/AppSurface";
-import { Alert, Typography } from "antd";
+import { PremiumMask } from "DataEntryComponents/PremiumMask";
+import { Alert, Flex, Typography } from "antd";
 import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Route } from "../../Config/WorkflowConfig";
@@ -18,11 +19,16 @@ export const BucketPage = () => {
 
   const [bucketMap, setBucketMap] = useState<Record<string, Route[]>>({});
   const [loading, setLoading] = useState(false);
+  const [isRestricted, setIsRestricted] = useState<boolean>(false);
 
   const fetchBuckets = useCallback(async () => {
     setLoading(true);
     const data = await getBuckets(clientId, workflowId, authToken);
-    setBucketMap(data?.bucketMap || {});
+    if (data.response && data.response.status === 403) {
+      setIsRestricted(true);
+    } else {
+      setBucketMap(data?.bucketMap || {});
+    }
     setLoading(false);
   }, [clientId, workflowId, authToken]);
 
@@ -33,24 +39,27 @@ export const BucketPage = () => {
   return (
     <AppSpace loading={loading}>
       <PageTitle onReload={fetchBuckets}>Bucket</PageTitle>
-      <Alert
-        message={
-          <Typography.Text>
-            Bucket serialized ID is following this principle:{" "}
-            <code>[graph_id]:[state_name]:[result_name]:[result_type]</code>
-          </Typography.Text>
-        }
-        type="info"
-        showIcon
-      />
-      {Object.keys(bucketMap).length === 0 && (
-        <AppSurface type="form">
-          <AppEmpty />
-        </AppSurface>
-      )}
-      {Object.entries(bucketMap).map(([bucketId, routes], i) => (
-        <BucketTable bucketId={bucketId} routes={routes} key={i} />
-      ))}
+      <Flex vertical gap={16} className="relative">
+        {isRestricted && <PremiumMask />}
+        <Alert
+          message={
+            <Typography.Text>
+              Bucket serialized ID is following this principle:{" "}
+              <code>[graph_id]:[state_name]:[result_name]:[result_type]</code>
+            </Typography.Text>
+          }
+          type="info"
+          showIcon
+        />
+        {Object.keys(bucketMap).length === 0 && (
+          <AppSurface type="form">
+            <AppEmpty />
+          </AppSurface>
+        )}
+        {Object.entries(bucketMap).map(([bucketId, routes], i) => (
+          <BucketTable bucketId={bucketId} routes={routes} key={i} />
+        ))}
+      </Flex>
     </AppSpace>
   );
 };

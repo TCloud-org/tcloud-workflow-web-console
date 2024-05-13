@@ -8,7 +8,7 @@ import { PageTitle } from "DataDisplayComponents/PageTitle";
 import { AppRow } from "LayoutComponents/AppRow";
 import { AppSpace } from "LayoutComponents/AppSpace";
 import { queryWorks } from "Network/WorkFetch";
-import { noFilters, transformClausesDate } from "Utils/ObjectUtils";
+import { transformClausesDate } from "Utils/ObjectUtils";
 import { WorkFilterBuilder } from "WorkflowComponents/WorkFilterBuilder";
 import { WorkFilterDisplay } from "WorkflowComponents/WorkFilterDisplay";
 import { WorkSavedFilterList } from "WorkflowComponents/WorkSavedFilterList";

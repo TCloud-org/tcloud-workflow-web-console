@@ -24,7 +24,7 @@ export const AppList = (props: {
     loading,
     headerEndDecorator,
     style,
-    headerSurface = true,
+    headerSurface = false,
     itemLayout,
   } = props;
   return (

@@ -1,6 +1,7 @@
 import { CheckCircleOutlined, CloseCircleOutlined } from "@ant-design/icons";
 import { AMS_UPDATE_ACCOUNT_ENDPOINT } from "Config/AMSEndpointConfig";
 import { CountryCodeProps, CountryCodes } from "Config/CountryConfig";
+import { AppSurface } from "DataDisplayComponents/AppSurface";
 import { AppButton } from "DataEntryComponents/AppButton";
 import { AppForm } from "DataEntryComponents/AppForm";
 import { AppImageUploadInput } from "DataEntryComponents/Form/AppImageUploadInput";
@@ -117,130 +118,132 @@ export const AccountPage = () => {
 
         <Divider />
 
-        <Flex vertical gap={2}>
-          <Typography.Title level={4} style={{ margin: 0 }}>
-            Basic Info
-          </Typography.Title>
-          <Typography.Text type="secondary">
-            Tell us your basic info details
-          </Typography.Text>
-        </Flex>
+        <AppSurface type="form">
+          <Flex vertical gap={2}>
+            <Typography.Title level={4} style={{ margin: 0 }}>
+              Basic Info
+            </Typography.Title>
+            <Typography.Text type="secondary">
+              Tell us your basic info details
+            </Typography.Text>
+          </Flex>
 
-        <AppForm
-          form={form}
-          layout="vertical"
-          onValuesChange={handleValuesChange}
-          requiredMark="optional"
-        >
-          <Form.Item label="First name" name="firstName" required>
-            <Input />
-          </Form.Item>
-
-          <Form.Item label="Last name" name="lastName" required>
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label={
-              <Flex align="center" gap={8}>
-                <Typography.Text>Email address</Typography.Text>
-
-                <Tag
-                  color={account.isEmailVerified ? "success" : "error"}
-                  icon={
-                    account.isEmailVerified ? (
-                      <CheckCircleOutlined />
-                    ) : (
-                      <CloseCircleOutlined />
-                    )
-                  }
-                >
-                  {account.isEmailVerified ? "Verified" : "Not Verified"}
-                </Tag>
-              </Flex>
-            }
-            name="email"
-            required
+          <AppForm
+            form={form}
+            layout="vertical"
+            onValuesChange={handleValuesChange}
+            requiredMark="optional"
           >
-            <Input disabled />
-          </Form.Item>
-
-          <Flex align="center">
-            <Form.Item
-              name={["phoneNumber", "countryCode"]}
-              label="Phone number"
-            >
-              <Select
-                style={{
-                  width: 200,
-                  backgroundColor: token.colorFillQuaternary,
-                  borderTopLeftRadius: token.borderRadiusSM,
-                  borderBottomLeftRadius: token.borderRadiusSM,
-                  border: "1px solid",
-                  borderRightWidth: 0,
-                  borderColor: token.colorBorder,
-                }}
-                variant="borderless"
-                options={Object.entries(CountryCodes).map(
-                  ([k, v]) =>
-                    ({
-                      label: (
-                        <Flex justify="center" align="center" gap={16}>
-                          <Flex style={{ flex: 1 }} justify="flex-end">
-                            <Typography.Text>{`${k} ${v.code}`}</Typography.Text>
-                          </Flex>
-                          <Flex style={{ flex: 1 }} justify="flex-start">
-                            <span
-                              style={{ borderRadius: 100 }}
-                              className={`fi fi-${v.flag} fis`}
-                            ></span>
-                          </Flex>
-                        </Flex>
-                      ),
-                      value: k,
-                    } as DefaultOptionType)
-                )}
-                placeholder="Country code"
-              />
+            <Form.Item label="First name" name="firstName" required>
+              <Input />
             </Form.Item>
-            <Form.Item
-              name={["phoneNumber", "number"]}
-              style={{ flex: 1, marginTop: 32 }}
-            >
-              <AppMaskInput
-                mask={
-                  CountryCodes[countryCode as keyof CountryCodeProps]?.mask ||
-                  CountryCodes.US.mask
-                }
-                placeholder="Phone number"
-                style={{
-                  borderTopLeftRadius: 0,
-                  borderBottomLeftRadius: 0,
-                }}
-              />
+
+            <Form.Item label="Last name" name="lastName" required>
+              <Input />
             </Form.Item>
-          </Flex>
 
-          <Form.Item>
-            <Divider />
-          </Form.Item>
+            <Form.Item
+              label={
+                <Flex align="center" gap={8}>
+                  <Typography.Text>Email address</Typography.Text>
 
-          <Form.Item label="Profile picture" name="profilePicture">
-            <AppImageUploadInput />
-          </Form.Item>
+                  <Tag
+                    color={account.isEmailVerified ? "success" : "error"}
+                    icon={
+                      account.isEmailVerified ? (
+                        <CheckCircleOutlined />
+                      ) : (
+                        <CloseCircleOutlined />
+                      )
+                    }
+                  >
+                    {account.isEmailVerified ? "Verified" : "Not Verified"}
+                  </Tag>
+                </Flex>
+              }
+              name="email"
+              required
+            >
+              <Input disabled />
+            </Form.Item>
 
-          <Flex justify="flex-end">
-            <Form.Item>
-              <AppButton
-                type="primary"
-                onClick={handleSave}
-                loading={saveLoading}
+            <Flex align="center">
+              <Form.Item
+                name={["phoneNumber", "countryCode"]}
+                label="Phone number"
               >
-                Save
-              </AppButton>
+                <Select
+                  style={{
+                    width: 200,
+                    backgroundColor: token.colorFillQuaternary,
+                    borderTopLeftRadius: token.borderRadiusSM,
+                    borderBottomLeftRadius: token.borderRadiusSM,
+                    border: "1px solid",
+                    borderRightWidth: 0,
+                    borderColor: token.colorBorder,
+                  }}
+                  variant="borderless"
+                  options={Object.entries(CountryCodes).map(
+                    ([k, v]) =>
+                      ({
+                        label: (
+                          <Flex justify="center" align="center" gap={16}>
+                            <Flex style={{ flex: 1 }} justify="flex-end">
+                              <Typography.Text>{`${k} ${v.code}`}</Typography.Text>
+                            </Flex>
+                            <Flex style={{ flex: 1 }} justify="flex-start">
+                              <span
+                                style={{ borderRadius: 100 }}
+                                className={`fi fi-${v.flag} fis`}
+                              ></span>
+                            </Flex>
+                          </Flex>
+                        ),
+                        value: k,
+                      } as DefaultOptionType)
+                  )}
+                  placeholder="Country code"
+                />
+              </Form.Item>
+              <Form.Item
+                name={["phoneNumber", "number"]}
+                style={{ flex: 1, marginTop: 32 }}
+              >
+                <AppMaskInput
+                  mask={
+                    CountryCodes[countryCode as keyof CountryCodeProps]?.mask ||
+                    CountryCodes.US.mask
+                  }
+                  placeholder="Phone number"
+                  style={{
+                    borderTopLeftRadius: 0,
+                    borderBottomLeftRadius: 0,
+                  }}
+                />
+              </Form.Item>
+            </Flex>
+
+            <Form.Item>
+              <Divider />
             </Form.Item>
-          </Flex>
-        </AppForm>
+
+            <Form.Item label="Profile picture" name="profilePicture">
+              <AppImageUploadInput />
+            </Form.Item>
+
+            <Flex justify="flex-end">
+              <Form.Item noStyle>
+                <AppButton
+                  type="primary"
+                  onClick={handleSave}
+                  loading={saveLoading}
+                >
+                  Save
+                </AppButton>
+              </Form.Item>
+            </Flex>
+          </AppForm>
+        </AppSurface>
       </AppSpace>
     </>
   );

@@ -7,6 +7,7 @@ import { getRetryPolicies } from "../../Network/RetryFetch";
 import { PageTitle } from "../../DataDisplayComponents/PageTitle";
 import { AppButton } from "../../DataEntryComponents/AppButton";
 import { useNavigate } from "react-router-dom";
+import { AppSurface } from "DataDisplayComponents/AppSurface";
 
 export const RetryPolicyPage = () => {
   const navigate = useNavigate();
@@ -36,16 +37,18 @@ export const RetryPolicyPage = () => {
   return (
     <AppSpace loading={loading}>
       <PageTitle>Retry Policy</PageTitle>
-      <AppList
-        data={retryPolicies}
-        header="Policies"
-        onReload={fetchRetryPolicies}
-        headerEndDecorator={
-          <AppButton onClick={() => navigate("/retry-policy/add")}>
-            Add a new retry policy
-          </AppButton>
-        }
-      />
+      <AppSurface type="form">
+        <AppList
+          data={retryPolicies}
+          header="Policies"
+          onReload={fetchRetryPolicies}
+          headerEndDecorator={
+            <AppButton onClick={() => navigate("/retry-policy/add")}>
+              Add a new retry policy
+            </AppButton>
+          }
+        />
+      </AppSurface>
     </AppSpace>
   );
 };

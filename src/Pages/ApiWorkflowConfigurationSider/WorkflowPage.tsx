@@ -1,3 +1,4 @@
+import { Span } from "Config/DataDisplayInterface";
 import { EditableColumn } from "Config/LayoutConfig";
 import { WOS_GET_WORKFLOWS_BY_CLIENT_ID_ENDPOINT } from "Config/WOSEndpointConfig";
 import { Workflow } from "Config/WorkflowConfig";
@@ -119,8 +120,8 @@ export const WorkflowPage = () => {
       {activeWorkflow?.workflowId && (
         <>
           <Typography.Title level={5}>Active Workflow</Typography.Title>
-          <AppRow gutter={[16, 16]} style={{ justifyContent: "center" }}>
-            <Col span={12}>
+          <AppRow gutter={[16, 16]}>
+            <Col {...Span[2]}>
               <WorkflowCard workflow={activeWorkflow} />
             </Col>
           </AppRow>
