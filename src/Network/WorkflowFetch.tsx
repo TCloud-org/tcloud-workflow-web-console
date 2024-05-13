@@ -1,5 +1,6 @@
 import axios from "axios";
 import {
+  WOS_GET_BILLING_ENDPOINT,
   WOS_GET_CONFIGURATIONS_BY_SERVICE_NAME_ENDPOINT,
   WOS_GET_CONFIGURATION_BY_ID_ENDPOINT,
   WOS_GET_GRAPHS_BY_WORKFLOW_ID_ENDPOINT,
@@ -21,6 +22,7 @@ import {
   GetWorkflowConfigurationOutput,
   InfraStatistic,
   ServiceConfiguration,
+  StepWorkflowBilling,
 } from "../Config/WorkflowConfig";
 
 export const fetchServiceConfiguration = (service: string, token: string) => {
@@ -213,4 +215,19 @@ export const getInfraStat = async (clientId: string, token: string) => {
   return await axios
     .get(`${WOS_GET_INFRA_STAT_ENDPOINT}?clientId=${clientId}`, config)
     .then((res) => res.data as GetInfraStatOutput);
+};
+
+export interface GetBillingOutput {
+  billing: StepWorkflowBilling;
+}
+
+export const getBilling = async (clientId: string, token: string) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  return await axios
+    .get(`${WOS_GET_BILLING_ENDPOINT}?clientId=${clientId}`, config)
+    .then((res) => res.data as GetBillingOutput);
 };

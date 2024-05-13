@@ -88,3 +88,4 @@ export const WOS_GET_EVENT_WORKFLOW_STAGES_ENDPOINT =
 export const WOS_QUERY_JOBS_PER_WORKFLOW_ENDPOINT =
   WOS_ENDPOINT + "/query-jobs-per-workflow";
 export const WOS_GET_INFRA_STAT_ENDPOINT = WOS_ENDPOINT + "/get-infra-stat";
+export const WOS_GET_BILLING_ENDPOINT = WOS_ENDPOINT + "/get-billing";

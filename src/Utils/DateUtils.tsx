@@ -190,3 +190,9 @@ export const prettifyDate = (dateString: string): string => {
 
   return `${month} ${ordinalDay}, ${year}`;
 };
+
+export const prettifyDateWithoutYear = (dateString: string): string => {
+  const s = formatDate(dateString) || "";
+  const date = prettifyDate(s);
+  return date.split(",")[0];
+};

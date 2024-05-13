@@ -1,25 +1,28 @@
 import { createSpan } from "Config/DataDisplayInterface";
 import { EditableColumn } from "Config/LayoutConfig";
 import { WorkColumns } from "Config/TableColumnConfig";
-import { AppCard } from "DataDisplayComponents/AppCard";
-import { AppEmpty } from "DataDisplayComponents/AppEmpty";
 import { PageTitle } from "DataDisplayComponents/PageTitle";
-import { StatTitle } from "DataDisplayComponents/StatTitle";
 import { AppRow } from "LayoutComponents/AppRow";
+import { getBilling, getInfraStat } from "Network/WorkflowFetch";
+import { BillingCard } from "WorkflowComponents/BillingCard";
 import { WorkPeriodToolbar } from "WorkflowComponents/WorkPeriodToolbar";
 import { WorkStatisticDisplay } from "WorkflowComponents/WorkStatisticDisplay";
-import { Alert, Col, Statistic, Typography, theme } from "antd";
+import { Alert, Col, Typography, theme } from "antd";
 import { Key, useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { InfraStatistic, Work, WorkStatistic } from "../Config/WorkflowConfig";
+import {
+  InfraStatistic,
+  StepWorkflowBilling,
+  Work,
+  WorkStatistic,
+} from "../Config/WorkflowConfig";
 import { AppTable } from "../DataDisplayComponents/AppTable";
 import { AppSpace } from "../LayoutComponents/AppSpace";
 import {
   getWorkStatisticInDateRange,
   getWorksInDateRange,
 } from "../Network/WorkFetch";
-import { getInfraStat } from "Network/WorkflowFetch";
 
 export const HomePage = () => {
   const { token } = theme.useToken();
@@ -39,10 +42,17 @@ export const HomePage = () => {
   const [infraStatistic, setInfraStatistic] = useState<InfraStatistic>();
   const [infraStatisticLoading, setInfraStatisticLoading] =
     useState<boolean>(false);
+  const [billing, setBilling] = useState<StepWorkflowBilling>();
   const [columns, setColumns] = useState<EditableColumn[]>(WorkColumns);
   const [loading, setLoading] = useState<boolean>(false);
   const [period, setPeriod] = useState<string | undefined>();
 
+  const fetchBilling = useCallback(async () => {
+    if (clientId && authToken) {
+      const res = await getBilling(clientId, authToken);
+      setBilling(res.billing);
+    }
+  }, [clientId, authToken]);
   const fetchInfraStat = useCallback(async () => {
     if (clientId && authToken) {
       setInfraStatisticLoading(true);
@@ -118,6 +128,10 @@ export const HomePage = () => {
   }, [start, end, clientId, workflowId, period, authToken]);
 
   useEffect(() => {
+    fetchBilling();
+  }, [fetchBilling]);
+
+  useEffect(() => {
     fetchInfraStat();
   }, [fetchInfraStat]);
 
@@ -163,12 +177,7 @@ export const HomePage = () => {
 
       <AppRow gutter={[16, 16]}>
         <Col {...createSpan(8)} className="flex flex-col">
-          <AppCard size="small" className="h-full">
-            <Statistic
-              title={<StatTitle>Billing</StatTitle>}
-              valueRender={() => <AppEmpty />}
-            />
-          </AppCard>
+          <BillingCard billing={billing} />
         </Col>
 
         <Col {...createSpan(16)} className="flex flex-col">

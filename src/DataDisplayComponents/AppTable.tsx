@@ -248,7 +248,6 @@ export const AppTable = (
           padding: "4px 8px",
         },
       }}
-      className="h-full"
     >
       <Table
         title={showTitle ? () => renderTitle() : undefined}

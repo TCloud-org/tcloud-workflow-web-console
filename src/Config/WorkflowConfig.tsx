@@ -334,3 +334,11 @@ export interface InfraStatistic {
   totalRetryPolicies: number;
   totalAuthTokens: number;
 }
+
+export interface StepWorkflowBilling {
+  totalTransitions: number;
+  deductibleTransitions: number;
+  pricePerUnit: number;
+  cost: number;
+  startDate: string;
+}
