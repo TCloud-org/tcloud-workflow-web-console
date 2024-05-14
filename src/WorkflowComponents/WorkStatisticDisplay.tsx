@@ -16,9 +16,10 @@ import { AppEmpty } from "DataDisplayComponents/AppEmpty";
 import { AppPieChart } from "DataDisplayComponents/AppPieChart";
 import { StatTitle } from "DataDisplayComponents/StatTitle";
 import { AppRow } from "LayoutComponents/AppRow";
-import { Col, Statistic, Typography, theme } from "antd";
+import { Col, Flex, Progress, Statistic, Typography, theme } from "antd";
 import { BillingCard } from "./BillingCard";
 import { ResultStatCard } from "./ResultStatCard";
+import { AppButton } from "DataEntryComponents/AppButton";
 
 export const WorkStatisticDisplay = (props: {
   statistic?: WorkStatistic;
@@ -78,7 +79,44 @@ export const WorkStatisticDisplay = (props: {
       </Col>
 
       <Col {...Span[2]} className="flex flex-col">
-        <BillingCard billing={billing} />
+        <AppRow gutter={[16, 16]}>
+          {billing && (
+            <Col {...Span[1]}>
+              <AppCard size="small">
+                <Statistic
+                  title={<StatTitle>Free Tier</StatTitle>}
+                  valueRender={() => (
+                    <Flex vertical gap={4}>
+                      <Flex justify="flex-end">
+                        <Typography.Text className="text-slate-800">
+                          {billing.totalTransitions} /{" "}
+                          {billing.deductibleTransitions}
+                        </Typography.Text>
+                      </Flex>
+                      <Progress
+                        type="line"
+                        showInfo={false}
+                        percent={
+                          billing.totalTransitions /
+                          billing.deductibleTransitions
+                        }
+                        strokeColor={token.colorInfo}
+                      />
+                      <Flex className="mt-4">
+                        <AppButton type="primary" size="small">
+                          Upgrade plan
+                        </AppButton>
+                      </Flex>
+                    </Flex>
+                  )}
+                />
+              </AppCard>
+            </Col>
+          )}
+          <Col {...Span[1]}>
+            <BillingCard billing={billing} />
+          </Col>
+        </AppRow>
       </Col>
 
       <Col {...Span[2]} className="flex flex-col">

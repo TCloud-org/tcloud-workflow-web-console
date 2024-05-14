@@ -47,6 +47,8 @@ root.render(
         colorError: "rgb(255 59 48 / 1)",
         colorInfo: "rgb(0 122 255 / 1)",
         colorWarning: "rgb(255 204 0 / 1)",
+        colorText: "rgb(30 41 59 / 1)",
+        colorTextBase: "rgb(30 41 59 / 1)",
       },
     }}
   >
