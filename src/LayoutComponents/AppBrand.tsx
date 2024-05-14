@@ -35,7 +35,7 @@ export const AppBrand = (props: {
             />
           )}
         />
-        <Typography.Text strong className="text-xs">
+        <Typography.Text strong className="text-xs hidden lg:block">
           {BRAND}
         </Typography.Text>
       </Flex>
