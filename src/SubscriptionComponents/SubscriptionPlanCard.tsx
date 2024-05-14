@@ -74,9 +74,9 @@ export const SubscriptionPlanCard = (props: { data: any }) => {
         <Typography.Paragraph
           style={{
             margin: 0,
-            height: 64,
             overflow: "auto",
           }}
+          className="h-16 lg:h-24"
         >
           {data.description}
         </Typography.Paragraph>
@@ -86,10 +86,10 @@ export const SubscriptionPlanCard = (props: { data: any }) => {
             fontWeight: 500,
             fontSize: 16,
             textAlign: "center",
-            height: 64,
           }}
+          className="h-16 lg:h-24"
         >
-          <Typography.Text style={{ fontSize: 24, fontWeight: 700 }}>
+          <Typography.Text style={{ fontSize: 20, fontWeight: 700 }}>
             {data.price}
           </Typography.Text>{" "}
           {data.unit}
