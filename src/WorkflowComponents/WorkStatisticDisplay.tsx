@@ -20,6 +20,7 @@ import { Col, Flex, Progress, Statistic, Typography, theme } from "antd";
 import { BillingCard } from "./BillingCard";
 import { ResultStatCard } from "./ResultStatCard";
 import { AppButton } from "DataEntryComponents/AppButton";
+import { useNavigate } from "react-router-dom";
 
 export const WorkStatisticDisplay = (props: {
   statistic?: WorkStatistic;
@@ -27,6 +28,8 @@ export const WorkStatisticDisplay = (props: {
   infraStatisticLoading?: boolean;
   billing?: StepWorkflowBilling;
 }) => {
+  const navigate = useNavigate();
+
   const { token } = theme.useToken();
 
   const { statistic, infraStatistic, infraStatisticLoading, billing } = props;
@@ -66,6 +69,10 @@ export const WorkStatisticDisplay = (props: {
     },
   ];
 
+  const handleUpgradePlan = () => {
+    navigate("/subscription/plan");
+  };
+
   return (
     <AppRow gutter={[16, 16]}>
       <Col {...Span[2]} className="flex flex-col">
@@ -104,7 +111,11 @@ export const WorkStatisticDisplay = (props: {
                         strokeColor={token.colorInfo}
                       />
                       <Flex className="mt-4">
-                        <AppButton type="primary" size="small">
+                        <AppButton
+                          type="primary"
+                          size="small"
+                          onClick={handleUpgradePlan}
+                        >
                           Upgrade plan
                         </AppButton>
                       </Flex>

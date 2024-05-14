@@ -259,7 +259,11 @@ export const AppHeader = (props: {
         <Flex align="center" style={{ flex: 1.5 }} justify="flex-end">
           {isTierUpgradable && (
             <Flex className="mx-1">
-              <AppButton type="primary" size="small">
+              <AppButton
+                type="primary"
+                size="small"
+                onClick={() => navigate("/subscription/plan")}
+              >
                 Upgrade
               </AppButton>
             </Flex>

@@ -5,46 +5,69 @@ import { Col, Flex } from "antd";
 
 const plans = [
   {
-    key: "FREE",
-    plan: "Free",
-    description: `The Free Plan is perfect for individuals or small teams who want to explore the basic features of our service. With limited usage and access, it provides a great way to get started with our platform at no cost.`,
-    price: 0,
+    key: "freeTier",
+    plan: "Free Tier",
+    description: `Experience our platform with limited usage and access at no cost.`,
+    price: "$0",
+    unit: "up to 5000 transitions",
     features: [
-      "Limited to 1 user (individual)",
-      "Limited to 100 Step Workflows",
-      "Limited to 50 emails",
-      "Email support available",
+      "Limited access to our RESTful Step Workflow APIs",
+      "Tracking",
+      "1 day workflow task retention",
+      "Customer support",
     ],
   },
   {
-    key: "INDIVIDUAL",
-    plan: "Individual",
-    description: `The Individual Plan is designed for solo entrepreneurs, freelancers, or individuals who need more capabilities and resources than the Free Plan offers. It provides increased usage limits and access to additional features, making it suitable for small-scale projects or personal use.`,
-    price: 9,
+    key: "startup",
+    plan: "Startup",
+    description: `Scale your usage and enjoy increased access to advanced features.`,
+    price: "$0.00004",
+    unit: "per transition",
     features: [
-      "Limited to 1 user (individual)",
-      "Limited to 1000 Step Workflows",
-      "Limited to 500 emails",
-      "Limited to 1 store and 100 publications",
-      "24/7 email support",
+      "Expanded access to our RESTful Step Workflow APIs",
+      "Tracking and querying",
+      "Up to 30 days workflow task retention",
+      "Ticket support",
+      "Customer support",
     ],
   },
   {
-    key: "BUSINESS",
-    plan: "Business",
+    key: "scaleup",
+    plan: "Scaleup",
+    description: `Accelerate Your Growth. Scale and unlock advanced features for accelerated success.`,
+    price: "$0.00011",
+    unit: "per transition",
     emphasized: true,
-    description: `The Business Plan is ideal for small businesses, startups, or teams that require enhanced functionality, scalability, and support. With expanded usage limits, advanced features, and priority support, it offers everything you need to grow and manage your business efficiently.`,
-    price: 49,
     features: [
-      "Limited to 100 users (business)",
-      "Limited to 10000 Step Workflows",
-      "Limited to 5000 emails",
-      "Limited to 5 store and unlimited publications",
-      "Metrics",
-      "24/7 email support",
+      "Full access to our RESTful Step Workflow APIs",
+      "Tracking, querying, batching, and analytics",
+      "Up to 90 days workflow task retention",
+      "Increased workflow concurrent processing",
+      "Ticket support",
+      "Customer support",
+      "Early access to new features",
     ],
+  },
+  {
+    key: "enterprise",
+    plan: "Enterprise",
+    description: `Propel Your Business Forward. Customize your plan to suit your business needs.`,
+    price: "Custom pricing",
+    features: [
+      "Full access to our RESTful Step Workflow APIs",
+      "Tracking, querying, batching, and analytics",
+      "Up to 120 days workflow task retention",
+      "Maximized workflow concurrent processing",
+      "Proactive monitoring",
+      "Ticket support",
+      "Customer support",
+      "Early access to new features",
+    ],
+    action: "Contact sales",
+    href: "https://thecloudworlds.com/contact",
   },
 ];
+
 export const SubscriptionPlanPage = () => {
   return (
     <Flex justify="center" align="center" style={{ height: "100%" }}>
@@ -52,10 +75,11 @@ export const SubscriptionPlanPage = () => {
         {plans.map((plan, i) => (
           <Col
             key={i}
-            {...Span[3]}
+            {...Span[4]}
+            lg={12}
             style={{ display: "flex", flexDirection: "column" }}
           >
-            <SubscriptionPlanCard data={plan} currentPlan="FREE" />
+            <SubscriptionPlanCard data={plan} />
           </Col>
         ))}
       </AppRow>

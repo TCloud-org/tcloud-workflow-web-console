@@ -1,7 +1,9 @@
 import { LockFilled } from "@ant-design/icons";
 import { Button, Flex, theme } from "antd";
+import { useNavigate } from "react-router-dom";
 
 export const PremiumMask = () => {
+  const navigate = useNavigate();
   const { token } = theme.useToken();
   return (
     <div className="absolute z-10 -top-2 -left-2 -right-2 -bottom-2 flex justify-center items-center backdrop-blur-sm bg-transparent">
@@ -13,7 +15,9 @@ export const PremiumMask = () => {
           <LockFilled style={{ color: "white", fontSize: 24 }} />
         </div>
 
-        <Button>Upgrade your plan</Button>
+        <Button onClick={() => navigate("/subscription/plan")}>
+          Upgrade your plan
+        </Button>
       </Flex>
     </div>
   );
