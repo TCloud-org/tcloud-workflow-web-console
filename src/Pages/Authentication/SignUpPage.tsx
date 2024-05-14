@@ -100,7 +100,7 @@ export const SignUpPage = () => {
     <>
       {contextHolder}
       <AuthContent>
-        <Col {...Span[2]}>
+        <Col {...Span[2]} className="hidden lg:block">
           <AuthImageDisplay
             imageUrl="https://tcw-images.s3.us-west-2.amazonaws.com/6221508.jpg"
             resourceUrl="https://www.freepik.com/free-vector/hand-drawn-innovation-concept_20286043.htm#&position=8&from_view=collections&uuid=5a145899-aec1-4149-aaa3-f325d2281b06"

@@ -56,7 +56,7 @@ export const ResetPasswordPage = () => {
     <>
       {contextHolder}
       <AuthContent>
-        <Col {...Span[2]}>
+        <Col {...Span[2]} className="hidden lg:block">
           <AuthImageDisplay
             imageUrl="https://tcw-images.s3.us-west-2.amazonaws.com/6221515.jpg"
             resourceUrl="https://www.freepik.com/free-vector/hand-drawn-business-man-communicating_20125868.htm#from_view=detail_alsolike"

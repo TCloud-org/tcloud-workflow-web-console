@@ -69,7 +69,7 @@ export const ForgotPasswordPage = () => {
     <>
       {contextHolder}
       <AuthContent>
-        <Col {...Span[2]}>
+        <Col {...Span[2]} className="hidden lg:block">
           <AuthImageDisplay
             imageUrl="https://tcw-images.s3.us-west-2.amazonaws.com/6221538.jpg"
             resourceUrl="https://www.freepik.com/free-vector/hand-drawn-illustrated-business-planning_20124546.htm"
