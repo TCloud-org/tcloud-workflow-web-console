@@ -1,5 +1,6 @@
 import { CheckCircleOutlined, CloseCircleOutlined } from "@ant-design/icons";
 import { AMS_UPDATE_ACCOUNT_ENDPOINT } from "Config/AMSEndpointConfig";
+import { UpdateAccountResponse } from "Config/AuthConfig";
 import { CountryCodeProps, CountryCodes } from "Config/CountryConfig";
 import { AppSurface } from "DataDisplayComponents/AppSurface";
 import { AppButton } from "DataEntryComponents/AppButton";
@@ -20,7 +21,7 @@ import {
 } from "antd";
 import { DefaultOptionType } from "antd/es/select";
 import axios from "axios";
-import { Account, setAccount } from "features/auth/authSlice";
+import { Account, setAccount, setToken } from "features/auth/authSlice";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -52,7 +53,7 @@ export const AccountPage = () => {
     // );
 
     const formData = {
-      email: account.email,
+      ...account,
       firstName: form.getFieldValue("firstName"),
       lastName: form.getFieldValue("lastName"),
       phoneNumber: form.getFieldValue("phoneNumber"),
@@ -66,16 +67,17 @@ export const AccountPage = () => {
       },
     };
     setTimeout(async () => {
-      const updatedAccount = await axios
+      const res = await axios
         .post(AMS_UPDATE_ACCOUNT_ENDPOINT, formData, config)
-        .then((res) => res.data?.account as Account)
+        .then((res) => res.data as UpdateAccountResponse)
         .catch((err) => {
           console.error(err);
           messageApi.error("Failed to update account.");
           return undefined;
         });
-      if (updatedAccount) {
-        dispatch(setAccount(updatedAccount));
+      if (res) {
+        dispatch(setAccount(res.account));
+        dispatch(setToken(res.token));
         messageApi.success("Account updated successfully.");
       }
 

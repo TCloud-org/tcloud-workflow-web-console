@@ -15,15 +15,14 @@ import { AppCard } from "DataDisplayComponents/AppCard";
 import { AppEmpty } from "DataDisplayComponents/AppEmpty";
 import { AppPieChart } from "DataDisplayComponents/AppPieChart";
 import { StatTitle } from "DataDisplayComponents/StatTitle";
+import { AppButton } from "DataEntryComponents/AppButton";
 import { AppRow } from "LayoutComponents/AppRow";
 import { Col, Flex, Progress, Statistic, Typography, theme } from "antd";
-import { BillingCard } from "./BillingCard";
-import { ResultStatCard } from "./ResultStatCard";
-import { AppButton } from "DataEntryComponents/AppButton";
-import { useNavigate } from "react-router-dom";
 import { Account, ProductTierType, ProductType } from "features/auth/authSlice";
 import { useSelector } from "react-redux";
-import { formatTitleCase } from "Utils/ObjectUtils";
+import { useNavigate } from "react-router-dom";
+import { BillingCard } from "./BillingCard";
+import { ResultStatCard } from "./ResultStatCard";
 
 export const WorkStatisticDisplay = (props: {
   statistic?: WorkStatistic;
@@ -94,29 +93,31 @@ export const WorkStatisticDisplay = (props: {
 
       <Col {...Span[2]} className="flex flex-col">
         <AppRow gutter={[16, 16]}>
-          {billing && (
-            <Col {...Span[1]}>
-              <AppCard size="small">
-                <Statistic
-                  title={<StatTitle>{formatTitleCase(tier)}</StatTitle>}
-                  valueRender={() => (
-                    <Flex vertical gap={4} className="mt-4">
-                      <Flex justify="space-between" align="center">
-                        <Typography.Text>Transitions</Typography.Text>
-                        <Typography.Text className="text-slate-800">
-                          {billing.totalTransitions} /{" "}
-                          {billing.deductibleTransitions}
-                        </Typography.Text>
-                      </Flex>
-                      <Progress
-                        type="line"
-                        showInfo={false}
-                        percent={
-                          billing.totalTransitions /
-                          billing.deductibleTransitions
-                        }
-                        strokeColor={token.colorInfo}
-                      />
+          <Col {...Span[1]}>
+            <AppCard size="small">
+              <Statistic
+                title={<StatTitle>Free Tier</StatTitle>}
+                valueRender={() => (
+                  <Flex vertical gap={4} className="mt-4">
+                    <Flex justify="space-between" align="center">
+                      <Typography.Text>Transitions</Typography.Text>
+                      <Typography.Text className="text-slate-800">
+                        {billing?.totalTransitions || 0} /{" "}
+                        {billing?.deductibleTransitions || 0}
+                      </Typography.Text>
+                    </Flex>
+                    <Progress
+                      type="line"
+                      showInfo={false}
+                      percent={
+                        billing
+                          ? billing.totalTransitions /
+                            billing.deductibleTransitions
+                          : 0
+                      }
+                      strokeColor={token.colorInfo}
+                    />
+                    {tier !== ProductTierType.ENTERPRISE && (
                       <Flex className="mt-4">
                         <AppButton
                           type="primary"
@@ -126,12 +127,12 @@ export const WorkStatisticDisplay = (props: {
                           Upgrade plan
                         </AppButton>
                       </Flex>
-                    </Flex>
-                  )}
-                />
-              </AppCard>
-            </Col>
-          )}
+                    )}
+                  </Flex>
+                )}
+              />
+            </AppCard>
+          </Col>
           <Col {...Span[1]}>
             <BillingCard billing={billing} />
           </Col>

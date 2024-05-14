@@ -19,7 +19,9 @@ export const BillingCard = (props: { billing?: StepWorkflowBilling }) => {
           <Flex align="center" justify="space-between">
             <StatTitle>Billing</StatTitle>
             <StatTitle>
-              {prettifyDateWithoutDay(billing?.startDate || "")}
+              {prettifyDateWithoutDay(
+                billing?.startDate || new Date().getTime().toString()
+              )}
             </StatTitle>
           </Flex>
         }

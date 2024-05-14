@@ -1,14 +1,23 @@
 import { CheckCircleOutlineRounded } from "@mui/icons-material";
 import { AMS_UPDATE_ACCOUNT_ENDPOINT } from "Config/AMSEndpointConfig";
+import { UpdateAccountResponse } from "Config/AuthConfig";
 import { AppCard } from "DataDisplayComponents/AppCard";
 import { AppButton } from "DataEntryComponents/AppButton";
 import { Flex, Typography, theme } from "antd";
 import axios from "axios";
-import { Account, ProductTierType, ProductType } from "features/auth/authSlice";
+import {
+  Account,
+  ProductTierType,
+  ProductType,
+  setAccount,
+  setToken,
+} from "features/auth/authSlice";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export const SubscriptionPlanCard = (props: { data: any }) => {
+  const dispatch = useDispatch();
+
   const accessToken = useSelector((state: any) => state.auth.token);
   const account: Account = useSelector((state: any) => state.auth.account);
   const tier =
@@ -47,11 +56,14 @@ export const SubscriptionPlanCard = (props: { data: any }) => {
       productTiers,
     };
 
-    console.log(formData);
-
-    await axios
+    const res = await axios
       .post(AMS_UPDATE_ACCOUNT_ENDPOINT, formData, config)
-      .then((res) => JSON.parse(JSON.stringify(res.data as string)));
+      .then((res) => res.data as UpdateAccountResponse);
+
+    if (res) {
+      dispatch(setAccount(res.account));
+      dispatch(setToken(res.token));
+    }
 
     setLoading(false);
   };

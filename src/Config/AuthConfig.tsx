@@ -1,5 +1,6 @@
 import { Input, InputProps, SelectProps, TagProps } from "antd";
 import { TextAreaProps } from "antd/es/input";
+import { Account } from "features/auth/authSlice";
 import { ReactNode } from "react";
 
 export interface InputConfig {
@@ -116,4 +117,9 @@ export interface AccountToken {
   createdAt: string;
   expiredAt: string;
   verifiedAt?: string;
+}
+
+export interface UpdateAccountResponse {
+  account: Account;
+  token: string;
 }
