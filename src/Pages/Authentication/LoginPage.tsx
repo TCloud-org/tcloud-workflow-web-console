@@ -119,6 +119,7 @@ export const LoginPage = () => {
 
     if (systemSignIn?.account) {
       const sysAccount: Account = systemSignIn.account;
+
       dispatch(
         login({
           token: systemSignIn.token,
@@ -130,6 +131,7 @@ export const LoginPage = () => {
             isEmailVerified: sysAccount.isEmailVerified,
             phoneNumber: sysAccount.phoneNumber,
             createdAt: sysAccount.createdAt,
+            productTiers: sysAccount.productTiers,
           },
         })
       );

@@ -4,6 +4,22 @@ export enum AuthType {
   "GOOGLE" = "GOOGLE",
   "EMAIL" = "EMAIL",
 }
+enum ProductType {
+  STEP_WORKFLOW = "StepWorkflow",
+  EMAIL_NOTIFICATION_WORKFLOW = "EmailNotificationWorkflow",
+}
+
+enum ProductTierType {
+  FREE_TIER = "FreeTier",
+  STARTUP = "Startup",
+  SCALEUP = "Scaleup",
+  ENTERPRISE = "Enterprise",
+}
+
+interface ProductTier {
+  product: ProductType;
+  tier: ProductTierType;
+}
 
 export interface Account {
   email: string;
@@ -15,6 +31,7 @@ export interface Account {
   countryCode?: string;
   profileImageUrl?: string;
   createdAt?: string;
+  productTiers?: ProductTier[];
 }
 
 export interface EmailAuth {
