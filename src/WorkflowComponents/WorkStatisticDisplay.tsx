@@ -158,7 +158,7 @@ export const WorkStatisticDisplay = (props: {
             }}
             valueRender={() => (
               <AppBarChart
-                className="mr-12"
+                className="mr-12 mt-4"
                 width={350}
                 height={300}
                 data={[
