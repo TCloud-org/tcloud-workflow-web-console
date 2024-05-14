@@ -196,3 +196,9 @@ export const prettifyDateWithoutYear = (dateString: string): string => {
   const date = prettifyDate(s);
   return date.split(",")[0];
 };
+
+export const prettifyDateWithoutDay = (dateString: string): string => {
+  const s = formatDate(dateString) || "";
+  const date = prettifyDate(s);
+  return date.replace(/\b\d{1,2}(st|nd|rd|th),?\s*/, "");
+};

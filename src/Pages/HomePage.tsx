@@ -173,30 +173,23 @@ export const HomePage = () => {
         statistic={statistic}
         infraStatistic={infraStatistic}
         infraStatisticLoading={infraStatisticLoading}
+        billing={billing}
       />
 
-      <AppRow gutter={[16, 16]}>
-        <Col {...createSpan(8)} className="flex flex-col">
-          <BillingCard billing={billing} />
-        </Col>
-
-        <Col {...createSpan(16)} className="flex flex-col">
-          <AppTable
-            loading={loading}
-            heading="Workflows"
-            onReload={fetchWorksInRange}
-            rows={works}
-            columns={columns}
-            selected={selected}
-            setSelected={setSelected}
-            rowId="workId"
-            defaultPageSize={25}
-            showFilter
-            showDownload
-            exludedColumnsFromExport={{ metadata: true }}
-          />
-        </Col>
-      </AppRow>
+      <AppTable
+        loading={loading}
+        heading="Workflows"
+        onReload={fetchWorksInRange}
+        rows={works}
+        columns={columns}
+        selected={selected}
+        setSelected={setSelected}
+        rowId="workId"
+        defaultPageSize={25}
+        showFilter
+        showDownload
+        exludedColumnsFromExport={{ metadata: true }}
+      />
     </AppSpace>
   );
 };
