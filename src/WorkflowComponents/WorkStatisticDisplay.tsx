@@ -86,8 +86,9 @@ export const WorkStatisticDisplay = (props: {
                 <Statistic
                   title={<StatTitle>Free Tier</StatTitle>}
                   valueRender={() => (
-                    <Flex vertical gap={4}>
-                      <Flex justify="flex-end">
+                    <Flex vertical gap={4} className="mt-4">
+                      <Flex justify="space-between" align="center">
+                        <Typography.Text>Transitions</Typography.Text>
                         <Typography.Text className="text-slate-800">
                           {billing.totalTransitions} /{" "}
                           {billing.deductibleTransitions}
