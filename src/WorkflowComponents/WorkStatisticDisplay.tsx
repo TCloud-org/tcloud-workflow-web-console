@@ -1,3 +1,9 @@
+import {
+  BrokenImageRounded,
+  EmojiEventsRounded,
+  EngineeringRounded,
+  ListAltRounded,
+} from "@mui/icons-material";
 import { Span } from "Config/DataDisplayInterface";
 import {
   InfraStatistic,
@@ -10,15 +16,9 @@ import { AppEmpty } from "DataDisplayComponents/AppEmpty";
 import { AppPieChart } from "DataDisplayComponents/AppPieChart";
 import { StatTitle } from "DataDisplayComponents/StatTitle";
 import { AppRow } from "LayoutComponents/AppRow";
-import { Col, Statistic, StatisticProps, Typography, theme } from "antd";
-import { CSSProperties } from "react";
-import CountUp from "react-countup";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Col, Statistic, Typography, theme } from "antd";
 import { BillingCard } from "./BillingCard";
-
-const formatter: StatisticProps["formatter"] = (value) => (
-  <CountUp end={value as number} separator="," />
-);
+import { ResultStatCard } from "./ResultStatCard";
 
 export const WorkStatisticDisplay = (props: {
   statistic?: WorkStatistic;
@@ -26,91 +26,54 @@ export const WorkStatisticDisplay = (props: {
   infraStatisticLoading?: boolean;
   billing?: StepWorkflowBilling;
 }) => {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const params = new URLSearchParams(location.search);
-
   const { token } = theme.useToken();
 
   const { statistic, infraStatistic, infraStatisticLoading, billing } = props;
 
-  const handleStatisticClick = (name: string) => {
-    navigate(`/statistic?${params}`, {
-      state: {
-        name: name,
-        data: statistic?.[name as keyof WorkStatistic],
-      },
-    });
-  };
-
-  const valueStyle: CSSProperties = {
-    fontWeight: 800,
-  };
+  const stats = [
+    {
+      data: statistic?.works || [],
+      type: "works",
+      color: token.colorPrimary,
+      value: statistic?.works.length || 0,
+      title: "Works",
+      icon: <ListAltRounded />,
+    },
+    {
+      data: statistic?.successes || [],
+      type: "successes",
+      color: token.colorSuccess,
+      value: statistic?.successes.length || 0,
+      title: "Success",
+      icon: <EmojiEventsRounded />,
+    },
+    {
+      data: statistic?.progresses || [],
+      type: "progresses",
+      color: token.colorWarning,
+      value: statistic?.progresses.length || 0,
+      title: "In Progress",
+      icon: <EngineeringRounded />,
+    },
+    {
+      data: statistic?.failures || [],
+      type: "failures",
+      color: token.colorError,
+      value: statistic?.failures.length || 0,
+      title: "Failure",
+      icon: <BrokenImageRounded />,
+    },
+  ];
 
   return (
     <AppRow gutter={[16, 16]}>
       <Col {...Span[2]} className="flex flex-col">
         <AppRow gutter={[16, 16]} style={{ height: "100%" }}>
-          <Col {...Span[2]} className="flex flex-col">
-            <AppCard
-              size="small"
-              onClick={() => handleStatisticClick("works")}
-              style={{ cursor: "pointer" }}
-              className="h-full"
-            >
-              <Statistic
-                title={<StatTitle>Works</StatTitle>}
-                value={statistic?.works.length}
-                valueStyle={{ ...valueStyle, color: token.colorPrimary }}
-                formatter={formatter}
-              />
-            </AppCard>
-          </Col>
-          <Col {...Span[2]}>
-            <AppCard
-              onClick={() => handleStatisticClick("successes")}
-              style={{ cursor: "pointer" }}
-              size="small"
-              className="h-full"
-            >
-              <Statistic
-                title={<StatTitle>Success</StatTitle>}
-                value={statistic?.successes.length}
-                formatter={formatter}
-                valueStyle={{ ...valueStyle, color: token.colorSuccess }}
-              />
-            </AppCard>
-          </Col>
-          <Col {...Span[2]}>
-            <AppCard
-              onClick={() => handleStatisticClick("progresses")}
-              style={{ cursor: "pointer" }}
-              size="small"
-              className="h-full"
-            >
-              <Statistic
-                title={<StatTitle>In Progress</StatTitle>}
-                value={statistic?.progresses.length}
-                formatter={formatter}
-                valueStyle={{ ...valueStyle, color: token.colorWarning }}
-              />
-            </AppCard>
-          </Col>
-          <Col {...Span[2]}>
-            <AppCard
-              onClick={() => handleStatisticClick("failures")}
-              style={{ cursor: "pointer" }}
-              size="small"
-              className="h-full"
-            >
-              <Statistic
-                title={<StatTitle>Failure</StatTitle>}
-                value={statistic?.failures.length}
-                formatter={formatter}
-                valueStyle={{ ...valueStyle, color: token.colorError }}
-              />
-            </AppCard>
-          </Col>
+          {stats.map((stat, i) => (
+            <Col key={i} {...Span[2]} className="flex flex-col">
+              <ResultStatCard data={stat} />
+            </Col>
+          ))}
         </AppRow>
       </Col>
 
