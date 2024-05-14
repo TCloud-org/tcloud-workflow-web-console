@@ -21,6 +21,9 @@ import { BillingCard } from "./BillingCard";
 import { ResultStatCard } from "./ResultStatCard";
 import { AppButton } from "DataEntryComponents/AppButton";
 import { useNavigate } from "react-router-dom";
+import { Account, ProductTierType, ProductType } from "features/auth/authSlice";
+import { useSelector } from "react-redux";
+import { formatTitleCase } from "Utils/ObjectUtils";
 
 export const WorkStatisticDisplay = (props: {
   statistic?: WorkStatistic;
@@ -29,7 +32,11 @@ export const WorkStatisticDisplay = (props: {
   billing?: StepWorkflowBilling;
 }) => {
   const navigate = useNavigate();
-
+  const account: Account = useSelector((state: any) => state.auth.account);
+  const tier =
+    account.productTiers?.find(
+      (item) => item.product === ProductType.STEP_WORKFLOW
+    )?.tier || ProductTierType.FREE_TIER;
   const { token } = theme.useToken();
 
   const { statistic, infraStatistic, infraStatisticLoading, billing } = props;
@@ -91,7 +98,7 @@ export const WorkStatisticDisplay = (props: {
             <Col {...Span[1]}>
               <AppCard size="small">
                 <Statistic
-                  title={<StatTitle>Free Tier</StatTitle>}
+                  title={<StatTitle>{formatTitleCase(tier)}</StatTitle>}
                   valueRender={() => (
                     <Flex vertical gap={4} className="mt-4">
                       <Flex justify="space-between" align="center">
