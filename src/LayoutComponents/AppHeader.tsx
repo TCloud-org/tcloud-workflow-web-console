@@ -30,7 +30,12 @@ import {
 import { Header } from "antd/es/layout/layout";
 import { DefaultOptionType } from "antd/es/select";
 import { ActionType } from "app/rootReducer";
-import { Account, setAccount } from "features/auth/authSlice";
+import {
+  Account,
+  ProductTierType,
+  ProductType,
+  setAccount,
+} from "features/auth/authSlice";
 import { clear, set } from "features/search/historySlice";
 import { setWorkflow } from "features/workflow/workflowSlice";
 import { LRUCache } from "lru-cache";
@@ -180,6 +185,11 @@ export const AppHeader = (props: {
     boxShadow: "none",
   };
 
+  const isTierUpgradable =
+    account.productTiers?.find(
+      (item) => item.product === ProductType.STEP_WORKFLOW
+    )?.tier !== ProductTierType.ENTERPRISE;
+
   return (
     <Header
       style={{
@@ -247,6 +257,13 @@ export const AppHeader = (props: {
         </Flex>
 
         <Flex align="center" style={{ flex: 1.5 }} justify="flex-end">
+          {isTierUpgradable && (
+            <Flex className="mx-1">
+              <AppButton type="primary" size="small">
+                Upgrade
+              </AppButton>
+            </Flex>
+          )}
           <AppIconButton
             onClick={() => navigate("/support")}
             type="text"
