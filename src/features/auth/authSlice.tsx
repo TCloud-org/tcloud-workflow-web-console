@@ -6,15 +6,15 @@ export enum AuthType {
 }
 
 export enum ProductType {
-  STEP_WORKFLOW = "StepWorkflow",
-  EMAIL_NOTIFICATION_WORKFLOW = "EmailNotificationWorkflow",
+  STEP_WORKFLOW = "STEP_WORKFLOW",
+  EMAIL_NOTIFICATION_WORKFLOW = "EMAIL_NOTIFICATION_WORKFLOW",
 }
 
 export enum ProductTierType {
-  FREE_TIER = "FreeTier",
-  STARTUP = "Startup",
-  SCALEUP = "Scaleup",
-  ENTERPRISE = "Enterprise",
+  FREE_TIER = "FREE_TIER",
+  STARTUP = "STARTUP",
+  SCALEUP = "SCALEUP",
+  ENTERPRISE = "ENTERPRISE",
 }
 
 export interface ProductTier {

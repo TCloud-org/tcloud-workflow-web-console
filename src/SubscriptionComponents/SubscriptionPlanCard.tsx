@@ -1,5 +1,5 @@
 import { CheckCircleOutlineRounded } from "@mui/icons-material";
-import { AMS_CREATE_CHECKOUT_SESSION_ENDPOINT } from "Config/AMSEndpointConfig";
+import { AMS_UPDATE_ACCOUNT_ENDPOINT } from "Config/AMSEndpointConfig";
 import { AppCard } from "DataDisplayComponents/AppCard";
 import { AppButton } from "DataEntryComponents/AppButton";
 import { Flex, Typography, theme } from "antd";
@@ -21,9 +21,6 @@ export const SubscriptionPlanCard = (props: { data: any }) => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const handleSelect = async () => {
-    if (data.key === "freeTier") {
-      return;
-    }
     setLoading(true);
 
     const config = {
@@ -32,15 +29,31 @@ export const SubscriptionPlanCard = (props: { data: any }) => {
       },
     };
 
-    const formData = { plan: data.key, email: account.email };
+    let productTiers = [...(account.productTiers || [])];
+    const index = account.productTiers?.findIndex(
+      (item) => item.product === ProductType.STEP_WORKFLOW
+    );
+    if (index === undefined || index === -1) {
+      productTiers.push({ product: ProductType.STEP_WORKFLOW, tier: data.key });
+    } else {
+      productTiers[index] = {
+        product: ProductType.STEP_WORKFLOW,
+        tier: data.key,
+      };
+    }
 
-    const session = await axios
-      .post(AMS_CREATE_CHECKOUT_SESSION_ENDPOINT, formData, config)
+    const formData = {
+      ...account,
+      productTiers,
+    };
+
+    console.log(formData);
+
+    await axios
+      .post(AMS_UPDATE_ACCOUNT_ENDPOINT, formData, config)
       .then((res) => JSON.parse(JSON.stringify(res.data as string)));
 
     setLoading(false);
-
-    window.location.href = session.url;
   };
 
   return (

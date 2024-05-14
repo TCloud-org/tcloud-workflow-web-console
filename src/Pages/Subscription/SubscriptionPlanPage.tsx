@@ -2,10 +2,11 @@ import { Span } from "Config/DataDisplayInterface";
 import { AppRow } from "LayoutComponents/AppRow";
 import { SubscriptionPlanCard } from "SubscriptionComponents/SubscriptionPlanCard";
 import { Col, Flex } from "antd";
+import { ProductTierType } from "features/auth/authSlice";
 
 const plans = [
   {
-    key: "freeTier",
+    key: ProductTierType.FREE_TIER,
     plan: "Free Tier",
     description: `Experience our platform with limited usage and access at no cost.`,
     price: "$0",
@@ -18,7 +19,7 @@ const plans = [
     ],
   },
   {
-    key: "startup",
+    key: ProductTierType.STARTUP,
     plan: "Startup",
     description: `Scale your usage and enjoy increased access to advanced features.`,
     price: "$0.00004",
@@ -32,7 +33,7 @@ const plans = [
     ],
   },
   {
-    key: "scaleup",
+    key: ProductTierType.SCALEUP,
     plan: "Scaleup",
     description: `Accelerate Your Growth. Scale and unlock advanced features for accelerated success.`,
     price: "$0.00011",
@@ -49,7 +50,7 @@ const plans = [
     ],
   },
   {
-    key: "enterprise",
+    key: ProductTierType.ENTERPRISE,
     plan: "Enterprise",
     description: `Propel Your Business Forward. Customize your plan to suit your business needs.`,
     price: "Custom pricing",
