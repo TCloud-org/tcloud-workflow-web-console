@@ -205,8 +205,13 @@ export const RerunConfiguration = forwardRef<
       } as WorkflowConfiguration,
     };
 
+    const config = {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    };
     await axios
-      .post(WOS_RERUN_WORKFLOW_ENDPOINT, params)
+      .post(WOS_RERUN_WORKFLOW_ENDPOINT, params, config)
       .then((_) => {
         setStateConfigFormData({});
         setWorkflowAlias("live");
