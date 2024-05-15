@@ -33,6 +33,9 @@ export const BillingCard = (props: { billing?: StepWorkflowBilling }) => {
             <Flex gap={8} className="mt-2">
               <Flex vertical flex={1} gap={8}>
                 <Typography.Text>${billing.cost.toFixed(2)}</Typography.Text>
+                <Typography.Text>
+                  Total transitions: {billing.totalTransitions}
+                </Typography.Text>
               </Flex>
 
               <Flex flex={1}>
