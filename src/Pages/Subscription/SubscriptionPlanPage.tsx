@@ -10,6 +10,7 @@ const plans = [
     plan: "Free Tier",
     description: `Experience our platform with limited usage and access at no cost.`,
     price: "Free",
+    unit: "$0.000025 thereafter",
     features: [
       "Up to 5000 transitions",
       "Limited access to our RESTful Step Workflow APIs",

@@ -20,6 +20,7 @@ export const AppHtmlEditor = (props: {
   );
   const codeTheme = "light";
 
+  console.log("value", value);
   return (
     <div
       style={{

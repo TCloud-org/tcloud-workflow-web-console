@@ -82,19 +82,19 @@ export const SubscriptionPlanCard = (props: { data: any }) => {
           {data.description}
         </Typography.Paragraph>
 
-        <Typography.Text
-          style={{
-            fontWeight: 500,
-            fontSize: 16,
-            textAlign: "center",
-          }}
-          className="h-16 lg:h-24"
-        >
+        <Flex vertical className="h-16 lg:h-24 text-center">
           <Typography.Text style={{ fontSize: 20, fontWeight: 700 }}>
             {data.price}
-          </Typography.Text>{" "}
-          {data.unit}
-        </Typography.Text>
+          </Typography.Text>
+          <Typography.Text
+            style={{
+              fontWeight: 500,
+              fontSize: 14,
+            }}
+          >
+            {data.unit}
+          </Typography.Text>
+        </Flex>
 
         <AppButton
           type="primary"
