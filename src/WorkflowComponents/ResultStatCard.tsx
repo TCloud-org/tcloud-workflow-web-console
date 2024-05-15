@@ -53,7 +53,9 @@ export const ResultStatCard = (props: {
         }
         value={data.value}
         formatter={formatter}
-        valueStyle={{ ...valueStyle }}
+        valueStyle={{
+          ...valueStyle,
+        }}
         className="relative"
       />
     </AppCard>
