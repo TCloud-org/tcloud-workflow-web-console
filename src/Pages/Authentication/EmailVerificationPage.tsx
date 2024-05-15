@@ -9,6 +9,7 @@ import { AppLogoText } from "DataDisplayComponents/AppLogoText";
 import { AuthImageDisplay } from "DataDisplayComponents/AuthImageDisplay";
 import { AppButton } from "DataEntryComponents/AppButton";
 import { AppForm } from "DataEntryComponents/AppForm";
+import { AuthContainer } from "LayoutComponents/AuthContainer";
 import { AuthContent } from "LayoutComponents/AuthContent";
 import { InvitationStatus, InvitationToken } from "Network/SecurityFetch";
 import {
@@ -129,27 +130,16 @@ export const EmailVerificationPage = () => {
     <>
       {contextHolder}
       <AuthContent>
-        <Col {...Span[2]} className="hidden lg:block">
-          <AuthImageDisplay
-            imageUrl="https://tcw-images.s3.us-west-2.amazonaws.com/6225966.jpg"
-            resourceUrl="https://www.freepik.com/free-vector/hand-drawn-business-people-communication_20125844.htm#from_view=detail_serie"
-            resourceLabel="Image by Freepik"
-          />
-        </Col>
-
-        <Col {...Span[2]}>
-          <Flex
-            vertical
-            align="center"
-            gap={16}
-            justify="center"
-            style={{ height: "100%" }}
-          >
+        <Col
+          {...Span[2]}
+          className="z-10 flex flex-col justify-center items-center"
+        >
+          <AuthContainer>
             <AppLogoText />
 
             <Typography.Title level={3}>Verify your email</Typography.Title>
 
-            <Typography.Text>
+            <Typography.Text className="px-8">
               A verification code has been sent to{" "}
               <Typography.Text strong>
                 {data?.account?.email || "example@company.com"}
@@ -223,7 +213,14 @@ export const EmailVerificationPage = () => {
                 </Form.Item>
               </Flex>
             </AppForm>
-          </Flex>
+          </AuthContainer>
+        </Col>
+
+        <Col
+          {...Span[2]}
+          className="absolute top-0 left-0 right-0 bottom-0 lg:relative z-0"
+        >
+          <AuthImageDisplay imageUrl="https://tcw-images.s3.us-west-2.amazonaws.com/side-bg.jpg" />
         </Col>
       </AuthContent>
     </>

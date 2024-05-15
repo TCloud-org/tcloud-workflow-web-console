@@ -6,32 +6,30 @@ export const AuthImageDisplay = (props: {
   resourceLabel?: string;
 }) => {
   const { token } = theme.useToken();
-
+  //#a7a5e7
   return (
-    <Flex
-      vertical
-      justify="center"
-      style={{ height: "100%", backgroundColor: "#a7a5e7" }}
-    >
+    <Flex vertical justify="center" style={{ backgroundColor: "transparent" }}>
       <Image
         src={props.imageUrl}
-        style={{ borderRadius: token.borderRadiusLG, objectFit: "contain" }}
-        height="100%"
+        style={{ objectFit: "cover" }}
+        height="100vh"
         preview={false}
       />
-      <a
-        style={{
-          fontSize: 12,
-          position: "absolute",
-          bottom: 16,
-          left: 16,
-          color: token.colorWhite,
-          textDecoration: "underline",
-        }}
-        href={props.resourceUrl}
-      >
-        {props.resourceLabel}
-      </a>
+      {props.resourceUrl && (
+        <a
+          style={{
+            fontSize: 12,
+            position: "absolute",
+            bottom: 16,
+            left: 16,
+            color: token.colorWhite,
+            textDecoration: "underline",
+          }}
+          href={props.resourceUrl}
+        >
+          {props.resourceLabel}
+        </a>
+      )}
     </Flex>
   );
 };

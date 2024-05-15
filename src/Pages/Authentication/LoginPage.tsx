@@ -26,6 +26,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import { camelToUpperCaseUnderscore } from "Utils/StringUtils";
+import { AuthContainer } from "LayoutComponents/AuthContainer";
 
 export const LoginPage = () => {
   const { token } = theme.useToken();
@@ -202,22 +203,11 @@ export const LoginPage = () => {
     <>
       {contextHolder}
       <AuthContent>
-        <Col {...Span[2]} className="hidden lg:block">
-          <AuthImageDisplay
-            imageUrl="https://tcw-images.s3.us-west-2.amazonaws.com/6225958.jpg"
-            resourceUrl="https://www.freepik.com/free-vector/hand-drawn-illustration-business-planning_20124625.htm#fromView=search&page=3&position=24&uuid=86237bfa-c9e7-4467-92b5-0606a5715ad3"
-            resourceLabel="Image by freepik"
-          />
-        </Col>
-
-        <Col {...Span[2]}>
-          <Flex
-            vertical
-            align="center"
-            gap={16}
-            justify="center"
-            style={{ height: "100%" }}
-          >
+        <Col
+          {...Span[2]}
+          className="z-10 flex flex-col justify-center items-center"
+        >
+          <AuthContainer>
             <AppLogoText />
 
             <Typography.Title level={3}>Welcome</Typography.Title>
@@ -320,7 +310,14 @@ export const LoginPage = () => {
                 </Flex>
               </Form.Item>
             </AppForm>
-          </Flex>
+          </AuthContainer>
+        </Col>
+
+        <Col
+          {...Span[2]}
+          className="absolute top-0 left-0 right-0 bottom-0 lg:relative z-0"
+        >
+          <AuthImageDisplay imageUrl="https://tcw-images.s3.us-west-2.amazonaws.com/side-bg.jpg" />
         </Col>
       </AuthContent>
     </>

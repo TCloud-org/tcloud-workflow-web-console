@@ -5,6 +5,7 @@ import { AppLogoText } from "DataDisplayComponents/AppLogoText";
 import { AuthImageDisplay } from "DataDisplayComponents/AuthImageDisplay";
 import { AppButton } from "DataEntryComponents/AppButton";
 import { AppForm } from "DataEntryComponents/AppForm";
+import { AuthContainer } from "LayoutComponents/AuthContainer";
 import { AuthContent } from "LayoutComponents/AuthContent";
 import { getInvitationToken } from "Network/SecurityFetch";
 import { camelToUpperCaseUnderscore } from "Utils/StringUtils";
@@ -100,22 +101,11 @@ export const SignUpPage = () => {
     <>
       {contextHolder}
       <AuthContent>
-        <Col {...Span[2]} className="hidden lg:block">
-          <AuthImageDisplay
-            imageUrl="https://tcw-images.s3.us-west-2.amazonaws.com/6221508.jpg"
-            resourceUrl="https://www.freepik.com/free-vector/hand-drawn-innovation-concept_20286043.htm#&position=8&from_view=collections&uuid=5a145899-aec1-4149-aaa3-f325d2281b06"
-            resourceLabel="Image by pikisuperstar on Freepik"
-          />
-        </Col>
-
-        <Col {...Span[2]}>
-          <Flex
-            vertical
-            align="center"
-            gap={16}
-            justify="center"
-            style={{ height: "100%" }}
-          >
+        <Col
+          {...Span[2]}
+          className="z-10 flex flex-col justify-center items-center"
+        >
+          <AuthContainer>
             <AppLogoText />
 
             <Typography.Title level={3}>Create an account</Typography.Title>
@@ -205,7 +195,14 @@ export const SignUpPage = () => {
                 </Flex>
               </Form.Item>
             </AppForm>
-          </Flex>
+          </AuthContainer>
+        </Col>
+
+        <Col
+          {...Span[2]}
+          className="absolute top-0 left-0 right-0 bottom-0 lg:relative z-0"
+        >
+          <AuthImageDisplay imageUrl="https://tcw-images.s3.us-west-2.amazonaws.com/side-bg.jpg" />
         </Col>
       </AuthContent>
     </>
