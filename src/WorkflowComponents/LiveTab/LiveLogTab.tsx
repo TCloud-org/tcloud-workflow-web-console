@@ -15,6 +15,7 @@ export const LiveLogTab = (props: { routes?: Route[] }) => {
     <Flex vertical gap={16}>
       {routes.map((route, i) => (
         <AppCollapse
+          key={i}
           items={[
             {
               key: i,

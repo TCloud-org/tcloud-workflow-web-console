@@ -73,7 +73,10 @@ export const deserializeDocumentChangeLogs = (route: Route) => {
         c.charCodeAt(0)
       );
       const decodedString = new TextDecoder("utf-8").decode(byteArray);
-      changeLogs[k][key] = JSON.parse(JSON.parse(decodedString));
+      changeLogs[k][key] = JSON.parse(decodedString);
+      if (typeof changeLogs[k][key] === "string") {
+        changeLogs[k][key] = JSON.parse(changeLogs[k][key]);
+      }
     }
     if (k === "createdAt") {
       changeLogs[k] = formatDate(changeLogs[k]);
