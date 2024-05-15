@@ -175,7 +175,7 @@ export const WorkStatisticDisplay = (props: {
                       fill: token.colorError,
                     },
                   ]}
-                  width={350}
+                  width={400}
                   height={300}
                 />
               )
