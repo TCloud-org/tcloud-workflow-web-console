@@ -81,7 +81,6 @@ export const XMLCodeEditor = (props: {
               },
             })
       }
-      height="60vh"
       extensions={[langs.xml(), autocompletion({ override: [myCompletions] })]}
       onErrorCapture={(event) => console.log(event)}
     />

@@ -1,4 +1,3 @@
-import { AppSurface } from "DataDisplayComponents/AppSurface";
 import { CodeBeam } from "DataDisplayComponents/CodeBeam";
 import { DescriptionsProps } from "antd";
 import { CSSProperties, forwardRef } from "react";
@@ -114,19 +113,18 @@ export const StateCardInfo = forwardRef<HTMLDivElement, StateCardInfoProps>(
             {
               label: "Error",
               children: (
-                <AppSurface size="small">
-                  <CodeBeam
-                    value="json"
-                    snippets={[
-                      {
-                        key: "json",
-                        label: "JSON",
-                        language: "json",
-                        value: parseError(data?.metadata.error) || "",
-                      },
-                    ]}
-                  />
-                </AppSurface>
+                <CodeBeam
+                  value="json"
+                  wrapLongLines
+                  snippets={[
+                    {
+                      key: "json",
+                      label: "JSON",
+                      language: "json",
+                      value: parseError(data?.metadata.error) || "",
+                    },
+                  ]}
+                />
               ),
               span: Span[1],
             },
@@ -137,11 +135,11 @@ export const StateCardInfo = forwardRef<HTMLDivElement, StateCardInfoProps>(
     return (
       <div
         style={{
-          transition: "0.2s",
-          overflow: "hidden",
-          marginTop: "24px",
+          transition: "all 0.3s",
+          marginTop: "16px",
           backgroundColor: "white",
           borderRadius: "8px",
+          overflow: "auto",
           ...style,
         }}
         ref={ref}
@@ -156,7 +154,6 @@ export const StateCardInfo = forwardRef<HTMLDivElement, StateCardInfoProps>(
             fontSize: "12px",
           }}
           size="small"
-          style={{ padding: "16px 16px 8px 16px" }}
           items={items}
         />
       </div>

@@ -1,18 +1,18 @@
 import { Alert, Flex, Form, Input } from "antd";
+import axios from "axios";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   GENERATED_ID_INPUT_TOOLTIP,
-  Span,
+  createSpan,
 } from "../../Config/DataDisplayInterface";
+import { WOS_ADD_GRAPH_ENDPOINT } from "../../Config/WOSEndpointConfig";
 import { Graph } from "../../Config/WorkflowConfig";
 import { XMLCodeEditor } from "../../DataDisplayComponents/XMLCodeEditor";
 import { AppButton } from "../../DataEntryComponents/AppButton";
 import { AppForm } from "../../DataEntryComponents/AppForm";
 import { AppSpace } from "../../LayoutComponents/AppSpace";
-import { useSelector } from "react-redux";
-import axios from "axios";
-import { WOS_ADD_GRAPH_ENDPOINT } from "../../Config/WOSEndpointConfig";
 
 export const EditGraphPage = () => {
   const navigate = useNavigate();
@@ -98,8 +98,8 @@ export const EditGraphPage = () => {
       <AppForm
         form={form}
         onValuesChange={handleValuesChange}
-        labelCol={Span[8]}
-        wrapperCol={Span[1]}
+        labelCol={createSpan(4)}
+        wrapperCol={createSpan(20)}
       >
         <Form.Item
           name="alias"
@@ -122,11 +122,8 @@ export const EditGraphPage = () => {
         >
           <Input disabled />
         </Form.Item>
-        <Form.Item name="xmlContent" label="Graph XML">
-          <XMLCodeEditor
-            style={{ width: "100%" }}
-            value={form.getFieldValue("xmlContent")}
-          />
+        <Form.Item name="xmlContent" label="Graph">
+          <XMLCodeEditor />
         </Form.Item>
       </AppForm>
       <Flex justify="center">

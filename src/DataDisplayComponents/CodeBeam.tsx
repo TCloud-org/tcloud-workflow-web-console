@@ -34,6 +34,7 @@ export const CodeBeam = (props: {
   hideToolbar?: boolean;
   className?: string;
   style?: CSSProperties;
+  wrapLongLines?: boolean;
 }) => {
   const {
     value = "",
@@ -45,6 +46,7 @@ export const CodeBeam = (props: {
     hideToolbar,
     className = "",
     style,
+    wrapLongLines = false,
   } = props;
 
   const [select, setSelect] = useState<string>(value);
@@ -93,6 +95,7 @@ export const CodeBeam = (props: {
         language={snippets.find((snippet) => snippet.key === select)?.language}
         style={atomOneDark}
         showLineNumbers={borderColor !== "transparent"}
+        wrapLongLines={wrapLongLines}
         customStyle={{
           padding: borderColor === "transparent" ? 0 : "27px",
           fontSize: "0.75rem",
