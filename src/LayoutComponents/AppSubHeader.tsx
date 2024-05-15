@@ -61,6 +61,8 @@ export const AppSubHeader = () => {
         <Tag
           color={workflow ? "green-inverse" : "gold-inverse"}
           bordered={false}
+          className="cursor-pointer"
+          onClick={() => navigate("/workflow")}
         >
           {workflow ? `Active: ${workflow.workflowName}` : "No active workflow"}
         </Tag>
