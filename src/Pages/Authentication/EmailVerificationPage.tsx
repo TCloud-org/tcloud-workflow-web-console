@@ -119,7 +119,7 @@ export const EmailVerificationPage = () => {
     if (res) {
       messageApi.success("Resent verification code.");
       setCodeExpired(false);
-      setCodeExpiredAt(new Date(res.verificationToken?.expiredAt * 1000));
+      setCodeExpiredAt(new Date(res.verificationToken?.expiredAt));
     } else {
       messageApi.error("Failed to resend verification code.");
     }
@@ -129,7 +129,7 @@ export const EmailVerificationPage = () => {
     <>
       {contextHolder}
       <AuthContent>
-        <Col {...Span[2]}>
+        <Col {...Span[2]} className="hidden lg:block">
           <AuthImageDisplay
             imageUrl="https://tcw-images.s3.us-west-2.amazonaws.com/6225966.jpg"
             resourceUrl="https://www.freepik.com/free-vector/hand-drawn-business-people-communication_20125844.htm#from_view=detail_serie"
