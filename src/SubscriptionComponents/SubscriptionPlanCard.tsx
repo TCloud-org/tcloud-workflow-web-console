@@ -55,6 +55,7 @@ export const SubscriptionPlanCard = (props: { data: any }) => {
       ...account,
       productTiers,
     };
+    console.log(formData);
 
     const res = await axios
       .post(AMS_UPDATE_ACCOUNT_ENDPOINT, formData, config)

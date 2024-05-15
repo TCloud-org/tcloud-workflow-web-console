@@ -37,7 +37,7 @@ export const LiveEntityTab = (props: { routes: Route[] }) => {
         .filter((entry) => entry[1].workRequest)
         .map(([source, value], i) => (
           <AppCollapse
-            key={i}
+            key={`req-${i}`}
             items={[
               {
                 key: `child-${i}`,
@@ -62,7 +62,7 @@ export const LiveEntityTab = (props: { routes: Route[] }) => {
       <Typography.Title level={5}>Document Entity</Typography.Title>
       {Object.entries(entities).map(([k, v], i) => (
         <AppCollapse
-          key={i}
+          key={`entity-${i}`}
           items={[
             {
               key: `child-${i}`,

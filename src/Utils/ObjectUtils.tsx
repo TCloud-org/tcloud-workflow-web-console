@@ -53,7 +53,11 @@ export const extractEntities = (routes: Route[] = []) => {
       for (const [key, value] of Object.entries(item)) {
         let val = value;
         if (typeof value === "string") {
-          val = JSON.parse(value);
+          try {
+            val = JSON.parse(value);
+          } catch (error) {
+            val = value;
+          }
         }
         result[key] = val;
       }

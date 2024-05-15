@@ -57,7 +57,11 @@ export const deserializeDocument = (route: Route) => {
       c.charCodeAt(0)
     );
     const decodedString = new TextDecoder("utf-8").decode(byteArray);
-    entities[key] = JSON.parse(decodedString);
+    try {
+      entities[key] = JSON.parse(decodedString);
+    } catch (error) {
+      entities[key] = decodedString;
+    }
   }
   if (entities === undefined) return null;
   return entities;
