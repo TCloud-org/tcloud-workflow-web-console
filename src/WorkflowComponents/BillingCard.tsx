@@ -7,10 +7,18 @@ import {
   prettifyDateWithoutDay,
   prettifyDateWithoutYear,
 } from "Utils/DateUtils";
+import { formatTitleCase } from "Utils/ObjectUtils";
 import { Flex, Statistic, Typography } from "antd";
+import { Account, ProductTierType, ProductType } from "features/auth/authSlice";
+import { useSelector } from "react-redux";
 
 export const BillingCard = (props: { billing?: StepWorkflowBilling }) => {
   const { billing } = props;
+  const account: Account = useSelector((state: any) => state.auth.account);
+  const tier =
+    account.productTiers?.find(
+      (item) => item.product === ProductType.STEP_WORKFLOW
+    )?.tier || ProductTierType.FREE_TIER;
 
   return (
     <AppCard size="small" className="h-full">
@@ -33,6 +41,9 @@ export const BillingCard = (props: { billing?: StepWorkflowBilling }) => {
             <Flex gap={8} className="mt-2">
               <Flex vertical flex={1} gap={8}>
                 <Typography.Text>${billing.cost.toFixed(2)}</Typography.Text>
+                <Typography.Text>
+                  Current plan: {formatTitleCase(tier)}
+                </Typography.Text>
                 <Typography.Text>
                   Total transitions: {billing.totalTransitions}
                 </Typography.Text>
