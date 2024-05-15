@@ -28,7 +28,8 @@ export const XMLCodeEditor = (props: {
         {
           label: "workflow",
           type: "text",
-          apply: 'workflow initialState=""></workflow>',
+          apply:
+            'workflow name="" initialState="" retryPolicyId=""></workflow>',
         },
         {
           label: "state",

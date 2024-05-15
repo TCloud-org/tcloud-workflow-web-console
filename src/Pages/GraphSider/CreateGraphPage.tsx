@@ -206,37 +206,37 @@ export const CreateGraphPage = () => {
         </Form.Item>
 
         <Form.Item label="Graph" name="xmlContent">
-          <Flex vertical gap={16}>
-            {showAlert && isXMLValidated ? (
-              <Alert
-                message="XML validated successfully"
-                type="success"
-                showIcon
-                closable
-                onClose={handleCloseAlert}
-              />
-            ) : showAlert && !isXMLValidated ? (
-              <Alert
-                message="XML validation failed"
-                type="error"
-                showIcon
-                closable
-                onClose={handleCloseAlert}
-              />
-            ) : null}
-            <AppCodeInput
-              endDecorator={
-                <AppButton
-                  style={{ padding: 0, color: textColor }}
-                  type="link"
-                  onClick={handleValidate}
-                  loading={isValidating}
-                >
-                  Validate
-                </AppButton>
-              }
-            />
-          </Flex>
+          <AppCodeInput
+            banner={
+              showAlert && isXMLValidated ? (
+                <Alert
+                  message="XML validated successfully"
+                  type="success"
+                  showIcon
+                  closable
+                  onClose={handleCloseAlert}
+                />
+              ) : showAlert && !isXMLValidated ? (
+                <Alert
+                  message="XML validation failed"
+                  type="error"
+                  showIcon
+                  closable
+                  onClose={handleCloseAlert}
+                />
+              ) : null
+            }
+            endDecorator={
+              <AppButton
+                style={{ padding: 0, color: textColor }}
+                type="link"
+                onClick={handleValidate}
+                loading={isValidating}
+              >
+                Validate
+              </AppButton>
+            }
+          />
         </Form.Item>
       </AppForm>
 
