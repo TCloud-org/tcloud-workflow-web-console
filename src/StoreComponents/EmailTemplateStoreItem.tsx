@@ -13,14 +13,14 @@ export const EmailTemplateStoreItem = (props: {
 
   const handleEdit = () => {
     window.open(
-      `https://www.tc-workflow.com/store/${data.templateStoreId}/edit`,
+      `https://www.stepworkflow.thecloudworlds.com/store/${data.templateStoreId}/edit`,
       "_blank"
     );
   };
 
   const handleView = () => {
     window.open(
-      `https://www.tc-workflow.com/store/${data.templateStoreId}`,
+      `https://www.stepworkflow.thecloudworlds.com/store/${data.templateStoreId}`,
       "_blank"
     );
   };
