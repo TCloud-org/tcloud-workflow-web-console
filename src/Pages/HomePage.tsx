@@ -136,9 +136,16 @@ export const HomePage = () => {
     fetchWorksInRange();
   }, [fetchWorksInRange]);
 
+  const handleReload = () => {
+    fetchBilling();
+    fetchInfraStat();
+    fetchWorksInRange();
+  };
+
   return (
     <AppSpace>
       <PageTitle
+        onReload={handleReload}
         endDecorator={
           <WorkPeriodToolbar period={period} setPeriod={setPeriod} />
         }
