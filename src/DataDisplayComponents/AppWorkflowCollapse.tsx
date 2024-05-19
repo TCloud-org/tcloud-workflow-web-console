@@ -28,8 +28,12 @@ export const AppWorkflowCollapse = (props: {
       style={{
         ...dotStyle,
       }}
-      className="p-2 md:p-10 lg:p-20"
-      items={items.map((item) => ({ ...item, style: panelStyle }))}
+      className="p-2 md:p-10 lg:p-20 flex flex-col items-center"
+      items={items.map((item) => ({
+        ...item,
+        style: panelStyle,
+        className: "max-w-screen-2xl w-full",
+      }))}
     />
   );
 };

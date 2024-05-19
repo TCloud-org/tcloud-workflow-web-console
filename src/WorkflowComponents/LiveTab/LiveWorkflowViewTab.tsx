@@ -33,13 +33,13 @@ export const LiveWorkflowViewTab = (props: {
                     : route.resultType,
                 color: TagVariantMapping[route.resultType]?.color,
                 icon: TagVariantMapping[route.resultType]?.icon,
-                tooltip: "Result",
+                tooltip: "Result type",
               },
               ...(route?.metadata?.workflowRetryConfig?.retryIndex > 0
                 ? [
                     {
                       children: `Attempt #${route?.metadata?.workflowRetryConfig?.retryIndex}`,
-                      // color: "gold-inverse",
+                      color: "gold",
                       icon: <SyncOutlined />,
                     } as CollapseTag,
                   ]
