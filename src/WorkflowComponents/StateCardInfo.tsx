@@ -4,10 +4,8 @@ import { CSSProperties, forwardRef } from "react";
 import { Span } from "../Config/DataDisplayInterface";
 import { Route } from "../Config/WorkflowConfig";
 import { AppDescriptions } from "../DataDisplayComponents/AppDescriptions";
-import { AppTag, TagVariantMapping } from "../DataDisplayComponents/AppTag";
 import { formatDate } from "../Utils/DateUtils";
 import { parseError } from "../Utils/Serializer";
-import { LatencyTag } from "./LatencyTag";
 
 interface StateCardInfoProps {
   data?: Route;
@@ -19,94 +17,59 @@ export const StateCardInfo = forwardRef<HTMLDivElement, StateCardInfoProps>(
     const { data, style } = props;
 
     const renderNATag = () => {
-      return <AppTag>-</AppTag>;
+      return "-";
     };
 
     const items: DescriptionsProps["items"] = [
       {
         label: "Result name",
-        children: data?.resultName ? (
-          <AppTag>{data?.resultName}</AppTag>
-        ) : (
-          renderNATag()
-        ),
-        span: Span[4],
+        children: data?.resultName ? data?.resultName : renderNATag(),
+        span: Span[2],
       },
       {
         label: "Result type",
-        children: data?.resultType ? (
-          <AppTag
-            // color={TagVariantMapping[data.resultType]?.color}
-            icon={TagVariantMapping[data.resultType]?.icon}
-          >
-            {data.resultType}
-          </AppTag>
-        ) : (
-          renderNATag()
-        ),
-        span: Span[4],
+        children: data?.resultType ? data.resultType : renderNATag(),
+        span: Span[2],
       },
       {
         label: "Latency",
-        children: data?.metadata?.httpResponse?.latency ? (
-          <LatencyTag latency={data?.metadata?.httpResponse.latency} />
-        ) : (
-          renderNATag()
-        ),
-        span: Span[4],
+        children: data?.metadata?.httpResponse?.latency
+          ? `${data?.metadata?.httpResponse.latency} ms`
+          : renderNATag(),
+        span: Span[2],
       },
       {
         label: "Status code",
-        children: data?.metadata?.httpResponse?.statusCode ? (
-          <AppTag
-          // color={
-          //   data?.metadata?.httpResponse?.statusCode === 200
-          //     ? "green-inverse"
-          //     : "red-inverse"
-          // }
-          >
-            {data?.metadata?.httpResponse?.statusCode}
-          </AppTag>
-        ) : (
-          renderNATag()
-        ),
-        span: Span[4],
+        children: data?.metadata?.httpResponse?.statusCode
+          ? data?.metadata?.httpResponse?.statusCode
+          : renderNATag(),
+        span: Span[2],
       },
       {
         label: "Status",
-        children: data?.metadata?.httpResponse?.status ? (
-          <AppTag>{data?.metadata?.httpResponse?.status}</AppTag>
-        ) : (
-          renderNATag()
-        ),
-        span: Span[4],
+        children: data?.metadata?.httpResponse?.status
+          ? data?.metadata?.httpResponse?.status
+          : renderNATag(),
+        span: Span[2],
       },
       {
         label: "Reason",
-        children: data?.metadata?.httpResponse?.reasonPhrase ? (
-          <AppTag>{data?.metadata?.httpResponse?.reasonPhrase}</AppTag>
-        ) : (
-          renderNATag()
-        ),
-        span: Span[4],
+        children: data?.metadata?.httpResponse?.reasonPhrase
+          ? data?.metadata?.httpResponse?.reasonPhrase
+          : renderNATag(),
+        span: Span[2],
       },
       {
         label: "Completed",
-        children: data?.createdAt ? (
-          <AppTag>{formatDate(data?.createdAt)}</AppTag>
-        ) : (
-          renderNATag()
-        ),
-        span: Span[4],
+        children: data?.createdAt ? formatDate(data?.createdAt) : renderNATag(),
+        span: Span[2],
       },
       {
         label: "Retried",
-        children: data?.nextRetryAt ? (
-          <AppTag>{formatDate(data?.nextRetryAt)}</AppTag>
-        ) : (
-          renderNATag()
-        ),
-        span: Span[4],
+        children: data?.nextRetryAt
+          ? formatDate(data?.nextRetryAt)
+          : renderNATag(),
+        span: Span[2],
       },
       ...(data?.metadata?.error
         ? [
@@ -145,13 +108,8 @@ export const StateCardInfo = forwardRef<HTMLDivElement, StateCardInfoProps>(
         ref={ref}
       >
         <AppDescriptions
-          layout="vertical"
           labelStyle={{
-            fontWeight: "bold",
-            fontSize: "12px",
-          }}
-          contentStyle={{
-            fontSize: "12px",
+            fontWeight: 500,
           }}
           size="small"
           items={items}

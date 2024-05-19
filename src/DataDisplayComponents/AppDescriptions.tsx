@@ -20,7 +20,7 @@ export const AppDescriptions = (
         ...props.labelStyle,
       }}
       contentStyle={{
-        color: token.colorTextLabel,
+        color: token.colorText,
         ...props.contentStyle,
       }}
     />
