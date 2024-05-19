@@ -25,7 +25,7 @@ export const AppCollapseLabel = (props: {
       </Col>
 
       <Col {...Span[1]} className="flex justify-start ">
-        <Flex gap="4px" wrap="wrap" className="justify-start items-start">
+        <Flex gap="8px" wrap="wrap" className="justify-start items-start">
           {endTags.map((tag, i) => (
             <Flex key={i}>
               <AppTag {...tag} key={i} className="rounded-xl" />
