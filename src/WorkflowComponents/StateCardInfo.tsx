@@ -105,6 +105,7 @@ export const StateCardInfo = forwardRef<HTMLDivElement, StateCardInfoProps>(
           overflow: "auto",
           ...style,
         }}
+        className="mx-6"
         ref={ref}
       >
         <AppDescriptions
