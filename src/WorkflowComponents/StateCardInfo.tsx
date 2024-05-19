@@ -36,7 +36,7 @@ export const StateCardInfo = forwardRef<HTMLDivElement, StateCardInfoProps>(
         label: "Result type",
         children: data?.resultType ? (
           <AppTag
-            color={TagVariantMapping[data.resultType]?.color}
+            // color={TagVariantMapping[data.resultType]?.color}
             icon={TagVariantMapping[data.resultType]?.icon}
           >
             {data.resultType}
@@ -59,11 +59,11 @@ export const StateCardInfo = forwardRef<HTMLDivElement, StateCardInfoProps>(
         label: "Status code",
         children: data?.metadata?.httpResponse?.statusCode ? (
           <AppTag
-            color={
-              data?.metadata?.httpResponse?.statusCode === 200
-                ? "green-inverse"
-                : "red-inverse"
-            }
+          // color={
+          //   data?.metadata?.httpResponse?.statusCode === 200
+          //     ? "green-inverse"
+          //     : "red-inverse"
+          // }
           >
             {data?.metadata?.httpResponse?.statusCode}
           </AppTag>

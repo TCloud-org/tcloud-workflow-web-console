@@ -12,7 +12,7 @@ export const AppCollapseLabel = (props: {
   const { label, startTags = [], endTags = [] } = props;
   return (
     <AppRow gutter={[16, 16]}>
-      <Col {...Span[2]}>
+      <Col {...Span[1]}>
         <Flex gap="16px" align="flex-start">
           <Typography.Text>{label}</Typography.Text>
 
@@ -24,10 +24,12 @@ export const AppCollapseLabel = (props: {
         </Flex>
       </Col>
 
-      <Col {...Span[2]} className="flex justify-end">
-        <Flex gap="4px" wrap="wrap" className="justify-end">
+      <Col {...Span[1]} className="flex justify-start ">
+        <Flex gap="4px" wrap="wrap" className="justify-start items-start">
           {endTags.map((tag, i) => (
-            <AppTag {...tag} key={i} />
+            <Flex key={i}>
+              <AppTag {...tag} key={i} className="rounded-xl" />
+            </Flex>
           ))}
         </Flex>
       </Col>

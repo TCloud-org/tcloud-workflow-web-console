@@ -4,10 +4,9 @@ import { SelectItem } from "../../Config/DataDisplayInterface";
 import { Route } from "../../Config/WorkflowConfig";
 import { AppCollapseLabel } from "../../DataDisplayComponents/AppCollapseLabel";
 import { TagVariantMapping } from "../../DataDisplayComponents/AppTag";
-import { getStatusCodeColor } from "../../Utils/ColorUtils";
 import { CollapseTag } from "../../Utils/ObjectUtils";
-import { getLatencyColor } from "../LatencyTag";
 import { StateCardInfo } from "../StateCardInfo";
+import { getLatencyColor } from "WorkflowComponents/LatencyTag";
 
 export const LiveWorkflowViewTab = (props: {
   routeMap: { [key: string]: Route[] };
@@ -26,11 +25,20 @@ export const LiveWorkflowViewTab = (props: {
           <AppCollapseLabel
             label={route.source}
             endTags={[
+              {
+                children:
+                  route.resultType === "terminal"
+                    ? "success"
+                    : route.resultType,
+                color: TagVariantMapping[route.resultType]?.color,
+                icon: TagVariantMapping[route.resultType]?.icon,
+                tooltip: "Result",
+              },
               ...(route?.metadata?.workflowRetryConfig?.retryIndex > 0
                 ? [
                     {
                       children: `Attempt #${route?.metadata?.workflowRetryConfig?.retryIndex}`,
-                      color: "gold-inverse",
+                      // color: "gold-inverse",
                       icon: <SyncOutlined />,
                     } as CollapseTag,
                   ]
@@ -46,24 +54,18 @@ export const LiveWorkflowViewTab = (props: {
                     } as CollapseTag,
                     {
                       children: `${route?.metadata?.httpResponse.statusCode} ${route?.metadata?.httpResponse.status}`,
-                      color: getStatusCodeColor(
-                        route?.metadata?.httpResponse.statusCode
-                      ),
+                      // color: getStatusCodeColor(
+                      //   route?.metadata?.httpResponse.statusCode
+                      // ),
                       tooltip: `Reason: ${route?.metadata?.httpResponse.reasonPhrase}`,
                     } as CollapseTag,
                   ]
                 : []),
               {
                 children: route.resultName,
-                color: TagVariantMapping[route.resultType]?.color,
+                // color: TagVariantMapping[route.resultType]?.color,
                 icon: TagVariantMapping[route.resultType]?.icon,
                 tooltip: "Result name",
-              },
-              {
-                children: route.resultType,
-                color: TagVariantMapping[route.resultType]?.color,
-                icon: TagVariantMapping[route.resultType]?.icon,
-                tooltip: "Result",
               },
             ]}
           />
