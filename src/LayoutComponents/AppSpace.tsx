@@ -19,6 +19,7 @@ export const AppSpace = forwardRef<
         ref={ref}
         direction={direction}
         size={size}
+        className={props.className}
         style={{ display: "flex", ...style }}
       >
         {children}

@@ -203,29 +203,26 @@ export const WorkPage = () => {
         flowVisualLoading ||
         configLoading
       }
+      className="max-w-screen-2xl ml-auto mr-auto"
     >
       <AppRow gutter={[16, 16]}>
+        <Col {...Span[1]}>
+          <FormSelect
+            placeholder="Select a version"
+            options={versions}
+            value={versionSelected}
+            onChange={setVersionSelected}
+          />
+        </Col>
+        <Col {...Span[1]}>
+          <WorkflowToolbar
+            onReload={reload}
+            routes={routeMap[versionSelected]}
+            graph={graph}
+          />
+        </Col>
         <Col {...Span[2]}>
-          <AppRow gutter={[16, 16]}>
-            <Col {...Span[1]}>
-              <FormSelect
-                placeholder="Select a version"
-                options={versions}
-                value={versionSelected}
-                onChange={setVersionSelected}
-              />
-            </Col>
-            <Col {...Span[1]}>
-              <WorkflowToolbar
-                onReload={reload}
-                routes={routeMap[versionSelected]}
-                graph={graph}
-              />
-            </Col>
-            <Col {...Span[1]}>
-              <WorkflowInfo graph={graph} />
-            </Col>
-          </AppRow>
+          <WorkflowInfo graph={graph} />
         </Col>
         <Col {...Span[2]}>
           <WorkflowConfigurationInfo
