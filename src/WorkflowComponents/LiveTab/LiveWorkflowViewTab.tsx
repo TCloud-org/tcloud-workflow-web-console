@@ -7,6 +7,7 @@ import { TagVariantMapping } from "../../DataDisplayComponents/AppTag";
 import { CollapseTag } from "../../Utils/ObjectUtils";
 import { StateCardInfo } from "../StateCardInfo";
 import { getLatencyColor } from "WorkflowComponents/LatencyTag";
+import { getStatusCodeColor } from "Utils/ColorUtils";
 
 export const LiveWorkflowViewTab = (props: {
   routeMap: { [key: string]: Route[] };
@@ -54,9 +55,9 @@ export const LiveWorkflowViewTab = (props: {
                     } as CollapseTag,
                     {
                       children: `${route?.metadata?.httpResponse.statusCode} ${route?.metadata?.httpResponse.status}`,
-                      // color: getStatusCodeColor(
-                      //   route?.metadata?.httpResponse.statusCode
-                      // ),
+                      color: getStatusCodeColor(
+                        route?.metadata?.httpResponse.statusCode
+                      ),
                       tooltip: `Reason: ${route?.metadata?.httpResponse.reasonPhrase}`,
                     } as CollapseTag,
                   ]
