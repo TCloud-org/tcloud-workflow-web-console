@@ -27,7 +27,7 @@ export const LiveWorkflowViewTab = (props: {
   };
 
   const getColor = (route: Route) => {
-    if (route.resultType === "error") {
+    if (route.resultType === "failure") {
       return token.colorError;
     }
     return token.colorPrimary;

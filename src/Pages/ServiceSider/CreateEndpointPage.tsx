@@ -14,13 +14,11 @@ export const CreateEndpointPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { serviceName } = location?.state || {};
+  const [form] = Form.useForm();
 
   const authToken = useSelector((state: any) => state.auth.token);
   const clientId = useSelector((state: any) => state.client.clientId);
 
-  const [formData, setFormData] = useState<{
-    [key: string]: string | number | undefined;
-  }>({});
   const [services, setServices] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -43,18 +41,15 @@ export const CreateEndpointPage = () => {
   }, [fetchServices]);
 
   useEffect(() => {
-    setFormData((prev) => ({ ...prev, serviceName: serviceName }));
-  }, [serviceName]);
+    form.setFieldValue("serviceName", serviceName);
+  }, [serviceName, form]);
 
   useEffect(() => {
-    setFormData((prev) => ({ ...prev, clientId }));
-  }, [clientId]);
+    form.setFieldValue("clientId", clientId);
+  }, [clientId, form]);
 
-  const handleValuesChange = (e: any) => {
-    setFormData((prev) => ({
-      ...prev,
-      [Object.keys(e)[0]]: Object.values(e)[0] as string | number | undefined,
-    }));
+  const handleValuesChange = (_: any, values: any) => {
+    form.setFieldsValue(values);
   };
 
   const handleCreate = () => {
@@ -64,7 +59,11 @@ export const CreateEndpointPage = () => {
       },
     };
     axios
-      .post(WOS_ADD_SERVICE_CONFIGURATION_ENDPOINT, formData, config)
+      .post(
+        WOS_ADD_SERVICE_CONFIGURATION_ENDPOINT,
+        form.getFieldsValue(),
+        config
+      )
       .then((_) => {
         navigate(`/service/${serviceName}`);
       })
@@ -79,45 +78,31 @@ export const CreateEndpointPage = () => {
         </Typography.Title>
       </Flex>
 
-      <AppForm onValuesChange={handleValuesChange}>
-        <Form.Item label="Client Id" name="clientId" valuePropName="clientId">
+      <AppForm form={form} onValuesChange={handleValuesChange}>
+        <Form.Item label="Client" name="clientId">
           <Input value={clientId} disabled />
         </Form.Item>
 
-        <Form.Item
-          label="Service"
-          name="serviceName"
-          valuePropName="serviceName"
-        >
-          <Select
-            value={formData["serviceName"]}
-            options={services}
-            placeholder="Select a service"
-          />
+        <Form.Item label="Service" name="serviceName">
+          <Select options={services} placeholder="Select a service" />
         </Form.Item>
 
         <Form.Item
           label="Endpoint"
           name="baseUrl"
-          valuePropName="baseUrl"
           rules={[
             { required: true, message: "Please enter a service endpoint" },
           ]}
         >
-          <Input
-            value={formData["baseUrl"]}
-            placeholder="Enter a service endpoint"
-          />
+          <Input placeholder="Enter a service endpoint" />
         </Form.Item>
 
         <Form.Item
           label="Environment"
           name="environment"
-          valuePropName="environment"
           rules={[{ required: true, message: "Please select an environment" }]}
         >
           <Select
-            value={formData["environment"]}
             options={EnvironmentOptions}
             placeholder="Select an environment"
           />
@@ -126,10 +111,9 @@ export const CreateEndpointPage = () => {
         <Form.Item
           label="Alias"
           name="alias"
-          valuePropName="alias"
           tooltip="If this field is left empty, it will be automatically assigned a generated ID"
         >
-          <Input value={formData["alias"]} placeholder="Enter an alias" />
+          <Input placeholder="Enter an alias" />
         </Form.Item>
       </AppForm>
       <Flex justify="center">
