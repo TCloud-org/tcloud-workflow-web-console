@@ -8,68 +8,95 @@ import { CollapseTag } from "../../Utils/ObjectUtils";
 import { StateCardInfo } from "../StateCardInfo";
 import { getLatencyColor } from "WorkflowComponents/LatencyTag";
 import { getStatusCodeColor } from "Utils/ColorUtils";
+import { Fragment } from "react/jsx-runtime";
+import { AppLineConnector } from "LayoutComponents/AppLineConnector";
+import { theme } from "antd";
 
 export const LiveWorkflowViewTab = (props: {
   routeMap: { [key: string]: Route[] };
   versions: SelectItem[];
   version: string;
 }) => {
+  const { token } = theme.useToken();
   const { routeMap, version } = props;
 
   const routes: Route[] = (routeMap && version && routeMap[version]) || [];
 
+  const getId = (route: Route) => {
+    return `${route.version}-${route.workId}-${route.runningOrder}`;
+  };
+
+  const getColor = (route: Route) => {
+    if (route.resultType === "error") {
+      return token.colorError;
+    }
+    return token.colorPrimary;
+  };
+
   return (
     <AppWorkflowCollapse
-      items={routes.map((route: Route, i) => ({
+      items={routes.map((route: Route, i: number) => ({
         key: i,
+        id: getId(route),
         label: (
-          <AppCollapseLabel
-            label={route.source}
-            endTags={[
-              {
-                children:
-                  route.resultType === "terminal"
-                    ? "success"
-                    : route.resultType,
-                color: TagVariantMapping[route.resultType]?.color,
-                icon: TagVariantMapping[route.resultType]?.icon,
-                tooltip: "Result type",
-              },
-              ...(route?.metadata?.workflowRetryConfig?.retryIndex > 0
-                ? [
-                    {
-                      children: `Attempt #${route?.metadata?.workflowRetryConfig?.retryIndex}`,
-                      color: "gold",
-                      icon: <SyncOutlined />,
-                    } as CollapseTag,
-                  ]
-                : []),
-              ...(route?.metadata?.httpResponse
-                ? [
-                    {
-                      children: `${route?.metadata?.httpResponse.latency} ms`,
-                      color: getLatencyColor(
-                        route?.metadata?.httpResponse.latency
-                      ),
-                      tooltip: `Latency: ${route?.metadata?.httpResponse.latency} ms`,
-                    } as CollapseTag,
-                    {
-                      children: `${route?.metadata?.httpResponse.statusCode} ${route?.metadata?.httpResponse.status}`,
-                      color: getStatusCodeColor(
-                        route?.metadata?.httpResponse.statusCode
-                      ),
-                      tooltip: `Reason: ${route?.metadata?.httpResponse.reasonPhrase}`,
-                    } as CollapseTag,
-                  ]
-                : []),
-              {
-                children: route.resultName,
-                // color: TagVariantMapping[route.resultType]?.color,
-                icon: TagVariantMapping[route.resultType]?.icon,
-                tooltip: "Result name",
-              },
-            ]}
-          />
+          <Fragment>
+            <AppCollapseLabel
+              label={route.source}
+              endTags={[
+                {
+                  children:
+                    route.resultType === "terminal"
+                      ? "success"
+                      : route.resultType,
+                  color: TagVariantMapping[route.resultType]?.color,
+                  icon: TagVariantMapping[route.resultType]?.icon,
+                  tooltip: "Result type",
+                },
+                ...(route?.metadata?.workflowRetryConfig?.retryIndex > 0
+                  ? [
+                      {
+                        children: `Attempt #${route?.metadata?.workflowRetryConfig?.retryIndex}`,
+                        color: "gold",
+                        icon: <SyncOutlined />,
+                      } as CollapseTag,
+                    ]
+                  : []),
+                ...(route?.metadata?.httpResponse
+                  ? [
+                      {
+                        children: `${route?.metadata?.httpResponse.latency} ms`,
+                        color: getLatencyColor(
+                          route?.metadata?.httpResponse.latency
+                        ),
+                        tooltip: `Latency: ${route?.metadata?.httpResponse.latency} ms`,
+                      } as CollapseTag,
+                      {
+                        children: `${route?.metadata?.httpResponse.statusCode} ${route?.metadata?.httpResponse.status}`,
+                        color: getStatusCodeColor(
+                          route?.metadata?.httpResponse.statusCode
+                        ),
+                        tooltip: `Reason: ${route?.metadata?.httpResponse.reasonPhrase}`,
+                      } as CollapseTag,
+                    ]
+                  : []),
+                {
+                  children: route.resultName,
+                  // color: TagVariantMapping[route.resultType]?.color,
+                  icon: TagVariantMapping[route.resultType]?.icon,
+                  tooltip: "Result name",
+                },
+              ]}
+            />
+
+            {i > 0 && (
+              <AppLineConnector
+                start={getId(routes[i - 1])}
+                end={getId(route)}
+                headShape="arrow1"
+                color={getColor(route)}
+              />
+            )}
+          </Fragment>
         ),
         children: <StateCardInfo data={route} />,
       }))}

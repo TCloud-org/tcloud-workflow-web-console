@@ -7,11 +7,12 @@ export const AppRow = forwardRef<
     children?: ReactNode;
     style?: CSSProperties;
     gutter?: number | [number, number];
+    id?: string;
   }
 >((props, ref) => {
   const { gutter = 24 } = props;
   return (
-    <Row ref={ref} gutter={gutter} style={{ ...props.style }}>
+    <Row ref={ref} id={props.id} gutter={gutter} style={{ ...props.style }}>
       {props.children}
     </Row>
   );

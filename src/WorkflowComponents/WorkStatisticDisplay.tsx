@@ -82,12 +82,97 @@ export const WorkStatisticDisplay = (props: {
   return (
     <AppRow gutter={[16, 16]}>
       <Col {...Span[2]} className="flex flex-col">
-        <AppRow gutter={[16, 16]} style={{ height: "100%" }}>
+        <AppRow gutter={[16, 16]}>
           {stats.map((stat, i) => (
-            <Col key={i} {...Span[2]} className="flex flex-col">
+            <Col key={i} {...Span[2]}>
               <ResultStatCard data={stat} />
             </Col>
           ))}
+
+          <Col {...Span[1]} className="flex flex-col">
+            <AppCard size="small">
+              <Statistic
+                title={
+                  <Typography.Text className="text-slate-700 font-semibold">
+                    Result Distribution Chart
+                  </Typography.Text>
+                }
+                valueStyle={{
+                  fontSize: "14px",
+                  justifyContent: "center",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+                valueRender={(_) =>
+                  !statistic || statistic.works.length === 0 ? (
+                    <AppEmpty />
+                  ) : (
+                    <AppPieChart
+                      data={[
+                        {
+                          name: "Success",
+                          value: statistic?.successes.length,
+                          fill: token.colorSuccess,
+                        },
+                        {
+                          name: "In Progress",
+                          value: statistic?.progresses.length,
+                          fill: token.colorWarning,
+                        },
+                        {
+                          name: "Failure",
+                          value: statistic?.failures.length,
+                          fill: token.colorError,
+                        },
+                      ]}
+                      width={400}
+                      height={300}
+                    />
+                  )
+                }
+              />
+            </AppCard>
+          </Col>
+
+          <Col {...Span[1]} className="flex flex-col">
+            <AppCard size="small">
+              <Statistic
+                loading={infraStatisticLoading}
+                title={<StatTitle>Infra Composition Chart</StatTitle>}
+                valueStyle={{
+                  fontSize: "14px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+                valueRender={() => (
+                  <AppBarChart
+                    className="mr-12 mt-4"
+                    width={350}
+                    height={300}
+                    data={[
+                      {
+                        name: "Workflow",
+                        value: infraStatistic?.totalWorkflows || 0,
+                      },
+                      {
+                        name: "Graph",
+                        value: infraStatistic?.totalGraphs || 0,
+                      },
+                      {
+                        name: "Service",
+                        value: infraStatistic?.totalServices || 0,
+                      },
+                      {
+                        name: "Retry Policy",
+                        value: infraStatistic?.totalRetryPolicies || 0,
+                      },
+                    ]}
+                  />
+                )}
+              />
+            </AppCard>
+          </Col>
         </AppRow>
       </Col>
 
@@ -137,88 +222,6 @@ export const WorkStatisticDisplay = (props: {
             <BillingCard billing={billing} />
           </Col>
         </AppRow>
-      </Col>
-
-      <Col {...Span[2]} className="flex flex-col">
-        <AppCard size="small" className="h-full">
-          <Statistic
-            title={
-              <Typography.Text className="text-slate-700 font-semibold">
-                Result Distribution Chart
-              </Typography.Text>
-            }
-            valueStyle={{
-              fontSize: "14px",
-              justifyContent: "center",
-              display: "flex",
-              alignItems: "center",
-            }}
-            valueRender={(_) =>
-              !statistic || statistic.works.length === 0 ? (
-                <AppEmpty />
-              ) : (
-                <AppPieChart
-                  data={[
-                    {
-                      name: "Success",
-                      value: statistic?.successes.length,
-                      fill: token.colorSuccess,
-                    },
-                    {
-                      name: "In Progress",
-                      value: statistic?.progresses.length,
-                      fill: token.colorWarning,
-                    },
-                    {
-                      name: "Failure",
-                      value: statistic?.failures.length,
-                      fill: token.colorError,
-                    },
-                  ]}
-                  width={400}
-                  height={300}
-                />
-              )
-            }
-          />
-        </AppCard>
-      </Col>
-
-      <Col {...Span[2]} className="flex flex-col">
-        <AppCard size="small" className="h-full">
-          <Statistic
-            loading={infraStatisticLoading}
-            title={<StatTitle>Infra Composition Chart</StatTitle>}
-            valueStyle={{
-              fontSize: "14px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-            valueRender={() => (
-              <AppBarChart
-                className="mr-12 mt-4"
-                width={350}
-                height={300}
-                data={[
-                  {
-                    name: "Workflow",
-                    value: infraStatistic?.totalWorkflows || 0,
-                  },
-                  { name: "Graph", value: infraStatistic?.totalGraphs || 0 },
-                  {
-                    name: "Service",
-                    value: infraStatistic?.totalServices || 0,
-                  },
-                  {
-                    name: "Retry Policy",
-                    value: infraStatistic?.totalRetryPolicies || 0,
-                  },
-                ]}
-              />
-            )}
-          />
-        </AppCard>
       </Col>
     </AppRow>
   );

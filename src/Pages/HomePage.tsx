@@ -143,7 +143,7 @@ export const HomePage = () => {
   };
 
   return (
-    <AppSpace>
+    <AppSpace className="max-w-screen-2xl ml-auto mr-auto">
       <PageTitle
         onReload={handleReload}
         endDecorator={

@@ -43,7 +43,7 @@ export const ResultStatCard = (props: {
     <AppCard
       onClick={() => handleStatisticClick(data.type)}
       size="small"
-      className="h-full cursor-pointer overflow-hidden"
+      className="cursor-pointer overflow-hidden"
     >
       <Statistic
         title={

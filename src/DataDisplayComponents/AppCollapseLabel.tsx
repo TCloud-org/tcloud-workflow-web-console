@@ -8,10 +8,11 @@ export const AppCollapseLabel = (props: {
   label: string;
   startTags?: CollapseTag[];
   endTags?: CollapseTag[];
+  id?: string;
 }) => {
   const { label, startTags = [], endTags = [] } = props;
   return (
-    <AppRow gutter={[16, 16]}>
+    <AppRow gutter={[16, 16]} id={props.id}>
       <Col {...Span[1]}>
         <Flex gap="16px" align="flex-start">
           <Typography.Text>{label}</Typography.Text>
