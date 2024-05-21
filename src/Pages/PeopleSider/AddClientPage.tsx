@@ -1,5 +1,6 @@
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import { SCS_ADD_CLIENT_URL } from "Config/SCSEndpointConfig";
+import { AppSurface } from "DataDisplayComponents/AppSurface";
 import { AppButton } from "DataEntryComponents/AppButton";
 import { AppForm } from "DataEntryComponents/AppForm";
 import { AppSpace } from "LayoutComponents/AppSpace";
@@ -73,92 +74,90 @@ export const AddClientPage = () => {
   };
 
   return (
-    <AppSpace>
-      <Flex justify="center">
+    <AppSurface type="form">
+      <AppSpace>
         <Typography.Title level={4}>Add a new client</Typography.Title>
-      </Flex>
-      <AppForm form={form} onValuesChange={handleValuesChange}>
-        <Form.Item label="Client" name="clientId">
-          <Input placeholder="Enter a client name" />
-        </Form.Item>
-        <Form.List name="invitees">
-          {(fields, { add, remove }, { errors }) => (
-            <>
-              {fields.map((field, index) => (
-                <Form.Item
-                  label={index === 0 ? "Invitees" : " "}
-                  required={false}
-                  key={field.key}
-                >
-                  <Flex align="center" gap={8}>
-                    <Form.Item
-                      {...field}
-                      name={[field.name, "email"]}
-                      validateTrigger={["onChange"]}
-                      rules={[
-                        {
-                          required: true,
-                          whitespace: true,
-                          message:
-                            "Please input invitee's email address or remove this field.",
-                        },
-                      ]}
-                      noStyle
-                    >
-                      <Input
-                        placeholder="Invitee's email address"
-                        size="small"
-                        addonAfter={
-                          <Form.Item
-                            noStyle
-                            name={[field.name, "permissions"]}
-                            key={`${field.key}-permissions`}
-                          >
-                            <Select
-                              options={ClientPermissionOptions}
-                              placeholder="Permission"
-                              size="small"
-                              style={{
-                                width: 250,
-                              }}
-                              mode="multiple"
-                              variant="borderless"
-                              allowClear
-                              maxTagCount={2}
-                            />
-                          </Form.Item>
-                        }
+        <AppForm form={form} onValuesChange={handleValuesChange}>
+          <Form.Item label="Client" name="clientId">
+            <Input placeholder="Enter a client name" />
+          </Form.Item>
+          <Form.List name="invitees">
+            {(fields, { add, remove }, { errors }) => (
+              <>
+                {fields.map((field, index) => (
+                  <Form.Item
+                    label={index === 0 ? "Invitees" : " "}
+                    required={false}
+                    key={field.key}
+                  >
+                    <Flex align="center" gap={8}>
+                      <Form.Item
+                        {...field}
+                        name={[field.name, "email"]}
+                        validateTrigger={["onChange"]}
+                        rules={[
+                          {
+                            required: true,
+                            whitespace: true,
+                            message:
+                              "Please input invitee's email address or remove this field.",
+                          },
+                        ]}
+                        noStyle
+                      >
+                        <Input
+                          placeholder="Invitee's email address"
+                          size="small"
+                          addonAfter={
+                            <Form.Item
+                              noStyle
+                              name={[field.name, "permissions"]}
+                              key={`${field.key}-permissions`}
+                            >
+                              <Select
+                                options={ClientPermissionOptions}
+                                placeholder="Permission"
+                                size="small"
+                                style={{
+                                  width: 250,
+                                }}
+                                mode="multiple"
+                                variant="borderless"
+                                allowClear
+                                maxTagCount={2}
+                              />
+                            </Form.Item>
+                          }
+                        />
+                      </Form.Item>
+                      <MinusCircleOutlined
+                        className="dynamic-delete-button"
+                        onClick={() => remove(field.name)}
                       />
-                    </Form.Item>
-                    <MinusCircleOutlined
-                      className="dynamic-delete-button"
-                      onClick={() => remove(field.name)}
-                    />
-                  </Flex>
+                    </Flex>
+                  </Form.Item>
+                ))}
+                <Form.Item label={fields.length === 0 ? "Invitees" : " "}>
+                  <AppButton
+                    type="dashed"
+                    onClick={() => add()}
+                    style={{ width: "100%" }}
+                    icon={<PlusOutlined />}
+                  >
+                    Add invitee
+                  </AppButton>
+                  <Form.ErrorList errors={errors} />
                 </Form.Item>
-              ))}
-              <Form.Item label={fields.length === 0 ? "Invitees" : " "}>
-                <AppButton
-                  type="dashed"
-                  onClick={() => add()}
-                  style={{ width: "100%" }}
-                  icon={<PlusOutlined />}
-                >
-                  Add invitee
-                </AppButton>
-                <Form.ErrorList errors={errors} />
-              </Form.Item>
-            </>
-          )}
-        </Form.List>
-        <Flex justify="center">
-          <Form.Item>
+              </>
+            )}
+          </Form.List>
+          <Form.Item noStyle>
             <AppButton onClick={handleAdd} type="primary" loading={loading}>
               Add
             </AppButton>
           </Form.Item>
-        </Flex>
-      </AppForm>
-    </AppSpace>
+        </AppForm>
+      </AppSpace>
+    </AppSurface>
   );
 };

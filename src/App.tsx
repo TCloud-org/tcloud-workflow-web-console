@@ -365,7 +365,7 @@ export const App = () => {
               element: <ClientPage />,
             },
             {
-              path: "/client/add",
+              path: "/people/add-client",
               element: <AddClientPage />,
             },
             {

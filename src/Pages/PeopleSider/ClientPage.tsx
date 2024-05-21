@@ -69,7 +69,7 @@ export const ClientPage = () => {
   }, [fetchClients]);
 
   const handleAddClient = () => {
-    navigate(`${location.pathname}/add`);
+    navigate(`${location.pathname}/add-client`);
   };
 
   const clientComparator = (a: Client, b: Client) => {
