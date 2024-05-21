@@ -45,7 +45,9 @@ export const ApplicationUtility = (props: { utility: Utility }) => {
             {utility.label}
           </Typography.Text>
 
-          <Typography.Paragraph>{utility.description}</Typography.Paragraph>
+          <Typography.Paragraph style={{ margin: 0 }}>
+            {utility.description}
+          </Typography.Paragraph>
         </Flex>
       </Flex>
     </Flex>
