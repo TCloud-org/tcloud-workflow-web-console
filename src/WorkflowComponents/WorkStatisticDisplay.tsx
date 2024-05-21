@@ -23,6 +23,8 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { BillingCard } from "./BillingCard";
 import { ResultStatCard } from "./ResultStatCard";
+import { AppSecretText } from "DataDisplayComponents/AppSecretText";
+import { AppSecretDescription } from "DataDisplayComponents/AppSecretDescription";
 
 export const WorkStatisticDisplay = (props: {
   statistic?: WorkStatistic;
@@ -32,6 +34,7 @@ export const WorkStatisticDisplay = (props: {
 }) => {
   const navigate = useNavigate();
   const account: Account = useSelector((state: any) => state.auth.account);
+  const authToken: string = useSelector((state: any) => state.auth.token);
   const tier =
     account.productTiers?.find(
       (item) => item.product === ProductType.STEP_WORKFLOW
@@ -178,6 +181,21 @@ export const WorkStatisticDisplay = (props: {
 
       <Col {...Span[2]} className="flex flex-col">
         <AppRow gutter={[16, 16]}>
+          <Col {...Span[1]}>
+            <AppCard size="small">
+              <Statistic
+                title={<StatTitle>API Key</StatTitle>}
+                valueStyle={{
+                  paddingTop: "8px",
+                }}
+                valueRender={() => (
+                  <Flex vertical>
+                    <AppSecretDescription>{authToken}</AppSecretDescription>
+                  </Flex>
+                )}
+              />
+            </AppCard>
+          </Col>
           <Col {...Span[1]}>
             <AppCard size="small">
               <Statistic
