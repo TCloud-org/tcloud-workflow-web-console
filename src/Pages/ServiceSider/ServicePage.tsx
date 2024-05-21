@@ -38,7 +38,7 @@ export const ServicePage = () => {
   }, [fetchServices]);
 
   const handleAddService = () => {
-    navigate("/service/add");
+    navigate("/step-workflow/add-service-endpoint");
   };
 
   return (

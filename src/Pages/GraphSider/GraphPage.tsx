@@ -131,7 +131,7 @@ export const GraphPage = () => {
   }, [fetchGraphs]);
 
   const handleCreateGraph = () => {
-    navigate("/graph/create");
+    navigate("/step-workflow/add-graph");
   };
 
   return (

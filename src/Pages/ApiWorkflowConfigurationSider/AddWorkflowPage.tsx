@@ -5,7 +5,6 @@ import { AppButton } from "DataEntryComponents/AppButton";
 import { AppSpace } from "LayoutComponents/AppSpace";
 import { capitalizeEachWord } from "Utils/StringUtils";
 import {
-  Flex,
   Form,
   Input,
   InputNumber,
@@ -18,6 +17,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AppForm } from "../../DataEntryComponents/AppForm";
+import { AppSurface } from "DataDisplayComponents/AppSurface";
 
 export const AddWorkflowPage = () => {
   const navigate = useNavigate();
@@ -54,72 +54,72 @@ export const AddWorkflowPage = () => {
 
     setTimeout(() => {
       setAddLoading(false);
-      navigate("/workflow");
+      navigate("/step-workflow");
     }, 2000);
   };
 
   return (
-    <AppSpace>
-      <Flex justify="center">
+    <AppSurface type="form">
+      <AppSpace>
         <Typography.Title level={4}>Add a new workflow</Typography.Title>
-      </Flex>
 
-      <AppForm
-        form={form}
-        style={{ width: "100%" }}
-        onValuesChange={handleValuesChange}
-      >
-        <Form.Item
-          label="Workflow"
-          name="workflowName"
-          rules={[{ required: true, message: "Please enter a workflow name" }]}
+        <AppForm
+          form={form}
+          style={{ width: "100%" }}
+          onValuesChange={handleValuesChange}
         >
-          <Input placeholder="Workflow" />
-        </Form.Item>
+          <Form.Item
+            label="Workflow"
+            name="workflowName"
+            rules={[
+              { required: true, message: "Please enter a workflow name" },
+            ]}
+          >
+            <Input placeholder="Workflow" />
+          </Form.Item>
 
-        <Form.Item
-          label="Client"
-          name="clientId"
-          tooltip="Ownership of the workflow"
-          rules={[{ required: true, message: "Please select a client" }]}
-        >
-          <Select
-            options={clients.map((client) => ({
-              label: client.clientId,
-              value: client.clientId,
-            }))}
-            placeholder="Client"
-          />
-        </Form.Item>
+          <Form.Item
+            label="Client"
+            name="clientId"
+            tooltip="Ownership of the workflow"
+            rules={[{ required: true, message: "Please select a client" }]}
+          >
+            <Select
+              options={clients.map((client) => ({
+                label: client.clientId,
+                value: client.clientId,
+              }))}
+              placeholder="Client"
+            />
+          </Form.Item>
 
-        <Form.Item
-          label="Retention period"
-          name={["retentionPeriod", "period"]}
-          tooltip="Once a workflow enters the terminal state, it will remain available until the end of the retention period."
-        >
-          <InputNumber
-            placeholder="Period"
-            style={{ width: "100%" }}
-            addonAfter={
-              <Form.Item name={["retentionPeriod", "unit"]} noStyle>
-                <Select
-                  options={dateUnits}
-                  placeholder="Unit"
-                  style={{ width: 200 }}
-                />
-              </Form.Item>
-            }
-          />
-        </Form.Item>
+          <Form.Item
+            label="Retention period"
+            name={["retentionPeriod", "period"]}
+            tooltip="Once a workflow enters the terminal state, it will remain available until the end of the retention period."
+          >
+            <InputNumber
+              placeholder="Period"
+              style={{ width: "100%" }}
+              addonAfter={
+                <Form.Item name={["retentionPeriod", "unit"]} noStyle>
+                  <Select
+                    options={dateUnits}
+                    placeholder="Unit"
+                    style={{ width: 200 }}
+                  />
+                </Form.Item>
+              }
+            />
+          </Form.Item>
 
-        <Flex justify="center">
-          <Form.Item>
+          <Form.Item noStyle>
             <AppButton type="primary" onClick={handleAdd} loading={addLoading}>
               Add
             </AppButton>
           </Form.Item>
-        </Flex>
-      </AppForm>
-    </AppSpace>
+        </AppForm>
+      </AppSpace>
+    </AppSurface>
   );
 };

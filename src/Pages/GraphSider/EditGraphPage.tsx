@@ -1,4 +1,7 @@
-import { Alert, Flex, Form, Input } from "antd";
+import { AppSurface } from "DataDisplayComponents/AppSurface";
+import { PageTitle } from "DataDisplayComponents/PageTitle";
+import { AppCodeInput } from "DataEntryComponents/Form/AppCodeInput";
+import { Alert, Form, Input } from "antd";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -9,7 +12,6 @@ import {
 } from "../../Config/DataDisplayInterface";
 import { WOS_ADD_GRAPH_ENDPOINT } from "../../Config/WOSEndpointConfig";
 import { Graph } from "../../Config/WorkflowConfig";
-import { XMLCodeEditor } from "../../DataDisplayComponents/XMLCodeEditor";
 import { AppButton } from "../../DataEntryComponents/AppButton";
 import { AppForm } from "../../DataEntryComponents/AppForm";
 import { AppSpace } from "../../LayoutComponents/AppSpace";
@@ -91,46 +93,50 @@ export const EditGraphPage = () => {
   };
 
   return (
-    <AppSpace>
-      {failedValidation && (
-        <Alert message="Graph validation failed" type="error" showIcon />
-      )}
-      <AppForm
-        form={form}
-        onValuesChange={handleValuesChange}
-        labelCol={createSpan(4)}
-        wrapperCol={createSpan(20)}
-      >
-        <Form.Item
-          name="alias"
-          label="Alias"
-          tooltip={GENERATED_ID_INPUT_TOOLTIP}
+    <AppSurface type="form">
+      <PageTitle>Edit graph</PageTitle>
+      <AppSpace>
+        {failedValidation && (
+          <Alert message="Graph validation failed" type="error" showIcon />
+        )}
+        <AppForm
+          form={form}
+          onValuesChange={handleValuesChange}
+          labelCol={createSpan(4)}
+          wrapperCol={createSpan(20)}
         >
-          <Input placeholder="Enter an alias" />
-        </Form.Item>
-        <Form.Item
-          name="description"
-          label="Description"
-          tooltip="This description offers helpful context for this graph version"
-        >
-          <Input.TextArea placeholder="Enter a description" />
-        </Form.Item>
-        <Form.Item
-          name="version"
-          label="Version"
-          tooltip="Next available version"
-        >
-          <Input disabled />
-        </Form.Item>
-        <Form.Item name="xmlContent" label="Graph">
-          <XMLCodeEditor />
-        </Form.Item>
-      </AppForm>
-      <Flex justify="center">
-        <AppButton loading={loading} onClick={handleEdit} type="primary">
-          Edit
-        </AppButton>
-      </Flex>
-    </AppSpace>
+          <Form.Item
+            name="alias"
+            label="Alias"
+            tooltip={GENERATED_ID_INPUT_TOOLTIP}
+          >
+            <Input placeholder="Enter an alias" />
+          </Form.Item>
+          <Form.Item
+            name="description"
+            label="Description"
+            tooltip="This description offers helpful context for this graph version"
+          >
+            <Input.TextArea placeholder="Enter a description" />
+          </Form.Item>
+          <Form.Item
+            name="version"
+            label="Version"
+            tooltip="Next available version"
+          >
+            <Input disabled />
+          </Form.Item>
+          <Form.Item name="xmlContent" label="Graph">
+            <AppCodeInput />
+          </Form.Item>
+
+          <Form.Item noStyle>
+            <AppButton loading={loading} onClick={handleEdit} type="primary">
+              Edit
+            </AppButton>
+          </Form.Item>
+        </AppForm>
+      </AppSpace>
+    </AppSurface>
   );
 };

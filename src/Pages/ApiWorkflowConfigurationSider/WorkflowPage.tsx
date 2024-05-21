@@ -106,7 +106,7 @@ export const WorkflowPage = () => {
   }, [fetchWorkflows]);
 
   const handleAddWorkflow = () => {
-    navigate("/workflow/add");
+    navigate("/step-workflow/add-workflow");
   };
 
   console.log(workflows);

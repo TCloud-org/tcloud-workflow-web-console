@@ -1,16 +1,9 @@
 import { textColor } from "Config/LayoutConfig";
 import { Client } from "Config/SCSConfig";
+import { AppSurface } from "DataDisplayComponents/AppSurface";
 import { AppCodeInput } from "DataEntryComponents/Form/AppCodeInput";
 import { getClients } from "Network/SecurityFetch";
-import {
-  Alert,
-  Flex,
-  Form,
-  Input,
-  InputNumber,
-  Select,
-  Typography,
-} from "antd";
+import { Alert, Form, Input, InputNumber, Select, Typography } from "antd";
 import axios from "axios";
 import { Account } from "features/auth/authSlice";
 import { useCallback, useEffect, useState } from "react";
@@ -161,96 +154,96 @@ export const CreateGraphPage = () => {
   };
 
   return (
-    <AppSpace>
-      <Flex justify="center">
+    <AppSurface type="form">
+      <AppSpace>
         <Typography.Title level={4}>Create a new graph</Typography.Title>
-      </Flex>
-      <AppForm form={form} onValuesChange={handleValuesChange}>
-        <Form.Item label="Client" name="clientId">
-          <Select
-            options={clients.map((client) => ({
-              label: client.clientId,
-              value: client.clientId,
-            }))}
-            placeholder="Select a client"
-          />
-        </Form.Item>
-        <Form.Item label="Workflow" name="workflow">
-          <Select
-            options={workflows.map((workflow) => ({
-              label: workflow.workflowName,
-              value: JSON.stringify(workflow),
-            }))}
-            placeholder="Select a workflow"
-            disabled={!clientId}
-          />
-        </Form.Item>
-        <Form.Item
-          label="Alias"
-          name="alias"
-          tooltip="If this field is left empty, it will be automatically assigned a generated ID"
-        >
-          <Input name="alias" disabled={!workflowId} />
-        </Form.Item>
+        <AppForm form={form} onValuesChange={handleValuesChange}>
+          <Form.Item label="Client" name="clientId">
+            <Select
+              options={clients.map((client) => ({
+                label: client.clientId,
+                value: client.clientId,
+              }))}
+              placeholder="Select a client"
+            />
+          </Form.Item>
+          <Form.Item label="Workflow" name="workflow">
+            <Select
+              options={workflows.map((workflow) => ({
+                label: workflow.workflowName,
+                value: JSON.stringify(workflow),
+              }))}
+              placeholder="Select a workflow"
+              disabled={!clientId}
+            />
+          </Form.Item>
+          <Form.Item
+            label="Alias"
+            name="alias"
+            tooltip="If this field is left empty, it will be automatically assigned a generated ID"
+          >
+            <Input name="alias" disabled={!workflowId} />
+          </Form.Item>
 
-        <Form.Item
-          label="Description"
-          name="description"
-          tooltip="This description offers helpful context for this graph version"
-        >
-          <Input.TextArea disabled={!workflowId} />
-        </Form.Item>
+          <Form.Item
+            label="Description"
+            name="description"
+            tooltip="This description offers helpful context for this graph version"
+          >
+            <Input.TextArea disabled={!workflowId} />
+          </Form.Item>
 
-        <Form.Item label="Version" name="version" tooltip="Next version">
-          <InputNumber style={{ width: "100%" }} disabled />
-        </Form.Item>
+          <Form.Item label="Version" name="version" tooltip="Next version">
+            <InputNumber style={{ width: "100%" }} disabled />
+          </Form.Item>
 
-        <Form.Item label="Graph" name="xmlContent">
-          <AppCodeInput
-            banner={
-              showAlert && isXMLValidated ? (
-                <Alert
-                  message="XML validated successfully"
-                  type="success"
-                  showIcon
-                  closable
-                  onClose={handleCloseAlert}
-                />
-              ) : showAlert && !isXMLValidated ? (
-                <Alert
-                  message="XML validation failed"
-                  type="error"
-                  showIcon
-                  closable
-                  onClose={handleCloseAlert}
-                />
-              ) : null
-            }
-            endDecorator={
-              <AppButton
-                style={{ padding: 0, color: textColor }}
-                type="link"
-                onClick={handleValidate}
-                loading={isValidating}
-              >
-                Validate
-              </AppButton>
-            }
-          />
-        </Form.Item>
-      </AppForm>
+          <Form.Item label="Graph" name="xmlContent">
+            <AppCodeInput
+              banner={
+                showAlert && isXMLValidated ? (
+                  <Alert
+                    message="XML validated successfully"
+                    type="success"
+                    showIcon
+                    closable
+                    onClose={handleCloseAlert}
+                  />
+                ) : showAlert && !isXMLValidated ? (
+                  <Alert
+                    message="XML validation failed"
+                    type="error"
+                    showIcon
+                    closable
+                    onClose={handleCloseAlert}
+                  />
+                ) : null
+              }
+              endDecorator={
+                <AppButton
+                  style={{ padding: 0, color: textColor }}
+                  type="link"
+                  onClick={handleValidate}
+                  loading={isValidating}
+                >
+                  Validate
+                </AppButton>
+              }
+            />
+          </Form.Item>
 
-      <Flex justify="center">
-        <AppButton
-          disabled={!isXMLValidated}
-          type="primary"
-          tooltip={isXMLValidated ? undefined : "Validate your graph first"}
-          onClick={handleCreate}
-          loading={loading}
-        >
-          Create
-        </AppButton>
-      </Flex>
-    </AppSpace>
+          <Form.Item noStyle>
+            <AppButton
+              disabled={!isXMLValidated}
+              type="primary"
+              tooltip={isXMLValidated ? undefined : "Validate your graph first"}
+              onClick={handleCreate}
+              loading={loading}
+            >
+              Create
+            </AppButton>
+          </Form.Item>
+        </AppForm>
+      </AppSpace>
+    </AppSurface>
   );
 };

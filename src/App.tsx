@@ -65,7 +65,7 @@ import { BatchRerunPage } from "./Pages/BucketSider/BatchRerunPage";
 import { BatchRetryPage } from "./Pages/BucketSider/BatchRetryPage";
 import { BatchTransitionPage } from "./Pages/BucketSider/BatchTransitionPage";
 import { BucketPage } from "./Pages/BucketSider/BucketPage";
-import { CreateGraphPage } from "./Pages/GraphSider/CreateGraphPage";
+import { CreateGraphPage } from "./Pages/GraphSider/AddGraphPage";
 import { EditGraphPage } from "./Pages/GraphSider/EditGraphPage";
 import { GraphDetailPage } from "./Pages/GraphSider/GraphDetailPage";
 import { GraphPage } from "./Pages/GraphSider/GraphPage";
@@ -111,7 +111,6 @@ export const App = () => {
 
     useEffect(() => {
       const deserializedLocation = deserializeLocation(location.pathname);
-      console.log(deserializedLocation);
       dispatch(setItems(deserializedLocation));
     }, [dispatch, location.pathname]);
 
@@ -122,7 +121,7 @@ export const App = () => {
         </Layout>
       );
     }
-    //rgb(248 250 252 / 1)
+
     return (
       <Layout style={{ minHeight: "100vh", backgroundColor: background }}>
         <AppSider collapsed={collapsed} setCollapsed={setCollapsed} />
@@ -278,7 +277,7 @@ export const App = () => {
               element: <WorkflowPage />,
             },
             {
-              path: "/workflow/add",
+              path: "/step-workflow/add-workflow",
               element: <AddWorkflowPage />,
             },
             {
@@ -294,7 +293,7 @@ export const App = () => {
               element: <EditGraphPage />,
             },
             {
-              path: "/graph/create",
+              path: "/step-workflow/add-graph",
               element: <CreateGraphPage />,
             },
             {
@@ -302,7 +301,7 @@ export const App = () => {
               element: <ServicePage />,
             },
             {
-              path: "/service/add",
+              path: "/step-workflow/add-service-endpoint",
               element: <AddServicePage />,
             },
             {
@@ -326,7 +325,7 @@ export const App = () => {
               element: <RetryPolicyPage />,
             },
             {
-              path: "/retry-policy/add",
+              path: "/step-workflow/add-retry-policy",
               element: <AddRetryPolicyPage />,
             },
             {

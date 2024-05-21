@@ -1,19 +1,20 @@
-import { Flex, Form, Input, InputNumber, Select } from "antd";
+import { AppSurface } from "DataDisplayComponents/AppSurface";
+import { Form, Input, InputNumber, Select } from "antd";
+import axios from "axios";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
   RetryInput,
   RetryPolicy,
   RetryPolicyOptions,
   RetryPolicyOptionsProps,
 } from "../../Config/RetryConfig";
+import { WOS_SAVE_RETRY_POLICY_ENDPOINT } from "../../Config/WOSEndpointConfig";
 import { PageTitle } from "../../DataDisplayComponents/PageTitle";
+import { AppButton } from "../../DataEntryComponents/AppButton";
 import { AppForm } from "../../DataEntryComponents/AppForm";
 import { AppSpace } from "../../LayoutComponents/AppSpace";
-import { AppButton } from "../../DataEntryComponents/AppButton";
-import { useSelector } from "react-redux";
-import axios from "axios";
-import { WOS_SAVE_RETRY_POLICY_ENDPOINT } from "../../Config/WOSEndpointConfig";
-import { useNavigate } from "react-router-dom";
 
 export const AddRetryPolicyPage = () => {
   const navigate = useNavigate();
@@ -65,44 +66,44 @@ export const AddRetryPolicyPage = () => {
   };
 
   return (
-    <AppSpace>
-      <Flex justify="center">
+    <AppSurface type="form">
+      <AppSpace>
         <PageTitle>Add a retry policy</PageTitle>
-      </Flex>
 
-      <AppForm form={form} onValuesChange={handleValuesChange}>
-        <Form.Item label="Policy" name="policyType">
-          <Select
-            options={Object.values(RetryPolicyOptions)
-              .sort((a, b) => a.order - b.order)
-              .map((option) => ({
-                label: option.label,
-                value: option.value.type,
-              }))}
-            placeholder="Select a policy"
-          />
-        </Form.Item>
-        {inputs.map((input, i) => (
-          <Form.Item
-            key={i}
-            label={input.label}
-            name={input.value}
-            rules={[{ required: true, message: "Missing required field" }]}
-          >
-            {input.type === "number" ? (
-              <InputNumber style={{ width: "100%" }} />
-            ) : (
-              <Input />
-            )}
+        <AppForm form={form} onValuesChange={handleValuesChange}>
+          <Form.Item label="Policy" name="policyType">
+            <Select
+              options={Object.values(RetryPolicyOptions)
+                .sort((a, b) => a.order - b.order)
+                .map((option) => ({
+                  label: option.label,
+                  value: option.value.type,
+                }))}
+              placeholder="Select a policy"
+            />
           </Form.Item>
-        ))}
-      </AppForm>
+          {inputs.map((input, i) => (
+            <Form.Item
+              key={i}
+              label={input.label}
+              name={input.value}
+              rules={[{ required: true, message: "Missing required field" }]}
+            >
+              {input.type === "number" ? (
+                <InputNumber style={{ width: "100%" }} />
+              ) : (
+                <Input />
+              )}
+            </Form.Item>
+          ))}
 
-      <Flex justify="center">
-        <AppButton type="primary" loading={loading} onClick={handleAdd}>
-          Add
-        </AppButton>
-      </Flex>
-    </AppSpace>
+          <Form.Item noStyle>
+            <AppButton type="primary" loading={loading} onClick={handleAdd}>
+              Add
+            </AppButton>
+          </Form.Item>
+        </AppForm>
+      </AppSpace>
+    </AppSurface>
   );
 };

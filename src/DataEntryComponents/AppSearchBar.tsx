@@ -1,4 +1,5 @@
-import { AutoComplete, AutoCompleteProps } from "antd";
+import { SearchRounded } from "@mui/icons-material";
+import { AutoComplete, AutoCompleteProps, Input } from "antd";
 
 export const AppSearchBar = (props: AutoCompleteProps) => {
   return (
@@ -10,12 +11,18 @@ export const AppSearchBar = (props: AutoCompleteProps) => {
       onKeyDown={props.onKeyDown}
       style={{
         width: "100%",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
         ...props.style,
       }}
-      size={props.size}
-      variant="filled"
-      placeholder={props.placeholder}
       className={props.className}
-    />
+    >
+      <Input
+        size={props.size}
+        prefix={<SearchRounded style={{ fontSize: "inherit" }} />}
+        placeholder={props.placeholder as string}
+      />
+    </AutoComplete>
   );
 };

@@ -72,7 +72,7 @@ export const AppSurface = forwardRef<HTMLDivElement, AppSurfaceProps>(
           ...(type === "shadow" && shadowStyle),
           ...style,
         }}
-        className={className}
+        className={`max-w-screen-2xl ml-auto mr-auto ${className}`}
       >
         {children}
       </div>

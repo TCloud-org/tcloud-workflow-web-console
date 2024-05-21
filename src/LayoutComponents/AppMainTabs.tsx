@@ -3,17 +3,17 @@ import { useLocation } from "react-router-dom";
 
 export const AppMainTabs = (
   props: TabsProps & {
-    tabIndexKey?: string;
+    tabindexkey?: string;
   }
 ) => {
-  const { tabIndexKey = "tab" } = props;
+  const { tabindexkey = "tab" } = props;
 
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const tabIndex = searchParams.get(tabIndexKey) || props.defaultActiveKey;
+  const tabIndex = searchParams.get(tabindexkey) || props.defaultActiveKey;
 
   const handleTabChange = (activeKey: string) => {
-    searchParams.set(tabIndexKey, activeKey);
+    searchParams.set(tabindexkey, activeKey);
     window.location.href = `${location.pathname}?${searchParams}`;
   };
 

@@ -41,7 +41,9 @@ export const RetryPolicyPage = () => {
         header="Policies"
         onReload={fetchRetryPolicies}
         headerEndDecorator={
-          <AppButton onClick={() => navigate("/retry-policy/add")}>
+          <AppButton
+            onClick={() => navigate("/step-workflow/add-retry-policy")}
+          >
             Add a new retry policy
           </AppButton>
         }

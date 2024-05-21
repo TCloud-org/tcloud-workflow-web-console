@@ -8,7 +8,7 @@ export const StepWorkflowConfigurationTab = () => {
   return (
     <AppMainTabs
       defaultActiveKey="workflow"
-      tabIndexKey="configurationTab"
+      tabindexkey="configurationTab"
       tabPosition="left"
       items={[
         {
