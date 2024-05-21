@@ -23,7 +23,7 @@ export const WorkSavedFilterList = () => {
   };
 
   return (
-    <AppSurface type="form" className="h-full">
+    <AppSurface type="form" className="h-full w-full">
       <Flex vertical gap={16}>
         <AppSurfaceTitle>Saved Queries</AppSurfaceTitle>
         <Flex

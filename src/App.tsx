@@ -69,7 +69,7 @@ import { CreateGraphPage } from "./Pages/GraphSider/AddGraphPage";
 import { EditGraphPage } from "./Pages/GraphSider/EditGraphPage";
 import { GraphDetailPage } from "./Pages/GraphSider/GraphDetailPage";
 import { GraphPage } from "./Pages/GraphSider/GraphPage";
-import { HomePage } from "./Pages/HomePage";
+import { DashboardPage } from "./Pages/DashboardPage";
 import { LiveWorkflowPage } from "./Pages/LiveSider/LiveWorkflowPage";
 import { WorkPage } from "./Pages/LiveSider/WorkPage";
 import { OnboardingPage } from "./Pages/OnboardingSider/OnboardingPage";
@@ -210,7 +210,7 @@ export const App = () => {
             ...globalRoutes,
             {
               path: "/",
-              element: <HomePage />,
+              element: <DashboardPage />,
             },
             {
               path: "/statistic",

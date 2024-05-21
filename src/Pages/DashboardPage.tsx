@@ -20,8 +20,9 @@ import {
   getWorkStatisticInDateRange,
   getWorksInDateRange,
 } from "../Network/WorkFetch";
+import { AppSurface } from "DataDisplayComponents/AppSurface";
 
-export const HomePage = () => {
+export const DashboardPage = () => {
   const { token } = theme.useToken();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -143,57 +144,59 @@ export const HomePage = () => {
   };
 
   return (
-    <AppSpace className="max-w-screen-2xl ml-auto mr-auto">
-      <PageTitle
-        onReload={handleReload}
-        endDecorator={
-          <WorkPeriodToolbar period={period} setPeriod={setPeriod} />
-        }
-      >
-        Welcome
-      </PageTitle>
-
-      {!workflowId && (
-        <Alert
-          message="Notice"
-          banner
-          style={{ borderRadius: token.borderRadiusLG }}
-          description={
-            <Typography.Text>
-              No workflow is currently activated. Please go to{" "}
-              <Typography.Link href="/workflow">
-                Step Workflow/Workflow
-              </Typography.Link>{" "}
-              and activate one.
-            </Typography.Text>
+    <AppSurface type="form">
+      <AppSpace className="max-w-screen-2xl ml-auto mr-auto">
+        <PageTitle
+          onReload={handleReload}
+          endDecorator={
+            <WorkPeriodToolbar period={period} setPeriod={setPeriod} />
           }
-          type="warning"
-          showIcon
-          closable
+        >
+          Welcome
+        </PageTitle>
+
+        {!workflowId && (
+          <Alert
+            message="Notice"
+            banner
+            style={{ borderRadius: token.borderRadiusLG }}
+            description={
+              <Typography.Text>
+                No workflow is currently activated. Please go to{" "}
+                <Typography.Link href="/workflow">
+                  Step Workflow/Workflow
+                </Typography.Link>{" "}
+                and activate one.
+              </Typography.Text>
+            }
+            type="warning"
+            showIcon
+            closable
+          />
+        )}
+
+        <WorkStatisticDisplay
+          statistic={statistic}
+          infraStatistic={infraStatistic}
+          infraStatisticLoading={infraStatisticLoading}
+          billing={billing}
         />
-      )}
 
-      <WorkStatisticDisplay
-        statistic={statistic}
-        infraStatistic={infraStatistic}
-        infraStatisticLoading={infraStatisticLoading}
-        billing={billing}
-      />
-
-      <AppTable
-        loading={loading}
-        heading="Workflows"
-        onReload={fetchWorksInRange}
-        rows={works}
-        columns={columns}
-        selected={selected}
-        setSelected={setSelected}
-        rowId="workId"
-        defaultPageSize={25}
-        showFilter
-        showDownload
-        exludedColumnsFromExport={{ metadata: true }}
-      />
-    </AppSpace>
+        <AppTable
+          loading={loading}
+          heading="Workflows"
+          onReload={fetchWorksInRange}
+          rows={works}
+          columns={columns}
+          selected={selected}
+          setSelected={setSelected}
+          rowId="workId"
+          defaultPageSize={25}
+          showFilter
+          showDownload
+          exludedColumnsFromExport={{ metadata: true }}
+        />
+      </AppSpace>
+    </AppSurface>
   );
 };

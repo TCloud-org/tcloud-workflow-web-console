@@ -81,7 +81,7 @@ export const WorkFilterDisplay = (props: {
   };
 
   return (
-    <AppSurface type="form" className="h-full">
+    <AppSurface type="form" className="h-full w-full">
       <AppSpace>
         <Typography.Title style={{ margin: 0 }} level={5}>
           Filters
