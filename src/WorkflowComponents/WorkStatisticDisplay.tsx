@@ -14,6 +14,7 @@ import { AppBarChart } from "DataDisplayComponents/AppBarChart";
 import { AppCard } from "DataDisplayComponents/AppCard";
 import { AppEmpty } from "DataDisplayComponents/AppEmpty";
 import { AppPieChart } from "DataDisplayComponents/AppPieChart";
+import { AppSecretDescription } from "DataDisplayComponents/AppSecretDescription";
 import { StatTitle } from "DataDisplayComponents/StatTitle";
 import { AppButton } from "DataEntryComponents/AppButton";
 import { AppRow } from "LayoutComponents/AppRow";
@@ -23,8 +24,6 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { BillingCard } from "./BillingCard";
 import { ResultStatCard } from "./ResultStatCard";
-import { AppSecretText } from "DataDisplayComponents/AppSecretText";
-import { AppSecretDescription } from "DataDisplayComponents/AppSecretDescription";
 
 export const WorkStatisticDisplay = (props: {
   statistic?: WorkStatistic;
