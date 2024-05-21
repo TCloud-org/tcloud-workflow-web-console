@@ -415,3 +415,7 @@ thead {
 .ant-tabs-tab {
   padding-left: 0 !important;
 }
+
+.ant-table-row-selected>.ant-table-cell {
+  background: rgb(241 245 249 / 0.6) !important;
+}
