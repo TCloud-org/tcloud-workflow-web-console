@@ -1,10 +1,7 @@
-import { FacebookFilled, LinkedinFilled } from "@ant-design/icons";
-import { BRAND } from "Config/WOSEndpointConfig";
-import { HoveredLink } from "DataEntryComponents/HoveredLink";
-import { Col, Divider, Flex, Image, Typography, theme } from "antd";
-import { Footer } from "antd/es/layout/layout";
-import { AppRow } from "./AppRow";
 import { background } from "App";
+import { HoveredLink } from "DataEntryComponents/HoveredLink";
+import { Flex, Image, Typography, theme } from "antd";
+import { Footer } from "antd/es/layout/layout";
 
 export const AppFooter = () => {
   const { token } = theme.useToken();
@@ -25,34 +22,6 @@ export const AppFooter = () => {
           fontWeight: 500,
         }}
       >
-        <AppRow gutter={[16, 16]}>
-          <Col span={6}>
-            <Typography.Title style={{ margin: 0 }} level={4}>
-              {BRAND}
-            </Typography.Title>
-          </Col>
-          <Col span={6}>
-            <Flex vertical align="flex-start" gap={16}>
-              <Typography.Text strong>Product</Typography.Text>
-              <Typography.Text>Automation</Typography.Text>
-              <Typography.Text>Cloud Infrastructure</Typography.Text>
-            </Flex>
-          </Col>
-          <Col span={6}>
-            <Flex vertical align="flex-start" gap={16}>
-              <Typography.Text strong>Help Center</Typography.Text>
-              <HoveredLink href="/support">Support</HoveredLink>
-              <HoveredLink href="/contact">Contact</HoveredLink>
-            </Flex>
-          </Col>
-          <Col span={6}>
-            <Flex vertical align="flex-start" gap={16}>
-              <Typography.Text strong>Company</Typography.Text>
-              <HoveredLink href="/about">About</HoveredLink>
-            </Flex>
-          </Col>
-        </AppRow>
-        <Divider />
         <Flex align="center" justify="space-between">
           <Flex align="center" gap={32}>
             <Flex align="center" gap={8}>
@@ -69,15 +38,6 @@ export const AppFooter = () => {
             <HoveredLink href="/terms-and-conditions">Terms</HoveredLink>
 
             <HoveredLink href="/privacy-policy">Privacy</HoveredLink>
-          </Flex>
-
-          <Flex align="center" wrap="wrap" gap={12}>
-            <a href="https://www.facebook.com/profile.php?id=61558007322573">
-              <FacebookFilled style={{ fontSize: 24 }} />
-            </a>
-            <a href="https://www.linkedin.com/company/101706949">
-              <LinkedinFilled style={{ fontSize: 24 }} />
-            </a>
           </Flex>
         </Flex>
       </div>
