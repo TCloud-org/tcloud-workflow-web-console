@@ -13,7 +13,7 @@ export const NotificationHubPage = () => {
       <AppSpace>
         <AppSearchInput />
         <Flex vertical gap="16px">
-          <Typography.Title level={4}>Email</Typography.Title>
+          <Typography.Title level={4}>Notification Workflows</Typography.Title>
           <AppRow gutter={[16, 16]}>
             {WorkflowUtilities.map((utility, i) => (
               <Col key={i} {...Span[3]}>
