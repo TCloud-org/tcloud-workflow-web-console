@@ -173,6 +173,7 @@ export const DashboardPage = () => {
             type="warning"
             showIcon
             closable
+            className="mx-4"
           />
         )}
 

@@ -11,6 +11,7 @@ import authReducer from "features/auth/authSlice";
 import menuFavoriteReducer from "features/favorite/menuFavoriteSlice";
 import storage from "redux-persist/lib/storage";
 import dashboardReducer from "features/settings/dashboardSlice";
+import stepWorkflowReducer from "features/settings/stepWorkflowSlice";
 
 export const ActionType = {
   logout: "LOG_OUT",
@@ -27,6 +28,7 @@ const appReducer = combineReducers({
   auth: authReducer,
   menuFavorite: menuFavoriteReducer,
   dashboard: dashboardReducer,
+  stepWorkflow: stepWorkflowReducer,
 });
 
 const rootReducer = (state: any, action: any) => {

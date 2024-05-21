@@ -4,9 +4,20 @@ import { GraphPage } from "Pages/GraphSider/GraphPage";
 import { RetryPolicyPage } from "Pages/RetryPolicySider/RetryPolicyPage";
 import { ServicePage } from "Pages/ServiceSider/ServicePage";
 import { TabsProps } from "antd";
+import { setConfigurationTabIndex } from "features/settings/stepWorkflowSlice";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 export const StepWorkflowConfigurationTab = () => {
+  const configurationTabIndex = useSelector(
+    (state: any) => state.stepWorkflow.configurationTabIndex
+  );
+  const dispatch = useDispatch();
+
+  const handleTabChange = (activeKey: string) => {
+    dispatch(setConfigurationTabIndex(activeKey));
+  };
+
   const [tabPosition, setTabPosition] =
     useState<TabsProps["tabPosition"]>("left");
 
@@ -30,8 +41,8 @@ export const StepWorkflowConfigurationTab = () => {
 
   return (
     <AppMainTabs
-      defaultActiveKey="workflow"
-      tabindexkey="configurationTab"
+      onChange={handleTabChange}
+      activeKey={configurationTabIndex}
       tabPosition={tabPosition}
       items={[
         {
