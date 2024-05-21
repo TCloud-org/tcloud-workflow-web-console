@@ -4,7 +4,7 @@ import { PageTitle } from "DataDisplayComponents/PageTitle";
 import { getBilling, getInfraStat } from "Network/WorkflowFetch";
 import { WorkPeriodToolbar } from "WorkflowComponents/WorkPeriodToolbar";
 import { WorkStatisticDisplay } from "WorkflowComponents/WorkStatisticDisplay";
-import { Alert, Typography, theme } from "antd";
+import { Alert, Flex, Typography, theme } from "antd";
 import { Key, useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
@@ -28,11 +28,13 @@ export const DashboardPage = () => {
   const searchParams = new URLSearchParams(location.search);
   const start = searchParams.get("start") || undefined;
   const end = searchParams.get("end") || undefined;
+
   const authToken = useSelector((state: any) => state.auth.token);
   const clientId = useSelector((state: any) => state.client.clientId);
   const { workflowId } = useSelector(
     (state: any) => state.workflow?.workflow || {}
   );
+  const period = useSelector((state: any) => state.dashboard.period);
 
   const [works, setWorks] = useState<Work[]>([]);
   const [selected, setSelected] = useState<Key[]>([]);
@@ -43,7 +45,6 @@ export const DashboardPage = () => {
   const [billing, setBilling] = useState<StepWorkflowBilling>();
   const [columns, setColumns] = useState<EditableColumn[]>(WorkColumns);
   const [loading, setLoading] = useState<boolean>(false);
-  const [period, setPeriod] = useState<string | undefined>();
 
   const fetchBilling = useCallback(async () => {
     if (clientId && authToken) {
@@ -77,7 +78,7 @@ export const DashboardPage = () => {
         authToken,
         start,
         end,
-        period
+        start ? undefined : period
       ).catch((err) => {
         console.error(err.response.status);
         return undefined;
@@ -88,7 +89,7 @@ export const DashboardPage = () => {
         authToken,
         start,
         end,
-        period
+        start ? undefined : period
       ).catch((err) => {
         console.error(err.response.status);
         return undefined;
@@ -144,16 +145,16 @@ export const DashboardPage = () => {
   };
 
   return (
-    <AppSurface type="form">
-      <AppSpace className="max-w-screen-2xl ml-auto mr-auto">
-        <PageTitle
-          onReload={handleReload}
-          endDecorator={
-            <WorkPeriodToolbar period={period} setPeriod={setPeriod} />
-          }
-        >
-          Welcome
-        </PageTitle>
+    <AppSurface type="form" style={{ paddingLeft: 0, paddingRight: 0 }}>
+      <AppSpace>
+        <Flex className="w-full flex flex-col px-4">
+          <PageTitle
+            onReload={handleReload}
+            endDecorator={<WorkPeriodToolbar />}
+          >
+            Welcome
+          </PageTitle>
+        </Flex>
 
         {!workflowId && (
           <Alert
@@ -183,6 +184,7 @@ export const DashboardPage = () => {
         />
 
         <AppTable
+          style={{ marginLeft: 16, marginRight: 16 }}
           loading={loading}
           heading="Workflows"
           onReload={fetchWorksInRange}

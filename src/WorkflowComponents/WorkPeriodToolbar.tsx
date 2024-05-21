@@ -1,20 +1,20 @@
 import { PeriodOptions } from "Config/MenuConfig";
 import { DatePicker, Flex, Select, theme } from "antd";
 import dayjs, { Dayjs } from "dayjs";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { setPeriod } from "features/settings/dashboardSlice";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 
-export const WorkPeriodToolbar = (props: {
-  period?: string;
-  setPeriod?: Dispatch<SetStateAction<string | undefined>>;
-}) => {
+export const WorkPeriodToolbar = () => {
+  const period = useSelector((state: any) => state.dashboard.period);
+  const dispatch = useDispatch();
+
   const { token } = theme.useToken();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const start = searchParams.get("start");
   const end = searchParams.get("end");
-
-  const { period, setPeriod = () => {} } = props;
 
   const [dateRange, setDateRange] = useState<
     [start: Dayjs | undefined, end: Dayjs | undefined]
@@ -24,10 +24,9 @@ export const WorkPeriodToolbar = (props: {
     if (start && end) {
       setDateRange([dayjs(start), dayjs(end)]);
     } else {
-      setPeriod("TODAY");
       setDateRange([undefined, undefined]);
     }
-  }, [start, end, setPeriod]);
+  }, [start, end]);
 
   const handleRangePickerChange = (
     _: any,
@@ -37,6 +36,10 @@ export const WorkPeriodToolbar = (props: {
     params.set("start", dateString[0]);
     params.set("end", dateString[1]);
     window.location.href = `${location.pathname}?${params}`;
+  };
+
+  const handlePeriodChange = (value: string) => {
+    dispatch(setPeriod(value));
   };
 
   return (
@@ -60,7 +63,7 @@ export const WorkPeriodToolbar = (props: {
         />
         <Select
           options={PeriodOptions}
-          onChange={setPeriod}
+          onChange={handlePeriodChange}
           value={period}
           placeholder="Period"
           dropdownStyle={{ width: "auto" }}

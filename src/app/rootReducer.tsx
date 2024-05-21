@@ -10,6 +10,7 @@ import historyReducer from "features/search/historySlice";
 import authReducer from "features/auth/authSlice";
 import menuFavoriteReducer from "features/favorite/menuFavoriteSlice";
 import storage from "redux-persist/lib/storage";
+import dashboardReducer from "features/settings/dashboardSlice";
 
 export const ActionType = {
   logout: "LOG_OUT",
@@ -25,6 +26,7 @@ const appReducer = combineReducers({
   history: historyReducer,
   auth: authReducer,
   menuFavorite: menuFavoriteReducer,
+  dashboard: dashboardReducer,
 });
 
 const rootReducer = (state: any, action: any) => {
