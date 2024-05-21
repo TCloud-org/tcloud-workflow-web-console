@@ -40,7 +40,7 @@ import { EmailNotificationJobPage } from "Pages/WorkflowAutomationSider/EmailNot
 import { EmailNotificationTemplateSelectionPage } from "Pages/WorkflowAutomationSider/EmailNotificationTemplateSelectionPage";
 import { EmailNotificationWorkflowDetailPage } from "Pages/WorkflowAutomationSider/EmailNotificationWorkflowDetailPage";
 import { EmailNotificationWorkflowPage } from "Pages/WorkflowAutomationSider/EmailNotificationWorkflowPage";
-import { WorkflowAutomationPage } from "Pages/WorkflowAutomationSider/WorkflowAutomationPage";
+import { NotificationHubPage } from "Pages/WorkflowAutomationSider/NotificationHubPage";
 import { Layout, theme } from "antd";
 import { Content } from "antd/es/layout/layout";
 import { useEffect, useState } from "react";
@@ -406,7 +406,7 @@ export const App = () => {
             },
             {
               path: "/notification-hub",
-              element: <WorkflowAutomationPage />,
+              element: <NotificationHubPage />,
             },
             {
               path: "/notification-hub/email-notification-workflow",

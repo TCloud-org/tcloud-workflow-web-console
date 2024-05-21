@@ -1,7 +1,6 @@
 import { Utility } from "Config/AutomationConfig";
-import { AppCard } from "DataDisplayComponents/AppCard";
 import { Flex, Typography, theme } from "antd";
-import { ReactElement, cloneElement } from "react";
+import { CSSProperties, ReactElement, cloneElement } from "react";
 import { useNavigate } from "react-router-dom";
 
 export const ApplicationUtility = (props: { utility: Utility }) => {
@@ -17,23 +16,38 @@ export const ApplicationUtility = (props: { utility: Utility }) => {
   };
 
   return (
-    <AppCard onClick={handleClick} style={{ cursor: "pointer" }}>
-      <Flex vertical justify="center" gap={16}>
-        <Flex justify="flex-start">
+    <Flex>
+      <Flex
+        justify="center"
+        gap={16}
+        onClick={handleClick}
+        style={{ cursor: "pointer", transition: "all 0.3s" }}
+        className="hover:bg-slate-300/10 p-4 rounded-md"
+      >
+        <Flex align="flex-start">
           <div
             style={{
-              padding: "12px 16px",
-              backgroundColor: token.colorPrimary,
+              backgroundColor: token.colorFillTertiary,
               borderRadius: token.borderRadiusLG,
             }}
+            className="px-3 py-2"
           >
             {cloneElement(utility.icon as ReactElement, {
-              style: { fontSize: 14, color: token.colorWhite },
+              style: {
+                fontSize: "inherit",
+                color: token.colorPrimary,
+              } as CSSProperties,
             })}
           </div>
         </Flex>
-        <Typography.Text strong>{utility.label}</Typography.Text>
+        <Flex vertical>
+          <Typography.Text strong style={{ color: token.colorPrimary }}>
+            {utility.label}
+          </Typography.Text>
+
+          <Typography.Paragraph>{utility.description}</Typography.Paragraph>
+        </Flex>
       </Flex>
-    </AppCard>
+    </Flex>
   );
 };

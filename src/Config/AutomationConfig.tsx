@@ -5,25 +5,29 @@ import {
   MailOutlined,
 } from "@ant-design/icons";
 import { UniqueIdentifier } from "@dnd-kit/core";
+import { MailRounded } from "@mui/icons-material";
 import { EmailTemplateForm } from "WorkflowAutomationComponents/ EmailTemplateForm";
 import { DelayForm } from "WorkflowAutomationComponents/DelayForm";
 import { TriggerForm } from "WorkflowAutomationComponents/TriggerForm";
+import { VerificationForm } from "WorkflowAutomationComponents/VerificationForm";
 import { InputNumber, MenuProps, Select, SelectProps } from "antd";
 import { Dispatch, ReactNode, SetStateAction } from "react";
 import { v4 } from "uuid";
 import { EventWorkflow, EventWorkflowStatus } from "./EventWorkflowConfig";
-import { VerificationForm } from "WorkflowAutomationComponents/VerificationForm";
 
 export interface Utility {
   href?: string;
   label?: string;
   icon?: ReactNode;
+  description?: string;
 }
 export const WorkflowUtilities: Utility[] = [
   {
     href: "/notification-hub/email-notification-workflow",
     label: "Email Notification Workflow",
-    icon: <MailOutlined />,
+    icon: <MailRounded />,
+    description:
+      "Managing workflows, configuring email triggers, customizing message content, and more.",
   },
 ];
 

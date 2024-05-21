@@ -12,6 +12,7 @@ import menuFavoriteReducer from "features/favorite/menuFavoriteSlice";
 import storage from "redux-persist/lib/storage";
 import dashboardReducer from "features/settings/dashboardSlice";
 import stepWorkflowReducer from "features/settings/stepWorkflowSlice";
+import settingsReducer from "features/settings/settingsSlice";
 
 export const ActionType = {
   logout: "LOG_OUT",
@@ -29,6 +30,7 @@ const appReducer = combineReducers({
   menuFavorite: menuFavoriteReducer,
   dashboard: dashboardReducer,
   stepWorkflow: stepWorkflowReducer,
+  settings: settingsReducer,
 });
 
 const rootReducer = (state: any, action: any) => {

@@ -82,7 +82,7 @@ const renderCheckboxInputs = (props: RenderProps) => {
         />
       </Form.Item>
       {!isNullCondition(props.condition) && (
-        <AppSurface>
+        <AppSurface className="w-full">
           <AppSpace size="small">
             <Typography.Text strong>Select all that apply</Typography.Text>
             <AppRow>
