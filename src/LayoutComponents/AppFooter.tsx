@@ -9,7 +9,13 @@ import { background } from "App";
 export const AppFooter = () => {
   const { token } = theme.useToken();
   return (
-    <Footer style={{ padding: 0, backgroundColor: background }}>
+    <Footer
+      style={{
+        padding: 0,
+        backgroundColor: background,
+        borderTop: `1px solid ${token.colorBorderSecondary}`,
+      }}
+    >
       <div
         style={{
           width: "100%",
