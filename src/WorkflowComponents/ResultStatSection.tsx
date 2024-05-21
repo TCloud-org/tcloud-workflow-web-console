@@ -21,7 +21,7 @@ export const ResultStatSection = (props: { statistic?: WorkStatistic }) => {
       type: "works",
       color: token.colorPrimary,
       value: statistic?.works.length || 0,
-      title: "Works",
+      title: "All",
       icon: <ListAltRounded />,
     },
     {
@@ -29,7 +29,7 @@ export const ResultStatSection = (props: { statistic?: WorkStatistic }) => {
       type: "successes",
       color: token.colorSuccess,
       value: statistic?.successes.length || 0,
-      title: "Success",
+      title: "Succeeded",
       icon: <EmojiEventsRounded />,
     },
     {
@@ -37,7 +37,7 @@ export const ResultStatSection = (props: { statistic?: WorkStatistic }) => {
       type: "progresses",
       color: token.colorWarning,
       value: statistic?.progresses.length || 0,
-      title: "In Progress",
+      title: "Running",
       icon: <EngineeringRounded />,
     },
     {
@@ -45,7 +45,7 @@ export const ResultStatSection = (props: { statistic?: WorkStatistic }) => {
       type: "failures",
       color: token.colorError,
       value: statistic?.failures.length || 0,
-      title: "Failure",
+      title: "Failed",
       icon: <BrokenImageRounded />,
     },
   ];
