@@ -408,8 +408,15 @@ thead {
 }
 
 .ant-tabs-tab-btn {
-  color      : rgb(148 163 184 / 1);
-  font-weight: 600;
+  color        : rgb(148 163 184 / 1);
+  font-weight  : 600;
+  padding      : 2px 8px;
+  border-radius: 0.375rem;
+}
+
+.ant-tabs-tab-btn:hover {
+  background-color: rgb(241 245 249 / 0.6);
+  transition      : all 0.3s;
 }
 
 .ant-tabs-tab {
