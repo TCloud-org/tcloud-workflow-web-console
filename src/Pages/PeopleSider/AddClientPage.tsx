@@ -70,7 +70,7 @@ export const AddClientPage = () => {
 
     setLoading(false);
 
-    navigate("/client");
+    navigate("/people");
   };
 
   return (
