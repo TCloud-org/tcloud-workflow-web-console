@@ -1,10 +1,10 @@
 import { PageTitle } from "DataDisplayComponents/PageTitle";
 import { AppSpace } from "LayoutComponents/AppSpace";
 
-export const MonitorTrafficPage = () => {
+export const MonitorPage = () => {
   return (
     <AppSpace>
-      <PageTitle>MonitorTrafficPage</PageTitle>
+      <PageTitle>Coming soon...</PageTitle>
     </AppSpace>
   );
 };

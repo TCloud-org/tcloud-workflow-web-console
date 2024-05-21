@@ -1,5 +1,6 @@
 import { Utility } from "Config/AutomationConfig";
-import { Card, Flex, Typography, theme } from "antd";
+import { AppCard } from "DataDisplayComponents/AppCard";
+import { Flex, Typography, theme } from "antd";
 import { ReactElement, cloneElement } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -16,12 +17,7 @@ export const ApplicationUtility = (props: { utility: Utility }) => {
   };
 
   return (
-    <Card
-      bordered={false}
-      onClick={handleClick}
-      className="scale"
-      style={{ boxShadow: token.boxShadowSecondary, cursor: "pointer" }}
-    >
+    <AppCard onClick={handleClick} style={{ cursor: "pointer" }}>
       <Flex vertical justify="center" gap={16}>
         <Flex justify="flex-start">
           <div
@@ -38,6 +34,6 @@ export const ApplicationUtility = (props: { utility: Utility }) => {
         </Flex>
         <Typography.Text strong>{utility.label}</Typography.Text>
       </Flex>
-    </Card>
+    </AppCard>
   );
 };

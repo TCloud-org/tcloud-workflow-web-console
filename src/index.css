@@ -406,3 +406,11 @@ thead {
     transform: rotateY(380deg)
   }
 }
+
+.ant-tabs-tab-btn {
+  color: rgb(148 163 184 / 1);
+}
+
+.ant-tabs-tab {
+  padding-left: 0 !important;
+}

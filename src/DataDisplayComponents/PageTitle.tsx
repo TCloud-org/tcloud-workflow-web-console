@@ -14,7 +14,7 @@ export const PageTitle = (props: {
   return (
     <AppRow gutter={[16, 16]} style={{ padding: "8px 0" }}>
       <Col {...Span[2]} className="flex justify-center lg:justify-start">
-        <Typography.Title level={2}>{props.children}</Typography.Title>
+        <Typography.Title level={4}>{props.children}</Typography.Title>
       </Col>
       <Col {...Span[2]} className="flex justify-center lg:justify-end">
         <AppSpace direction="horizontal" size="small" align="center">

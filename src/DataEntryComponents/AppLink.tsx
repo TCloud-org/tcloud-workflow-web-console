@@ -1,6 +1,6 @@
 import { LinkOutlined } from "@ant-design/icons";
 import { AppCopy } from "DataDisplayComponents/AppCopy";
-import { Flex, Tooltip } from "antd";
+import { Flex, Tooltip, Typography } from "antd";
 import { CSSProperties } from "react";
 
 export const AppLink = (props: {
@@ -14,9 +14,9 @@ export const AppLink = (props: {
   return (
     <Flex gap="4px" align="center">
       <Tooltip title={tooltip}>
-        <a href={href} style={style}>
+        <Typography.Link href={href} style={style}>
           {showIcon && <LinkOutlined />} {children}
-        </a>
+        </Typography.Link>
       </Tooltip>
       <AppCopy content={children} />
     </Flex>

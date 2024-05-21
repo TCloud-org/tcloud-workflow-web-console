@@ -1,4 +1,4 @@
-import { Breadcrumb } from "antd";
+import { Breadcrumb, Typography } from "antd";
 import { useSelector } from "react-redux";
 import { BreadcrumbItem } from "../features/navigation/breadcrumbSlice";
 
@@ -7,5 +7,18 @@ export const AppBreadcrumb = () => {
     (state: any) => state.breadcrumb.items
   );
 
-  return <Breadcrumb style={{ margin: "16px 0" }} items={items} />;
+  return (
+    <Breadcrumb
+      style={{ margin: "16px 0" }}
+      items={items.map((item, i) => ({
+        ...item,
+        title:
+          i === items.length - 1 ? (
+            <Typography.Text strong>{item.title}</Typography.Text>
+          ) : (
+            item.title
+          ),
+      }))}
+    />
+  );
 };

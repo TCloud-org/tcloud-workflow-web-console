@@ -81,7 +81,7 @@ export const CreateEmailNotificationWorkflowPage = () => {
       .post(WOS_SAVE_EVENT_WORKFLOW_ENDPOINT, params, config)
       .then((response) => {
         if (response.data) {
-          navigate("/workflow-automation/email-notification-workflow");
+          navigate("/notification-hub/email-notification-workflow");
         }
       })
       .catch((_) => {

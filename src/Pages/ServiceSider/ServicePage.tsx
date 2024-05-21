@@ -1,12 +1,11 @@
+import { Button } from "antd";
 import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AppList } from "../../DataDisplayComponents/AppList";
+import { PageTitle } from "../../DataDisplayComponents/PageTitle";
 import { AppSpace } from "../../LayoutComponents/AppSpace";
 import { getServiceConfigurations } from "../../Network/WorkflowFetch";
-import { Button } from "antd";
-import { PageTitle } from "../../DataDisplayComponents/PageTitle";
-import { AppSurface } from "DataDisplayComponents/AppSurface";
 
 export const ServicePage = () => {
   const location = useLocation();
@@ -44,18 +43,16 @@ export const ServicePage = () => {
 
   return (
     <AppSpace>
-      <PageTitle>Service</PageTitle>
-      <AppSurface type="form">
-        <AppList
-          data={services}
-          header="Services"
-          onReload={fetchServices}
-          loading={loading}
-          headerEndDecorator={
-            <Button onClick={handleAddService}>Add a new service</Button>
-          }
-        />
-      </AppSurface>
+      <PageTitle>Service Endpoint Configuration</PageTitle>
+      <AppList
+        data={services}
+        header="Services"
+        onReload={fetchServices}
+        loading={loading}
+        headerEndDecorator={
+          <Button onClick={handleAddService}>Add a new service</Button>
+        }
+      />
     </AppSpace>
   );
 };

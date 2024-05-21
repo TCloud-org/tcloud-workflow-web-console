@@ -9,7 +9,7 @@ import { AppRow } from "LayoutComponents/AppRow";
 import { AppSpace } from "LayoutComponents/AppSpace";
 import { formatDateString } from "Utils/DateUtils";
 import { WorkflowCard } from "WorkflowComponents/WorkflowCard";
-import { Col, Flex, Segmented, Typography } from "antd";
+import { Col, Flex, Segmented, Tag, Tooltip, Typography } from "antd";
 import axios from "axios";
 import { setWorkflow } from "features/workflow/workflowSlice";
 import { Key, useCallback, useEffect, useState } from "react";
@@ -56,7 +56,11 @@ export const WorkflowPage = () => {
           <AppButton
             size="small"
             onClick={() => {
-              dispatch(setWorkflow(value));
+              if (activeWorkflow?.workflowId === value.workflowId) {
+                dispatch(setWorkflow(undefined));
+              } else {
+                dispatch(setWorkflow(value));
+              }
               window.location.reload();
             }}
             danger={activeWorkflow?.workflowId === value.workflowId}
@@ -120,12 +124,14 @@ export const WorkflowPage = () => {
 
       {activeWorkflow?.workflowId && (
         <>
-          <Typography.Title level={5}>Active Workflow</Typography.Title>
-          <AppRow gutter={[16, 16]}>
-            <Col {...Span[2]}>
-              <WorkflowCard workflow={activeWorkflow} />
-            </Col>
-          </AppRow>
+          <Typography.Title level={5} style={{ marginBottom: 0 }}>
+            Active Workflow
+          </Typography.Title>
+          <Tooltip title="Active">
+            <Tag className="rounded-lg px-4 py-2">
+              {activeWorkflow.workflowName}
+            </Tag>
+          </Tooltip>
         </>
       )}
 

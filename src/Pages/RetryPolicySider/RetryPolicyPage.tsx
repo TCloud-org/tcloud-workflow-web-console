@@ -1,13 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { ListItem } from "../../Config/DataDisplayInterface";
 import { AppList } from "../../DataDisplayComponents/AppList";
-import { AppSpace } from "../../LayoutComponents/AppSpace";
-import { getRetryPolicies } from "../../Network/RetryFetch";
 import { PageTitle } from "../../DataDisplayComponents/PageTitle";
 import { AppButton } from "../../DataEntryComponents/AppButton";
-import { useNavigate } from "react-router-dom";
-import { AppSurface } from "DataDisplayComponents/AppSurface";
+import { AppSpace } from "../../LayoutComponents/AppSpace";
+import { getRetryPolicies } from "../../Network/RetryFetch";
 
 export const RetryPolicyPage = () => {
   const navigate = useNavigate();
@@ -37,18 +36,16 @@ export const RetryPolicyPage = () => {
   return (
     <AppSpace loading={loading}>
       <PageTitle>Retry Policy</PageTitle>
-      <AppSurface type="form">
-        <AppList
-          data={retryPolicies}
-          header="Policies"
-          onReload={fetchRetryPolicies}
-          headerEndDecorator={
-            <AppButton onClick={() => navigate("/retry-policy/add")}>
-              Add a new retry policy
-            </AppButton>
-          }
-        />
-      </AppSurface>
+      <AppList
+        data={retryPolicies}
+        header="Policies"
+        onReload={fetchRetryPolicies}
+        headerEndDecorator={
+          <AppButton onClick={() => navigate("/retry-policy/add")}>
+            Add a new retry policy
+          </AppButton>
+        }
+      />
     </AppSpace>
   );
 };

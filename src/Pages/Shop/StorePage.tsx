@@ -5,6 +5,7 @@ import { AppButton } from "DataEntryComponents/AppButton";
 import { FormOutlined } from "@ant-design/icons";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AppSearchInput } from "DataEntryComponents/AppSearchInput";
+import { AppSurface } from "DataDisplayComponents/AppSurface";
 
 export const StorePage = () => {
   const navigate = useNavigate();
@@ -15,24 +16,26 @@ export const StorePage = () => {
   };
 
   return (
-    <AppSpace>
-      <PageTitle
-        endDecorator={
-          <AppButton
-            icon={<FormOutlined />}
-            type="primary"
-            onClick={handlePublish}
-          >
-            Publish
-          </AppButton>
-        }
-      >
-        Store
-      </PageTitle>
+    <AppSurface type="form" style={{ paddingBottom: 24 }}>
+      <AppSpace>
+        <PageTitle
+          endDecorator={
+            <AppButton
+              icon={<FormOutlined />}
+              type="primary"
+              onClick={handlePublish}
+            >
+              Publish
+            </AppButton>
+          }
+        >
+          Store
+        </PageTitle>
 
-      <AppSearchInput />
+        <AppSearchInput />
 
-      <EmailTemplateStore />
-    </AppSpace>
+        <EmailTemplateStore />
+      </AppSpace>
+    </AppSurface>
   );
 };

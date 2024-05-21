@@ -8,6 +8,7 @@ import { AppIconToggle } from "DataEntryComponents/AppIconToggle";
 import { AppResizableHeader } from "DataEntryComponents/AppResizableHeader";
 import { generateBlob } from "Utils/ObjectUtils";
 import { WorkflowFilterToolbar } from "WorkflowComponents/WorkflowFilterToolbar";
+import { WorkflowSettingsToolbar } from "WorkflowComponents/WorkflowSettingsToolbar";
 import { Table, TableColumnsType, TableProps } from "antd";
 import { RowSelectMethod, SelectionSelectFn } from "antd/es/table/interface";
 import { saveAs } from "file-saver";
@@ -17,8 +18,6 @@ import { EditableColumn, EditableColumnTypes } from "../Config/LayoutConfig";
 import { AppEditableCell } from "../DataEntryComponents/AppEditableCell";
 import { AppEditableRow } from "../DataEntryComponents/AppEditableRow";
 import { TableTitle } from "./TableTitle";
-import { WorkflowSettingsToolbar } from "WorkflowComponents/WorkflowSettingsToolbar";
-import { AppCard } from "./AppCard";
 
 const TableComponents: TableProps["components"] = {
   body: {
@@ -98,7 +97,6 @@ export const AppTable = (
     const newCol: EditableColumn = {
       ...col,
       sortDirections: ["ascend", "descend", "ascend"],
-      defaultSortOrder: "descend",
       onHeaderCell: (column: TableColumnsType<any>[number]) => ({
         width: column.width,
         onResize: handleResize(i) as React.ReactEventHandler<any>,
@@ -242,51 +240,43 @@ export const AppTable = (
   };
 
   return (
-    <AppCard
-      styles={{
-        body: {
-          padding: "4px 8px",
-        },
+    <Table
+      title={showTitle ? () => renderTitle() : undefined}
+      style={props.style}
+      components={TableComponents}
+      rowClassName={() => "editable-row"}
+      bordered={bordered}
+      pagination={{
+        showSizeChanger: true,
+        defaultPageSize: defaultPageSize,
+        pageSizeOptions: [5, 10, 25, 50, 100],
+        showQuickJumper: true,
       }}
-    >
-      <Table
-        title={showTitle ? () => renderTitle() : undefined}
-        style={props.style}
-        components={TableComponents}
-        rowClassName={() => "editable-row"}
-        bordered={bordered}
-        pagination={{
-          showSizeChanger: true,
-          defaultPageSize: defaultPageSize,
-          pageSizeOptions: [5, 10, 25, 50, 100],
-          showQuickJumper: true,
-        }}
-        rowSelection={
-          showSelected
-            ? {
-                type: selectionType,
-                selectedRowKeys: selected,
-                onSelect: onSelect,
-                onChange: onSelectedChange,
-              }
-            : undefined
-        }
-        columns={editableColumns as EditableColumnTypes}
-        dataSource={data.filter((work) => {
-          return (
-            !anyFilters() ||
-            Object.entries(filtered).some(
-              ([dataIndex, filter]) => filter[work[dataIndex] as string]
-            )
-          );
-        })}
-        onChange={props.onChange}
-        loading={props.loading}
-        scroll={{ x: 1000 }}
-        size="small"
-        locale={props.locale}
-        rowHoverable={props.rowHoverable}
-      />
-    </AppCard>
+      rowSelection={
+        showSelected
+          ? {
+              type: selectionType,
+              selectedRowKeys: selected,
+              onSelect: onSelect,
+              onChange: onSelectedChange,
+            }
+          : undefined
+      }
+      columns={editableColumns as EditableColumnTypes}
+      dataSource={data.filter((work) => {
+        return (
+          !anyFilters() ||
+          Object.entries(filtered).some(
+            ([dataIndex, filter]) => filter[work[dataIndex] as string]
+          )
+        );
+      })}
+      onChange={props.onChange}
+      loading={props.loading}
+      scroll={{ x: 1000 }}
+      size="small"
+      locale={props.locale}
+      rowHoverable={props.rowHoverable}
+    />
   );
 };

@@ -58,7 +58,7 @@ export const EditTokenPage = () => {
       .catch((err) => console.error(err));
 
     setLoading(false);
-    navigate(`/auth-token/${token.tokenId}`);
+    navigate(`/authentication/${token.tokenId}`);
   };
 
   return (

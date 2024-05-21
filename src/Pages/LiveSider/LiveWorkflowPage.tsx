@@ -11,7 +11,7 @@ import { getWorksByClientIdAndWorkflowId } from "../../Network/WorkFetch";
 export const LiveWorkflowPage = () => {
   const authToken = useSelector((state: any) => state.auth.token);
   const clientId = useSelector((state: any) => state.client.clientId);
-  const { workflowId, workflowName } = useSelector(
+  const { workflowId } = useSelector(
     (state: any) => state.workflow.workflow || {}
   );
 
@@ -60,7 +60,7 @@ export const LiveWorkflowPage = () => {
 
   return (
     <AppSpace loading={loading}>
-      <PageTitle>{workflowName}</PageTitle>
+      <PageTitle>Work</PageTitle>
       <AppTable
         heading="Live"
         onReload={fetchWorkIds}

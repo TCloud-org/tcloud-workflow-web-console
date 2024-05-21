@@ -488,8 +488,8 @@ export const ApiWorkflowQuickstartPage = () => {
       <Typography.Paragraph>
         <ol>
           <li>
-            Navigate to <a href="/auth-token">Auth Token</a> tab under Security
-            menu and click <a href="/auth-token/add">Add token</a>.
+            Navigate to <a href="/authentication">Auth Token</a> tab under
+            Security menu and click <a href="/authentication/add">Add token</a>.
           </li>
           <li>
             Fill out the forms as below and click <strong>Add</strong>:

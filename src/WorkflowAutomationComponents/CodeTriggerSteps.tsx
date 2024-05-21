@@ -189,8 +189,8 @@ export const CodeTriggerSteps = () => {
           If you're creating a new workflow, an ID will be provided upon
           successful creation. To claim the newly created workflow ID, go to{" "}
           <a
-            href={`${baseUrl}/workflow-automation/email-notification-workflow`}
-          >{`${baseUrl}/workflow-automation/email-notification-workflow`}</a>
+            href={`${baseUrl}/notification-hub/email-notification-workflow`}
+          >{`${baseUrl}/notification-hub/email-notification-workflow`}</a>
         </Typography.Paragraph>
       </Flex>
     </Flex>

@@ -12,7 +12,7 @@ export interface BreadcrumbState {
 const initialState: BreadcrumbState = {
   items: [
     {
-      title: "Home",
+      title: "Dashboard",
       href: "/",
     },
   ],
@@ -32,7 +32,11 @@ export const breadcrumbSlice = createSlice({
       state.items = initialState.items;
     },
     setItems: (state, action: PayloadAction<BreadcrumbItem[]>) => {
-      state.items = [...initialState.items, ...action.payload];
+      if (action.payload.length === 0) {
+        state.items = [...initialState.items];
+      } else {
+        state.items = [...action.payload];
+      }
     },
   },
 });

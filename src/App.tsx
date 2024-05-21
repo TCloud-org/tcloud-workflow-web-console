@@ -12,7 +12,7 @@ import { ResetPasswordPage } from "Pages/Authentication/ResetPasswordPage";
 import { SignUpPage } from "Pages/Authentication/SignUpPage";
 import { DevModePage } from "Pages/DevModeSider/DevModePage";
 import { InvitationPage } from "Pages/InvitationPage";
-import { MonitorTrafficPage } from "Pages/MonitorSider/MonitorTrafficPage";
+import { MonitorPage } from "Pages/MonitorSider/MonitorPage";
 import { NotFoundPage } from "Pages/NotFoundPage";
 import { AddClientPage } from "Pages/PeopleSider/AddClientPage";
 import { ClientDetailsPage } from "Pages/PeopleSider/ClientDetailsPage";
@@ -29,6 +29,7 @@ import { EmailTemplateDetailPage } from "Pages/Shop/EmailTemplateDetailPage";
 import { PublishProductPage } from "Pages/Shop/PublishProductPage";
 import { StorePage } from "Pages/Shop/StorePage";
 import { WorkflowStatisticPage } from "Pages/Statistic/WorkflowStatisticPage";
+import { StepWorkflowPage } from "Pages/StepWorkflowSider/StepWorkflowPage";
 import { SubscriptionInvoicePage } from "Pages/Subscription/SubscriptionInvoicePage";
 import { SubscriptionPage } from "Pages/Subscription/SubscriptionPage";
 import { SubscriptionPlanPage } from "Pages/Subscription/SubscriptionPlanPage";
@@ -53,7 +54,7 @@ import {
 } from "react-router-dom";
 import { AppFooter } from "./LayoutComponents/AppFooter";
 import { AppHeader } from "./LayoutComponents/AppHeader";
-import { AppSider, SiderHrefs } from "./LayoutComponents/AppSider";
+import { AppSider } from "./LayoutComponents/AppSider";
 import { AppBreadcrumb } from "./NavigationComponents/AppBreadcrumb";
 import { AddTokenPage } from "./Pages/AuthTokenSider/AddTokenPage";
 import { AuthTokenPage } from "./Pages/AuthTokenSider/AuthTokenPage";
@@ -86,7 +87,10 @@ import { BillingPage } from "./Pages/SettingsSider/BillingPage";
 import { GeneralPage } from "./Pages/SettingsSider/GeneralPage";
 import { deserializeLocation } from "./Utils/Serializer";
 import { setItems } from "./features/navigation/breadcrumbSlice";
-import { setSelectedKeys } from "./features/navigation/siderSlice";
+import { SettingsPage } from "Pages/SettingsSider/SettingsPage";
+import { HelpPage } from "Pages/Support/HelpPage";
+import { SecurityPage } from "Pages/SecuritySider/SecurityPage";
+import { PeoplePage } from "Pages/PeopleSider/PeoplePage";
 
 export const background = "rgb(249 250 251 / 1)";
 export const App = () => {
@@ -107,33 +111,9 @@ export const App = () => {
 
     useEffect(() => {
       const deserializedLocation = deserializeLocation(location.pathname);
-      const siderKey = deserializedLocation.find(
-        (item) => item.href in SiderHrefs
-      );
-
-      if (siderKey?.href) {
-        dispatch(setSelectedKeys([siderKey.href]));
-      } else {
-        dispatch(setSelectedKeys(["home"]));
-      }
+      console.log(deserializedLocation);
       dispatch(setItems(deserializedLocation));
     }, [dispatch, location.pathname]);
-
-    // useEffect(() => {
-    //   const handleResize = () => {
-    //     if (window.innerWidth < 1024) {
-    //       setCollapsed(true);
-    //     } else {
-    //       setCollapsed(false);
-    //     }
-    //   };
-
-    //   window.addEventListener("resize", handleResize);
-
-    //   return () => {
-    //     window.removeEventListener("resize", handleResize);
-    //   };
-    // }, []);
 
     if (!authToken || !account || isExternalLink) {
       return (
@@ -236,6 +216,10 @@ export const App = () => {
             {
               path: "/statistic",
               element: <WorkflowStatisticPage />,
+            },
+            {
+              path: "/step-workflow",
+              element: <StepWorkflowPage />,
             },
             {
               path: "/step-workflow-introduction",
@@ -354,20 +338,28 @@ export const App = () => {
               element: <EditRetryPolicyPage />,
             },
             {
-              path: "/auth-token",
+              path: "/security",
+              element: <SecurityPage />,
+            },
+            {
+              path: "/authentication",
               element: <AuthTokenPage />,
             },
             {
-              path: "/auth-token/:tokenId",
+              path: "/authentication/:tokenId",
               element: <ViewTokenPage />,
             },
             {
-              path: "/auth-token/:tokenId/edit",
+              path: "/authentication/:tokenId/edit",
               element: <EditTokenPage />,
             },
             {
-              path: "/auth-token/add",
+              path: "/authentication/add",
               element: <AddTokenPage />,
+            },
+            {
+              path: "/people",
+              element: <PeoplePage />,
             },
             {
               path: "/client",
@@ -390,6 +382,10 @@ export const App = () => {
               element: <ViewInvitationsPage />,
             },
             {
+              path: "/settings",
+              element: <SettingsPage />,
+            },
+            {
               path: "/account",
               element: <AccountPage />,
             },
@@ -402,35 +398,35 @@ export const App = () => {
               element: <BillingPage />,
             },
             {
-              path: "/traffic",
-              element: <MonitorTrafficPage />,
+              path: "/monitor",
+              element: <MonitorPage />,
             },
             {
               path: "/development",
               element: <DevModePage />,
             },
             {
-              path: "/workflow-automation",
+              path: "/notification-hub",
               element: <WorkflowAutomationPage />,
             },
             {
-              path: "/workflow-automation/email-notification-workflow",
+              path: "/notification-hub/email-notification-workflow",
               element: <EmailNotificationWorkflowPage />,
             },
             {
-              path: "/workflow-automation/email-notification-workflow/choose-template",
+              path: "/notification-hub/email-notification-workflow/choose-template",
               element: <EmailNotificationTemplateSelectionPage />,
             },
             {
-              path: "/workflow-automation/email-notification-workflow/choose-template/create",
+              path: "/notification-hub/email-notification-workflow/choose-template/create",
               element: <CreateEmailNotificationWorkflowPage />,
             },
             {
-              path: "/workflow-automation/email-notification-workflow/:id",
+              path: "/notification-hub/email-notification-workflow/:id",
               element: <EmailNotificationWorkflowDetailPage />,
             },
             {
-              path: "/workflow-automation/email-notification-workflow/:id/job",
+              path: "/notification-hub/email-notification-workflow/:id/job",
               element: <EmailNotificationJobPage />,
             },
             {
@@ -448,6 +444,10 @@ export const App = () => {
             {
               path: "/store/:productId/edit",
               element: <EditEmailTemplatePage />,
+            },
+            {
+              path: "/help",
+              element: <HelpPage />,
             },
             {
               path: "/support",

@@ -1,14 +1,14 @@
 import { FormOutlined } from "@ant-design/icons";
 import { EmailTemplateProduct } from "Config/StoreConfig";
+import { AppCard } from "DataDisplayComponents/AppCard";
 import { AppButton } from "DataEntryComponents/AppButton";
 import { AppIconButton } from "DataEntryComponents/AppIconButton";
-import { Card, Flex, Typography, theme } from "antd";
+import { Flex, Typography } from "antd";
 
 export const EmailTemplateStoreItem = (props: {
   data: EmailTemplateProduct;
   use?: (template: EmailTemplateProduct) => void;
 }) => {
-  const { token } = theme.useToken();
   const { data, use } = props;
 
   const handleEdit = () => {
@@ -26,9 +26,7 @@ export const EmailTemplateStoreItem = (props: {
   };
 
   return (
-    <Card
-      bordered={false}
-      style={{ boxShadow: token.boxShadowSecondary }}
+    <AppCard
       actions={
         use
           ? [
@@ -55,7 +53,6 @@ export const EmailTemplateStoreItem = (props: {
           </Flex>
         </Flex>
       }
-      className="scale"
     >
       <Flex gap={16} vertical>
         <Typography.Text italic type="secondary" style={{ fontSize: 12 }}>
@@ -71,6 +68,6 @@ export const EmailTemplateStoreItem = (props: {
           }}
         />
       </Flex>
-    </Card>
+    </AppCard>
   );
 };

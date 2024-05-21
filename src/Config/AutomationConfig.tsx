@@ -21,7 +21,7 @@ export interface Utility {
 }
 export const WorkflowUtilities: Utility[] = [
   {
-    href: "/workflow-automation/email-notification-workflow",
+    href: "/notification-hub/email-notification-workflow",
     label: "Email Notification Workflow",
     icon: <MailOutlined />,
   },

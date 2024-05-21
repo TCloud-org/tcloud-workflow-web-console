@@ -21,7 +21,7 @@ const columns: EditableColumn[] = [
     title: "Token ID",
     dataIndex: "tokenId",
     render: (text: string) => (
-      <AppLink href={`/auth-token/${text}`}>{text}</AppLink>
+      <AppLink href={`/authentication/${text}`}>{text}</AppLink>
     ),
     width: "15%",
   },
@@ -66,7 +66,7 @@ export const AuthTokenPage = () => {
   }, [fetchTokens]);
 
   const onAddToken = () => {
-    navigate("/auth-token/add");
+    navigate("/authentication/add");
   };
 
   const getColumns = (type: string): EditableColumn[] => {

@@ -1,24 +1,23 @@
+import { CodeOutlined } from "@ant-design/icons";
 import {
-  ApiOutlined,
-  CodeOutlined,
-  HomeOutlined,
-  MonitorOutlined,
-  PartitionOutlined,
-  QuestionCircleOutlined,
-  SafetyOutlined,
-  SettingOutlined,
-  ShopOutlined,
-  UsergroupAddOutlined,
-} from "@ant-design/icons";
+  AccountTreeRounded,
+  DashboardRounded,
+  HelpRounded,
+  MonitorHeartRounded,
+  NotificationsRounded,
+  PeopleRounded,
+  SecurityRounded,
+  SettingsRounded,
+  StoreRounded,
+} from "@mui/icons-material";
 import { useClickAway } from "@uidotdev/usehooks";
 import { SiderWidth } from "Config/LayoutConfig";
-import { AppMenuPin } from "DataDisplayComponents/AppMenuPin";
-import { Flex, Menu, MenuProps, theme } from "antd";
+import { Flex, theme } from "antd";
 import Sider from "antd/es/layout/Sider";
 import { Dispatch, SetStateAction } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { AppBrand } from "./AppBrand";
+import { AppMenu, AppMenuProps } from "./AppMenu";
 
 export const SiderHrefs = {
   home: "home",
@@ -29,7 +28,7 @@ export const SiderHrefs = {
   settings: "settings",
   help: "help",
   "/store": "/store",
-  "/workflow-automation": "/workflow-automation",
+  "/notification-hub": "/notification-hub",
   "/development": "/development",
   "/step-workflow-introduction": "workflow",
   "/step-workflow-how-it-works": "workflow",
@@ -43,7 +42,7 @@ export const SiderHrefs = {
   "/graph": "workflow",
   "/service": "workflow",
   "/retry-policy": "workflow",
-  "/auth-token": "security",
+  "/authentication": "security",
   "/traffic": "monitor",
   "/client": "people",
   "/account": "settings",
@@ -55,7 +54,7 @@ export const SiderHrefs = {
 };
 
 export const SiderName = {
-  "/workflow-automation": "Workflow Automation",
+  "/notification-hub": "Notification Hub",
   "/development": "Development",
   "/step-workflow-introduction": "Introduction",
   "/step-workflow-how-it-works": "How It Works",
@@ -69,7 +68,7 @@ export const SiderName = {
   "/graph": "Graph",
   "/service": "Service",
   "/retry-policy": "Retry Policy",
-  "/auth-token": "Auth Token",
+  "/authentication": "Auth Token",
   "/traffic": "Traffic",
   "/client": "Client",
   "/account": "Account",
@@ -89,196 +88,87 @@ export const AppSider = (props: {
 
   const { token } = theme.useToken();
   const { isDevMode } = useSelector((state: any) => state.general);
-  const selectedKeys: string[] = useSelector(
-    (state: any) => state.sider.selectedKeys
-  );
-  const navigate = useNavigate();
-  // const [currentOpenKeys, setCurrentOpenKeys] = useState<string[]>([]);
 
-  const siderMenus: MenuProps["items"] = [
+  const siderMenus: AppMenuProps["items"] = [
     {
-      key: "home",
-      label: "Home",
-      icon: <HomeOutlined />,
-      onClick: () => navigate("/"),
-    },
-    {
-      key: "/workflow-automation",
-      icon: <PartitionOutlined />,
-      label: "Workflow Automation",
-      onClick: () => navigate("/workflow-automation"),
-    },
-    {
-      key: "workflow",
-      icon: <ApiOutlined />,
-      label: "Step Workflow",
+      key: "general",
+      label: "General",
+      type: "group",
       children: [
         {
-          key: "getStarted",
-          label: "Get Started",
-          children: [
-            {
-              key: "/step-workflow-introduction",
-              label: <AppMenuPin>/step-workflow-introduction</AppMenuPin>,
-              onClick: () => navigate("/step-workflow-introduction"),
-            },
-            {
-              key: "/step-workflow-how-it-works",
-              label: <AppMenuPin>/step-workflow-how-it-works</AppMenuPin>,
-              onClick: () => navigate("/step-workflow-how-it-works"),
-            },
-            {
-              key: "/step-workflow-quickstart",
-              label: <AppMenuPin>/step-workflow-quickstart</AppMenuPin>,
-              onClick: () => navigate("/step-workflow-quickstart"),
-            },
-            {
-              key: "/step-workflow-onboarding",
-              label: <AppMenuPin>/step-workflow-onboarding</AppMenuPin>,
-              onClick: () => navigate("/step-workflow-onboarding"),
-            },
-            {
-              key: "/step-workflow-model",
-              label: <AppMenuPin>/step-workflow-model</AppMenuPin>,
-              onClick: () => navigate("/step-workflow-model"),
-            },
-          ],
-          type: "group",
-        },
-        {
-          key: "workflow",
-          label: "Workflow",
-          children: [
-            {
-              key: "/query",
-              label: <AppMenuPin>/query</AppMenuPin>,
-              onClick: () => navigate("/query"),
-            },
-            {
-              key: "/live",
-              label: <AppMenuPin>/live</AppMenuPin>,
-              onClick: () => navigate("/live"),
-            },
-            {
-              key: "/bucket",
-              label: <AppMenuPin>/bucket</AppMenuPin>,
-              onClick: () => navigate("/bucket"),
-            },
-          ],
-          type: "group",
-        },
-        {
-          key: "configuration",
-          label: "Configuration",
-          children: [
-            {
-              key: "/workflow",
-              label: <AppMenuPin>/workflow</AppMenuPin>,
-              onClick: () => navigate("/workflow"),
-            },
-            {
-              key: "/graph",
-              label: <AppMenuPin>/graph</AppMenuPin>,
-              onClick: () => navigate("/graph"),
-            },
-            {
-              key: "/service",
-              label: <AppMenuPin>/service</AppMenuPin>,
-              onClick: () => navigate("/service"),
-            },
-            {
-              key: "/retry-policy",
-              label: <AppMenuPin>/retry-policy</AppMenuPin>,
-              onClick: () => navigate("/retry-policy"),
-            },
-          ],
-          type: "group",
+          key: "dashboard",
+          label: "Dashboard",
+          icon: <DashboardRounded />,
+          href: "/",
         },
       ],
     },
     {
-      key: "monitor",
-      icon: <MonitorOutlined />,
-      label: "Monitor",
+      key: "automation",
+      label: "Automation",
+      type: "group",
       children: [
         {
-          key: "/traffic",
-          label: <AppMenuPin>/traffic</AppMenuPin>,
-          onClick: () => navigate("/traffic"),
+          key: "step-workflow",
+          icon: <AccountTreeRounded />,
+          label: "Step Workflow",
+          href: "/step-workflow",
+        },
+        {
+          key: "/notification-hub",
+          icon: <NotificationsRounded />,
+          label: "Notification Hub",
+          href: "/notification-hub",
         },
       ],
     },
     {
-      key: "security",
-      icon: <SafetyOutlined />,
-      label: "Security",
+      key: "tools",
+      label: "Tools",
+      type: "group",
       children: [
         {
-          key: "/auth-token",
-          label: <AppMenuPin>/auth-token</AppMenuPin>,
-          onClick: () => navigate("/auth-token"),
+          key: "monitor",
+          icon: <MonitorHeartRounded />,
+          label: "Monitor",
+          href: "/monitor",
+        },
+        {
+          key: "people",
+          icon: <PeopleRounded />,
+          label: "People",
+          href: "/people",
+        },
+        {
+          key: "/store",
+          icon: <StoreRounded />,
+          label: "Store",
+          href: "/store",
         },
       ],
     },
     {
-      key: "people",
-      icon: <UsergroupAddOutlined />,
-      label: "People",
+      key: "support",
+      label: "Support",
+      type: "group",
       children: [
         {
-          key: "/client",
-          label: <AppMenuPin>/client</AppMenuPin>,
-          onClick: () => navigate("/client"),
-        },
-      ],
-    },
-    {
-      key: "/store",
-      icon: <ShopOutlined />,
-      label: "Store",
-      onClick: () => navigate("/store"),
-    },
-    {
-      key: "settings",
-      icon: <SettingOutlined />,
-      label: "Settings",
-      children: [
-        {
-          key: "/account",
-          label: <AppMenuPin>/account</AppMenuPin>,
-          onClick: () => navigate("/account"),
+          key: "/settings",
+          icon: <SettingsRounded />,
+          label: "Settings",
+          href: "/settings",
         },
         {
-          key: "/general",
-          label: <AppMenuPin>/general</AppMenuPin>,
-          onClick: () => navigate("/general"),
+          key: "security",
+          icon: <SecurityRounded />,
+          label: "Security",
+          href: "/security",
         },
         {
-          key: "/billing",
-          label: <AppMenuPin>/billing</AppMenuPin>,
-          onClick: () => navigate("/billing"),
-        },
-        {
-          key: "/subscription",
-          label: <AppMenuPin>/subscription</AppMenuPin>,
-          onClick: () => navigate("/subscription"),
-        },
-      ],
-    },
-    {
-      key: "help",
-      icon: <QuestionCircleOutlined />,
-      label: "Help",
-      children: [
-        {
-          key: "/support",
-          label: <AppMenuPin>/support</AppMenuPin>,
-          onClick: () => navigate("/support"),
-        },
-        {
-          key: "/contact",
-          label: <AppMenuPin>/contact</AppMenuPin>,
-          onClick: () => navigate("/contact"),
+          key: "help",
+          icon: <HelpRounded />,
+          label: "Help",
+          href: "/help",
         },
       ],
     },
@@ -288,25 +178,11 @@ export const AppSider = (props: {
             key: "/development",
             icon: <CodeOutlined />,
             label: "Development",
-            onClick: () => navigate("/development"),
+            href: "/development",
           },
         ]
       : []),
   ];
-
-  // useEffect(() => {
-  //   if (selectedKeys) {
-  //     setCurrentOpenKeys(
-  //       selectedKeys.length > 0
-  //         ? [SiderHrefs[selectedKeys[0].toString() as keyof typeof SiderHrefs]]
-  //         : ["home"]
-  //     );
-  //   }
-  // }, [selectedKeys]);
-
-  // const onOpenKey = (openKeys: string[]) => {
-  //   setCurrentOpenKeys(openKeys.slice(-1));
-  // };
 
   const siderRef = useClickAway((e: any) => {
     const elementId = (e.target || e.srcElement).id;
@@ -339,15 +215,7 @@ export const AppSider = (props: {
             className="hidden lg:block"
           />
 
-          <Menu
-            mode="inline"
-            selectedKeys={selectedKeys}
-            style={{
-              borderRight: 0,
-              overflow: "auto",
-            }}
-            items={siderMenus}
-          />
+          <AppMenu items={siderMenus} />
         </Flex>
       </Sider>
 
@@ -369,15 +237,7 @@ export const AppSider = (props: {
         }}
         className="top-[80px] lg:top-0 block lg:hidden"
       >
-        <Menu
-          mode="inline"
-          selectedKeys={selectedKeys}
-          style={{
-            borderRight: 0,
-            overflow: "auto",
-          }}
-          items={siderMenus}
-        />
+        <AppMenu items={siderMenus} />
       </Sider>
     </>
   );
