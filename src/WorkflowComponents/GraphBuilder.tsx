@@ -87,11 +87,17 @@ export const GraphBuilder = () => {
     if (!isStateActive) return;
 
     setStates((states) => {
-      const activeStateIndex = states.findIndex(
-        (state) => state.id === activeId
-      );
+      const activeStateIndex = states
+        .filter((state) => state.name !== "Start" && state.name !== "End")
+        .findIndex((state) => state.id === activeId);
 
-      const overStateIndex = states.findIndex((state) => state.id === overId);
+      const overStateIndex = states
+        .filter((state) => state.name !== "Start" && state.name !== "End")
+        .findIndex((state) => state.id === overId);
+
+      if (activeStateIndex < 0 || overStateIndex < 0) {
+        return states;
+      }
 
       return arrayMove(states, activeStateIndex, overStateIndex);
     });

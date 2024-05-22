@@ -191,7 +191,7 @@ export const GraphStateCard = (props: {
           </AppForm>
 
           {(state.results || []).length > 0 && (
-            <Flex vertical gap={8}>
+            <Flex vertical gap={8} align="center">
               <Flex wrap="wrap" gap={16}>
                 {(state.results || []).map((result, i) => (
                   <Tooltip title={result.name} key={i}>
