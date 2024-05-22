@@ -1,16 +1,13 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import {
-  AddRounded,
-  DeleteRounded,
-  DragIndicatorRounded,
-} from "@mui/icons-material";
+import { DeleteRounded, DragIndicatorRounded } from "@mui/icons-material";
 import { createOneSpan } from "Config/DataDisplayInterface";
 import { TagVariantMapping } from "DataDisplayComponents/AppTag";
 import { AppForm } from "DataEntryComponents/AppForm";
 import { Flex, Form, Input, Tag, Tooltip, Typography, theme } from "antd";
 import { CSSProperties, useEffect } from "react";
 import { GraphState } from "./GraphBuilder";
+import { SetupNextState } from "./SetupNextState";
 
 export const GraphStateCard = (props: {
   state: GraphState;
@@ -72,6 +69,11 @@ export const GraphStateCard = (props: {
     );
   }
 
+  const handleValuesChange = (_: any, values: any) => {
+    console.log(values);
+    form.setFieldsValue(values);
+  };
+
   return (
     <div
       ref={setNodeRef}
@@ -129,6 +131,7 @@ export const GraphStateCard = (props: {
             labelCol={createOneSpan(6)}
             wrapperCol={createOneSpan(18)}
             layout="horizontal"
+            onValuesChange={handleValuesChange}
           >
             <Form.Item label="Name" name="name" className="mb-2 lg:mb-4">
               <Input disabled={isFixedState} />
@@ -155,16 +158,8 @@ export const GraphStateCard = (props: {
             )}
 
             {!isEndState && (
-              <Form.Item label="Next" name="result" className="mb-2 lg:mb-4">
-                <Flex
-                  align="center"
-                  style={{ transition: "all 0.3s" }}
-                  className="hover:bg-slate-400/10 rounded-md cursor-pointer px-2"
-                  gap={8}
-                >
-                  <AddRounded style={{ fontSize: "inherit" }} />
-                  <Typography.Text>Set up next state</Typography.Text>
-                </Flex>
+              <Form.Item label="Next" name="results" className="mb-2 lg:mb-4">
+                <SetupNextState />
               </Form.Item>
             )}
           </AppForm>
