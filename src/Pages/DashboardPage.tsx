@@ -21,6 +21,7 @@ import {
   getWorksInDateRange,
 } from "../Network/WorkFetch";
 import { AppSurface } from "DataDisplayComponents/AppSurface";
+import { GraphBuilder } from "WorkflowComponents/GraphBuilder";
 
 export const DashboardPage = () => {
   const { token } = theme.useToken();
@@ -200,6 +201,8 @@ export const DashboardPage = () => {
           exludedColumnsFromExport={{ metadata: true }}
         />
       </AppSpace>
+
+      <GraphBuilder />
     </AppSurface>
   );
 };

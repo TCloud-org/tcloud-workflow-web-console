@@ -1,12 +1,12 @@
 import { LinkOutlined } from "@ant-design/icons";
-import { DescriptionsProps, Popconfirm, Typography } from "antd";
+import { DescriptionsProps, Typography } from "antd";
 import axios from "axios";
 import { Key, useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Span } from "../../Config/DataDisplayInterface";
-import { WOS_ADD_GRAPH_ENDPOINT } from "../../Config/WOSEndpointConfig";
 import { EditableColumn } from "../../Config/LayoutConfig";
+import { WOS_ADD_GRAPH_ENDPOINT } from "../../Config/WOSEndpointConfig";
 import {
   GetGraphsByWorkflowIdOutput,
   Graph,
@@ -136,36 +136,19 @@ export const GraphPage = () => {
 
   return (
     <AppSpace loading={loading}>
-      <PageTitle>{workflowName}</PageTitle>
+      <PageTitle
+        endDecorator={
+          <AppButton onClick={handleCreateGraph} type="primary">
+            Create graph
+          </AppButton>
+        }
+      >
+        {workflowName}
+      </PageTitle>
 
       <AppSurface type="form" style={{ paddingBottom: 0 }}>
         <AppDescriptions title="Details" items={graphDescriptions} />
       </AppSurface>
-
-      <AppSpace direction="horizontal">
-        <Popconfirm
-          title={`Deprecate ${selected.length} graph${
-            selected.length > 1 ? "s" : ""
-          }`}
-          description={`Are you sure to deprecate ${selected.length} graph${
-            selected.length > 1 ? "s" : ""
-          }?`}
-          okText="Yes"
-          cancelText="No"
-          onConfirm={() => {}}
-        >
-          <AppButton type="primary" danger disabled={selected.length === 0}>
-            {`Deprecate${
-              selected.length > 0
-                ? ` ${selected.length} graph${selected.length > 1 ? "s" : ""}`
-                : ""
-            }`}
-          </AppButton>
-        </Popconfirm>
-        <AppButton onClick={handleCreateGraph} type="primary">
-          Create a new graph
-        </AppButton>
-      </AppSpace>
 
       <AppTable
         rows={graphs}

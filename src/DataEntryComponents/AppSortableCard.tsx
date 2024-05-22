@@ -20,7 +20,7 @@ import { DoubleLeftOutlined, DoubleRightOutlined } from "@ant-design/icons";
 
 export const pointerHoldingDurationThreshold = 200;
 
-const animateLayoutChanges = (args: any) => {
+export const animateLayoutChanges = (args: any) => {
   const { isSorting, wasSorting, wasDragging } = args;
 
   if (isSorting || wasSorting || wasDragging) {

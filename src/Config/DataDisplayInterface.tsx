@@ -25,6 +25,10 @@ export const createSpan = (span: number) => {
   return { xs: 24, sm: 24, md: 24, lg: span, xl: span, xxl: span };
 };
 
+export const createOneSpan = (span: number) => {
+  return { xs: span, sm: span, md: span, lg: span, xl: span, xxl: span };
+};
+
 export type ListItem = {
   title?: string;
   href?: string;
