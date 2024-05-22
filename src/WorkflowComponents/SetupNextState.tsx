@@ -7,18 +7,23 @@ import { createSpan } from "Config/DataDisplayInterface";
 import { AppButton } from "DataEntryComponents/AppButton";
 import { AppForm } from "DataEntryComponents/AppForm";
 import { Divider, Flex, Form, Input, Modal, Tooltip, Typography } from "antd";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { GraphResult } from "./GraphBuilder";
 
 export const SetupNextState = (props: {
-  value?: GraphResult[];
+  value?: (GraphResult | undefined)[];
   onChange?: (e: any) => void;
+  modifyOnly?: boolean;
 }) => {
-  const { onChange = () => {} } = props;
+  const { onChange = () => {}, value, modifyOnly } = props;
 
   const [form] = Form.useForm();
 
   const [modalOpen, setModalOpen] = useState<boolean>(false);
+
+  useEffect(() => {
+    form.setFieldsValue({ results: value });
+  }, [form, value]);
 
   const handleValueChanges = (_: any, values: any) => {
     onChange(values.results || []);
@@ -117,21 +122,23 @@ export const SetupNextState = (props: {
                     </Fragment>
                   ))}
 
-                  <Form.Item>
-                    <AppButton
-                      type="text"
-                      onClick={() => add()}
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                      }}
-                      icon={<AddCircleRounded style={{ fontSize: 14 }} />}
-                    >
-                      Add field
-                    </AppButton>
-                    <Form.ErrorList errors={errors} />
-                  </Form.Item>
+                  {!modifyOnly && (
+                    <Form.Item>
+                      <AppButton
+                        type="text"
+                        onClick={() => add()}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                        icon={<AddCircleRounded style={{ fontSize: 14 }} />}
+                      >
+                        Add field
+                      </AppButton>
+                      <Form.ErrorList errors={errors} />
+                    </Form.Item>
+                  )}
                 </>
               )}
             </Form.List>

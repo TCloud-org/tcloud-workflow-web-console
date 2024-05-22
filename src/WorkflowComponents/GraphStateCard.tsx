@@ -5,18 +5,21 @@ import { createOneSpan } from "Config/DataDisplayInterface";
 import { TagVariantMapping } from "DataDisplayComponents/AppTag";
 import { AppForm } from "DataEntryComponents/AppForm";
 import { Flex, Form, Input, Tag, Tooltip, Typography, theme } from "antd";
-import { CSSProperties, useEffect } from "react";
+import { CSSProperties, Dispatch, SetStateAction, useEffect } from "react";
 import { GraphState } from "./GraphBuilder";
 import { SetupNextState } from "./SetupNextState";
+import { AppButton } from "DataEntryComponents/AppButton";
 
 export const GraphStateCard = (props: {
+  index?: number;
   state: GraphState;
   onDelete?: (id: string) => void;
+  onUpdate?: Dispatch<SetStateAction<GraphState[]>>;
 }) => {
   const { token } = theme.useToken();
   const [form] = Form.useForm();
 
-  const { state, onDelete = () => {} } = props;
+  const { state, onDelete = () => {}, onUpdate = () => {}, index = -1 } = props;
 
   const {
     setNodeRef,
@@ -44,7 +47,6 @@ export const GraphStateCard = (props: {
   };
 
   const isFixedState = state.name === "Start" || state.name === "End";
-  const isEndState = state.name === "End";
 
   useEffect(() => {
     form.setFieldsValue(state);
@@ -60,7 +62,7 @@ export const GraphStateCard = (props: {
       opacity-40
       border-2 border-[#4312e5]
       w-[350px]
-      h-[300px]
+      h-[350px]
       rounded-lg
       flex
       flex-col
@@ -70,8 +72,24 @@ export const GraphStateCard = (props: {
   }
 
   const handleValuesChange = (_: any, values: any) => {
-    console.log(values);
     form.setFieldsValue(values);
+  };
+
+  const handleSave = () => {
+    const values = form.getFieldsValue();
+
+    onUpdate((states) => {
+      const newStates = [...states];
+      if (index >= 0) {
+        const results = values.results.filter((result: any) => result);
+        newStates[index] = {
+          ...newStates[index],
+          ...values,
+          results,
+        };
+      }
+      return newStates;
+    });
   };
 
   return (
@@ -79,7 +97,7 @@ export const GraphStateCard = (props: {
       ref={setNodeRef}
       id={state.id}
       style={style}
-      className="w-[350px] h-[300px] bg-white rounded-md flex flex-col"
+      className="w-[350px] h-[350px] bg-white rounded-md flex flex-col"
     >
       <div
         className="
@@ -157,10 +175,18 @@ export const GraphStateCard = (props: {
               </>
             )}
 
-            {!isEndState && (
-              <Form.Item label="Next" name="results" className="mb-2 lg:mb-4">
-                <SetupNextState />
-              </Form.Item>
+            {state.name !== "End" && (
+              <>
+                <Form.Item label="Next" name="results" className="mb-2 lg:mb-4">
+                  <SetupNextState modifyOnly={state.name === "Start"} />
+                </Form.Item>
+
+                <Form.Item>
+                  <AppButton onClick={handleSave} type="primary">
+                    Save
+                  </AppButton>
+                </Form.Item>
+              </>
             )}
           </AppForm>
 
@@ -175,7 +201,7 @@ export const GraphStateCard = (props: {
                       color={
                         TagVariantMapping[
                           result.type as keyof typeof TagVariantMapping
-                        ].color
+                        ]?.color || "default"
                       }
                     >
                       {result.type}

@@ -43,12 +43,7 @@ export const GraphBuilder = () => {
     {
       id: v4(),
       name: "Start",
-      results: [
-        { type: "success", name: "Initialized", target: "End" },
-        { type: "success", name: "Created", target: "End" },
-        { type: "success", name: "Created1", target: "End" },
-        { type: "success", name: "Created2", target: "End" },
-      ],
+      results: [{ type: "success", name: "SystemInitialized", target: "End" }],
     },
     { id: v4(), name: "End", results: [] },
   ]);
@@ -162,8 +157,10 @@ export const GraphBuilder = () => {
                   <Fragment key={i}>
                     <GraphStateCard
                       key={i}
+                      index={i}
                       state={state}
                       onDelete={handleDeleteState}
+                      onUpdate={setStates}
                     />
                   </Fragment>
                 ))}

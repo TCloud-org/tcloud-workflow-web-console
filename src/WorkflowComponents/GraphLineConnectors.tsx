@@ -14,7 +14,7 @@ export const GraphLineConnectors = (props: {
 
   useEffect(() => {
     updateXarrow();
-  }, [states, updateXarrow]);
+  }, [updateXarrow]);
 
   return (
     <div onLoad={useXarrow()}>
@@ -26,9 +26,7 @@ export const GraphLineConnectors = (props: {
             end={
               states.find((item) => item.name === result.target)?.id as string
             }
-            // labels={{
-            //   middle: <Typography.Text strong>{result.name}</Typography.Text>,
-            // }}
+            headShape="arrow1"
           />
         ))
       )}
