@@ -6,9 +6,42 @@ import {
 import { createSpan } from "Config/DataDisplayInterface";
 import { AppButton } from "DataEntryComponents/AppButton";
 import { AppForm } from "DataEntryComponents/AppForm";
-import { Divider, Flex, Form, Input, Modal, Tooltip, Typography } from "antd";
+import {
+  Divider,
+  Flex,
+  Form,
+  Input,
+  Modal,
+  Select,
+  SelectProps,
+  Tooltip,
+  Typography,
+} from "antd";
 import { Fragment, useEffect, useState } from "react";
 import { GraphResult } from "./GraphBuilder";
+
+const resultTypes: SelectProps["options"] = [
+  {
+    label: "success",
+    value: "success",
+  },
+  {
+    label: "failure",
+    value: "failure",
+  },
+  {
+    label: "default",
+    value: "default",
+  },
+  {
+    label: "notified",
+    value: "notified",
+  },
+  {
+    label: "pending",
+    value: "pending",
+  },
+];
 
 export const SetupNextState = (props: {
   value?: (GraphResult | undefined)[];
@@ -83,7 +116,7 @@ export const SetupNextState = (props: {
                               labelCol={createSpan(6)}
                               wrapperCol={createSpan(18)}
                             >
-                              <Input />
+                              <Select options={resultTypes} />
                             </Form.Item>
                             <Form.Item
                               {...field}
