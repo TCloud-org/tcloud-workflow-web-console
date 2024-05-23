@@ -188,7 +188,7 @@ export const GraphStateCard = (props: {
             <Flex
               vertical
               gap={8}
-              align="center"
+              align="flex-end"
               className="absolute -left-12 bottom-4"
             >
               {results.map((result, i) => (
