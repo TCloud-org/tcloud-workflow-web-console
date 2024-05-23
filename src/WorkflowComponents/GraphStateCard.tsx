@@ -99,7 +99,7 @@ export const GraphStateCard = (props: {
       ref={setNodeRef}
       id={state.id}
       style={style}
-      className="w-[350px] h-[350px] bg-white rounded-md flex flex-col"
+      className="w-[350px] h-[350px] bg-white rounded-md flex flex-col relative"
     >
       <div
         className="
@@ -185,24 +185,27 @@ export const GraphStateCard = (props: {
           </AppForm>
 
           {results.length > 0 && (
-            <Flex vertical gap={8} align="center">
-              <Flex wrap="wrap" gap={16}>
-                {results.map((result, i) => (
-                  <Tooltip title={result.name} key={i}>
-                    <Tag
-                      style={{ margin: 0 }}
-                      id={`${state.id}-${result.type}-${result.name}`}
-                      color={
-                        TagVariantMapping[
-                          result.type as keyof typeof TagVariantMapping
-                        ]?.color || "default"
-                      }
-                    >
-                      {result.type}
-                    </Tag>
-                  </Tooltip>
-                ))}
-              </Flex>
+            <Flex
+              vertical
+              gap={8}
+              align="center"
+              className="absolute -left-12 bottom-4"
+            >
+              {results.map((result, i) => (
+                <Tooltip title={result.name} key={i}>
+                  <Tag
+                    style={{ margin: 0 }}
+                    id={`${state.id}-${result.type}-${result.name}`}
+                    color={
+                      TagVariantMapping[
+                        result.type as keyof typeof TagVariantMapping
+                      ]?.color || "default"
+                    }
+                  >
+                    {result.type}
+                  </Tag>
+                </Tooltip>
+              ))}
             </Flex>
           )}
         </Flex>
