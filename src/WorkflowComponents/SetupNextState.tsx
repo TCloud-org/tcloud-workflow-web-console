@@ -78,10 +78,9 @@ export const SetupNextState = (props: {
       <Modal
         open={modalOpen}
         centered
-        onOk={() => setModalOpen(false)}
         onCancel={() => setModalOpen(false)}
         cancelButtonProps={{ className: "hidden" }}
-        okText="Save"
+        okButtonProps={{ className: "hidden" }}
       >
         <Flex vertical className="mt-8">
           <AppForm
