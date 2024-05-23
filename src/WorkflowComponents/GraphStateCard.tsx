@@ -5,10 +5,15 @@ import { createOneSpan } from "Config/DataDisplayInterface";
 import { TagVariantMapping } from "DataDisplayComponents/AppTag";
 import { AppForm } from "DataEntryComponents/AppForm";
 import { Flex, Form, Input, Tag, Tooltip, Typography, theme } from "antd";
-import { CSSProperties, Dispatch, SetStateAction, useEffect } from "react";
+import {
+  CSSProperties,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useMemo,
+} from "react";
 import { GraphState } from "./GraphBuilder";
 import { SetupNextState } from "./SetupNextState";
-import { AppButton } from "DataEntryComponents/AppButton";
 
 export const GraphStateCard = (props: {
   index?: number;
@@ -47,6 +52,10 @@ export const GraphStateCard = (props: {
   };
 
   const isFixedState = state.name === "Start" || state.name === "End";
+  const results = useMemo(
+    () => (state.results || []).filter((result) => result),
+    [state]
+  );
 
   useEffect(() => {
     form.setFieldsValue(state);
@@ -72,24 +81,17 @@ export const GraphStateCard = (props: {
   }
 
   const handleValuesChange = (_: any, values: any) => {
-    form.setFieldsValue(values);
-  };
-
-  const handleSave = () => {
-    const values = form.getFieldsValue();
-
     onUpdate((states) => {
       const newStates = [...states];
       if (index >= 0) {
-        const results = values.results.filter((result: any) => result);
         newStates[index] = {
           ...newStates[index],
           ...values,
-          results,
         };
       }
       return newStates;
     });
+    form.setFieldsValue(values);
   };
 
   return (
@@ -97,7 +99,7 @@ export const GraphStateCard = (props: {
       ref={setNodeRef}
       id={state.id}
       style={style}
-      className="w-[350px] h-[350px] bg-white rounded-md flex flex-col"
+      className="w-[350px] h-[350px] bg-white rounded-md flex flex-col z-10"
     >
       <div
         className="
@@ -176,24 +178,16 @@ export const GraphStateCard = (props: {
             )}
 
             {state.name !== "End" && (
-              <>
-                <Form.Item label="Next" name="results" className="mb-2 lg:mb-4">
-                  <SetupNextState modifyOnly={state.name === "Start"} />
-                </Form.Item>
-
-                <Form.Item>
-                  <AppButton onClick={handleSave} type="primary">
-                    Save
-                  </AppButton>
-                </Form.Item>
-              </>
+              <Form.Item label="Next" name="results" className="mb-2 lg:mb-4">
+                <SetupNextState modifyOnly={state.name === "Start"} />
+              </Form.Item>
             )}
           </AppForm>
 
-          {(state.results || []).length > 0 && (
+          {results.length > 0 && (
             <Flex vertical gap={8} align="center">
               <Flex wrap="wrap" gap={16}>
-                {(state.results || []).map((result, i) => (
+                {results.map((result, i) => (
                   <Tooltip title={result.name} key={i}>
                     <Tag
                       style={{ margin: 0 }}

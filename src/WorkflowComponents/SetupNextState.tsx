@@ -116,7 +116,10 @@ export const SetupNextState = (props: {
                               labelCol={createSpan(6)}
                               wrapperCol={createSpan(18)}
                             >
-                              <Select options={resultTypes} />
+                              <Select
+                                options={resultTypes}
+                                disabled={modifyOnly}
+                              />
                             </Form.Item>
                             <Form.Item
                               {...field}
@@ -126,7 +129,7 @@ export const SetupNextState = (props: {
                               labelCol={createSpan(6)}
                               wrapperCol={createSpan(18)}
                             >
-                              <Input />
+                              <Input disabled={modifyOnly} />
                             </Form.Item>
                             <Form.Item
                               {...field}
@@ -167,7 +170,7 @@ export const SetupNextState = (props: {
                         }}
                         icon={<AddCircleRounded style={{ fontSize: 14 }} />}
                       >
-                        Add field
+                        Add branch
                       </AppButton>
                       <Form.ErrorList errors={errors} />
                     </Form.Item>

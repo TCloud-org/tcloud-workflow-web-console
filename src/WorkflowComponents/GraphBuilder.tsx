@@ -116,6 +116,8 @@ export const GraphBuilder = () => {
     const overId = over.id;
 
     if (activeId === overId) return;
+
+    updateXarrow();
   };
 
   const handleAddState = () => {
@@ -176,7 +178,10 @@ export const GraphBuilder = () => {
               </SortableContext>
             </Flex>
 
-            <GraphLineConnectors states={states} />
+            <GraphLineConnectors
+              states={states}
+              reset={activeState !== undefined}
+            />
 
             <Flex
               gap={8}
