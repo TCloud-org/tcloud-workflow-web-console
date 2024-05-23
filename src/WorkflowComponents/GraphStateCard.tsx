@@ -1,6 +1,10 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { DeleteRounded, DragIndicatorRounded } from "@mui/icons-material";
+import {
+  ArrowRightAlt,
+  DeleteRounded,
+  DragIndicatorRounded,
+} from "@mui/icons-material";
 import { createOneSpan } from "Config/DataDisplayInterface";
 import { TagVariantMapping } from "DataDisplayComponents/AppTag";
 import { AppForm } from "DataEntryComponents/AppForm";
@@ -192,7 +196,16 @@ export const GraphStateCard = (props: {
               className="absolute -left-[50px] bottom-4"
             >
               {results.map((result, i) => (
-                <Tooltip title={result.name} key={i}>
+                <Tooltip
+                  title={
+                    <Typography.Text style={{ color: token.colorWhite }}>
+                      {result.name}{" "}
+                      <ArrowRightAlt style={{ color: token.colorWhite }} />{" "}
+                      {result.target}
+                    </Typography.Text>
+                  }
+                  key={i}
+                >
                   <Tag
                     style={{ margin: 0 }}
                     id={`${state.id}-${result.type}-${result.name}`}
