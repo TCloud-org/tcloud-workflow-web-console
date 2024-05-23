@@ -189,7 +189,7 @@ export const GraphStateCard = (props: {
               vertical
               gap={8}
               align="flex-end"
-              className="absolute -left-12 bottom-4"
+              className="absolute -left-[50px] bottom-4"
             >
               {results.map((result, i) => (
                 <Tooltip title={result.name} key={i}>

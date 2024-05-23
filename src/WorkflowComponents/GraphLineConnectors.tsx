@@ -40,7 +40,7 @@ export const GraphLineConnectors = (props: {
               }
               headShape="arrow1"
               startAnchor={{ position: "left", offset: { x: 0, y: 0 } }}
-              endAnchor={{ position: "left", offset: { x: 0, y: 0 } }}
+              endAnchor={{ position: "left", offset: { x: 0, y: j * 32 } }}
             />
           ))
       )}
