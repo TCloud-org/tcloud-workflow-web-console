@@ -220,10 +220,11 @@ export const CreateGraphPage = () => {
               }
               endDecorator={
                 <AppButton
-                  style={{ padding: 0, color: textColor }}
-                  type="link"
+                  style={{ color: textColor }}
+                  type="text"
                   onClick={handleValidate}
                   loading={isValidating}
+                  className="hover:!bg-slate-600/40"
                 >
                   Validate
                 </AppButton>

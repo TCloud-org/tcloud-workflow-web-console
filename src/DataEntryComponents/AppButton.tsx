@@ -19,6 +19,7 @@ export const AppButton = (props: AppButtonProps) => {
         style={props.style}
         color={props.color}
         size={props.size}
+        className={props.className}
       >
         {props.children}
       </Button>

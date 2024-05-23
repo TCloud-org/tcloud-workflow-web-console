@@ -151,7 +151,7 @@ export const GraphBuilder = () => {
         overflow-x-auto
         overflow-y-hidden
         p-10
-        bg-slate-300/20
+        bg-slate-300/20 rounded-md
     "
     >
       <DndContext
@@ -160,7 +160,7 @@ export const GraphBuilder = () => {
         onDragEnd={onDragEnd}
         onDragOver={onDragOver}
       >
-        <div className="m-auto flex gap-4">
+        <div className="m-auto flex gap-4 z-20">
           <Flex vertical gap={48}>
             <Flex vertical gap={96}>
               <SortableContext items={stateIds}>

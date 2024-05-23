@@ -99,7 +99,7 @@ export const GraphStateCard = (props: {
       ref={setNodeRef}
       id={state.id}
       style={style}
-      className="w-[350px] h-[350px] bg-white rounded-md flex flex-col z-10"
+      className="w-[350px] h-[350px] bg-white rounded-md flex flex-col"
     >
       <div
         className="

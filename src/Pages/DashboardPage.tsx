@@ -1,5 +1,6 @@
 import { EditableColumn } from "Config/LayoutConfig";
 import { WorkColumns } from "Config/TableColumnConfig";
+import { AppSurface } from "DataDisplayComponents/AppSurface";
 import { PageTitle } from "DataDisplayComponents/PageTitle";
 import { getBilling, getInfraStat } from "Network/WorkflowFetch";
 import { WorkPeriodToolbar } from "WorkflowComponents/WorkPeriodToolbar";
@@ -20,8 +21,6 @@ import {
   getWorkStatisticInDateRange,
   getWorksInDateRange,
 } from "../Network/WorkFetch";
-import { AppSurface } from "DataDisplayComponents/AppSurface";
-import { GraphBuilder } from "WorkflowComponents/GraphBuilder";
 
 export const DashboardPage = () => {
   const { token } = theme.useToken();
@@ -201,8 +200,6 @@ export const DashboardPage = () => {
           exludedColumnsFromExport={{ metadata: true }}
         />
       </AppSpace>
-
-      <GraphBuilder />
     </AppSurface>
   );
 };
