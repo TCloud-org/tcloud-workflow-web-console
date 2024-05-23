@@ -39,6 +39,9 @@ root.render(
         Table: {
           rowSelectedBg: "rgb(241 245 249 / 0.6)",
         },
+        Segmented: {
+          trackBg: "rgb(241 245 249 / 0.6)",
+        },
       },
       token: {
         colorPrimary: "#4312e5",

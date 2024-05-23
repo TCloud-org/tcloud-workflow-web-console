@@ -3,7 +3,7 @@ import { Client } from "Config/SCSConfig";
 import { AppSurface } from "DataDisplayComponents/AppSurface";
 import { AppCodeInput } from "DataEntryComponents/Form/AppCodeInput";
 import { getClients } from "Network/SecurityFetch";
-import { Alert, Form, Input, InputNumber, Select, Typography } from "antd";
+import { Alert, Col, Form, Input, InputNumber, Select, Typography } from "antd";
 import axios from "axios";
 import { Account } from "features/auth/authSlice";
 import { useCallback, useEffect, useState } from "react";
@@ -22,9 +22,12 @@ import { AppButton } from "../../DataEntryComponents/AppButton";
 import { AppForm } from "../../DataEntryComponents/AppForm";
 import { AppSpace } from "../../LayoutComponents/AppSpace";
 import { fetchGraphsById } from "../../Network/WorkflowFetch";
+import { AppRow } from "LayoutComponents/AppRow";
+import { Span } from "Config/DataDisplayInterface";
 
 export const CreateGraphPage = () => {
   const [form] = Form.useForm();
+  const [graphForm] = Form.useForm();
   const navigate = useNavigate();
   const authToken = useSelector((state: any) => state.auth.token);
   const account: Account = useSelector((state: any) => state.auth.account);
@@ -121,6 +124,7 @@ export const CreateGraphPage = () => {
       ...form.getFieldsValue(),
       workflowId: workflow.workflowId,
       workflow: undefined,
+      ...graphForm.getFieldsValue(),
     };
     const config = {
       headers: {
@@ -153,37 +157,61 @@ export const CreateGraphPage = () => {
     form.setFieldsValue(values);
   };
 
+  const handleGraphFormValuesChange = (_: any, values: any) => {
+    graphForm.setFieldsValue(values);
+  };
+
   return (
     <AppSurface type="form">
       <AppSpace>
         <Typography.Title level={4}>Create a new graph</Typography.Title>
-        <AppForm form={form} onValuesChange={handleValuesChange}>
-          <Form.Item label="Client" name="clientId">
-            <Select
-              options={clients.map((client) => ({
-                label: client.clientId,
-                value: client.clientId,
-              }))}
-              placeholder="Select a client"
-            />
-          </Form.Item>
-          <Form.Item label="Workflow" name="workflow">
-            <Select
-              options={workflows.map((workflow) => ({
-                label: workflow.workflowName,
-                value: JSON.stringify(workflow),
-              }))}
-              placeholder="Select a workflow"
-              disabled={!clientId}
-            />
-          </Form.Item>
-          <Form.Item
-            label="Alias"
-            name="alias"
-            tooltip="If this field is left empty, it will be automatically assigned a generated ID"
-          >
-            <Input name="alias" disabled={!workflowId} />
-          </Form.Item>
+        <AppForm
+          form={form}
+          onValuesChange={handleValuesChange}
+          layout="vertical"
+        >
+          <AppRow gutter={[16, 16]}>
+            <Col {...Span[2]}>
+              <Form.Item label="Client" name="clientId">
+                <Select
+                  options={clients.map((client) => ({
+                    label: client.clientId,
+                    value: client.clientId,
+                  }))}
+                  placeholder="Select a client"
+                />
+              </Form.Item>
+            </Col>
+            <Col {...Span[2]}>
+              <Form.Item label="Workflow" name="workflow">
+                <Select
+                  options={workflows.map((workflow) => ({
+                    label: workflow.workflowName,
+                    value: JSON.stringify(workflow),
+                  }))}
+                  placeholder="Select a workflow"
+                  disabled={!clientId}
+                />
+              </Form.Item>
+            </Col>
+          </AppRow>
+
+          <AppRow gutter={[16, 16]}>
+            <Col {...Span[2]}>
+              <Form.Item
+                label="Alias"
+                name="alias"
+                tooltip="If this field is left empty, it will be automatically assigned a generated ID"
+              >
+                <Input name="alias" disabled={!workflowId} />
+              </Form.Item>
+            </Col>
+            <Col {...Span[2]}>
+              <Form.Item label="Version" name="version" tooltip="Next version">
+                <InputNumber style={{ width: "100%" }} disabled />
+              </Form.Item>
+            </Col>
+          </AppRow>
 
           <Form.Item
             label="Description"
@@ -192,13 +220,16 @@ export const CreateGraphPage = () => {
           >
             <Input.TextArea disabled={!workflowId} />
           </Form.Item>
+        </AppForm>
 
-          <Form.Item label="Version" name="version" tooltip="Next version">
-            <InputNumber style={{ width: "100%" }} disabled />
-          </Form.Item>
+        <AppForm form={graphForm} onValuesChange={handleGraphFormValuesChange}>
+          <Typography.Text>Graph</Typography.Text>
 
-          <Form.Item label="Graph" name="xmlContent">
+          <div className="h-2" />
+
+          <Form.Item label="Graph" name="xmlContent" noStyle>
             <AppCodeInput
+              showOptions
               banner={
                 showAlert && isXMLValidated ? (
                   <Alert
@@ -231,6 +262,8 @@ export const CreateGraphPage = () => {
               }
             />
           </Form.Item>
+
+          <div className="h-4" />
 
           <Form.Item noStyle>
             <AppButton

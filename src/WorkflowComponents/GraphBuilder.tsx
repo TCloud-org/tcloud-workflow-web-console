@@ -153,6 +153,7 @@ export const GraphBuilder = () => {
         p-10
         bg-slate-300/20 rounded-md
     "
+      style={{ border: `1px solid ${token.colorBorder}` }}
     >
       <DndContext
         sensors={sensors}
