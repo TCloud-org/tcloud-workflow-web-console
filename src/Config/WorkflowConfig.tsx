@@ -131,6 +131,7 @@ export interface Graph {
   alias?: string;
   xmlContent: string;
   parsedGraphResult?: XMLParsedGraphResult;
+  graphArch?: any;
   version: number;
   createdAt: string;
   updatedAt: string;

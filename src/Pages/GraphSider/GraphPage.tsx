@@ -23,7 +23,7 @@ import { formatDateString } from "../../Utils/DateUtils";
 
 const columns: EditableColumn[] = [
   {
-    title: "Graph Id",
+    title: "Id",
     dataIndex: "graphId",
     render: (text: string) => (
       <AppLink href={`/graph/${text}`} tooltip="Click to view or edit graph">
@@ -32,16 +32,24 @@ const columns: EditableColumn[] = [
     ),
   },
   {
+    title: "Client Id",
+    dataIndex: "clientId",
+    hidden: true,
+  },
+  {
+    title: "Workflow Id",
+    dataIndex: "workflowId",
+    hidden: true,
+  },
+  {
     title: "Description",
     dataIndex: "description",
     editable: true,
-    width: "35%",
   },
   {
     title: "Alias",
     dataIndex: "alias",
     editable: true,
-    width: "15%",
   },
   {
     title: "Version",
@@ -49,13 +57,23 @@ const columns: EditableColumn[] = [
     sorter: (a, b) => a["version"] - b["version"],
   },
   {
-    title: "Last Modified",
+    title: "Created",
     dataIndex: "createdAt",
     render: (text: string) => (
       <Typography.Text>{formatDateString(text)}</Typography.Text>
     ),
     sorter: (a, b) =>
       new Date(a["createdAt"]).getTime() - new Date(b["createdAt"]).getTime(),
+  },
+  {
+    title: "Updated",
+    dataIndex: "updatedAt",
+    render: (text: string) => (
+      <Typography.Text>{formatDateString(text)}</Typography.Text>
+    ),
+    sorter: (a, b) =>
+      new Date(a["updatedAt"]).getTime() - new Date(b["updatedAt"]).getTime(),
+    hidden: true,
   },
 ];
 
@@ -150,16 +168,18 @@ export const GraphPage = () => {
         <AppDescriptions title="Details" items={graphDescriptions} />
       </AppSurface>
 
-      <AppTable
-        rows={graphs}
-        columns={columns.map((col) =>
-          !col.editable ? col : { ...col, handleSave: saveGraph }
-        )}
-        selected={selected}
-        heading="Graphs"
-        setSelected={setSelected}
-        rowId="graphId"
-      />
+      <AppSurface type="form">
+        <AppTable
+          rows={graphs}
+          columns={columns.map((col) =>
+            !col.editable ? col : { ...col, handleSave: saveGraph }
+          )}
+          selected={selected}
+          heading="Graphs"
+          setSelected={setSelected}
+          rowId="graphId"
+        />
+      </AppSurface>
     </AppSpace>
   );
 };

@@ -1,23 +1,31 @@
-import { borderColor, textColor } from "Config/LayoutConfig";
+import { ContentCopyRounded } from "@mui/icons-material";
+import LibraryAddCheckRounded from "@mui/icons-material/LibraryAddCheckRounded";
+import { Span } from "Config/DataDisplayInterface";
 import { XMLCodeEditor } from "DataDisplayComponents/XMLCodeEditor";
 import { AppSegmented } from "DataEntryComponents/AppSegmented";
-import { Flex, Segmented, Tooltip } from "antd";
-import LibraryAddCheckRounded from "@mui/icons-material/LibraryAddCheckRounded";
-import { ContentCopyRounded } from "@mui/icons-material";
-import { ReactNode, useState } from "react";
 import { GraphBuilder } from "WorkflowComponents/GraphBuilder";
+import { Flex, Form, Segmented, Tooltip, theme } from "antd";
+import { ReactNode, useMemo, useState } from "react";
 
+export enum GraphFormatType {
+  XML_GRAPH_FORMAT = "xmlGraphFormat",
+  UI_BUILDER_GRAPH_FORMAT = "uiBuilderGraphFormat",
+}
 export const AppCodeInput = (props: {
-  value?: string;
-  onChange?: (e: string) => void;
+  value?: any;
+  onChange?: (e: any) => void;
   endDecorator?: ReactNode;
   banner?: ReactNode;
   showOptions?: boolean;
 }) => {
-  const { showOptions } = props;
+  const { token } = theme.useToken();
+  const { showOptions, value } = props;
 
   const [copy, setCopy] = useState<boolean>(false);
-  const [inputType, setInputType] = useState<string>("XML");
+  const inputType = useMemo(
+    () => value?.type || GraphFormatType.XML_GRAPH_FORMAT,
+    [value]
+  );
 
   const handleCopy = () => {
     navigator.clipboard.writeText(props.value || "");
@@ -33,32 +41,38 @@ export const AppCodeInput = (props: {
 
       {showOptions && (
         <Flex>
-          <Segmented
-            options={["XML", "Graph Builder"]}
-            value={inputType}
-            onChange={setInputType}
-          />
+          <Form.Item name={["graphFormat", "type"]} noStyle>
+            <Segmented
+              options={[
+                { label: "XML", value: GraphFormatType.XML_GRAPH_FORMAT },
+                {
+                  label: "Graph Builder",
+                  value: GraphFormatType.UI_BUILDER_GRAPH_FORMAT,
+                },
+              ]}
+              property="value"
+            />
+          </Form.Item>
         </Flex>
       )}
 
-      {inputType === "Graph Builder" ? (
-        <GraphBuilder />
+      {inputType === GraphFormatType.UI_BUILDER_GRAPH_FORMAT ? (
+        <Form.Item
+          name={["graphFormat", inputType, "states"]}
+          wrapperCol={Span[1]}
+        >
+          <GraphBuilder />
+        </Form.Item>
       ) : (
         <div
-          className="bg-[#0a1021] rounded-xl overflow-hidden"
-          style={{ border: `1px solid ${borderColor}` }}
+          className="bg-[#fff] rounded-xl overflow-hidden"
+          style={{ border: `1px solid ${token.colorBorder}` }}
         >
           <div
-            className="flex items-center justify-between px-6 py-4"
-            style={{ borderBottom: `1px solid ${borderColor}` }}
+            className="flex items-center justify-between p-4"
+            style={{ borderBottom: `1px solid ${token.colorBorder}` }}
           >
             <Flex align="center" gap={16}>
-              {/* <div className="flex space-x-2">
-            <div className="w-3 h-3 rounded-full bg-red-500"></div>
-            <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-            <div className="w-3 h-3 rounded-full bg-green-500"></div>
-          </div> */}
-
               <AppSegmented
                 value="xml"
                 options={[
@@ -71,19 +85,19 @@ export const AppCodeInput = (props: {
             </Flex>
 
             <Flex align="center" gap={16}>
-              <div style={{ color: textColor }}>{props.endDecorator}</div>
+              <div style={{ color: token.colorText }}>{props.endDecorator}</div>
 
               {copy ? (
                 <Tooltip title="Copied">
                   <LibraryAddCheckRounded
-                    style={{ color: textColor, fontSize: 18 }}
+                    style={{ color: token.colorText, fontSize: 18 }}
                   />
                 </Tooltip>
               ) : (
                 <Tooltip title="Copy">
                   <ContentCopyRounded
                     style={{
-                      color: textColor,
+                      color: token.colorText,
                       cursor: "pointer",
                       fontSize: 18,
                     }}
@@ -93,11 +107,14 @@ export const AppCodeInput = (props: {
               )}
             </Flex>
           </div>
-          <XMLCodeEditor
-            theme="dark"
-            value={props.value}
-            onChange={props.onChange}
-          />
+          <Form.Item
+            name={["graphFormat", inputType, "xml"]}
+            className="w-full"
+            wrapperCol={Span[1]}
+            noStyle
+          >
+            <XMLCodeEditor theme="light" style={{ width: "100%" }} />
+          </Form.Item>
         </div>
       )}
     </Flex>

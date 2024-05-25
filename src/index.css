@@ -426,3 +426,7 @@ thead {
 .ant-table-row-selected>.ant-table-cell {
   background: rgb(241 245 249 / 0.6) !important;
 }
+
+.cm-focused {
+  outline: none !important;
+}

@@ -12,7 +12,7 @@ import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 import { AddCircleRounded } from "@mui/icons-material";
 import { ResultType } from "Config/WorkflowConfig";
 import { Flex, Typography, theme } from "antd";
-import { Fragment, useMemo, useState } from "react";
+import { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useXarrow } from "react-xarrows";
 import { v4 } from "uuid";
@@ -25,28 +25,46 @@ export interface GraphResult {
   target?: string;
 }
 
+export enum GraphStateType {
+  STATE = "STATE",
+  WAIT = "WAIT",
+}
+
 export interface GraphState {
   id: string;
+  type?: GraphStateType;
   name?: string;
   service?: string;
   operation?: string;
-  results?: GraphResult[];
+  branches?: GraphResult[];
   removable?: boolean;
 }
 
-export const GraphBuilder = () => {
+export const GraphBuilder = (props: {
+  value?: GraphState[];
+  onChange?: (e: any) => void;
+}) => {
   const { token } = theme.useToken();
+  const {
+    value = [
+      {
+        name: "Start",
+        branches: [
+          { type: "success", name: "SystemInitialized", target: "End" },
+        ],
+      },
+      { name: "End", branches: [] },
+    ],
+    onChange = () => {},
+  } = props;
+
+  const onChangeRef = useRef(onChange);
 
   const updateXarrow = useXarrow();
 
-  const [states, setStates] = useState<GraphState[]>([
-    {
-      id: v4(),
-      name: "Start",
-      results: [{ type: "success", name: "SystemInitialized", target: "End" }],
-    },
-    { id: v4(), name: "End", results: [] },
-  ]);
+  const [states, setStates] = useState<GraphState[]>(
+    value.map((item) => ({ id: v4(), ...item }))
+  );
 
   const [activeState, setActiveState] = useState<GraphState | undefined>(
     undefined
@@ -64,6 +82,14 @@ export const GraphBuilder = () => {
       },
     })
   );
+
+  useEffect(() => {
+    onChangeRef.current = onChange;
+  }, [onChange]);
+
+  useEffect(() => {
+    onChangeRef.current(states);
+  }, [states]);
 
   const onDragStart = (event: DragStartEvent) => {
     if (event.active.data.current?.type === "State") {

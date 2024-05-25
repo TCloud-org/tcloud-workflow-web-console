@@ -1,7 +1,11 @@
-import { textColor } from "Config/LayoutConfig";
+import { Span } from "Config/DataDisplayInterface";
 import { Client } from "Config/SCSConfig";
 import { AppSurface } from "DataDisplayComponents/AppSurface";
-import { AppCodeInput } from "DataEntryComponents/Form/AppCodeInput";
+import {
+  AppCodeInput,
+  GraphFormatType,
+} from "DataEntryComponents/Form/AppCodeInput";
+import { AppRow } from "LayoutComponents/AppRow";
 import { getClients } from "Network/SecurityFetch";
 import { Alert, Col, Form, Input, InputNumber, Select, Typography } from "antd";
 import axios from "axios";
@@ -22,8 +26,6 @@ import { AppButton } from "../../DataEntryComponents/AppButton";
 import { AppForm } from "../../DataEntryComponents/AppForm";
 import { AppSpace } from "../../LayoutComponents/AppSpace";
 import { fetchGraphsById } from "../../Network/WorkflowFetch";
-import { AppRow } from "LayoutComponents/AppRow";
-import { Span } from "Config/DataDisplayInterface";
 
 export const CreateGraphPage = () => {
   const [form] = Form.useForm();
@@ -119,12 +121,16 @@ export const CreateGraphPage = () => {
   const handleCreate = async () => {
     setLoading(true);
 
-    const workflow = JSON.parse(form.getFieldValue("workflow")) || {};
+    const workflow = JSON.parse(form.getFieldValue("workflow") || "{}");
+    const graphFormat = graphForm.getFieldValue("graphFormat") || {};
     const params = {
       ...form.getFieldsValue(),
       workflowId: workflow.workflowId,
+      graphFormat: {
+        type: graphFormat.type || GraphFormatType.XML_GRAPH_FORMAT,
+        ...graphFormat[graphFormat.type || GraphFormatType.XML_GRAPH_FORMAT],
+      },
       workflow: undefined,
-      ...graphForm.getFieldsValue(),
     };
     const config = {
       headers: {
@@ -135,7 +141,7 @@ export const CreateGraphPage = () => {
     await axios
       .post(WOS_ADD_GRAPH_ENDPOINT, params, config)
       .then((_) => {
-        navigate("/graph");
+        navigate("/step-workflow");
       })
       .catch((_) => {});
 
@@ -217,6 +223,7 @@ export const CreateGraphPage = () => {
             label="Description"
             name="description"
             tooltip="This description offers helpful context for this graph version"
+            style={{ marginBottom: 0 }}
           >
             <Input.TextArea disabled={!workflowId} />
           </Form.Item>
@@ -227,7 +234,7 @@ export const CreateGraphPage = () => {
 
           <div className="h-2" />
 
-          <Form.Item label="Graph" name="xmlContent" noStyle>
+          <Form.Item name="graphFormat">
             <AppCodeInput
               showOptions
               banner={
@@ -251,11 +258,10 @@ export const CreateGraphPage = () => {
               }
               endDecorator={
                 <AppButton
-                  style={{ color: textColor }}
                   type="text"
                   onClick={handleValidate}
                   loading={isValidating}
-                  className="hover:!bg-slate-600/40"
+                  className="hover:!bg-slate-400/10"
                 >
                   Validate
                 </AppButton>
@@ -263,16 +269,8 @@ export const CreateGraphPage = () => {
             />
           </Form.Item>
 
-          <div className="h-4" />
-
           <Form.Item noStyle>
-            <AppButton
-              disabled={!isXMLValidated}
-              type="primary"
-              tooltip={isXMLValidated ? undefined : "Validate your graph first"}
-              onClick={handleCreate}
-              loading={loading}
-            >
+            <AppButton type="primary" onClick={handleCreate} loading={loading}>
               Create
             </AppButton>
           </Form.Item>

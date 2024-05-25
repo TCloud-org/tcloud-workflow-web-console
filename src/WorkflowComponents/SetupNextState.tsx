@@ -55,11 +55,11 @@ export const SetupNextState = (props: {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
   useEffect(() => {
-    form.setFieldsValue({ results: value });
+    form.setFieldsValue({ branches: value });
   }, [form, value]);
 
   const handleValueChanges = (_: any, values: any) => {
-    onChange(values.results || []);
+    onChange(values.branches || []);
     form.setFieldsValue(values);
   };
 
@@ -89,7 +89,7 @@ export const SetupNextState = (props: {
             labelCol={createSpan(6)}
             wrapperCol={createSpan(18)}
           >
-            <Form.List name="results">
+            <Form.List name="branches">
               {(fields, { add, remove }, { errors }) => (
                 <>
                   {fields.map((field, index) => (

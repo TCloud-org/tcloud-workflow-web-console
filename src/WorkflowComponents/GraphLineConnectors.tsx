@@ -29,14 +29,14 @@ export const GraphLineConnectors = (props: {
   return (
     <div onLoad={useXarrow()}>
       {states.map((state, i) =>
-        (state.results || [])
-          .filter((result) => result)
-          .map((result, j) => (
+        (state.branches || [])
+          .filter((branch) => branch)
+          .map((branch, j) => (
             <AppLineConnector
               key={`${v4()}-${i}-${j}`}
-              start={`${state.id}-${result.type}-${result.name}`}
+              start={`${state.id}-${branch.type}-${branch.name}`}
               end={
-                states.find((item) => item.name === result.target)?.id as string
+                states.find((item) => item.name === branch.target)?.id as string
               }
               headShape="arrow1"
               startAnchor={{ position: "left", offset: { x: 0, y: 0 } }}

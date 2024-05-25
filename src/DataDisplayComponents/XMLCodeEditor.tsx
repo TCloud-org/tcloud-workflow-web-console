@@ -3,6 +3,7 @@ import { langs } from "@uiw/codemirror-extensions-langs";
 import { githubDarkInit, githubLightInit } from "@uiw/codemirror-theme-github";
 import ReactCodeMirror, { ViewUpdate } from "@uiw/react-codemirror";
 import { textColor } from "Config/LayoutConfig";
+import { theme } from "antd";
 import { CSSProperties } from "react";
 
 export type CodeTheme = "light" | "dark" | undefined;
@@ -13,11 +14,12 @@ export const XMLCodeEditor = (props: {
   style?: CSSProperties;
 }) => {
   const {
-    theme = "light",
+    theme: codeTheme = "light",
     value = '<?xml version="1.0" encoding="UTF-8"?>',
     onChange = () => {},
     style,
   } = props;
+  const { token } = theme.useToken();
 
   const myCompletions = (context: any) => {
     let word = context.matchBefore(/\w*/);
@@ -66,11 +68,12 @@ export const XMLCodeEditor = (props: {
       onChange={onChange}
       style={style}
       theme={
-        theme === "light"
+        codeTheme === "light"
           ? githubLightInit({
               settings: {
                 caret: "#000000",
                 fontFamily: "monospace",
+                lineHighlight: token.colorFillTertiary,
               },
             })
           : githubDarkInit({

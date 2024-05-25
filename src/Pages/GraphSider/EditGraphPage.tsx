@@ -1,15 +1,15 @@
 import { AppSurface } from "DataDisplayComponents/AppSurface";
 import { PageTitle } from "DataDisplayComponents/PageTitle";
-import { AppCodeInput } from "DataEntryComponents/Form/AppCodeInput";
-import { Alert, Form, Input } from "antd";
+import {
+  AppCodeInput,
+  GraphFormatType,
+} from "DataEntryComponents/Form/AppCodeInput";
+import { Alert, Form, Input, Typography } from "antd";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import {
-  GENERATED_ID_INPUT_TOOLTIP,
-  createSpan,
-} from "../../Config/DataDisplayInterface";
+import { GENERATED_ID_INPUT_TOOLTIP } from "../../Config/DataDisplayInterface";
 import { WOS_ADD_GRAPH_ENDPOINT } from "../../Config/WOSEndpointConfig";
 import { Graph } from "../../Config/WorkflowConfig";
 import { AppButton } from "../../DataEntryComponents/AppButton";
@@ -28,10 +28,11 @@ export const EditGraphPage = () => {
   const location = useLocation();
   const {
     graph,
-    nextAvailableVersion,
-  }: { graph: Graph; nextAvailableVersion: number } = location.state || {};
+  }: // nextAvailableVersion,
+  { graph: Graph; nextAvailableVersion: number } = location.state || {};
 
   const [form] = Form.useForm();
+  const [graphForm] = Form.useForm();
 
   const [loading, setLoading] = useState<boolean>(false);
   const [failedValidation, setFailedValidation] = useState<boolean>(false);
@@ -39,40 +40,45 @@ export const EditGraphPage = () => {
   useEffect(() => {
     if (graph) {
       form.setFieldsValue({
+        clientId: graph.clientId,
+        workflowId: graph.workflowId,
         alias: graph.alias,
         description: graph.description,
-        xmlContent: graph.xmlContent,
         version: graph.version,
       });
-    }
-  }, [graph, nextAvailableVersion, form]);
 
-  const handleValuesChange = (e: any) => {
-    if (e.xmlContent) {
-      if (e.xmlContent !== graph.xmlContent) {
-        form.setFieldsValue({
-          version: nextAvailableVersion,
-        });
-      } else {
-        form.setFieldsValue({
-          version: graph.version,
-        });
-      }
+      graphForm.setFieldsValue({
+        graphFormat: {
+          type: GraphFormatType.XML_GRAPH_FORMAT,
+          [GraphFormatType.XML_GRAPH_FORMAT]: {
+            xml: graph.xmlContent,
+          },
+          [GraphFormatType.UI_BUILDER_GRAPH_FORMAT]: {
+            states: graph.graphArch?.states || [],
+          },
+        },
+      });
     }
-    form.setFieldsValue(e);
+  }, [graph, form, graphForm]);
+
+  const handleValuesChange = (e: any, values: any) => {
+    form.setFieldsValue(values);
   };
 
   const handleEdit = async () => {
     setLoading(true);
 
+    const graphFormat = graphForm.getFieldValue("graphFormat") || {};
+
     const params = {
-      graphId:
-        form.getFieldValue("xmlContent") === graph.xmlContent
-          ? graph.graphId
-          : null,
+      graphId: graph.graphId,
       clientId,
       workflowId,
       ...form.getFieldsValue(),
+      graphFormat: {
+        type: graphFormat.type || GraphFormatType.XML_GRAPH_FORMAT,
+        ...graphFormat[graphFormat.type || GraphFormatType.XML_GRAPH_FORMAT],
+      },
     };
     const config = {
       headers: {
@@ -100,11 +106,18 @@ export const EditGraphPage = () => {
           <Alert message="Graph validation failed" type="error" showIcon />
         )}
         <AppForm
+          layout="vertical"
           form={form}
           onValuesChange={handleValuesChange}
-          labelCol={createSpan(4)}
-          wrapperCol={createSpan(20)}
         >
+          <Form.Item label="Client" name="clientId">
+            <Input disabled />
+          </Form.Item>
+
+          <Form.Item label="Workflow" name="workflowId">
+            <Input disabled />
+          </Form.Item>
+
           <Form.Item
             name="alias"
             label="Alias"
@@ -122,13 +135,26 @@ export const EditGraphPage = () => {
           <Form.Item
             name="version"
             label="Version"
-            tooltip="Next available version"
+            tooltip="Current version"
+            style={{ marginBottom: 0 }}
           >
             <Input disabled />
           </Form.Item>
-          <Form.Item name="xmlContent" label="Graph">
-            <AppCodeInput />
+        </AppForm>
+
+        <AppForm
+          form={graphForm}
+          onValuesChange={(_, values) => graphForm.setFieldsValue(values)}
+        >
+          <Typography.Text>Graph</Typography.Text>
+
+          <div className="h-2" />
+
+          <Form.Item name="graphFormat" noStyle>
+            <AppCodeInput showOptions />
           </Form.Item>
+
+          <div className="h-4" />
 
           <Form.Item noStyle>
             <AppButton loading={loading} onClick={handleEdit} type="primary">

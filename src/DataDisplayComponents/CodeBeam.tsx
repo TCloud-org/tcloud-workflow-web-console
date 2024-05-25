@@ -1,9 +1,12 @@
-import { Flex } from "antd";
-import ReactSyntaxHighlighter from "react-syntax-highlighter";
-import { atomOneDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
-import { AppCopy } from "./AppCopy";
-import { CSSProperties, useState } from "react";
 import { CodeSegmented } from "DataEntryComponents/CodeSegmented";
+import { Flex, theme } from "antd";
+import { CSSProperties, useState } from "react";
+import ReactSyntaxHighlighter from "react-syntax-highlighter";
+import {
+  atomOneDark,
+  atomOneLight,
+} from "react-syntax-highlighter/dist/esm/styles/hljs";
+import { AppCopy } from "./AppCopy";
 
 export const textColor = "#f8fafc";
 
@@ -35,8 +38,27 @@ export const CodeBeam = (props: {
   className?: string;
   style?: CSSProperties;
   wrapLongLines?: boolean;
+  themeMode?: "light" | "dark";
 }) => {
+  const { token } = theme.useToken();
+
+  const themeMapping = {
+    light: {
+      backgroundColor: "#ffffff",
+      borderColor: token.colorBorder,
+      textColor: token.colorText,
+      codeTheme: atomOneLight,
+    },
+    dark: {
+      backgroundColor: "#0a1021",
+      borderColor: "#222c3f",
+      textColor: textColor,
+      codeTheme: atomOneDark,
+    },
+  };
+
   const {
+    themeMode = "light",
     value = "",
     showDots,
     label,
@@ -49,19 +71,25 @@ export const CodeBeam = (props: {
     wrapLongLines = false,
   } = props;
 
+  const currentTheme = themeMapping[themeMode];
+
   const [select, setSelect] = useState<string>(value);
 
   const code = snippets.find((snippet) => snippet.key === select)?.value;
 
   return (
     <div
-      className={`bg-[#0a1021] rounded-xl overflow-hidden ${className}`}
-      style={{ border: `1px solid ${borderColor}`, ...style }}
+      className={`rounded-xl overflow-hidden ${className}`}
+      style={{
+        border: `1px solid ${currentTheme.borderColor}`,
+        backgroundColor: currentTheme.backgroundColor,
+        ...style,
+      }}
     >
       {!hideToolbar && (
         <div
-          className="flex items-center justify-between px-6 py-4"
-          style={{ borderBottom: `1px solid ${borderColor}` }}
+          className="flex items-center justify-between p-4"
+          style={{ borderBottom: `1px solid ${currentTheme.borderColor}` }}
         >
           <Flex align="center" gap={16}>
             {showDots && (
@@ -87,21 +115,21 @@ export const CodeBeam = (props: {
             />
           </Flex>
 
-          <AppCopy content={code} color={textColor} />
+          <AppCopy content={code} color={currentTheme.textColor} />
         </div>
       )}
 
       <ReactSyntaxHighlighter
         language={snippets.find((snippet) => snippet.key === select)?.language}
-        style={atomOneDark}
+        style={currentTheme.codeTheme}
         showLineNumbers={borderColor !== "transparent"}
         wrapLongLines={wrapLongLines}
         customStyle={{
           padding: borderColor === "transparent" ? 0 : "27px",
           fontSize: "0.75rem",
-          backgroundColor: "#0a1021",
+          background: currentTheme.backgroundColor,
           border: "none",
-          color: textColor,
+          color: currentTheme.textColor,
         }}
       >
         {`${code}`}
@@ -109,7 +137,7 @@ export const CodeBeam = (props: {
       {hideToolbar && (
         <AppCopy
           content={code}
-          color={textColor}
+          color={currentTheme.textColor}
           className="absolute top-2 right-2"
         />
       )}

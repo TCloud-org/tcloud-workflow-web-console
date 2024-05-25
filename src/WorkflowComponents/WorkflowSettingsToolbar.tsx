@@ -66,7 +66,12 @@ export const WorkflowSettingsToolbar = (props: {
                 <Flex gap="8px" align="center">
                   <Switch
                     checked={selected[attribute]}
-                    disabled={disabled[attribute]}
+                    disabled={
+                      disabled[attribute] ||
+                      columns.findIndex(
+                        (item) => item.dataIndex === attribute
+                      ) === -1
+                    }
                     size="small"
                     onChange={(checked) => handleSelect(attribute, checked)}
                   />

@@ -56,8 +56,8 @@ export const GraphStateCard = (props: {
   };
 
   const isFixedState = state.name === "Start" || state.name === "End";
-  const results = useMemo(
-    () => (state.results || []).filter((result) => result),
+  const branches = useMemo(
+    () => (state.branches || []).filter((branch) => branch),
     [state]
   );
 
@@ -182,40 +182,40 @@ export const GraphStateCard = (props: {
             )}
 
             {state.name !== "End" && (
-              <Form.Item label="Next" name="results" className="mb-2 lg:mb-4">
+              <Form.Item label="Next" name="branches" className="mb-2 lg:mb-4">
                 <SetupNextState modifyOnly={state.name === "Start"} />
               </Form.Item>
             )}
           </AppForm>
 
-          {results.length > 0 && (
+          {branches.length > 0 && (
             <Flex
               vertical
               gap={8}
               align="flex-end"
               className="absolute -left-[50px] bottom-4"
             >
-              {results.map((result, i) => (
+              {branches.map((branch, i) => (
                 <Tooltip
                   title={
                     <Typography.Text style={{ color: token.colorWhite }}>
-                      {result.name}{" "}
+                      {branch.name}{" "}
                       <ArrowRightAlt style={{ color: token.colorWhite }} />{" "}
-                      {result.target}
+                      {branch.target}
                     </Typography.Text>
                   }
                   key={i}
                 >
                   <Tag
                     style={{ margin: 0 }}
-                    id={`${state.id}-${result.type}-${result.name}`}
+                    id={`${state.id}-${branch.type}-${branch.name}`}
                     color={
                       TagVariantMapping[
-                        result.type as keyof typeof TagVariantMapping
+                        branch.type as keyof typeof TagVariantMapping
                       ]?.color || "default"
                     }
                   >
-                    {result.type}
+                    {branch.type}
                   </Tag>
                 </Tooltip>
               ))}
