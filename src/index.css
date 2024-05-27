@@ -430,3 +430,7 @@ thead {
 .cm-focused {
   outline: none !important;
 }
+
+a {
+  color: #007aff;
+}

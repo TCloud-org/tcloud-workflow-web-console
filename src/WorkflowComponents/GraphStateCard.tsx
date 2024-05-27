@@ -131,7 +131,9 @@ export const GraphStateCard = (props: {
           </div>
         </Flex>
         <Flex flex={2} justify="center">
-          <Typography.Text>{state.name}</Typography.Text>
+          <Typography.Text className="text-center">
+            {state.name}
+          </Typography.Text>
         </Flex>
         <Flex flex={1} justify="end">
           {state.removable ? (

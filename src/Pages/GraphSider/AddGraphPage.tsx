@@ -121,11 +121,9 @@ export const CreateGraphPage = () => {
   const handleCreate = async () => {
     setLoading(true);
 
-    const workflow = JSON.parse(form.getFieldValue("workflow") || "{}");
     const graphFormat = graphForm.getFieldValue("graphFormat") || {};
     const params = {
       ...form.getFieldsValue(),
-      workflowId: workflow.workflowId,
       graphFormat: {
         type: graphFormat.type || GraphFormatType.XML_GRAPH_FORMAT,
         ...graphFormat[graphFormat.type || GraphFormatType.XML_GRAPH_FORMAT],
@@ -152,12 +150,11 @@ export const CreateGraphPage = () => {
     if (change.clientId) {
       setClientId(change.clientId);
       setWorkflowId(undefined);
-      values.workflow = undefined;
+      values.workflowId = undefined;
       values.version = undefined;
     }
-    if (change.workflow) {
-      const workflow = JSON.parse(change.workflow);
-      setWorkflowId(workflow.workflowId);
+    if (change.workflowId) {
+      setWorkflowId(change.workflowId);
     }
 
     form.setFieldsValue(values);
@@ -189,11 +186,11 @@ export const CreateGraphPage = () => {
               </Form.Item>
             </Col>
             <Col {...Span[2]}>
-              <Form.Item label="Workflow" name="workflow">
+              <Form.Item label="Workflow" name="workflowId">
                 <Select
                   options={workflows.map((workflow) => ({
                     label: workflow.workflowName,
-                    value: JSON.stringify(workflow),
+                    value: workflow.workflowId,
                   }))}
                   placeholder="Select a workflow"
                   disabled={!clientId}
@@ -234,7 +231,7 @@ export const CreateGraphPage = () => {
 
           <div className="h-2" />
 
-          <Form.Item name="graphFormat">
+          <Form.Item name="graphFormat" wrapperCol={Span[1]}>
             <AppCodeInput
               showOptions
               banner={

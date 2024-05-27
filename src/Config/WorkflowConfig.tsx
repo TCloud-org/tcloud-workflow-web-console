@@ -1,3 +1,5 @@
+import { GraphState } from "WorkflowComponents/GraphBuilder";
+
 export type ResultType =
   | "success"
   | "failure"
@@ -131,10 +133,28 @@ export interface Graph {
   alias?: string;
   xmlContent: string;
   parsedGraphResult?: XMLParsedGraphResult;
-  graphArch?: any;
+  graphArch?: GraphArch;
   version: number;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface GraphArch {
+  xmlGraphFormat: XMLGraphFormat;
+  uiBuilderGraphFormat: UIBuilderGraphFormat;
+}
+
+export interface XMLGraphFormat extends GraphFormat {
+  xml: string;
+}
+
+export interface GraphFormat {
+  workflowName: string;
+}
+
+export interface UIBuilderGraphFormat extends GraphFormat {
+  retryPolicyId: number;
+  states: GraphState[];
 }
 
 export interface XMLGraphStateResult {

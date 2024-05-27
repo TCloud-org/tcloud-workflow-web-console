@@ -7,7 +7,7 @@ import { PageTitle } from "DataDisplayComponents/PageTitle";
 import { AppButton } from "DataEntryComponents/AppButton";
 import { AppRow } from "LayoutComponents/AppRow";
 import { AppSpace } from "LayoutComponents/AppSpace";
-import { formatDateString } from "Utils/DateUtils";
+import { formatDate } from "Utils/DateUtils";
 import { WorkflowCard } from "WorkflowComponents/WorkflowCard";
 import { Col, Flex, Segmented, Tag, Tooltip, Typography } from "antd";
 import axios from "axios";
@@ -41,7 +41,7 @@ export const WorkflowPage = () => {
     {
       title: "Created",
       dataIndex: "createdAt",
-      render: (text: string) => formatDateString(text),
+      render: (text: string) => formatDate(text),
     },
     {
       title: "Next Available Version",
@@ -109,7 +109,6 @@ export const WorkflowPage = () => {
     navigate("/step-workflow/add-workflow");
   };
 
-  console.log(workflows);
   return (
     <AppSpace loading={loading}>
       <PageTitle

@@ -19,14 +19,17 @@ import { AppButton } from "../../DataEntryComponents/AppButton";
 import { AppLink } from "../../DataEntryComponents/AppLink";
 import { AppSpace } from "../../LayoutComponents/AppSpace";
 import { fetchGraphsById } from "../../Network/WorkflowFetch";
-import { formatDateString } from "../../Utils/DateUtils";
+import { formatDate } from "../../Utils/DateUtils";
 
 const columns: EditableColumn[] = [
   {
     title: "Id",
     dataIndex: "graphId",
     render: (text: string) => (
-      <AppLink href={`/graph/${text}`} tooltip="Click to view or edit graph">
+      <AppLink
+        href={`/graph/${encodeURIComponent(text)}`}
+        tooltip="Click to view or edit graph"
+      >
         {text}
       </AppLink>
     ),
@@ -60,7 +63,7 @@ const columns: EditableColumn[] = [
     title: "Created",
     dataIndex: "createdAt",
     render: (text: string) => (
-      <Typography.Text>{formatDateString(text)}</Typography.Text>
+      <Typography.Text>{formatDate(text)}</Typography.Text>
     ),
     sorter: (a, b) =>
       new Date(a["createdAt"]).getTime() - new Date(b["createdAt"]).getTime(),
@@ -69,7 +72,7 @@ const columns: EditableColumn[] = [
     title: "Updated",
     dataIndex: "updatedAt",
     render: (text: string) => (
-      <Typography.Text>{formatDateString(text)}</Typography.Text>
+      <Typography.Text>{formatDate(text)}</Typography.Text>
     ),
     sorter: (a, b) =>
       new Date(a["updatedAt"]).getTime() - new Date(b["updatedAt"]).getTime(),
@@ -95,7 +98,7 @@ export const GraphPage = () => {
     {
       key: "1",
       label: "Workflow ID",
-      children: liveGraph?.workflowId,
+      children: liveGraph?.workflowId ? liveGraph.workflowId : "-",
       span: Span[2],
     },
     {

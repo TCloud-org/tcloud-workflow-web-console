@@ -54,7 +54,7 @@ export const EditGraphPage = () => {
             xml: graph.xmlContent,
           },
           [GraphFormatType.UI_BUILDER_GRAPH_FORMAT]: {
-            states: graph.graphArch?.states || [],
+            states: graph.graphArch?.uiBuilderGraphFormat?.states || [],
           },
         },
       });

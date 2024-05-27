@@ -4,8 +4,8 @@ import { Graph } from "../Config/WorkflowConfig";
 import { AppDescriptions } from "../DataDisplayComponents/AppDescriptions";
 import { AppEmpty } from "../DataDisplayComponents/AppEmpty";
 import { AppSurface } from "../DataDisplayComponents/AppSurface";
-import { formatDateString } from "../Utils/DateUtils";
 import { AppLink } from "../DataEntryComponents/AppLink";
+import { formatDate } from "../Utils/DateUtils";
 
 export const GraphInfoCard = (props: { graph?: Graph }) => {
   const { graph } = props;
@@ -54,12 +54,12 @@ export const GraphInfoCard = (props: { graph?: Graph }) => {
           },
           {
             label: "Created",
-            children: formatDateString(graph.createdAt),
+            children: formatDate(graph.createdAt),
             span: Span[columns],
           },
           {
             label: "Updated",
-            children: formatDateString(graph.updatedAt) || "-",
+            children: formatDate(graph.updatedAt) || "-",
             span: Span[columns],
           },
         ]}

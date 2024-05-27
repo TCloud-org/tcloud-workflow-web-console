@@ -61,7 +61,7 @@ export const GraphDetailPage = () => {
           {
             key: "xml",
             label: "XML",
-            value: graph?.xmlContent || "",
+            value: graph?.graphArch?.xmlGraphFormat.xml || "",
             language: "xml",
           },
         ]}
