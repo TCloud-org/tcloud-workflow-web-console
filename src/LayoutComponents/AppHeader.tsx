@@ -24,6 +24,7 @@ import {
   Flex,
   MenuProps,
   Select,
+  Tooltip,
   Typography,
   theme,
 } from "antd";
@@ -52,6 +53,7 @@ import { useNavigate } from "react-router-dom";
 import { setClientId, updateClients } from "../features/workflow/clientSlice";
 import { AppBrand } from "./AppBrand";
 import { AppSubHeader } from "./AppSubHeader";
+import { ScheduleRounded } from "@mui/icons-material";
 
 const topHeaderHeight = 40;
 
@@ -148,12 +150,14 @@ export const AppHeader = (props: {
     historyCache.forEach((value, key) => {
       options.push({
         label: (
-          <Flex justify="space-between" align="center">
-            <Flex gap="12px" align="center">
-              <ClockCircleOutlined />
-              <Typography.Text>{value}</Typography.Text>
+          <Tooltip title={value}>
+            <Flex justify="space-between" align="center">
+              <Flex gap="12px" align="center">
+                <ScheduleRounded style={{ fontSize: 14 }} />
+                <Typography.Text>{value}</Typography.Text>
+              </Flex>
             </Flex>
-          </Flex>
+          </Tooltip>
         ),
         value: key,
       } as DefaultOptionType);

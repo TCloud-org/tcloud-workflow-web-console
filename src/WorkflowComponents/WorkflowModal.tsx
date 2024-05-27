@@ -99,7 +99,7 @@ export const WorkflowModal = (props: {
                 {
                   key: "xml",
                   label: "XML",
-                  value: graph?.xmlContent || "",
+                  value: graph?.graphArch?.xmlGraphFormat.xml || "",
                   language: "xml",
                 },
               ]}
