@@ -37,7 +37,7 @@ export const LiveGraphTab = (props: { graph?: Graph }) => {
   const [viewAs, setViewAs] = useState<string>("xml");
 
   const fetchVisual = useCallback(async () => {
-    if (graph && graph.xmlContent) {
+    if (graph && graph.graphArch?.xmlGraphFormat.xml) {
       const output = await getGraphVisualization(
         graph.graphArch?.xmlGraphFormat.xml || "",
         authToken
