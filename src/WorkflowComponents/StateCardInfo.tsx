@@ -1,11 +1,12 @@
 import { CodeBeam } from "DataDisplayComponents/CodeBeam";
-import { DescriptionsProps } from "antd";
+import { DescriptionsProps, Typography } from "antd";
 import { CSSProperties, forwardRef } from "react";
 import { Span } from "../Config/DataDisplayInterface";
 import { Route } from "../Config/WorkflowConfig";
 import { AppDescriptions } from "../DataDisplayComponents/AppDescriptions";
 import { formatDate } from "../Utils/DateUtils";
 import { parseError } from "../Utils/Serializer";
+import { AppCopy } from "DataDisplayComponents/AppCopy";
 
 interface StateCardInfoProps {
   data?: Route;
@@ -21,6 +22,15 @@ export const StateCardInfo = forwardRef<HTMLDivElement, StateCardInfoProps>(
     };
 
     const items: DescriptionsProps["items"] = [
+      {
+        label: "ID",
+        children: (
+          <Typography.Text className="flex items-center gap-2">
+            {data?.routeId} <AppCopy />
+          </Typography.Text>
+        ),
+        span: Span[1],
+      },
       {
         label: "Result name",
         children: data?.resultName ? data?.resultName : renderNATag(),

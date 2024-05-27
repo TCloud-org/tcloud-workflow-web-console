@@ -59,7 +59,7 @@ export const WOS_GET_RETRY_POLICIES_BY_CLIENT_ID_ENDPOINT =
 export const WOS_GET_RETRY_POLICY_BY_ID_ENDPOINT =
   WOS_ENDPOINT + "/get-retry-policy-by-id";
 export const WOS_GET_WORKFLOW_BUCKETS_BY_CLIENT_ID_AND_WORKFLOW_ID_ENDPOINT =
-  WOS_ENDPOINT + "/get-workflow-buckets-by-client-id-and-workflow-id";
+  WOS_ENDPOINT + "/get-workflow-buckets";
 export const WOS_GET_CONFIGURATION_BY_ID_ENDPOINT =
   WOS_ENDPOINT + "/get-configuration-by-id";
 export const WOS_GET_WORKFLOW_CONFIGURATION_ENDPOINT =
@@ -67,7 +67,7 @@ export const WOS_GET_WORKFLOW_CONFIGURATION_ENDPOINT =
 export const WOS_GET_SERVICES_FROM_GRAPH_ENDPOINT =
   WOS_ENDPOINT + "/get-services-from-graph";
 export const WOS_GET_WORKS_BY_CLIENT_ID_AND_WORKFLOW_ID_ENDPOINT =
-  WOS_ENDPOINT + "/get-works-by-client-id-and-workflow-id";
+  WOS_ENDPOINT + "/get-works-by-workflow-id";
 export const WOS_GET_WORKS_IN_DATE_RANGE_ENDPOINT =
   WOS_ENDPOINT + "/get-works-in-date-range";
 export const WOS_GET_WORK_STATISTIC_IN_DATE_RANGE_ENDPOINT =

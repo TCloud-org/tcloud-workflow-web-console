@@ -35,7 +35,6 @@ export const RerunConfiguration = forwardRef<
   HTMLDivElement,
   { onClose?: () => void; onRefresh?: () => void }
 >(({ onClose = () => {}, onRefresh = () => {} }, ref) => {
-  const clientId = useSelector((state: any) => state.client.clientId);
   const authToken = useSelector((state: any) => state.auth.token);
   const { workflowId, workflowName } = useSelector(
     (state: any) => state.workflow.workflow || {}
@@ -192,9 +191,7 @@ export const RerunConfiguration = forwardRef<
         : null;
 
     const params = {
-      clientId,
       workIds: [workId],
-      workflowId,
       configuration: {
         workflowVersionConfig: {
           name: workflowName,

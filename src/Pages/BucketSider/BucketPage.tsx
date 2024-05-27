@@ -1,4 +1,3 @@
-import { AppSurface } from "DataDisplayComponents/AppSurface";
 import { PremiumMask } from "DataEntryComponents/PremiumMask";
 import { Alert, Flex, Typography } from "antd";
 import { useCallback, useEffect, useState } from "react";
@@ -51,11 +50,7 @@ export const BucketPage = () => {
           type="info"
           showIcon
         />
-        {Object.keys(bucketMap).length === 0 && (
-          <AppSurface type="form">
-            <AppEmpty />
-          </AppSurface>
-        )}
+        {Object.keys(bucketMap).length === 0 && <AppEmpty />}
         {Object.entries(bucketMap).map(([bucketId, routes], i) => (
           <BucketTable bucketId={bucketId} routes={routes} key={i} />
         ))}

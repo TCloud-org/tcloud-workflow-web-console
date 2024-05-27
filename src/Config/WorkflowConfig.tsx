@@ -9,7 +9,7 @@ export type ResultType =
   | undefined;
 
 export interface Workflow {
-  workflowId: number;
+  workflowId: string;
   workflowName: string;
   clientId: string;
   createdAt: string;
@@ -35,10 +35,10 @@ export enum DateUnit {
 }
 
 export interface Route {
-  routeId: number;
+  routeId: string;
   clientId: string;
-  graphId: number;
-  workflowId: number;
+  graphId: string;
+  workflowId: string;
   workId: string;
   source: string;
   service: string;
@@ -126,8 +126,8 @@ export interface RetryConfig {
 }
 
 export interface Graph {
-  graphId: number;
-  workflowId: number;
+  graphId: string;
+  workflowId: string;
   clientId?: string;
   description?: string;
   alias?: string;
@@ -255,7 +255,7 @@ export interface GetServicesFromGraphOutput {
 }
 
 export interface RegisterWorkflowOutput {
-  workflowId: number;
+  workflowId: string;
   clientId: string;
 }
 
@@ -313,8 +313,8 @@ export interface Work {
   operation: string;
   resultType: string;
   resultName: string;
-  graphId: number;
-  workflowId: number;
+  graphId: string;
+  workflowId: string;
   version: number;
   runningOrder: number;
   executionTime: number;

@@ -119,7 +119,7 @@ export const OnboardingPage = () => {
 
   const addGraph = async (
     allForm: { [key: string]: any },
-    workflowId: number
+    workflowId: string
   ) => {
     const { clientId } = allForm["Client"] || {};
     const { alias, description, version, xmlContent } = allForm["Graph"] || {};

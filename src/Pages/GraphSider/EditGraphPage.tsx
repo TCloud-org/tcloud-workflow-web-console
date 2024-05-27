@@ -90,7 +90,7 @@ export const EditGraphPage = () => {
       .post(WOS_ADD_GRAPH_ENDPOINT, params, config)
       .then((_) => {
         setLoading(false);
-        navigate(`/graph/${graph.graphId}`);
+        navigate(`/graph/${encodeURIComponent(graph.graphId)}`);
       })
       .catch((_) => {
         setFailedValidation(true);

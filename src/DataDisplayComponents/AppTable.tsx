@@ -277,6 +277,7 @@ export const AppTable = (
       size="small"
       locale={props.locale}
       rowHoverable={props.rowHoverable}
+      className={props.className}
     />
   );
 };

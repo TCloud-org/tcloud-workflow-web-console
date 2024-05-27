@@ -1,10 +1,11 @@
 import { AppSurface } from "DataDisplayComponents/AppSurface";
 import { AppRow } from "LayoutComponents/AppRow";
+import { WorkflowInfo } from "WorkflowComponents/WorkflowInfo";
 import { Col, Tabs, TreeDataNode } from "antd";
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Edge, useEdgesState, useNodesState } from "reactflow";
 import { SelectItem, Span } from "../../Config/DataDisplayInterface";
 import {
@@ -30,16 +31,11 @@ import { LiveTreeTab } from "../../WorkflowComponents/LiveTab/LiveTreeTab";
 import { LiveWorkflowViewTab } from "../../WorkflowComponents/LiveTab/LiveWorkflowViewTab";
 import { WorkflowConfigurationInfo } from "../../WorkflowComponents/WorkflowConfigurationInfo";
 import { WorkflowToolbar } from "../../WorkflowComponents/WorkflowToolbar";
-import { WorkflowInfo } from "WorkflowComponents/WorkflowInfo";
 
 export const WorkPage = () => {
   const { workId = "" } = useParams();
-  const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
 
   const authToken = useSelector((state: any) => state.auth.token);
-  const workflow = useSelector((state: any) => state.workflow.workflow || {});
-  const workflowId = workflow?.workflowId || searchParams.get("workflowId");
 
   const [workflowLoading, setWorkflowLoading] = useState<boolean>(false);
   const [graphLoading, setGraphLoading] = useState<boolean>(false);
@@ -95,7 +91,6 @@ export const WorkPage = () => {
     };
     const params = new URLSearchParams();
     params.set("workId", workId);
-    params.set("workflowId", workflowId);
     axios
       .get(`${WOS_GET_ROUTES_BY_WORK_ID_ENDPOINT}?${params}`, config)
       .then((response) => {
@@ -118,7 +113,7 @@ export const WorkPage = () => {
         console.error(error);
         setWorkflowLoading(false);
       });
-  }, [workId, workflowId, authToken]);
+  }, [workId, authToken]);
 
   const fetchFlowVisualization = useCallback(async () => {
     if (graph && graph.graphId && !isNaN(versionSelected)) {
