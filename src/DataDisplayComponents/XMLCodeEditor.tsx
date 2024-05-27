@@ -30,8 +30,7 @@ export const XMLCodeEditor = (props: {
         {
           label: "workflow",
           type: "text",
-          apply:
-            'workflow name="" initialState="" retryPolicyId=""></workflow>',
+          apply: 'workflow name="" retryPolicyId=""></workflow>',
         },
         {
           label: "state",
@@ -53,10 +52,8 @@ export const XMLCodeEditor = (props: {
         { label: "pending", type: "text", apply: 'pending name="" goto=""/>' },
         { label: "default", type: "text", apply: 'default goto=""/>' },
         { label: "operation", type: "text", apply: 'operation=""' },
-        { label: "terminal", type: "text", apply: "terminal" },
         { label: "name", type: "text", apply: 'name=""' },
         { label: "goto", type: "text", apply: 'goto=""' },
-        { label: "initialState", type: "text", apply: 'initialState=""' },
         { label: "retryPolicyId", type: "text", apply: 'retryPolicyId=""' },
       ],
     };

@@ -2,6 +2,7 @@ import { Span } from "Config/DataDisplayInterface";
 import { EditableColumn } from "Config/LayoutConfig";
 import { WOS_GET_WORKFLOWS_BY_CLIENT_ID_ENDPOINT } from "Config/WOSEndpointConfig";
 import { Workflow } from "Config/WorkflowConfig";
+import { AppCopy } from "DataDisplayComponents/AppCopy";
 import { AppTable } from "DataDisplayComponents/AppTable";
 import { PageTitle } from "DataDisplayComponents/PageTitle";
 import { AppButton } from "DataEntryComponents/AppButton";
@@ -29,6 +30,11 @@ export const WorkflowPage = () => {
     {
       title: "Id",
       dataIndex: "workflowId",
+      render: (text: string) => (
+        <Typography.Text className="flex items-center gap-2">
+          {text} <AppCopy content={text} />
+        </Typography.Text>
+      ),
     },
     {
       title: "Name",

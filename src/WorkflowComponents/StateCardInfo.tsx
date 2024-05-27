@@ -26,7 +26,7 @@ export const StateCardInfo = forwardRef<HTMLDivElement, StateCardInfoProps>(
         label: "ID",
         children: (
           <Typography.Text className="flex items-center gap-2">
-            {data?.routeId} <AppCopy />
+            {data?.routeId} <AppCopy content={data?.routeId} />
           </Typography.Text>
         ),
         span: Span[1],

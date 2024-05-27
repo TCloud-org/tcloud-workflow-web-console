@@ -1,7 +1,7 @@
-import { CodeOutlined } from "@ant-design/icons";
 import {
   AccountTreeRounded,
   DashboardRounded,
+  DeveloperModeRounded,
   HelpRounded,
   MonitorHeartRounded,
   NotificationsRounded,
@@ -176,7 +176,7 @@ export const AppSider = (props: {
       ? [
           {
             key: "/development",
-            icon: <CodeOutlined />,
+            icon: <DeveloperModeRounded />,
             label: "Development",
             href: "/development",
           },

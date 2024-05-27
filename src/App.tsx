@@ -46,6 +46,7 @@ import { Content } from "antd/es/layout/layout";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  Navigate,
   Outlet,
   RouteObject,
   RouterProvider,
@@ -282,7 +283,7 @@ export const App = () => {
             },
             {
               path: "/graph",
-              element: <GraphPage />,
+              element: <Navigate to="/step-workflow" />,
             },
             {
               path: "/graph/:graphId",
