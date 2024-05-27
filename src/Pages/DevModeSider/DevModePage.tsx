@@ -1,32 +1,35 @@
 import { WOS_INITIATE_TCA_WORKFLOW_ENDPOINT } from "Config/WOSEndpointConfig";
 import { PageTitle } from "DataDisplayComponents/PageTitle";
 import { AppButton } from "DataEntryComponents/AppButton";
+import { AppForm } from "DataEntryComponents/AppForm";
 import { AppSpace } from "LayoutComponents/AppSpace";
-import { Flex, Input } from "antd";
+import { Flex, Form, Input, Typography } from "antd";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { v4 } from "uuid";
 
 export const DevModePage = () => {
   const authToken = useSelector((state: any) => state.auth.token);
-  const clientId = useSelector((state: any) => state.client.clientId);
   const { workflowId } = useSelector(
     (state: any) => state.workflow.workflow || {}
   );
+  const [workId, setWorkId] = useState<string>("");
 
-  const [initiatedId, setInitiatedId] = useState<string>("");
+  const [form] = Form.useForm();
+
   const [initiatedLoading, setInitiatedLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (workflowId) {
+      form.setFieldValue("workflowId", workflowId);
+    }
+  }, [workflowId, form]);
 
   const initiate = async () => {
     setInitiatedLoading(true);
 
-    const id = v4();
-
     const formData = {
-      workId: id,
-      clientId,
-      workflowId,
+      ...form.getFieldsValue(),
     };
 
     const config = {
@@ -37,8 +40,8 @@ export const DevModePage = () => {
 
     await axios
       .post(WOS_INITIATE_TCA_WORKFLOW_ENDPOINT, formData, config)
-      .then((_) => {
-        setInitiatedId(id);
+      .then((res) => {
+        setWorkId(res.data.workId);
       })
       .catch((error) => console.error(error));
 
@@ -49,20 +52,36 @@ export const DevModePage = () => {
     <AppSpace>
       <PageTitle>Development</PageTitle>
 
-      <Flex gap="16px">
-        <Flex style={{ flex: 1 }}>
-          <Input disabled value={initiatedId} />
+      <Typography.Text>
+        Work ID:{" "}
+        <Typography.Link
+          href={`/live/${encodeURIComponent(workId)}`}
+          target="_blank"
+        >
+          {workId}
+        </Typography.Link>
+      </Typography.Text>
+
+      <AppForm
+        form={form}
+        onValuesChange={(_, values) => form.setFieldsValue(values)}
+      >
+        <Form.Item label="Workflow" name="workflowId">
+          <Input />
+        </Form.Item>
+
+        <Flex>
+          <Form.Item noStyle>
+            <AppButton
+              loading={initiatedLoading}
+              type="primary"
+              onClick={initiate}
+            >
+              Initiate workflow
+            </AppButton>
+          </Form.Item>
         </Flex>
-        <Flex style={{ flex: 1 }}>
-          <AppButton
-            loading={initiatedLoading}
-            type="primary"
-            onClick={initiate}
-          >
-            Initiate workflow
-          </AppButton>
-        </Flex>
-      </Flex>
+      </AppForm>
     </AppSpace>
   );
 };
