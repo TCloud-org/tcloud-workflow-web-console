@@ -37,6 +37,7 @@ export const fetchServiceConfiguration = (service: string, token: string) => {
       config
     )
     .then((response) => {
+      console.log(response.data, service);
       return response.data.configurations as ServiceConfiguration[];
     })
     .catch((error) => {

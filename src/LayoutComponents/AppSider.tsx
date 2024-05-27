@@ -54,6 +54,7 @@ export const SiderHrefs = {
 };
 
 export const SiderName = {
+  "/step-workflow": "Step Workflow",
   "/notification-hub": "Notification Hub",
   "/development": "Development",
   "/step-workflow-introduction": "Introduction",

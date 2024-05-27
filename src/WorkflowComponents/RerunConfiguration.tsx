@@ -15,7 +15,6 @@ import {
   Graph,
   ServiceConfiguration,
   WorkflowConfiguration,
-  XMLGraphState,
 } from "../Config/WorkflowConfig";
 import { AppIconButton } from "../DataEntryComponents/AppIconButton";
 import { FormButton } from "../DataEntryComponents/FormButton";
@@ -29,6 +28,7 @@ import { fetchServiceConfiguration } from "../Network/WorkflowFetch";
 import { extractServices, extractStates } from "../Utils/ObjectUtils";
 import { EndpointConfigByService } from "./EndpointConfigByService";
 import { EndpointConfigByState } from "./EndpointConfigByState";
+import { GraphState } from "./GraphBuilder";
 import { WorkflowModal } from "./WorkflowModal";
 
 export const RerunConfiguration = forwardRef<
@@ -45,7 +45,7 @@ export const RerunConfiguration = forwardRef<
   const [graphs, setGraphs] = useState<Graph[]>([]);
   const [workflowAlias, setWorkflowAlias] = useState<string>("live");
   const [services, setServices] = useState<string[]>([]);
-  const [states, setStates] = useState<XMLGraphState[]>([]);
+  const [states, setStates] = useState<GraphState[]>([]);
   const [endpointConfigType, setEndpointConfigType] =
     useState<string>("service");
   const [serviceConfigMap, setServiceConfigMap] = useState<{
@@ -114,8 +114,8 @@ export const RerunConfiguration = forwardRef<
       const extractedStates = extractStates(graph);
       setStates(extractedStates);
       setStateConfigFormData((prev: any) =>
-        extractedStates.reduce((result, state) => {
-          result[state.source] = prev[state.source] || "live";
+        extractedStates.reduce((result: any, state) => {
+          result[state.name as string] = prev[state.name as string] || "live";
           return result;
         }, {})
       );
@@ -297,7 +297,7 @@ export const RerunConfiguration = forwardRef<
                     key={i}
                     state={state}
                     serviceConfigMap={serviceConfigMap}
-                    value={stateConfigFormData[state.source] || "live"}
+                    value={stateConfigFormData[state.name as string] || "live"}
                     dispatch={setStateConfigFormData}
                   />
                 ))}

@@ -1,22 +1,19 @@
+import { CaretUpOutlined } from "@ant-design/icons";
 import { Button, Flex, Typography } from "antd";
+import axios from "axios";
 import { forwardRef, useCallback, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { WOS_RETRY_WORKFLOW_ENDPOINT } from "../Config/WOSEndpointConfig";
+import { Route, ServiceConfiguration } from "../Config/WorkflowConfig";
+import { AppIconButton } from "../DataEntryComponents/AppIconButton";
+import { AppRow } from "../LayoutComponents/AppRow";
 import { AppSheet } from "../LayoutComponents/AppSheet";
 import { AppSpace } from "../LayoutComponents/AppSpace";
 import { Box } from "../LayoutComponents/Box";
-import { AppIconButton } from "../DataEntryComponents/AppIconButton";
-import { CaretUpOutlined } from "@ant-design/icons";
-import {
-  Route,
-  ServiceConfiguration,
-  XMLGraphState,
-} from "../Config/WorkflowConfig";
 import { fetchServiceConfiguration } from "../Network/WorkflowFetch";
-import { AppRow } from "../LayoutComponents/AppRow";
 import { EndpointConfigByState } from "./EndpointConfigByState";
-import axios from "axios";
-import { WOS_RETRY_WORKFLOW_ENDPOINT } from "../Config/WOSEndpointConfig";
-import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { GraphState } from "./GraphBuilder";
 
 export const RetryConfiguration = forwardRef<
   HTMLDivElement,
@@ -107,9 +104,9 @@ export const RetryConfiguration = forwardRef<
           <EndpointConfigByState
             state={
               {
-                source: lastRoute?.source,
+                name: lastRoute?.source,
                 service: lastRoute?.service,
-              } as XMLGraphState
+              } as GraphState
             }
             serviceConfigMap={
               { [lastRoute?.service || ""]: configurations } as {

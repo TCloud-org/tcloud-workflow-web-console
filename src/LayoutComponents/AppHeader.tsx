@@ -1,5 +1,4 @@
 import {
-  ClockCircleOutlined,
   ContainerOutlined,
   DownOutlined,
   LogoutOutlined,
@@ -9,6 +8,7 @@ import {
   SettingFilled,
   UserOutlined,
 } from "@ant-design/icons";
+import { ScheduleRounded } from "@mui/icons-material";
 import { HeaderHeight } from "Config/LayoutConfig";
 import { Client } from "Config/SCSConfig";
 import { AppAvatar } from "DataDisplayComponents/AppAvatar";
@@ -53,7 +53,6 @@ import { useNavigate } from "react-router-dom";
 import { setClientId, updateClients } from "../features/workflow/clientSlice";
 import { AppBrand } from "./AppBrand";
 import { AppSubHeader } from "./AppSubHeader";
-import { ScheduleRounded } from "@mui/icons-material";
 
 const topHeaderHeight = 40;
 

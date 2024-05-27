@@ -15,6 +15,7 @@ import { getAbbreviation } from "./StringUtils";
 import { Clause } from "Config/FilterConfig";
 import dayjs from "dayjs";
 import { models } from "Pages/ApiWorkflowGetStartedSider/ApiWorkflowModelPage";
+import { GraphState } from "WorkflowComponents/GraphBuilder";
 
 export const populateFlowNodeData = (nodes: any[] = []) => {
   const newNodes = nodes.map((node) => ({ ...node }));
@@ -132,19 +133,18 @@ export const extractNumOfChanges = (route: Route) => {
   return `${total} change${total > 1 ? "s" : ""}`;
 };
 
-export const extractServices = (graph: Graph | undefined) => {
-  const parsedGraphResult = graph?.parsedGraphResult;
-  const services = Object.values(parsedGraphResult?.result || {}).map(
-    (v) => (v as XMLGraphState).service
+export const extractServices = (graph: Graph | undefined): string[] => {
+  const states = graph?.graphArch?.uiBuilderGraphFormat.states || [];
+  const services = new Set(
+    states
+      .filter((state) => state.service)
+      .map((state) => state.service as string)
   );
-  return Array.from(new Set(services));
+  return Array.from(services);
 };
 
-export const extractStates = (graph: Graph | undefined) => {
-  const parsedGraphResult = graph?.parsedGraphResult;
-  return Object.entries(parsedGraphResult?.result || {})
-    .sort(([, v1], [, v2]) => v1.runningOrder - v2.runningOrder)
-    .map(([_, v]) => v);
+export const extractStates = (graph: Graph | undefined): GraphState[] => {
+  return graph?.graphArch?.uiBuilderGraphFormat.states || [];
 };
 
 export const formatCamelCaseKey = (key: string): string => {

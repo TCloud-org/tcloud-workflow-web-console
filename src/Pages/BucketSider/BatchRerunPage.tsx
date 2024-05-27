@@ -1,3 +1,4 @@
+import { GraphState } from "WorkflowComponents/GraphBuilder";
 import { Flex, Form, Select, Steps } from "antd";
 import axios from "axios";
 import { Key, useCallback, useEffect, useState } from "react";
@@ -11,7 +12,6 @@ import {
   Graph,
   ServiceConfiguration,
   WorkflowConfiguration,
-  XMLGraphState,
 } from "../../Config/WorkflowConfig";
 import { AppHeading } from "../../DataDisplayComponents/AppHeading";
 import { AppList } from "../../DataDisplayComponents/AppList";
@@ -50,7 +50,7 @@ export const BatchRerunPage = () => {
   const [serviceConfigMap, setServiceConfigMap] = useState<{
     [service: string]: ServiceConfiguration[];
   }>({});
-  const [states, setStates] = useState<XMLGraphState[]>([]);
+  const [states, setStates] = useState<GraphState[]>([]);
 
   const fetchConfigurationsForAllServices = useCallback(async () => {
     setLoading(true);

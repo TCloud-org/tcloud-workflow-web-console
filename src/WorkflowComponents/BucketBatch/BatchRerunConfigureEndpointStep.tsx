@@ -1,10 +1,8 @@
+import { GraphState } from "WorkflowComponents/GraphBuilder";
 import { Col, Form, FormInstance, Input, Select } from "antd";
 import { useCallback, useEffect } from "react";
 import { Fragment } from "react/jsx-runtime";
-import {
-  ServiceConfiguration,
-  XMLGraphState,
-} from "../../Config/WorkflowConfig";
+import { ServiceConfiguration } from "../../Config/WorkflowConfig";
 import { AppForm } from "../../DataEntryComponents/AppForm";
 import { AppRow } from "../../LayoutComponents/AppRow";
 import { AppVerticalStepContent } from "../../LayoutComponents/AppVerticalStepContent";
@@ -13,7 +11,7 @@ export const BatchRerunConfigureEndpointStep = (props: {
   form: FormInstance<any>;
   type?: string;
   services?: string[];
-  states?: XMLGraphState[];
+  states?: GraphState[];
   serviceConfigMap?: {
     [service: string]: ServiceConfiguration[];
   };
@@ -47,7 +45,7 @@ export const BatchRerunConfigureEndpointStep = (props: {
   );
 
   const setStateFieldsFromConfig = useCallback(
-    (state: XMLGraphState, config?: ServiceConfiguration) => {
+    (state: GraphState, config?: ServiceConfiguration) => {
       if (!config || !type || type !== "state") {
         return;
       }
@@ -55,8 +53,8 @@ export const BatchRerunConfigureEndpointStep = (props: {
       form.setFieldsValue({
         [type]: {
           ...form.getFieldValue(type),
-          [state.source]: {
-            source: state.source,
+          [state.name as string]: {
+            source: state.name,
             serviceName: config.serviceName,
             baseUrl: config.baseUrl,
             alias: config.alias,
@@ -82,7 +80,7 @@ export const BatchRerunConfigureEndpointStep = (props: {
       states
         .filter((state) => state.service)
         .forEach((state) => {
-          const config = serviceConfigMap[state.service].find(
+          const config = serviceConfigMap[state.service as string].find(
             (item) => item.alias === "live"
           );
 
@@ -124,10 +122,10 @@ export const BatchRerunConfigureEndpointStep = (props: {
     if (alias) {
       const state = states
         .filter((state) => state.service)
-        .find((state) => state.source === source);
+        .find((state) => state.name === source);
       if (!state) return;
 
-      const config = serviceConfigMap[state.service].find(
+      const config = serviceConfigMap[state.service as string].find(
         (item) => item.alias === alias
       );
 
@@ -145,13 +143,16 @@ export const BatchRerunConfigureEndpointStep = (props: {
         .map((state, i) => (
           <Fragment key={i}>
             <Col span={6}>
-              <Form.Item name={[type, state.source, "source"]} label="State">
+              <Form.Item
+                name={[type, state.name as string, "source"]}
+                label="State"
+              >
                 <Input disabled style={{ width: "171.5%" }} />
               </Form.Item>
             </Col>
             <Col span={6}>
               <Form.Item
-                name={[type, state.source, "serviceName"]}
+                name={[type, state.name as string, "serviceName"]}
                 label="Service"
               >
                 <Input disabled style={{ width: "171.5%" }} />
@@ -159,21 +160,24 @@ export const BatchRerunConfigureEndpointStep = (props: {
             </Col>
             <Col span={8}>
               <Form.Item
-                name={[type, state.source, "baseUrl"]}
+                name={[type, state.name as string, "baseUrl"]}
                 label="Endpoint"
               >
                 <Input disabled style={{ width: "171.5%" }} />
               </Form.Item>
             </Col>
             <Col span={4}>
-              <Form.Item name={[type, state.source, "alias"]} label="Alias">
+              <Form.Item
+                name={[type, state.name as string, "alias"]}
+                label="Alias"
+              >
                 <Select
-                  options={(serviceConfigMap[state.service] || []).map(
-                    (config) => ({
-                      label: config.alias,
-                      value: config.alias,
-                    })
-                  )}
+                  options={(
+                    serviceConfigMap[state.service as string] || []
+                  ).map((config) => ({
+                    label: config.alias,
+                    value: config.alias,
+                  }))}
                   style={{ width: "171.5%" }}
                 />
               </Form.Item>
