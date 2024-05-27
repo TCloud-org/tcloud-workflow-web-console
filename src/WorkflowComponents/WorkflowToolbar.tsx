@@ -222,6 +222,7 @@ export const WorkflowToolbar = (props: {
           </Typography.Text>
           <Flex gap={16}>
             <Dropdown.Button
+              size="small"
               onClick={handleRetry}
               trigger={["click"]}
               loading={retryLoading}
@@ -236,6 +237,7 @@ export const WorkflowToolbar = (props: {
             </Dropdown.Button>
 
             <Dropdown.Button
+              size="small"
               onClick={handleRerun}
               trigger={["click"]}
               loading={rerunLoading}
@@ -256,12 +258,12 @@ export const WorkflowToolbar = (props: {
               cancelText="No"
               onConfirm={handleClose}
             >
-              <Button loading={closeLoading} danger type="primary">
+              <Button loading={closeLoading} danger type="primary" size="small">
                 Close
               </Button>
             </Popconfirm>
 
-            <Radio.Group value={runConfig} buttonStyle="solid">
+            <Radio.Group value={runConfig} buttonStyle="solid" size="small">
               <Radio.Button
                 value={WorkflowRunConfig.Transition}
                 onClick={() =>
@@ -277,13 +279,13 @@ export const WorkflowToolbar = (props: {
             </Radio.Group>
 
             <Flex>
-              <AppIconButton onClick={onReload} tooltip="Reload">
+              <AppIconButton onClick={onReload} tooltip="Reload" size="small">
                 <ReloadOutlined />
               </AppIconButton>
             </Flex>
 
             <Flex>
-              <AppIconButton onClick={handleShare} tooltip="Share">
+              <AppIconButton onClick={handleShare} tooltip="Share" size="small">
                 <ShareAltOutlined />
               </AppIconButton>
             </Flex>
