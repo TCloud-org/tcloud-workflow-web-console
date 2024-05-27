@@ -11,7 +11,6 @@ import { BucketTable } from "../../WorkflowComponents/BucketTable";
 
 export const BucketPage = () => {
   const authToken = useSelector((state: any) => state.auth.token);
-  const clientId = useSelector((state: any) => state.client.clientId);
   const { workflowId } = useSelector(
     (state: any) => state.workflow.workflow || {}
   );
@@ -22,14 +21,14 @@ export const BucketPage = () => {
 
   const fetchBuckets = useCallback(async () => {
     setLoading(true);
-    const data = await getBuckets(clientId, workflowId, authToken);
+    const data = await getBuckets(decodeURIComponent(workflowId), authToken);
     if (data.response && data.response.status === 403) {
       setIsRestricted(true);
     } else {
       setBucketMap(data?.bucketMap || {});
     }
     setLoading(false);
-  }, [clientId, workflowId, authToken]);
+  }, [workflowId, authToken]);
 
   useEffect(() => {
     fetchBuckets();

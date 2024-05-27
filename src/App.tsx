@@ -18,12 +18,15 @@ import { AddClientPage } from "Pages/PeopleSider/AddClientPage";
 import { ClientDetailsPage } from "Pages/PeopleSider/ClientDetailsPage";
 import { ClientPage } from "Pages/PeopleSider/ClientPage";
 import { InviteClientPage } from "Pages/PeopleSider/InviteClientPage";
+import { PeoplePage } from "Pages/PeopleSider/PeoplePage";
 import { ViewInvitationsPage } from "Pages/PeopleSider/ViewInvitationsPage";
 import { CookiePolicyPage } from "Pages/Policy/CookiePolicyPage";
 import { PrivacyPolicyPage } from "Pages/Policy/PrivacyPolicyPage";
 import { TermsAndConditionsPage } from "Pages/Policy/TermsAndConditionsPage";
 import { QueryPage } from "Pages/QuerySider/QueryPage";
+import { SecurityPage } from "Pages/SecuritySider/SecurityPage";
 import { AccountPage } from "Pages/SettingsSider/AccountPage";
+import { SettingsPage } from "Pages/SettingsSider/SettingsPage";
 import { EditEmailTemplatePage } from "Pages/Shop/EditEmailTemplatePage";
 import { EmailTemplateDetailPage } from "Pages/Shop/EmailTemplateDetailPage";
 import { PublishProductPage } from "Pages/Shop/PublishProductPage";
@@ -34,6 +37,7 @@ import { SubscriptionInvoicePage } from "Pages/Subscription/SubscriptionInvoiceP
 import { SubscriptionPage } from "Pages/Subscription/SubscriptionPage";
 import { SubscriptionPlanPage } from "Pages/Subscription/SubscriptionPlanPage";
 import { ContactPage } from "Pages/Support/ContactPage";
+import { HelpPage } from "Pages/Support/HelpPage";
 import { SupportPage } from "Pages/Support/SupportPage";
 import { CreateEmailNotificationWorkflowPage } from "Pages/WorkflowAutomationSider/CreateEmailNotificationWorkflowPage";
 import { EmailNotificationJobPage } from "Pages/WorkflowAutomationSider/EmailNotificationJobPage";
@@ -66,11 +70,10 @@ import { BatchRerunPage } from "./Pages/BucketSider/BatchRerunPage";
 import { BatchRetryPage } from "./Pages/BucketSider/BatchRetryPage";
 import { BatchTransitionPage } from "./Pages/BucketSider/BatchTransitionPage";
 import { BucketPage } from "./Pages/BucketSider/BucketPage";
+import { DashboardPage } from "./Pages/DashboardPage";
 import { CreateGraphPage } from "./Pages/GraphSider/AddGraphPage";
 import { EditGraphPage } from "./Pages/GraphSider/EditGraphPage";
 import { GraphDetailPage } from "./Pages/GraphSider/GraphDetailPage";
-import { GraphPage } from "./Pages/GraphSider/GraphPage";
-import { DashboardPage } from "./Pages/DashboardPage";
 import { LiveWorkflowPage } from "./Pages/LiveSider/LiveWorkflowPage";
 import { WorkPage } from "./Pages/LiveSider/WorkPage";
 import { OnboardingPage } from "./Pages/OnboardingSider/OnboardingPage";
@@ -83,15 +86,10 @@ import { CreateEndpointPage } from "./Pages/ServiceSider/CreateEndpointPage";
 import { EditEndpointPage } from "./Pages/ServiceSider/EditEndpointPage";
 import { ServiceDetailPage } from "./Pages/ServiceSider/ServiceDetailPage";
 import { ServiceEndpointSetting } from "./Pages/ServiceSider/ServiceEndpointSetting";
-import { ServicePage } from "./Pages/ServiceSider/ServicePage";
 import { BillingPage } from "./Pages/SettingsSider/BillingPage";
 import { GeneralPage } from "./Pages/SettingsSider/GeneralPage";
 import { deserializeLocation } from "./Utils/Serializer";
 import { setItems } from "./features/navigation/breadcrumbSlice";
-import { SettingsPage } from "Pages/SettingsSider/SettingsPage";
-import { HelpPage } from "Pages/Support/HelpPage";
-import { SecurityPage } from "Pages/SecuritySider/SecurityPage";
-import { PeoplePage } from "Pages/PeopleSider/PeoplePage";
 
 export const background = "rgb(249 250 251 / 1)";
 export const App = () => {
@@ -299,7 +297,7 @@ export const App = () => {
             },
             {
               path: "/service",
-              element: <ServicePage />,
+              element: <Navigate to="/step-workflow" />,
             },
             {
               path: "/step-workflow/add-service-endpoint",

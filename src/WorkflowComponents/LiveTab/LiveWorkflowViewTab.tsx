@@ -52,10 +52,15 @@ export const LiveWorkflowViewTab = (props: {
                   icon: TagVariantMapping[route.resultType]?.icon,
                   tooltip: "Result type",
                 },
-                ...(route?.metadata?.workflowRetryConfig?.retryIndex > 0
+                ...(i > 0 && routes[i - 1].source === route.source
                   ? [
                       {
-                        children: `Attempt #${route?.metadata?.workflowRetryConfig?.retryIndex}`,
+                        children: `Attempt #${
+                          i -
+                          routes.findIndex(
+                            (item) => route.source === item.source
+                          )
+                        }`,
                         color: "gold",
                         icon: <SyncOutlined />,
                       } as CollapseTag,
@@ -63,13 +68,17 @@ export const LiveWorkflowViewTab = (props: {
                   : []),
                 ...(route?.metadata?.httpResponse
                   ? [
-                      {
-                        children: `${route?.metadata?.httpResponse.latency} ms`,
-                        color: getLatencyColor(
-                          route?.metadata?.httpResponse.latency
-                        ),
-                        tooltip: `Latency: ${route?.metadata?.httpResponse.latency} ms`,
-                      } as CollapseTag,
+                      ...(route?.metadata?.httpResponse.latency
+                        ? [
+                            {
+                              children: `${route?.metadata?.httpResponse.latency} ms`,
+                              color: getLatencyColor(
+                                route?.metadata?.httpResponse.latency
+                              ),
+                              tooltip: `Latency: ${route?.metadata?.httpResponse.latency} ms`,
+                            } as CollapseTag,
+                          ]
+                        : []),
                       {
                         children: `${route?.metadata?.httpResponse.statusCode} ${route?.metadata?.httpResponse.status}`,
                         color: getStatusCodeColor(

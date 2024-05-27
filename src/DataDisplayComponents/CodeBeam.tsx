@@ -100,7 +100,9 @@ export const CodeBeam = (props: {
               </div>
             )}
 
-            {label && <div style={{ color: textColor }}>{label}</div>}
+            {label && (
+              <div style={{ color: currentTheme.textColor }}>{label}</div>
+            )}
 
             <CodeSegmented
               value={select}

@@ -56,6 +56,7 @@ export const fetchGraphsById = async (
       Authorization: `Bearer ${token}`,
     },
   };
+  console.log(workflowId);
   return await axios
     .get(
       `${WOS_GET_GRAPHS_BY_WORKFLOW_ID_ENDPOINT}?workflowId=${workflowId}`,
@@ -130,11 +131,7 @@ export const getConfigurationById = async (
     .catch((_) => undefined);
 };
 
-export const getBuckets = async (
-  clientId: string,
-  workflowId: string,
-  token: string
-) => {
+export const getBuckets = async (workflowId: string, token: string) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -142,7 +139,6 @@ export const getBuckets = async (
   };
 
   const params = new URLSearchParams();
-  params.set("clientId", clientId);
   params.set("workflowId", workflowId);
   return await axios
     .get(

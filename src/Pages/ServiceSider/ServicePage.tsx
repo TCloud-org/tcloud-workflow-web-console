@@ -1,14 +1,13 @@
 import { Button } from "antd";
 import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AppList } from "../../DataDisplayComponents/AppList";
 import { PageTitle } from "../../DataDisplayComponents/PageTitle";
 import { AppSpace } from "../../LayoutComponents/AppSpace";
 import { getServiceConfigurations } from "../../Network/WorkflowFetch";
 
 export const ServicePage = () => {
-  const location = useLocation();
   const navigate = useNavigate();
   const authToken = useSelector((state: any) => state.auth.token);
   const clientId = useSelector((state: any) => state.client.clientId);
@@ -27,11 +26,11 @@ export const ServicePage = () => {
     setServices(
       Object.keys(serviceConfigMap).map((service) => ({
         title: service,
-        href: `${location.pathname}/${service}`,
+        href: `service/${service}`,
       }))
     );
     setLoading(false);
-  }, [clientId, location.pathname, authToken]);
+  }, [clientId, authToken]);
 
   useEffect(() => {
     fetchServices();

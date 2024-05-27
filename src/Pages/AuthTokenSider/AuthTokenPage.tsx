@@ -26,6 +26,10 @@ const columns: EditableColumn[] = [
     width: "15%",
   },
   {
+    title: "Client",
+    dataIndex: "clientId",
+  },
+  {
     title: "Name",
     dataIndex: "name",
     editable: true,
