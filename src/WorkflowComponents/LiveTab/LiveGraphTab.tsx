@@ -39,7 +39,7 @@ export const LiveGraphTab = (props: { graph?: Graph }) => {
   const fetchVisual = useCallback(async () => {
     if (graph && graph.xmlContent) {
       const output = await getGraphVisualization(
-        graph.xmlContent,
+        graph.graphArch?.xmlGraphFormat.xml || "",
         authToken
       ).catch((err) => {
         console.error(err.response.status);
@@ -76,7 +76,7 @@ export const LiveGraphTab = (props: { graph?: Graph }) => {
             key: "xml",
             label: "XML",
             language: "xml",
-            value: graph?.xmlContent || "",
+            value: graph?.graphArch?.xmlGraphFormat.xml || "",
           },
         ]}
       />
