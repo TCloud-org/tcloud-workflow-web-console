@@ -29,7 +29,7 @@ export const GraphInfoCard = (props: { graph?: Graph }) => {
             label: "Graph ID",
             children: (
               <AppLink
-                href={`/graph/${graph.graphId}`}
+                href={`/graph/${encodeURIComponent(graph.graphId)}`}
                 tooltip="Click to view or edit graph"
               >
                 {graph.graphId.toString()}
