@@ -20,7 +20,7 @@ import {
 import { Fragment, useEffect, useState } from "react";
 import { GraphResult } from "./GraphBuilder";
 
-const resultTypes: SelectProps["options"] = [
+export const resultTypes: SelectProps["options"] = [
   {
     label: "success",
     value: "success",

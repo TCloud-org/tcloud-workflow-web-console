@@ -21,13 +21,13 @@ export const WorkflowConfigurationInfo = (props: {
         items={[
           {
             key: "workflowAlias",
-            label: "Workflow alias",
+            label: "Workflow alias".toUpperCase(),
             children: data[version]?.workflowVersionConfig.alias,
             span: Span[2],
           },
           {
             key: "stateAlias",
-            label: "State alias",
+            label: "State alias".toUpperCase(),
             children:
               Object.entries(data[version]?.stateEndpointConfigMap || {})
                 .length === 0 ? (
@@ -59,7 +59,7 @@ export const WorkflowConfigurationInfo = (props: {
           },
           {
             key: "serviceAlias",
-            label: "Service alias",
+            label: "Service alias".toUpperCase(),
             children:
               Object.entries(data[version]?.serviceEndpointConfigMap || {})
                 .length === 0 ? (

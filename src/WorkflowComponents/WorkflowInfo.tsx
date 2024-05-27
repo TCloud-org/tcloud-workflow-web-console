@@ -17,8 +17,8 @@ export const WorkflowInfo = (props: { graph?: Graph }) => {
         title="Info"
         items={[
           {
-            key: "workflowId",
-            label: "Workflow Id",
+            key: "workId",
+            label: "Work ID".toUpperCase(),
             children: (
               <Typography.Text className="flex gap-1 items-center">
                 {workId} <AppCopy content={workId} />
@@ -28,7 +28,7 @@ export const WorkflowInfo = (props: { graph?: Graph }) => {
           },
           {
             key: "graphId",
-            label: "Graph Id",
+            label: "Graph ID".toUpperCase(),
             children: (
               <Typography.Text className="flex gap-1 items-center">
                 {graph?.graphId}{" "}

@@ -22,12 +22,18 @@ export const deserializeWorkflow = (value: string) => {
   };
 };
 
+const containsSpecialCharacters = (str: string): boolean => {
+  return /[^\w\s]/.test(str);
+};
+
 export const deserializeLocation = (location: string): BreadcrumbItem[] => {
   const blocks = location.split("/").filter((item: string) => item);
   return blocks.map((item: string, i) => ({
     title:
       `/${item}` in SiderName
         ? SiderName[`/${item}` as keyof typeof SiderName]
+        : containsSpecialCharacters(item)
+        ? decodeURIComponent(item)
         : capitalizeEachWord(item),
     href: "/" + blocks.slice(0, i + 1).join("/"),
   }));
@@ -78,9 +84,11 @@ export const deserializeDocumentChangeLogs = (route: Route) => {
       );
       const decodedString = new TextDecoder("utf-8").decode(byteArray);
       changeLogs[k][key] = JSON.parse(decodedString);
-      if (typeof changeLogs[k][key] === "string") {
-        changeLogs[k][key] = JSON.parse(changeLogs[k][key]);
-      }
+      try {
+        if (typeof changeLogs[k][key] === "string") {
+          changeLogs[k][key] = JSON.parse(changeLogs[k][key]);
+        }
+      } catch (e) {}
     }
     if (k === "createdAt") {
       changeLogs[k] = formatDate(changeLogs[k]);

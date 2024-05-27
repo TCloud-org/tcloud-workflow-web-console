@@ -125,13 +125,13 @@ export const AppHeader = (props: {
   const handleSearchEnter = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.key === "Enter") {
       dispatch(set({ key: searchInput.trim(), value: searchInput.trim() }));
-      navigate(`live/${decodeURIComponent(searchInput.trim())}`);
+      navigate(`live/${encodeURIComponent(searchInput.trim())}`);
     }
   };
 
   const handleSearchSelect = (value: string) => {
     dispatch(set({ key: value.trim(), value: value.trim() }));
-    navigate(`live/${value}`);
+    navigate(`live/${encodeURIComponent(value)}`);
   };
 
   const handleClear = () => {
