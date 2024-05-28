@@ -1,5 +1,5 @@
 import { CodeBeam } from "DataDisplayComponents/CodeBeam";
-import { DescriptionsProps, Typography } from "antd";
+import { DescriptionsProps, Typography, theme } from "antd";
 import { CSSProperties, forwardRef } from "react";
 import { Span } from "../Config/DataDisplayInterface";
 import { Route } from "../Config/WorkflowConfig";
@@ -15,6 +15,8 @@ interface StateCardInfoProps {
 
 export const StateCardInfo = forwardRef<HTMLDivElement, StateCardInfoProps>(
   (props, ref) => {
+    const { token } = theme.useToken();
+
     const { data, style } = props;
 
     const renderNATag = () => {
@@ -121,8 +123,13 @@ export const StateCardInfo = forwardRef<HTMLDivElement, StateCardInfoProps>(
         ref={ref}
       >
         <AppDescriptions
+          layout="vertical"
           labelStyle={{
-            fontWeight: 500,
+            fontWeight: 600,
+            textTransform: "uppercase",
+          }}
+          contentStyle={{
+            marginBottom: 16,
           }}
           size="small"
           items={items}
