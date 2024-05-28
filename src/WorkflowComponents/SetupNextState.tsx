@@ -78,6 +78,7 @@ export const SetupNextState = (props: {
       <Modal
         open={modalOpen}
         centered
+        title="Branch"
         onCancel={() => setModalOpen(false)}
         cancelButtonProps={{ className: "hidden" }}
         okButtonProps={{ className: "hidden" }}
@@ -101,11 +102,11 @@ export const SetupNextState = (props: {
                           <Form.Item
                             label={
                               <Typography.Text strong>
-                                {`Result ${index + 1}`}
+                                {`Branch ${index + 1}`}
                               </Typography.Text>
                             }
                             className="w-full"
-                            key={`${field.key}-result`}
+                            key={`${field.key}-branch`}
                           >
                             <Form.Item
                               {...field}

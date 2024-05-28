@@ -8,7 +8,16 @@ import {
 import { createOneSpan } from "Config/DataDisplayInterface";
 import { TagVariantMapping } from "DataDisplayComponents/AppTag";
 import { AppForm } from "DataEntryComponents/AppForm";
-import { Flex, Form, Input, Tag, Tooltip, Typography, theme } from "antd";
+import {
+  Flex,
+  Form,
+  Input,
+  Select,
+  Tag,
+  Tooltip,
+  Typography,
+  theme,
+} from "antd";
 import {
   CSSProperties,
   Dispatch,
@@ -16,7 +25,7 @@ import {
   useEffect,
   useMemo,
 } from "react";
-import { GraphState } from "./GraphBuilder";
+import { GraphState, GraphStateType } from "./GraphBuilder";
 import { SetupNextState } from "./SetupNextState";
 
 export const GraphStateCard = (props: {
@@ -75,7 +84,7 @@ export const GraphStateCard = (props: {
       opacity-40
       border-2 border-[#4312e5]
       w-[350px]
-      h-[350px]
+      h-[250px]
       rounded-lg
       flex
       flex-col
@@ -103,7 +112,7 @@ export const GraphStateCard = (props: {
       ref={setNodeRef}
       id={state.id}
       style={style}
-      className="w-[350px] h-[350px] bg-white rounded-md flex flex-col relative"
+      className="w-[350px] h-[250px] bg-white rounded-md flex flex-col relative"
     >
       <div
         className="
@@ -159,11 +168,21 @@ export const GraphStateCard = (props: {
             layout="horizontal"
             onValuesChange={handleValuesChange}
           >
+            <Form.Item label="Type" name="type" className="mb-2 lg:mb-4">
+              <Select
+                disabled={isFixedState}
+                options={[
+                  { label: "State", value: "STATE" },
+                  { label: "Wait", value: "WAIT" },
+                ]}
+              />
+            </Form.Item>
+
             <Form.Item label="Name" name="name" className="mb-2 lg:mb-4">
               <Input disabled={isFixedState} />
             </Form.Item>
 
-            {!isFixedState && (
+            {!isFixedState && state.type !== GraphStateType.WAIT && (
               <>
                 <Form.Item
                   label="Service"

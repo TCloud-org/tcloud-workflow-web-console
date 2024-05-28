@@ -48,12 +48,13 @@ export const GraphBuilder = (props: {
   const {
     value = [
       {
+        type: GraphStateType.STATE,
         name: "Start",
         branches: [
           { type: "success", name: "SystemInitialized", target: "End" },
         ],
       },
-      { name: "End", branches: [] },
+      { type: GraphStateType.STATE, name: "End", branches: [] },
     ],
     onChange = () => {},
   } = props;
@@ -150,6 +151,7 @@ export const GraphBuilder = (props: {
     setStates((states) => {
       const newState = {
         id: v4(),
+        type: GraphStateType.STATE,
         name: "State",
         removable: true,
       };
