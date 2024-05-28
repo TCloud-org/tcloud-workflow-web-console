@@ -64,7 +64,7 @@ export const CodeBeam = (props: {
     label,
     snippets = [],
     onChange = () => {},
-    borderColor = "#222c3f",
+    borderColor,
     hideToolbar,
     className = "",
     style,
@@ -81,7 +81,7 @@ export const CodeBeam = (props: {
     <div
       className={`rounded-xl overflow-hidden ${className}`}
       style={{
-        border: `1px solid ${currentTheme.borderColor}`,
+        border: `1px solid ${borderColor || currentTheme.borderColor}`,
         backgroundColor: currentTheme.backgroundColor,
         ...style,
       }}
@@ -89,7 +89,11 @@ export const CodeBeam = (props: {
       {!hideToolbar && (
         <div
           className="flex items-center justify-between p-4"
-          style={{ borderBottom: `1px solid ${currentTheme.borderColor}` }}
+          style={{
+            borderBottom: `1px solid ${
+              borderColor || currentTheme.borderColor
+            }`,
+          }}
         >
           <Flex align="center" gap={16}>
             {showDots && (
@@ -124,7 +128,7 @@ export const CodeBeam = (props: {
       <ReactSyntaxHighlighter
         language={snippets.find((snippet) => snippet.key === select)?.language}
         style={currentTheme.codeTheme}
-        showLineNumbers={borderColor !== "transparent"}
+        showLineNumbers
         wrapLongLines={wrapLongLines}
         customStyle={{
           padding: borderColor === "transparent" ? 0 : "27px",

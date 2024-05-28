@@ -84,11 +84,12 @@ export const StateCardInfo = forwardRef<HTMLDivElement, StateCardInfoProps>(
       ...(data?.metadata?.error
         ? [
             {
+              label: "Error",
               children: (
                 <CodeBeam
                   value="json"
-                  label="Error"
                   className="w-full"
+                  borderColor="transparent"
                   wrapLongLines
                   snippets={[
                     {
