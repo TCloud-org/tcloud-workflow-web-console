@@ -58,8 +58,8 @@ export const BatchRerunPage = () => {
     const configMap: { [service: string]: ServiceConfiguration[] } = {};
 
     const promises = services.map(async (service) => {
-      const configs = await fetchServiceConfiguration(service, authToken);
-      configMap[service] = configs;
+      const res = await fetchServiceConfiguration(clientId, service, authToken);
+      configMap[service] = res.configurations;
     });
 
     await Promise.all(promises);
@@ -67,7 +67,7 @@ export const BatchRerunPage = () => {
     setServiceConfigMap(configMap);
 
     setLoading(false);
-  }, [services, authToken]);
+  }, [services, authToken, clientId]);
 
   const fetchWorkflowAliases = useCallback(async () => {
     setLoading(true);

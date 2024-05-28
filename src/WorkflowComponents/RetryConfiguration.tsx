@@ -44,13 +44,16 @@ export const RetryConfiguration = forwardRef<
         [last.source]: prev[last.source] || "live",
       }));
       setLastRoute(last);
-      setConfigurations(
-        await fetchServiceConfiguration(last.service, authToken)
+      const res = await fetchServiceConfiguration(
+        clientId,
+        last.service,
+        authToken
       );
+      setConfigurations(res.configurations);
 
       setLoading(false);
     }
-  }, [routes, authToken]);
+  }, [routes, authToken, clientId]);
 
   useEffect(() => {
     fetchConfig();
@@ -117,8 +120,10 @@ export const RetryConfiguration = forwardRef<
             dispatch={setFormData}
           />
         </AppRow>
-        <Flex justify="center">
-          <Button onClick={handleRetry}>Retry with this configuration</Button>
+        <Flex>
+          <Button size="small" type="primary" onClick={handleRetry}>
+            Retry with this configuration
+          </Button>
         </Flex>
         <Box>
           <AppIconButton width="100%" onClick={onClose} type="text">

@@ -39,6 +39,7 @@ export const RerunConfiguration = forwardRef<
   const { workflowId, workflowName } = useSelector(
     (state: any) => state.workflow.workflow || {}
   );
+  const clientId = useSelector((state: any) => state.client.clientId);
 
   const { workId } = useParams();
 
@@ -71,19 +72,25 @@ export const RerunConfiguration = forwardRef<
 
     try {
       const promises = services.map(async (service) => {
-        const configs = await fetchServiceConfiguration(service, authToken);
-        configMap[service] = configs;
+        const res = await fetchServiceConfiguration(
+          clientId,
+          service,
+          authToken
+        );
+        configMap[service] = res.configurations;
       });
 
       await Promise.all(promises);
 
       setServiceConfigMap(configMap);
+
+      console.log(configMap);
     } catch (error) {
       console.error("Error fetching configurations:", error);
     }
 
     setFetchConfigMapLoading(false);
-  }, [services, authToken]);
+  }, [services, authToken, clientId]);
 
   const fetchWorkflowAliases = useCallback(async () => {
     if (workflowId) {
@@ -268,7 +275,7 @@ export const RerunConfiguration = forwardRef<
               </FormButton>
             </Col>
           </AppRow>
-          <AppRow>
+          <AppRow gutter={[16, 16]}>
             <Col span={24}>
               <AppSpace size="small" direction="horizontal">
                 <Typography.Text strong>
@@ -302,8 +309,10 @@ export const RerunConfiguration = forwardRef<
                   />
                 ))}
           </AppRow>
-          <Flex justify="center">
-            <Button onClick={handleRerun}>Rerun with this configuration</Button>
+          <Flex>
+            <Button type="primary" onClick={handleRerun} size="small">
+              Rerun with this configuration
+            </Button>
           </Flex>
           <Box>
             <AppIconButton width="100%" onClick={onClose} type="text">

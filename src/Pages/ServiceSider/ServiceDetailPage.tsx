@@ -2,10 +2,11 @@ import { LinkOutlined } from "@ant-design/icons";
 import { DescriptionsProps, Typography } from "antd";
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Span } from "../../Config/DataDisplayInterface";
-import { WOS_ADD_SERVICE_CONFIGURATION_ENDPOINT } from "../../Config/WOSEndpointConfig";
 import { EditableColumn } from "../../Config/LayoutConfig";
+import { WOS_ADD_SERVICE_CONFIGURATION_ENDPOINT } from "../../Config/WOSEndpointConfig";
 import { ServiceConfiguration } from "../../Config/WorkflowConfig";
 import { AppDescriptions } from "../../DataDisplayComponents/AppDescriptions";
 import { AppSurface } from "../../DataDisplayComponents/AppSurface";
@@ -13,15 +14,15 @@ import { AppTable } from "../../DataDisplayComponents/AppTable";
 import { AppButton } from "../../DataEntryComponents/AppButton";
 import { AppLink } from "../../DataEntryComponents/AppLink";
 import { AppSpace } from "../../LayoutComponents/AppSpace";
-import { getConfigurationsByService } from "../../Network/WorkflowFetch";
+import { fetchServiceConfiguration } from "../../Network/WorkflowFetch";
 import { formatDate } from "../../Utils/DateUtils";
-import { useSelector } from "react-redux";
 
 export const ServiceDetailPage = () => {
   const { serviceName } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
 
+  const clientId = useSelector((state: any) => state.client.clientId);
   const authToken = useSelector((state: any) => state.auth.token);
 
   const columns: EditableColumn[] = [
@@ -100,16 +101,19 @@ export const ServiceDetailPage = () => {
   const [selected, setSelected] = useState<any>([]);
 
   const fetchConfig = useCallback(async () => {
-    setLoading(true);
-    const serviceConfig = await getConfigurationsByService(
-      serviceName,
-      authToken
-    );
-    setConfigurations(serviceConfig?.configurations || []);
-    setLiveService(serviceConfig?.liveService);
-    setNextAvailableVersion(serviceConfig?.nextAvailableVersion || 1);
-    setLoading(false);
-  }, [serviceName, authToken]);
+    if (clientId && serviceName && authToken) {
+      setLoading(true);
+      const serviceConfig = await fetchServiceConfiguration(
+        clientId,
+        serviceName,
+        authToken
+      );
+      setConfigurations(serviceConfig?.configurations || []);
+      setLiveService(serviceConfig?.liveService);
+      setNextAvailableVersion(serviceConfig?.nextAvailableVersion || 1);
+      setLoading(false);
+    }
+  }, [clientId, serviceName, authToken]);
 
   useEffect(() => {
     fetchConfig();

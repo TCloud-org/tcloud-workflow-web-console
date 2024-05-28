@@ -21,11 +21,14 @@ import {
   GetWorkflowBucketsByClientIdAndWorkflowIdOutput,
   GetWorkflowConfigurationOutput,
   InfraStatistic,
-  ServiceConfiguration,
   StepWorkflowBilling,
 } from "../Config/WorkflowConfig";
 
-export const fetchServiceConfiguration = (service: string, token: string) => {
+export const fetchServiceConfiguration = async (
+  clientId: string,
+  service: string,
+  token: string
+): Promise<GetConfigurationsByServiceNameOutput> => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -33,16 +36,11 @@ export const fetchServiceConfiguration = (service: string, token: string) => {
   };
   return axios
     .get(
-      `${WOS_GET_CONFIGURATIONS_BY_SERVICE_NAME_ENDPOINT}?serviceName=${service}`,
+      `${WOS_GET_CONFIGURATIONS_BY_SERVICE_NAME_ENDPOINT}?clientId=${clientId}&serviceName=${service}`,
       config
     )
     .then((response) => {
-      console.log(response.data, service);
-      return response.data.configurations as ServiceConfiguration[];
-    })
-    .catch((error) => {
-      console.error(error);
-      return [];
+      return response.data as GetConfigurationsByServiceNameOutput;
     });
 };
 
@@ -107,6 +105,7 @@ export const getConfigurationsByService = async (
       config
     )
     .then((response) => {
+      console.log(response.data, service);
       return response.data as GetConfigurationsByServiceNameOutput;
     })
     .catch((_) => undefined);

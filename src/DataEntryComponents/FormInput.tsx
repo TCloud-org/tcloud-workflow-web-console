@@ -29,7 +29,12 @@ export const FormInput = (props: {
       }}
     >
       <Form.Item label={label} tooltip={tooltip}>
-        <Input value={value} disabled={disabled} onChange={onChange} />
+        <Input
+          size="small"
+          value={value}
+          disabled={disabled}
+          onChange={onChange}
+        />
       </Form.Item>
     </Form>
   );

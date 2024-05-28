@@ -204,6 +204,10 @@ export const App = () => {
               path: "/reset-your-password/:resetToken",
               element: <ResetPasswordPage />,
             },
+            {
+              path: "*",
+              element: <Navigate to="/" replace />,
+            },
           ]
         : [
             ...globalRoutes,
