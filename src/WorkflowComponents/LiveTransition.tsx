@@ -101,7 +101,11 @@ export const LiveTransition = forwardRef<
               title: "Choose Source",
               description: (
                 <AppRow className="mt-2">
-                  <Col {...Span[1]}>
+                  <Col {...createSpan(4)}>
+                    <Typography.Text>Current State</Typography.Text>
+                  </Col>
+
+                  <Col {...createSpan(20)}>
                     <Radio.Group
                       size="small"
                       buttonStyle="solid"
@@ -121,44 +125,53 @@ export const LiveTransition = forwardRef<
               description: (
                 <AppRow className="mt-2">
                   <Col {...Span[1]}>
-                    <Radio.Group
-                      size="small"
-                      buttonStyle="solid"
-                      style={{ width: "100%" }}
-                      value={to}
-                      onChange={(e) => setTo(e.target.value)}
-                    >
-                      <AppSpace>
-                        {nextStates.length > 0 && (
-                          <AppRow>
-                            <Col {...createSpan(4)}>
-                              <Typography.Text>Next State</Typography.Text>
-                            </Col>
+                    <AppSpace>
+                      {nextStates.length > 0 && (
+                        <AppRow>
+                          <Col {...createSpan(4)}>
+                            <Typography.Text>Next State</Typography.Text>
+                          </Col>
 
-                            <Col {...createSpan(20)}>
-                              <Flex vertical gap={16}>
-                                {nextStates.map((state, i) => (
+                          <Col {...createSpan(20)}>
+                            <Flex vertical gap={16}>
+                              {nextStates.map((state, i) => (
+                                <Radio.Group
+                                  key={i}
+                                  size="small"
+                                  buttonStyle="solid"
+                                  style={{ width: "100%" }}
+                                  value={to}
+                                  onChange={(e) => setTo(e.target.value)}
+                                >
                                   <Radio.Button
-                                    key={i}
                                     style={{ width: "100%" }}
                                     value={state}
                                   >
                                     {state}
                                   </Radio.Button>
-                                ))}
-                              </Flex>
-                            </Col>
-                          </AppRow>
-                        )}
-                        {otherStates.length > 0 && (
-                          <AppRow>
-                            <Col {...createSpan(4)}>
-                              <Typography.Text>Other State</Typography.Text>
-                            </Col>
+                                </Radio.Group>
+                              ))}
+                            </Flex>
+                          </Col>
+                        </AppRow>
+                      )}
+                      {otherStates.length > 0 && (
+                        <AppRow>
+                          <Col {...createSpan(4)}>
+                            <Typography.Text>Other State</Typography.Text>
+                          </Col>
 
-                            <Col {...createSpan(20)}>
-                              <Flex vertical gap={16}>
-                                {otherStates.map((state, i) => (
+                          <Col {...createSpan(20)}>
+                            <Flex vertical gap={16}>
+                              {otherStates.map((state, i) => (
+                                <Radio.Group
+                                  key={i}
+                                  size="small"
+                                  buttonStyle="solid"
+                                  style={{ width: "100%" }}
+                                  value={to}
+                                  onChange={(e) => setTo(e.target.value)}
+                                >
                                   <Radio.Button
                                     key={i}
                                     style={{
@@ -168,14 +181,14 @@ export const LiveTransition = forwardRef<
                                   >
                                     {state}
                                   </Radio.Button>
-                                ))}
-                              </Flex>
-                            </Col>
-                          </AppRow>
-                        )}
-                        {nextStates.length === 0 && <AppEmpty />}
-                      </AppSpace>
-                    </Radio.Group>
+                                </Radio.Group>
+                              ))}
+                            </Flex>
+                          </Col>
+                        </AppRow>
+                      )}
+                      {nextStates.length === 0 && <AppEmpty />}
+                    </AppSpace>
                   </Col>
                 </AppRow>
               ),
