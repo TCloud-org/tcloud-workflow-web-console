@@ -10,6 +10,7 @@ export const FormInput = (props: {
   layout?: FormLayout;
   disabled?: boolean;
   onChange?: () => void;
+  showTooltip?: boolean;
 }) => {
   const {
     value,
@@ -19,6 +20,7 @@ export const FormInput = (props: {
     layout = "vertical",
     disabled,
     onChange,
+    showTooltip,
   } = props;
   return (
     <Form
@@ -28,7 +30,10 @@ export const FormInput = (props: {
         ...style,
       }}
     >
-      <Form.Item label={label} tooltip={tooltip}>
+      <Form.Item
+        label={label}
+        tooltip={tooltip || (showTooltip ? value : undefined)}
+      >
         <Input
           size="small"
           value={value}

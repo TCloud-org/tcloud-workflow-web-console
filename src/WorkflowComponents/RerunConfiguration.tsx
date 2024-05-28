@@ -1,10 +1,10 @@
 import { CaretUpOutlined } from "@ant-design/icons";
-import { Button, Col, Flex, Typography } from "antd";
+import { Button, Col, Divider, Flex, Typography } from "antd";
 import axios from "axios";
-import { forwardRef, useCallback, useEffect, useState } from "react";
+import { Fragment, forwardRef, useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { SelectItem } from "../Config/DataDisplayInterface";
+import { SelectItem, Span, createSpan } from "../Config/DataDisplayInterface";
 import {
   WOS_GET_GRAPHS_BY_WORKFLOW_ID_ENDPOINT,
   WOS_RERUN_WORKFLOW_ENDPOINT,
@@ -247,14 +247,14 @@ export const RerunConfiguration = forwardRef<
               Rerun with Configuration
             </Typography.Text>
           </Box>
-          <AppRow>
-            <Col span={24}>
+          <AppRow gutter={[16, 16]}>
+            <Col {...Span[1]}>
               <Typography.Text strong>1. Configure Workflow</Typography.Text>
             </Col>
-            <Col span={10}>
+            <Col {...createSpan(10)}>
               <FormInput label="Workflow" value={workflowName} disabled />
             </Col>
-            <Col span={10}>
+            <Col {...createSpan(10)}>
               <FormSelect
                 options={graphs.map(
                   (graph) =>
@@ -269,14 +269,14 @@ export const RerunConfiguration = forwardRef<
                 onChange={(value) => setWorkflowAlias(value)}
               />
             </Col>
-            <Col span={4}>
+            <Col {...createSpan(4)}>
               <FormButton width="100%" label=" " onClick={handleViewGraph}>
                 View graph
               </FormButton>
             </Col>
           </AppRow>
           <AppRow gutter={[16, 16]}>
-            <Col span={24}>
+            <Col {...Span[1]}>
               <AppSpace size="small" direction="horizontal">
                 <Typography.Text strong>
                   2. Configure Endpoint by
@@ -291,22 +291,39 @@ export const RerunConfiguration = forwardRef<
             </Col>
             {endpointConfigType === "service"
               ? services.map((service, i) => (
-                  <EndpointConfigByService
-                    key={i}
-                    service={service}
-                    serviceConfigMap={serviceConfigMap}
-                    value={serviceConfigFormData[service]}
-                    dispatch={setServiceConfigFormData}
-                  />
+                  <Fragment key={i}>
+                    {i > 0 && (
+                      <Divider
+                        className="block lg:hidden"
+                        style={{ margin: 0 }}
+                      />
+                    )}
+                    <EndpointConfigByService
+                      service={service}
+                      serviceConfigMap={serviceConfigMap}
+                      value={serviceConfigFormData[service]}
+                      dispatch={setServiceConfigFormData}
+                    />
+                  </Fragment>
                 ))
               : states.map((state, i) => (
-                  <EndpointConfigByState
-                    key={i}
-                    state={state}
-                    serviceConfigMap={serviceConfigMap}
-                    value={stateConfigFormData[state.name as string] || "live"}
-                    dispatch={setStateConfigFormData}
-                  />
+                  <Fragment key={i}>
+                    {i > 0 && (
+                      <Divider
+                        className="block lg:hidden"
+                        style={{ margin: 0 }}
+                      />
+                    )}
+                    <EndpointConfigByState
+                      key={i}
+                      state={state}
+                      serviceConfigMap={serviceConfigMap}
+                      value={
+                        stateConfigFormData[state.name as string] || "live"
+                      }
+                      dispatch={setStateConfigFormData}
+                    />
+                  </Fragment>
                 ))}
           </AppRow>
           <Flex>

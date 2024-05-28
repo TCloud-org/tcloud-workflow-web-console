@@ -103,7 +103,7 @@ export const RetryConfiguration = forwardRef<
         <Box>
           <Typography.Text strong>Retry with Configuration</Typography.Text>
         </Box>
-        <AppRow>
+        <AppRow gutter={[16, 16]}>
           <EndpointConfigByState
             state={
               {

@@ -10,7 +10,7 @@ import {
   message,
 } from "antd";
 import axios from "axios";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation, useParams } from "react-router-dom";
 import { v4 } from "uuid";
@@ -70,7 +70,9 @@ export const WorkflowToolbar = (props: {
   const [runConfig, setRunConfig] = useState<any>();
   const [refreshToken, setRefreshToken] = useState<string>();
 
-  useEffect(() => {
+  const updateHeights = useCallback(() => {
+    if (refreshToken) {
+    }
     if (rerunRef.current) {
       const height = rerunRef.current.scrollHeight;
       rerunRef.current.style.maxHeight =
@@ -122,6 +124,16 @@ export const WorkflowToolbar = (props: {
       }
     }
   }, [runConfig, refreshToken]);
+
+  useEffect(() => {
+    updateHeights();
+
+    window.addEventListener("resize", updateHeights);
+
+    return () => {
+      window.removeEventListener("resize", updateHeights);
+    };
+  }, [updateHeights]);
 
   const handleRetry = async () => {
     setRetryLoading(true);

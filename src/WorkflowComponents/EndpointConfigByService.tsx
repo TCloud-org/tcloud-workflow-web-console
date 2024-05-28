@@ -1,6 +1,6 @@
 import { Col } from "antd";
 import { Dispatch, Fragment, SetStateAction } from "react";
-import { SelectItem } from "../Config/DataDisplayInterface";
+import { SelectItem, createSpan } from "../Config/DataDisplayInterface";
 import { ServiceConfiguration } from "../Config/WorkflowConfig";
 import { FormInput } from "../DataEntryComponents/FormInput";
 import { FormSelect } from "../DataEntryComponents/FormSelect";
@@ -26,19 +26,20 @@ export const EndpointConfigByService = (props: {
 
   return (
     <Fragment>
-      <Col span={10}>
-        <FormInput label="Service" value={service} disabled />
+      <Col {...createSpan(10)}>
+        <FormInput label="Service" value={service} disabled showTooltip />
       </Col>
-      <Col span={10}>
+      <Col {...createSpan(10)}>
         <FormInput
           label="Endpoint"
           value={
             configurations.find((config) => config.alias === value)?.baseUrl
           }
           disabled
+          showTooltip
         />
       </Col>
-      <Col span={4}>
+      <Col {...createSpan(4)}>
         <FormSelect
           label="Alias"
           options={configurations.map(

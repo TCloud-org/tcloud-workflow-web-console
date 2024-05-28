@@ -1,12 +1,12 @@
+import { AppCopy } from "DataDisplayComponents/AppCopy";
 import { CodeBeam } from "DataDisplayComponents/CodeBeam";
-import { DescriptionsProps, Typography, theme } from "antd";
+import { DescriptionsProps, Typography } from "antd";
 import { CSSProperties, forwardRef } from "react";
 import { Span } from "../Config/DataDisplayInterface";
 import { Route } from "../Config/WorkflowConfig";
 import { AppDescriptions } from "../DataDisplayComponents/AppDescriptions";
 import { formatDate } from "../Utils/DateUtils";
 import { parseError } from "../Utils/Serializer";
-import { AppCopy } from "DataDisplayComponents/AppCopy";
 
 interface StateCardInfoProps {
   data?: Route;
@@ -15,8 +15,6 @@ interface StateCardInfoProps {
 
 export const StateCardInfo = forwardRef<HTMLDivElement, StateCardInfoProps>(
   (props, ref) => {
-    const { token } = theme.useToken();
-
     const { data, style } = props;
 
     const renderNATag = () => {
