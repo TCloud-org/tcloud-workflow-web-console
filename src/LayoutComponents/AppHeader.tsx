@@ -181,7 +181,6 @@ export const AppHeader = (props: {
     backgroundColor: token.colorBgElevated,
     borderRadius: token.borderRadiusLG,
     boxShadow: token.boxShadowSecondary,
-    width: "20vw",
   };
 
   const menuStyle: React.CSSProperties = {
@@ -306,7 +305,7 @@ export const AppHeader = (props: {
             trigger={["click"]}
             placement="bottomRight"
             dropdownRender={(menu) => (
-              <div style={contentStyle}>
+              <div style={contentStyle} className="w-64 lg:w-80">
                 <Flex style={{ padding: "8px 16px" }} justify="flex-start">
                   <Typography.Text type="secondary">
                     {account.email}
