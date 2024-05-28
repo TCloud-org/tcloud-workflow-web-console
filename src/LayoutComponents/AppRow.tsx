@@ -11,7 +11,7 @@ export const AppRow = forwardRef<
     className?: string;
   }
 >((props, ref) => {
-  const { gutter = 24 } = props;
+  const { gutter = [16, 16] } = props;
   return (
     <Row
       ref={ref}

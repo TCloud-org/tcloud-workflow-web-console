@@ -1,21 +1,16 @@
+import { Clause } from "Config/FilterConfig";
+import { models } from "Pages/ApiWorkflowGetStartedSider/ApiWorkflowModelPage";
+import { GraphState } from "WorkflowComponents/GraphBuilder";
 import { TagProps } from "antd";
 import { PresetColorType, PresetStatusColorType } from "antd/es/_util/colors";
 import { LiteralUnion } from "antd/es/_util/type";
-import {
-  Graph,
-  Route,
-  WorkRequest,
-  XMLGraphState,
-} from "../Config/WorkflowConfig";
+import dayjs from "dayjs";
+import { Graph, Route, WorkRequest } from "../Config/WorkflowConfig";
 import {
   deserializeDocument,
   deserializeDocumentChangeLogs,
 } from "./Serializer";
 import { getAbbreviation } from "./StringUtils";
-import { Clause } from "Config/FilterConfig";
-import dayjs from "dayjs";
-import { models } from "Pages/ApiWorkflowGetStartedSider/ApiWorkflowModelPage";
-import { GraphState } from "WorkflowComponents/GraphBuilder";
 
 export const populateFlowNodeData = (nodes: any[] = []) => {
   const newNodes = nodes.map((node) => ({ ...node }));
@@ -164,18 +159,16 @@ export const formatTitleCase = (str: string): string => {
 export const extractStatesAfterSource = (
   source: string,
   graph: Graph
-): XMLGraphState[] => {
-  const result = graph.parsedGraphResult?.result || {};
-  const sortedResult = Object.values(result).sort(
-    (a: any, b: any) => a.runningOrder - b.runningOrder
-  );
-  const itemsAfterSource: XMLGraphState[] = [];
+): string[] => {
+  const states = graph.graphArch?.uiBuilderGraphFormat.states || [];
+
+  const itemsAfterSource: string[] = [];
   let foundSource = false;
 
-  for (const item of sortedResult) {
+  for (const item of states) {
     if (foundSource) {
-      itemsAfterSource.push(item as XMLGraphState);
-    } else if ((item as any).source === source) {
+      itemsAfterSource.push(item.name);
+    } else if (item.name === source) {
       foundSource = true;
     }
   }

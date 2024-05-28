@@ -33,7 +33,7 @@ export enum GraphStateType {
 export interface GraphState {
   id: string;
   type?: GraphStateType;
-  name?: string;
+  name: string;
   service?: string;
   operation?: string;
   branches?: GraphResult[];

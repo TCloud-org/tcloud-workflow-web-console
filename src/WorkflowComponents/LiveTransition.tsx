@@ -1,22 +1,22 @@
-import React, { forwardRef, useEffect, useState } from "react";
+import { CaretUpOutlined } from "@ant-design/icons";
+import { Col, Flex, Radio, Typography } from "antd";
+import axios from "axios";
+import { forwardRef, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { WOS_TRANSITION_STATE_ENDPOINT } from "../Config/WOSEndpointConfig";
+import { Graph, Route } from "../Config/WorkflowConfig";
+import { AppEmpty } from "../DataDisplayComponents/AppEmpty";
+import { AppButton } from "../DataEntryComponents/AppButton";
+import { AppIconButton } from "../DataEntryComponents/AppIconButton";
+import { AppRow } from "../LayoutComponents/AppRow";
 import { AppSheet } from "../LayoutComponents/AppSheet";
 import { AppSpace } from "../LayoutComponents/AppSpace";
 import { Box } from "../LayoutComponents/Box";
-import { AppIconButton } from "../DataEntryComponents/AppIconButton";
-import { CaretUpOutlined } from "@ant-design/icons";
-import { Col, Flex, Radio, Typography } from "antd";
-import { AppRow } from "../LayoutComponents/AppRow";
-import { Graph, Route, XMLGraphState } from "../Config/WorkflowConfig";
 import {
   extractStatesAfterSource,
   getLastRouteSource,
 } from "../Utils/ObjectUtils";
-import { AppButton } from "../DataEntryComponents/AppButton";
-import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { WOS_TRANSITION_STATE_ENDPOINT } from "../Config/WOSEndpointConfig";
-import axios from "axios";
-import { AppEmpty } from "../DataDisplayComponents/AppEmpty";
 
 export const LiveTransition = forwardRef<
   HTMLDivElement,
@@ -36,8 +36,8 @@ export const LiveTransition = forwardRef<
 
   const [from, setFrom] = useState<string>("None");
   const [to, setTo] = useState<string>("None");
-  const [nextStates, setNextStates] = useState<XMLGraphState[]>([]);
-  const [otherStates, setOtherStates] = useState<XMLGraphState[]>([]);
+  const [nextStates, setNextStates] = useState<string[]>([]);
+  const [otherStates, setOtherStates] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
@@ -92,6 +92,7 @@ export const LiveTransition = forwardRef<
           </Col>
           <Col span={24}>
             <Radio.Group
+              size="small"
               buttonStyle="solid"
               style={{ width: "100%" }}
               value={from}
@@ -108,6 +109,7 @@ export const LiveTransition = forwardRef<
           </Col>
           <Col span={24}>
             <Radio.Group
+              size="small"
               buttonStyle="solid"
               style={{ width: "100%" }}
               value={to}
@@ -123,9 +125,9 @@ export const LiveTransition = forwardRef<
                       <Radio.Button
                         key={i}
                         style={{ width: "100%" }}
-                        value={state.source}
+                        value={state}
                       >
-                        {state.source}
+                        {state}
                       </Radio.Button>
                     ))}
                   </AppSpace>
@@ -139,9 +141,9 @@ export const LiveTransition = forwardRef<
                       <Radio.Button
                         key={i}
                         style={{ width: "100%" }}
-                        value={state.source}
+                        value={state}
                       >
-                        {state.source}
+                        {state}
                       </Radio.Button>
                     ))}
                   </AppSpace>
@@ -151,8 +153,10 @@ export const LiveTransition = forwardRef<
             </Radio.Group>
           </Col>
         </AppRow>
-        <Flex justify="center">
+        <Flex>
           <AppButton
+            size="small"
+            type="primary"
             loading={loading}
             onClick={handleTransition}
             tooltip={`Transition from ${from} to ${to}`}

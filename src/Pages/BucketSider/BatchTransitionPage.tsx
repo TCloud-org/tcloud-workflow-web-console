@@ -1,19 +1,19 @@
 import { Flex, Radio, Steps, Typography } from "antd";
+import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ListItem } from "../../Config/DataDisplayInterface";
-import { Graph, Route, XMLGraphState } from "../../Config/WorkflowConfig";
+import { WOS_TRANSITION_STATE_ENDPOINT } from "../../Config/WOSEndpointConfig";
+import { Graph, Route } from "../../Config/WorkflowConfig";
+import { AppEmpty } from "../../DataDisplayComponents/AppEmpty";
 import { AppHeading } from "../../DataDisplayComponents/AppHeading";
 import { AppList } from "../../DataDisplayComponents/AppList";
+import { AppButton } from "../../DataEntryComponents/AppButton";
 import { AppSpace } from "../../LayoutComponents/AppSpace";
 import { AppVerticalStepContent } from "../../LayoutComponents/AppVerticalStepContent";
 import { getGraphById } from "../../Network/WorkflowFetch";
 import { extractStatesAfterSource } from "../../Utils/ObjectUtils";
-import { WOS_TRANSITION_STATE_ENDPOINT } from "../../Config/WOSEndpointConfig";
-import axios from "axios";
-import { useSelector } from "react-redux";
-import { AppButton } from "../../DataEntryComponents/AppButton";
-import { AppEmpty } from "../../DataDisplayComponents/AppEmpty";
 
 export const BatchTransitionPage = () => {
   const navigate = useNavigate();
@@ -37,8 +37,8 @@ export const BatchTransitionPage = () => {
   const [transitionLoading, setTransitionLoading] = useState<boolean>(false);
   const [from, setFrom] = useState<string>("None");
   const [to, setTo] = useState<string>("None");
-  const [nextStates, setNextStates] = useState<XMLGraphState[]>([]);
-  const [otherStates, setOtherStates] = useState<XMLGraphState[]>([]);
+  const [nextStates, setNextStates] = useState<string[]>([]);
+  const [otherStates, setOtherStates] = useState<string[]>([]);
 
   const fetchGraph = useCallback(async () => {
     if (route && route.graphId) {
@@ -149,9 +149,9 @@ export const BatchTransitionPage = () => {
                           <Radio.Button
                             style={{ width: "100%" }}
                             key={i}
-                            value={state.source}
+                            value={state}
                           >
-                            {state.source}
+                            {state}
                           </Radio.Button>
                         ))}
                       </AppSpace>
@@ -166,9 +166,9 @@ export const BatchTransitionPage = () => {
                             <Radio.Button
                               style={{ width: "100%" }}
                               key={i}
-                              value={state.source}
+                              value={state}
                             >
-                              {state.source}
+                              {state}
                             </Radio.Button>
                           ))}
                         </AppSpace>
