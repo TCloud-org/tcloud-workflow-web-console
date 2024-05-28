@@ -1,10 +1,11 @@
-import { CaretUpOutlined } from "@ant-design/icons";
-import { Button, Col, Divider, Flex, Typography } from "antd";
+import { CloseRounded } from "@mui/icons-material";
+import { PageTitle } from "DataDisplayComponents/PageTitle";
+import { Button, Col, Divider, Flex, Steps } from "antd";
 import axios from "axios";
 import { Fragment, forwardRef, useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { SelectItem, Span, createSpan } from "../Config/DataDisplayInterface";
+import { SelectItem, createSpan } from "../Config/DataDisplayInterface";
 import {
   WOS_GET_GRAPHS_BY_WORKFLOW_ID_ENDPOINT,
   WOS_RERUN_WORKFLOW_ENDPOINT,
@@ -23,7 +24,6 @@ import { FormSelect } from "../DataEntryComponents/FormSelect";
 import { AppRow } from "../LayoutComponents/AppRow";
 import { AppSheet } from "../LayoutComponents/AppSheet";
 import { AppSpace } from "../LayoutComponents/AppSpace";
-import { Box } from "../LayoutComponents/Box";
 import { fetchServiceConfiguration } from "../Network/WorkflowFetch";
 import { extractServices, extractStates } from "../Utils/ObjectUtils";
 import { EndpointConfigByService } from "./EndpointConfigByService";
@@ -242,100 +242,119 @@ export const RerunConfiguration = forwardRef<
             fetchConfigMapLoading || fetchWorkflowAliasLoading || loading
           }
         >
-          <Box>
-            <Typography.Text strong style={{ fontSize: "16px" }}>
-              Rerun with Configuration
-            </Typography.Text>
-          </Box>
-          <AppRow gutter={[16, 16]}>
-            <Col {...Span[1]}>
-              <Typography.Text strong>1. Configure Workflow</Typography.Text>
-            </Col>
-            <Col {...createSpan(10)}>
-              <FormInput label="Workflow" value={workflowName} disabled />
-            </Col>
-            <Col {...createSpan(10)}>
-              <FormSelect
-                options={graphs.map(
-                  (graph) =>
-                    ({
-                      label: graph.alias,
-                      value: graph.alias,
-                    } as SelectItem)
-                )}
-                placeholder="Select an alias"
-                label="Alias"
-                value={workflowAlias}
-                onChange={(value) => setWorkflowAlias(value)}
-              />
-            </Col>
-            <Col {...createSpan(4)}>
-              <FormButton width="100%" label=" " onClick={handleViewGraph}>
-                View graph
-              </FormButton>
-            </Col>
-          </AppRow>
-          <AppRow gutter={[16, 16]}>
-            <Col {...Span[1]}>
-              <AppSpace size="small" direction="horizontal">
-                <Typography.Text strong>
-                  2. Configure Endpoint by
-                </Typography.Text>
-                <FormSelect
-                  style={{ width: 100 }}
-                  options={EndpointConfigTypes}
-                  value={endpointConfigType}
-                  onChange={handleEndpointConfigChange}
-                />
-              </AppSpace>
-            </Col>
-            {endpointConfigType === "service"
-              ? services.map((service, i) => (
-                  <Fragment key={i}>
-                    {i > 0 && (
-                      <Divider
-                        className="block lg:hidden"
-                        style={{ margin: 0 }}
+          <PageTitle
+            level={5}
+            endDecorator={
+              <AppIconButton type="text" onClick={onClose}>
+                <CloseRounded />
+              </AppIconButton>
+            }
+          >
+            Rerun with Configuration
+          </PageTitle>
+          <Steps
+            progressDot
+            direction="vertical"
+            current={2}
+            items={[
+              {
+                title: "Configure Workflow",
+                description: (
+                  <AppRow gutter={[16, 16]} className="mt-2">
+                    <Col {...createSpan(10)}>
+                      <FormInput
+                        label="Workflow"
+                        value={workflowName}
+                        disabled
                       />
-                    )}
-                    <EndpointConfigByService
-                      service={service}
-                      serviceConfigMap={serviceConfigMap}
-                      value={serviceConfigFormData[service]}
-                      dispatch={setServiceConfigFormData}
-                    />
-                  </Fragment>
-                ))
-              : states.map((state, i) => (
-                  <Fragment key={i}>
-                    {i > 0 && (
-                      <Divider
-                        className="block lg:hidden"
-                        style={{ margin: 0 }}
+                    </Col>
+                    <Col {...createSpan(10)}>
+                      <FormSelect
+                        options={graphs.map(
+                          (graph) =>
+                            ({
+                              label: graph.alias,
+                              value: graph.alias,
+                            } as SelectItem)
+                        )}
+                        placeholder="Select an alias"
+                        label="Alias"
+                        value={workflowAlias}
+                        onChange={(value) => setWorkflowAlias(value)}
                       />
-                    )}
-                    <EndpointConfigByState
-                      key={i}
-                      state={state}
-                      serviceConfigMap={serviceConfigMap}
-                      value={
-                        stateConfigFormData[state.name as string] || "live"
-                      }
-                      dispatch={setStateConfigFormData}
+                    </Col>
+                    <Col {...createSpan(4)}>
+                      <FormButton
+                        width="100%"
+                        label=" "
+                        onClick={handleViewGraph}
+                      >
+                        View graph
+                      </FormButton>
+                    </Col>
+                  </AppRow>
+                ),
+              },
+              {
+                title: (
+                  <Flex align="center" gap={8}>
+                    Configure Endpoint by
+                    <FormSelect
+                      style={{ width: 100 }}
+                      options={EndpointConfigTypes}
+                      value={endpointConfigType}
+                      onChange={handleEndpointConfigChange}
                     />
-                  </Fragment>
-                ))}
-          </AppRow>
-          <Flex>
-            <Button type="primary" onClick={handleRerun} size="small">
-              Rerun with this configuration
-            </Button>
-          </Flex>
-          <Box>
-            <AppIconButton width="100%" onClick={onClose} type="text">
-              <CaretUpOutlined />
-            </AppIconButton>
-          </Box>
+                  </Flex>
+                ),
+                description: (
+                  <AppRow gutter={[16, 16]} className="mt-2">
+                    {endpointConfigType === "service"
+                      ? services.map((service, i) => (
+                          <Fragment key={i}>
+                            {i > 0 && (
+                              <Divider
+                                className="block lg:hidden"
+                                style={{ margin: 0 }}
+                              />
+                            )}
+                            <EndpointConfigByService
+                              service={service}
+                              serviceConfigMap={serviceConfigMap}
+                              value={serviceConfigFormData[service]}
+                              dispatch={setServiceConfigFormData}
+                            />
+                          </Fragment>
+                        ))
+                      : states.map((state, i) => (
+                          <Fragment key={i}>
+                            {i > 0 && (
+                              <Divider
+                                className="block lg:hidden"
+                                style={{ margin: 0 }}
+                              />
+                            )}
+                            <EndpointConfigByState
+                              key={i}
+                              state={state}
+                              serviceConfigMap={serviceConfigMap}
+                              value={
+                                stateConfigFormData[state.name as string] ||
+                                "live"
+                              }
+                              dispatch={setStateConfigFormData}
+                            />
+                          </Fragment>
+                        ))}
+                  </AppRow>
+                ),
+              },
+            ]}
+          />
+
+          <Button type="primary" onClick={handleRerun} size="small">
+            Rerun with this configuration
+          </Button>
         </AppSpace>
       </AppSheet>
       <WorkflowModal

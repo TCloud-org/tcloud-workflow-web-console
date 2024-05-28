@@ -1,5 +1,6 @@
-import { CaretUpOutlined } from "@ant-design/icons";
-import { Button, Flex, Typography } from "antd";
+import { CloseRounded } from "@mui/icons-material";
+import { PageTitle } from "DataDisplayComponents/PageTitle";
+import { Button, Steps } from "antd";
 import axios from "axios";
 import { forwardRef, useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -10,7 +11,6 @@ import { AppIconButton } from "../DataEntryComponents/AppIconButton";
 import { AppRow } from "../LayoutComponents/AppRow";
 import { AppSheet } from "../LayoutComponents/AppSheet";
 import { AppSpace } from "../LayoutComponents/AppSpace";
-import { Box } from "../LayoutComponents/Box";
 import { fetchServiceConfiguration } from "../Network/WorkflowFetch";
 import { EndpointConfigByState } from "./EndpointConfigByState";
 import { GraphState } from "./GraphBuilder";
@@ -100,36 +100,48 @@ export const RetryConfiguration = forwardRef<
   return (
     <AppSheet ref={ref} style={{ marginTop: "16px" }}>
       <AppSpace loading={loading}>
-        <Box>
-          <Typography.Text strong>Retry with Configuration</Typography.Text>
-        </Box>
-        <AppRow gutter={[16, 16]}>
-          <EndpointConfigByState
-            state={
-              {
-                name: lastRoute?.source,
-                service: lastRoute?.service,
-              } as GraphState
-            }
-            serviceConfigMap={
-              { [lastRoute?.service || ""]: configurations } as {
-                [service: string]: ServiceConfiguration[];
-              }
-            }
-            value={formData[lastRoute?.source || ""] || "live"}
-            dispatch={setFormData}
-          />
-        </AppRow>
-        <Flex>
-          <Button size="small" type="primary" onClick={handleRetry}>
-            Retry with this configuration
-          </Button>
-        </Flex>
-        <Box>
-          <AppIconButton width="100%" onClick={onClose} type="text">
-            <CaretUpOutlined />
-          </AppIconButton>
-        </Box>
+        <PageTitle
+          level={5}
+          endDecorator={
+            <AppIconButton type="text" onClick={onClose}>
+              <CloseRounded />
+            </AppIconButton>
+          }
+        >
+          Retry with Configuration
+        </PageTitle>
+        <Steps
+          progressDot
+          direction="vertical"
+          current={1}
+          items={[
+            {
+              title: "Configure endpoint by service",
+              description: (
+                <AppRow gutter={[16, 16]} className="mt-2">
+                  <EndpointConfigByState
+                    state={
+                      {
+                        name: lastRoute?.source,
+                        service: lastRoute?.service,
+                      } as GraphState
+                    }
+                    serviceConfigMap={
+                      { [lastRoute?.service || ""]: configurations } as {
+                        [service: string]: ServiceConfiguration[];
+                      }
+                    }
+                    value={formData[lastRoute?.source || ""] || "live"}
+                    dispatch={setFormData}
+                  />
+                </AppRow>
+              ),
+            },
+          ]}
+        />
+        <Button size="small" type="primary" onClick={handleRetry}>
+          Retry with this configuration
+        </Button>
       </AppSpace>
     </AppSheet>
   );

@@ -1,5 +1,7 @@
-import { CaretUpOutlined } from "@ant-design/icons";
-import { Col, Flex, Radio, Typography } from "antd";
+import { CloseRounded } from "@mui/icons-material";
+import { Span, createSpan } from "Config/DataDisplayInterface";
+import { PageTitle } from "DataDisplayComponents/PageTitle";
+import { Col, Flex, Radio, Steps, Typography } from "antd";
 import axios from "axios";
 import { forwardRef, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -12,7 +14,6 @@ import { AppIconButton } from "../DataEntryComponents/AppIconButton";
 import { AppRow } from "../LayoutComponents/AppRow";
 import { AppSheet } from "../LayoutComponents/AppSheet";
 import { AppSpace } from "../LayoutComponents/AppSpace";
-import { Box } from "../LayoutComponents/Box";
 import {
   extractStatesAfterSource,
   getLastRouteSource,
@@ -81,94 +82,116 @@ export const LiveTransition = forwardRef<
       }}
     >
       <AppSpace>
-        <Flex>
-          <Typography.Text strong style={{ fontSize: "16px" }}>
-            Transition
-          </Typography.Text>
-        </Flex>
-        <AppRow>
-          <Col span={24}>
-            <Typography.Text strong>1. Confirm source</Typography.Text>
-          </Col>
-          <Col span={24}>
-            <Radio.Group
-              size="small"
-              buttonStyle="solid"
-              style={{ width: "100%" }}
-              value={from}
-            >
-              <Radio.Button style={{ width: "100%" }} value={from}>
-                {from}
-              </Radio.Button>
-            </Radio.Group>
-          </Col>
-        </AppRow>
-        <AppRow>
-          <Col span={24}>
-            <Typography.Text strong>2. Choose Destination</Typography.Text>
-          </Col>
-          <Col span={24}>
-            <Radio.Group
-              size="small"
-              buttonStyle="solid"
-              style={{ width: "100%" }}
-              value={to}
-              onChange={(e) => setTo(e.target.value)}
-            >
-              <AppSpace>
-                {nextStates.length > 0 && (
-                  <AppSpace size="small">
-                    <Typography.Text style={{ fontWeight: 500 }}>
-                      Next State
-                    </Typography.Text>
-                    {nextStates.map((state, i) => (
-                      <Radio.Button
-                        key={i}
-                        style={{ width: "100%" }}
-                        value={state}
-                      >
-                        {state}
+        <PageTitle
+          level={5}
+          endDecorator={
+            <AppIconButton type="text" onClick={onClose}>
+              <CloseRounded />
+            </AppIconButton>
+          }
+        >
+          Transition
+        </PageTitle>
+        <Steps
+          progressDot
+          direction="vertical"
+          current={2}
+          items={[
+            {
+              title: "Choose Source",
+              description: (
+                <AppRow className="mt-2">
+                  <Col {...Span[1]}>
+                    <Radio.Group
+                      size="small"
+                      buttonStyle="solid"
+                      style={{ width: "100%" }}
+                      value={from}
+                    >
+                      <Radio.Button style={{ width: "100%" }} value={from}>
+                        {from}
                       </Radio.Button>
-                    ))}
-                  </AppSpace>
-                )}
-                {otherStates.length > 0 && (
-                  <AppSpace size="small">
-                    <Typography.Text style={{ fontWeight: 500 }}>
-                      Other States
-                    </Typography.Text>
-                    {otherStates.map((state, i) => (
-                      <Radio.Button
-                        key={i}
-                        style={{ width: "100%" }}
-                        value={state}
-                      >
-                        {state}
-                      </Radio.Button>
-                    ))}
-                  </AppSpace>
-                )}
-                {nextStates.length === 0 && <AppEmpty />}
-              </AppSpace>
-            </Radio.Group>
-          </Col>
-        </AppRow>
-        <Flex>
-          <AppButton
-            size="small"
-            type="primary"
-            loading={loading}
-            onClick={handleTransition}
-            tooltip={`Transition from ${from} to ${to}`}
-          >
-            Transition
-          </AppButton>
-        </Flex>
-        <Box>
-          <AppIconButton width="100%" onClick={onClose} type="text">
-            <CaretUpOutlined />
-          </AppIconButton>
-        </Box>
+                    </Radio.Group>
+                  </Col>
+                </AppRow>
+              ),
+            },
+            {
+              title: "Choose Target",
+              description: (
+                <AppRow className="mt-2">
+                  <Col {...Span[1]}>
+                    <Radio.Group
+                      size="small"
+                      buttonStyle="solid"
+                      style={{ width: "100%" }}
+                      value={to}
+                      onChange={(e) => setTo(e.target.value)}
+                    >
+                      <AppSpace>
+                        {nextStates.length > 0 && (
+                          <AppRow>
+                            <Col {...createSpan(4)}>
+                              <Typography.Text>Next State</Typography.Text>
+                            </Col>
+
+                            <Col {...createSpan(20)}>
+                              <Flex vertical gap={16}>
+                                {nextStates.map((state, i) => (
+                                  <Radio.Button
+                                    key={i}
+                                    style={{ width: "100%" }}
+                                    value={state}
+                                  >
+                                    {state}
+                                  </Radio.Button>
+                                ))}
+                              </Flex>
+                            </Col>
+                          </AppRow>
+                        )}
+                        {otherStates.length > 0 && (
+                          <AppRow>
+                            <Col {...createSpan(4)}>
+                              <Typography.Text>Other State</Typography.Text>
+                            </Col>
+
+                            <Col {...createSpan(20)}>
+                              <Flex vertical gap={16}>
+                                {otherStates.map((state, i) => (
+                                  <Radio.Button
+                                    key={i}
+                                    style={{
+                                      width: "100%",
+                                    }}
+                                    value={state}
+                                  >
+                                    {state}
+                                  </Radio.Button>
+                                ))}
+                              </Flex>
+                            </Col>
+                          </AppRow>
+                        )}
+                        {nextStates.length === 0 && <AppEmpty />}
+                      </AppSpace>
+                    </Radio.Group>
+                  </Col>
+                </AppRow>
+              ),
+            },
+          ]}
+        />
+
+        <AppButton
+          size="small"
+          type="primary"
+          loading={loading}
+          onClick={handleTransition}
+          tooltip={`Transition from ${from} to ${to}`}
+        >
+          Transition
+        </AppButton>
       </AppSpace>
     </AppSheet>
   );
