@@ -50,7 +50,18 @@ export const parseError = (error: string | undefined) => {
     return undefined;
   }
   const parsedError = JSON.parse(error);
+  try {
+    parsedError.message = JSON.parse(
+      `{${parsedError.message
+        .replace(/(\d+)\s*:/g, '"$1":')
+        .replace(/\\"{/g, "{")
+        .replace(/}"/g, "}")}}`.replaceAll('"{', "{")
+    );
+  } catch (e) {
+    console.error(e);
+  }
   parsedError.stackTrace = Object.values(JSON.parse(parsedError.stackTrace));
+  parsedError.localizedMessage = null;
   return JSON.stringify(parsedError, null, 2);
 };
 
