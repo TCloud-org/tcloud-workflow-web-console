@@ -2,7 +2,7 @@ import { Work } from "Config/WorkflowConfig";
 import { AppCard } from "DataDisplayComponents/AppCard";
 import { StatTitle } from "DataDisplayComponents/StatTitle";
 import { Statistic, StatisticProps } from "antd";
-import { CSSProperties, ReactNode } from "react";
+import { CSSProperties, Fragment, ReactNode } from "react";
 import CountUp from "react-countup";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -40,24 +40,28 @@ export const ResultStatCard = (props: {
   };
 
   return (
-    <AppCard
-      onClick={() => handleStatisticClick(data.type)}
-      size="small"
-      className="cursor-pointer overflow-hidden"
-    >
-      <Statistic
-        title={
-          <StatTitle icon={data.icon} className="flex items-center gap-2">
-            {data.title}
-          </StatTitle>
-        }
-        value={data.value}
-        formatter={formatter}
-        valueStyle={{
-          ...valueStyle,
-        }}
-        className="relative"
-      />
-    </AppCard>
+    <Fragment>
+      <AppCard
+        onClick={() => handleStatisticClick(data.type)}
+        size="small"
+        className="cursor-pointer relative z-10 bg-white"
+        style={{ borderColor: "black" }}
+      >
+        <Statistic
+          title={
+            <StatTitle icon={data.icon} className="flex items-center gap-2">
+              {data.title}
+            </StatTitle>
+          }
+          value={data.value}
+          formatter={formatter}
+          valueStyle={{
+            ...valueStyle,
+          }}
+          className="z-10 bg-white"
+        />
+      </AppCard>
+      <div className="absolute left-[12px] right-0 top-[8px] -bottom-[8px] bg-primary/35 border border-black rounded-md z-0" />
+    </Fragment>
   );
 };
