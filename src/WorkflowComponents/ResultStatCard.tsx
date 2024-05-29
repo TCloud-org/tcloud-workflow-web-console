@@ -12,6 +12,7 @@ const formatter: StatisticProps["formatter"] = (value) => (
 
 const valueStyle: CSSProperties = {
   fontWeight: 800,
+  color: "white",
 };
 
 export const ResultStatCard = (props: {
@@ -44,11 +45,15 @@ export const ResultStatCard = (props: {
       <AppCard
         onClick={() => handleStatisticClick(data.type)}
         size="small"
-        className="cursor-pointer relative z-10 bg-white"
+        className="cursor-pointer relative z-10"
+        style={{ backgroundColor: data.color }}
       >
         <Statistic
           title={
-            <StatTitle icon={data.icon} className="flex items-center gap-2">
+            <StatTitle
+              icon={data.icon}
+              className="flex items-center gap-2 text-white"
+            >
               {data.title}
             </StatTitle>
           }
@@ -57,7 +62,7 @@ export const ResultStatCard = (props: {
           valueStyle={{
             ...valueStyle,
           }}
-          className="z-10 bg-white"
+          className="z-10"
         />
       </AppCard>
       {/* <div

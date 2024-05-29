@@ -1,7 +1,3 @@
-import { AppRow } from "LayoutComponents/AppRow";
-import { Col, theme } from "antd";
-import { ResultStatCard } from "./ResultStatCard";
-import { WorkStatistic } from "Config/WorkflowConfig";
 import {
   BrokenImageRounded,
   EmojiEventsRounded,
@@ -9,17 +5,19 @@ import {
   ListAltRounded,
 } from "@mui/icons-material";
 import { Span } from "Config/DataDisplayInterface";
+import { WorkStatistic } from "Config/WorkflowConfig";
+import { AppRow } from "LayoutComponents/AppRow";
+import { Col } from "antd";
+import { ResultStatCard } from "./ResultStatCard";
 
 export const ResultStatSection = (props: { statistic?: WorkStatistic }) => {
-  const { token } = theme.useToken();
-
   const { statistic } = props;
 
   const stats = [
     {
       data: statistic?.works || [],
       type: "works",
-      color: token.colorPrimary,
+      color: "#6147db",
       value: statistic?.works.length || 0,
       title: "All",
       icon: <ListAltRounded />,
@@ -27,7 +25,7 @@ export const ResultStatSection = (props: { statistic?: WorkStatistic }) => {
     {
       data: statistic?.successes || [],
       type: "successes",
-      color: token.colorSuccess,
+      color: "#12bc95",
       value: statistic?.successes.length || 0,
       title: "Succeeded",
       icon: <EmojiEventsRounded />,
@@ -35,7 +33,7 @@ export const ResultStatSection = (props: { statistic?: WorkStatistic }) => {
     {
       data: statistic?.progresses || [],
       type: "progresses",
-      color: token.colorWarning,
+      color: "#47c9d7",
       value: statistic?.progresses.length || 0,
       title: "Running",
       icon: <EngineeringRounded />,
@@ -43,7 +41,7 @@ export const ResultStatSection = (props: { statistic?: WorkStatistic }) => {
     {
       data: statistic?.failures || [],
       type: "failures",
-      color: token.colorError,
+      color: "#f86767",
       value: statistic?.failures.length || 0,
       title: "Failed",
       icon: <BrokenImageRounded />,

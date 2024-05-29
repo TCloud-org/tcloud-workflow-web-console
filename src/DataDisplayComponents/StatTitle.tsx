@@ -10,15 +10,12 @@ export const StatTitle = (props: {
     <Typography.Text
       className={`text-slate-700 font-semibold flex items-center gap-2 ${props.className}`}
     >
-      {props.icon && (
-        <div className="h-6 w-6 bg-slate-500/10 flex justify-center items-center rounded-md">
-          {cloneElement(props.icon as ReactElement, {
-            style: {
-              fontSize: 16,
-            } as CSSProperties,
-          })}
-        </div>
-      )}
+      {props.icon &&
+        cloneElement(props.icon as ReactElement, {
+          style: {
+            fontSize: 16,
+          } as CSSProperties,
+        })}
       {props.children}
     </Typography.Text>
   );
