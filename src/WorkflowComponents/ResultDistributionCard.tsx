@@ -2,14 +2,12 @@ import { WorkStatistic } from "Config/WorkflowConfig";
 import { AppCard } from "DataDisplayComponents/AppCard";
 import { AppEmpty } from "DataDisplayComponents/AppEmpty";
 import { AppPieChart } from "DataDisplayComponents/AppPieChart";
-import { Statistic, Typography, theme } from "antd";
+import { Statistic, Typography } from "antd";
 import { Fragment } from "react/jsx-runtime";
 
 export const ResultDistributionCard = (props: {
   statistic?: WorkStatistic;
 }) => {
-  const { token } = theme.useToken();
-
   const { statistic } = props;
 
   return (
@@ -43,7 +41,7 @@ export const ResultDistributionCard = (props: {
                     fill: "#12bc95",
                   },
                   {
-                    name: "In Progress",
+                    name: "Running",
                     value: statistic?.progresses.length,
                     fill: "#47c9d7",
                   },
