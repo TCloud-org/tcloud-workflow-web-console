@@ -17,12 +17,8 @@ export const ServicePage = () => {
 
   const fetchServices = useCallback(async () => {
     setLoading(true);
-    const serviceConfigurations = await getServiceConfigurations(
-      clientId,
-      authToken
-    );
-    const serviceConfigMap =
-      serviceConfigurations?.serviceConfigurationMap || {};
+    const res = await getServiceConfigurations(clientId, authToken);
+    const serviceConfigMap = res?.serviceConfigurationMap || {};
     setServices(
       Object.keys(serviceConfigMap).map((service) => ({
         title: service,

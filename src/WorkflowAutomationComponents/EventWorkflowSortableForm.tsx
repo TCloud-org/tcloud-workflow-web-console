@@ -144,7 +144,11 @@ export const EventWorkflowSortableForm = (props: {
       measuring={measuringConfig}
     >
       <AppDroppable id="droppable">
-        <AppSurface type="dot" style={{ height: "70vh", padding: "64px 0" }}>
+        <AppSurface
+          type="dot"
+          style={{ height: "70vh", padding: "64px 0" }}
+          className="flex items-center justify-center"
+        >
           <SortableContext
             items={filteredSteps}
             strategy={verticalListSortingStrategy}
