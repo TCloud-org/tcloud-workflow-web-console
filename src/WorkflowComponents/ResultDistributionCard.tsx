@@ -17,7 +17,7 @@ export const ResultDistributionCard = (props: {
       <AppCard
         size="small"
         className="bg-white relative z-10 mr-2 h-full"
-        style={{ borderColor: "black" }}
+        style={{ borderColor: "transparent" }}
       >
         <Statistic
           title={
@@ -60,7 +60,7 @@ export const ResultDistributionCard = (props: {
           }
         />
       </AppCard>
-      <div className="absolute left-[20px] mr-2 -right-[8px] top-[16px] -bottom-[16px] bg-blue-500/50 border border-solid border-black rounded-md z-0" />
+      {/* <div className="absolute left-[20px] mr-2 -right-[8px] top-[16px] -bottom-[16px] bg-blue-500/50 border border-solid border-black rounded-md z-0" /> */}
     </Fragment>
   );
 };
