@@ -15,7 +15,7 @@ export const InfraCompositionCard = (props: {
     <Fragment>
       <AppCard
         size="small"
-        className="bg-white relative z-10 mx-4"
+        className="bg-white relative z-10 mr-2"
         style={{ borderColor: "black" }}
       >
         <Statistic
@@ -54,7 +54,7 @@ export const InfraCompositionCard = (props: {
           )}
         />
       </AppCard>
-      <div className="absolute left-[20px] mx-4 -right-[8px] top-[16px] -bottom-[16px] bg-blue-500/50 border border-solid border-black rounded-md z-0" />
+      <div className="absolute left-[20px] mr-2 -right-[8px] top-[16px] -bottom-[16px] bg-blue-500/50 border border-solid border-black rounded-md z-0" />
     </Fragment>
   );
 };
