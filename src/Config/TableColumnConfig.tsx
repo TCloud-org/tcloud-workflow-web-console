@@ -12,24 +12,27 @@ export const WorkColumns: EditableColumn[] = [
     ),
   },
   {
-    title: "Source",
+    title: "Client",
+    dataIndex: "clientId",
+  },
+  {
+    title: "Workflow",
+    dataIndex: "workflowId",
+  },
+  {
+    title: "State",
     dataIndex: "source",
     sorter: (a, b) => a["source"].localeCompare(b["source"]),
   },
   {
-    title: "Result Type",
+    title: "Result",
     dataIndex: "resultType",
     customFilters: Object.keys(TagVariantMapping).map((resultType) => ({
       text: resultType,
       value: resultType,
     })),
     render: (text: string) => (
-      <AppTag
-        color={TagVariantMapping[text].color}
-        icon={TagVariantMapping[text].icon}
-      >
-        {text}
-      </AppTag>
+      <AppTag color={TagVariantMapping[text].color}>{text}</AppTag>
     ),
     sorter: (a, b) => a["resultType"].localeCompare(b["resultType"]),
   },

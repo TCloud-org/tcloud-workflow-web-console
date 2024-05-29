@@ -83,9 +83,7 @@ export const EditRetryPolicyPage = () => {
 
   return (
     <AppSpace>
-      <Flex justify="center">
-        <PageTitle>{`Edit Retry Policy #${data.retryPolicyId}`}</PageTitle>
-      </Flex>
+      <PageTitle>{data.retryPolicyId}</PageTitle>
 
       <AppSurface type="form">
         <AppForm form={form} onValuesChange={handleValuesChange}>

@@ -23,7 +23,7 @@ export const RetryPolicyPage = () => {
     setRetryPolicies(
       policies.map((policy) => ({
         title: policy.name,
-        href: `/retry-policy/${policy.retryPolicyId}`,
+        href: `/retry-policy/${encodeURIComponent(policy.retryPolicyId)}`,
       }))
     );
     setLoading(false);
