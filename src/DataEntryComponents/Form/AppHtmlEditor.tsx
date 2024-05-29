@@ -13,14 +13,13 @@ export const AppHtmlEditor = (props: {
 }) => {
   const { token } = theme.useToken();
 
-  const { value = "", onChange } = props;
+  const { value = "", onChange = () => {} } = props;
 
   const [panorama, setPanorama] = useState<"horizontal" | "vertical">(
     "horizontal"
   );
   const codeTheme = "light";
 
-  console.log("value", value);
   return (
     <div
       style={{
@@ -66,7 +65,7 @@ export const AppHtmlEditor = (props: {
         <ReactCodeMirror
           readOnly={props.disabled}
           value={value || ""}
-          onChange={onChange}
+          onChange={(value) => onChange(value)}
           theme={
             codeTheme === "light"
               ? githubLightInit({

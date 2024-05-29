@@ -64,11 +64,7 @@ export const HtmlEditorWithPreview = (props: {
               ),
               children: (
                 <Form.Item name={["message", "html"]}>
-                  <AppHtmlEditor
-                    disabled={props.disabled}
-                    value={value}
-                    onChange={onChange}
-                  />
+                  <AppHtmlEditor disabled={props.disabled} />
                 </Form.Item>
               ),
             },
