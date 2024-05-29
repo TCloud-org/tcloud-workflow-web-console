@@ -40,17 +40,17 @@ export const ResultDistributionCard = (props: {
                   {
                     name: "Success",
                     value: statistic?.successes.length,
-                    fill: token.colorSuccess,
+                    fill: "#12bc95",
                   },
                   {
                     name: "In Progress",
                     value: statistic?.progresses.length,
-                    fill: token.colorWarning,
+                    fill: "#47c9d7",
                   },
                   {
                     name: "Failure",
                     value: statistic?.failures.length,
-                    fill: token.colorError,
+                    fill: "#f86767",
                   },
                 ]}
                 width={400}
