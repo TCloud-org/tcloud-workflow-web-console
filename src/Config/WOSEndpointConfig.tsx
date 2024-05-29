@@ -66,8 +66,10 @@ export const WOS_GET_WORKFLOW_CONFIGURATION_ENDPOINT =
   WOS_ENDPOINT + "/get-workflow-configuration";
 export const WOS_GET_SERVICES_FROM_GRAPH_ENDPOINT =
   WOS_ENDPOINT + "/get-services-from-graph";
-export const WOS_GET_WORKS_BY_CLIENT_ID_AND_WORKFLOW_ID_ENDPOINT =
+export const WOS_GET_WORKS_BY_WORKFLOW_ID_ENDPOINT =
   WOS_ENDPOINT + "/get-works-by-workflow-id";
+export const WOS_GET_WORKS_BY_CLIENT_ID_ENDPOINT =
+  WOS_ENDPOINT + "/get-works-by-client-id";
 export const WOS_GET_WORKS_IN_DATE_RANGE_ENDPOINT =
   WOS_ENDPOINT + "/get-works-in-date-range";
 export const WOS_GET_WORK_STATISTIC_IN_DATE_RANGE_ENDPOINT =

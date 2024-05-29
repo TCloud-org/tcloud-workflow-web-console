@@ -1,16 +1,16 @@
-import { Flex, Steps } from "antd";
+import { AppSurface } from "DataDisplayComponents/AppSurface";
+import { Steps } from "antd";
+import axios from "axios";
 import { Key, useState } from "react";
+import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ListItem } from "../../Config/DataDisplayInterface";
+import { WOS_CLOSE_WORKFLOW_ENDPOINT } from "../../Config/WOSEndpointConfig";
 import { AppHeading } from "../../DataDisplayComponents/AppHeading";
 import { AppList } from "../../DataDisplayComponents/AppList";
+import { AppButton } from "../../DataEntryComponents/AppButton";
 import { AppSpace } from "../../LayoutComponents/AppSpace";
 import { AppVerticalStepContent } from "../../LayoutComponents/AppVerticalStepContent";
-import { AppButton } from "../../DataEntryComponents/AppButton";
-import { useSelector } from "react-redux";
-import { WOS_CLOSE_WORKFLOW_ENDPOINT } from "../../Config/WOSEndpointConfig";
-import axios from "axios";
-import { AppSurface } from "DataDisplayComponents/AppSurface";
 
 export const BatchClosePage = () => {
   const navigate = useNavigate();

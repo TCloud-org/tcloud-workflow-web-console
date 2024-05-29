@@ -1,32 +1,47 @@
 import axios from "axios";
 import {
-  WOS_GET_WORKS_BY_CLIENT_ID_AND_WORKFLOW_ID_ENDPOINT,
+  WOS_GET_WORKS_BY_CLIENT_ID_ENDPOINT,
+  WOS_GET_WORKS_BY_WORKFLOW_ID_ENDPOINT,
   WOS_GET_WORKS_IN_DATE_RANGE_ENDPOINT,
   WOS_GET_WORK_STATISTIC_IN_DATE_RANGE_ENDPOINT,
   WOS_QUERY_WORKS_ENDPOINT,
 } from "../Config/WOSEndpointConfig";
 import {
   GetWorkStatisticInDateRangeOutput,
-  GetWorksByClientIdAndWorkflowIdOutput,
+  GetWorksByClientIdOutput,
+  GetWorksByWorkflowIdOutput,
   GetWorksInDateRangeOutput,
   QueryWorksOutput,
 } from "../Config/WorkflowConfig";
 
-export const getWorksByClientIdAndWorkflowId = async (
+export const getWorksByClientId = async (
   clientId: string,
-  workflowId: string,
   token: string
-): Promise<GetWorksByClientIdAndWorkflowIdOutput> => {
+): Promise<GetWorksByClientIdOutput> => {
   const params = new URLSearchParams();
   params.set("clientId", clientId);
-  params.set("workflowId", workflowId);
   return await axios
-    .get(`${WOS_GET_WORKS_BY_CLIENT_ID_AND_WORKFLOW_ID_ENDPOINT}?${params}`, {
+    .get(`${WOS_GET_WORKS_BY_CLIENT_ID_ENDPOINT}?${params}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
-    .then((res) => res.data as GetWorksByClientIdAndWorkflowIdOutput);
+    .then((res) => res.data as GetWorksByClientIdOutput);
+};
+
+export const getWorksByWorkflowId = async (
+  workflowId: string,
+  token: string
+): Promise<GetWorksByWorkflowIdOutput> => {
+  const params = new URLSearchParams();
+  params.set("workflowId", workflowId);
+  return await axios
+    .get(`${WOS_GET_WORKS_BY_WORKFLOW_ID_ENDPOINT}?${params}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => res.data as GetWorksByWorkflowIdOutput);
 };
 
 export const getWorksInDateRange = async (

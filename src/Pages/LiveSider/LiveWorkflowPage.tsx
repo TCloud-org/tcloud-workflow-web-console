@@ -6,14 +6,11 @@ import { Work } from "../../Config/WorkflowConfig";
 import { AppTable } from "../../DataDisplayComponents/AppTable";
 import { PageTitle } from "../../DataDisplayComponents/PageTitle";
 import { AppSpace } from "../../LayoutComponents/AppSpace";
-import { getWorksByClientIdAndWorkflowId } from "../../Network/WorkFetch";
+import { getWorksByClientId } from "../../Network/WorkFetch";
 
 export const LiveWorkflowPage = () => {
   const authToken = useSelector((state: any) => state.auth.token);
   const clientId = useSelector((state: any) => state.client.clientId);
-  const { workflowId } = useSelector(
-    (state: any) => state.workflow.workflow || {}
-  );
 
   const [works, setWorks] = useState<Work[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -21,16 +18,12 @@ export const LiveWorkflowPage = () => {
   const [columns, setColumns] = useState<EditableColumn[]>(WorkColumns);
 
   const fetchWorkIds = useCallback(async () => {
-    if (!workflowId) {
+    if (!clientId) {
       return;
     }
     setLoading(true);
 
-    const res = await getWorksByClientIdAndWorkflowId(
-      clientId,
-      workflowId,
-      authToken
-    );
+    const res = await getWorksByClientId(clientId, authToken);
     setWorks(res.works);
     setColumns((prev: EditableColumn[]) =>
       prev.map((col) => {
@@ -52,7 +45,7 @@ export const LiveWorkflowPage = () => {
       })
     );
     setLoading(false);
-  }, [workflowId, clientId, authToken]);
+  }, [clientId, authToken]);
 
   useEffect(() => {
     fetchWorkIds();

@@ -324,7 +324,11 @@ export interface Work {
   metadata: RouteMetadata;
 }
 
-export interface GetWorksByClientIdAndWorkflowIdOutput {
+export interface GetWorksByClientIdOutput {
+  works: Work[];
+}
+
+export interface GetWorksByWorkflowIdOutput {
   works: Work[];
 }
 

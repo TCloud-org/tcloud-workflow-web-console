@@ -17,7 +17,7 @@ export const HtmlEditorWithPreview = (props: {
   value?: string;
   onChange?: (e: any) => void;
 }) => {
-  const { onChange, value } = props;
+  const { onChange } = props;
 
   const [isStoreModalOpen, setIsStoreModalOpen] = useState<boolean>(false);
 
