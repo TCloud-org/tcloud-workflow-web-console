@@ -45,7 +45,6 @@ export const ResultStatCard = (props: {
         onClick={() => handleStatisticClick(data.type)}
         size="small"
         className="cursor-pointer relative z-10 bg-white"
-        style={{ borderColor: "black" }}
       >
         <Statistic
           title={
@@ -61,10 +60,10 @@ export const ResultStatCard = (props: {
           className="z-10 bg-white"
         />
       </AppCard>
-      <div
+      {/* <div
         className="absolute left-[12px] right-0 top-[8px] -bottom-[8px] border border-solid border-black rounded-md z-0"
         style={{ backgroundColor: `${data.color}70` }}
-      />
+      /> */}
     </Fragment>
   );
 };
