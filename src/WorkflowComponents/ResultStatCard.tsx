@@ -62,8 +62,8 @@ export const ResultStatCard = (props: {
         />
       </AppCard>
       <div
-        className="absolute left-[12px] right-0 top-[8px] -bottom-[8px] bg-primary/35 border border-black rounded-md z-0"
-        style={{ backgroundColor: data.color, opacity: 0.5 }}
+        className="absolute left-[12px] right-0 top-[8px] -bottom-[8px] bg-primary/35 border border-solid border-black rounded-md z-0"
+        style={{ backgroundColor: `${data.color}70` }}
       />
     </Fragment>
   );
