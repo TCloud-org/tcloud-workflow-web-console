@@ -29,6 +29,7 @@ export const AppList = (props: {
   } = props;
   return (
     <List
+      size="small"
       itemLayout={itemLayout}
       header={
         <AppHeading
@@ -46,6 +47,7 @@ export const AppList = (props: {
         defaultPageSize: 10,
         showQuickJumper: true,
         pageSizeOptions: [5, 10, 25, 50, 100],
+        size: "small",
       }}
       dataSource={data}
       loading={loading}

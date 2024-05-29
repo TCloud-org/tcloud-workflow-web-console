@@ -10,6 +10,7 @@ import { AppButton } from "../../DataEntryComponents/AppButton";
 import { useSelector } from "react-redux";
 import { WOS_CLOSE_WORKFLOW_ENDPOINT } from "../../Config/WOSEndpointConfig";
 import axios from "axios";
+import { AppSurface } from "DataDisplayComponents/AppSurface";
 
 export const BatchClosePage = () => {
   const navigate = useNavigate();
@@ -45,37 +46,38 @@ export const BatchClosePage = () => {
   };
 
   return (
-    <AppSpace>
-      <Steps
-        current={current}
-        onChange={setCurrent}
-        direction="vertical"
-        size="small"
-        items={[
-          {
-            title: <AppHeading>1. Review Batch</AppHeading>,
-            description: (
-              <AppVerticalStepContent>
-                <AppList
-                  headerSurface
-                  headerTooltip="Bucket serialized ID"
-                  header={bucketId}
-                  data={workIds.map(
-                    (workId) =>
-                      ({
-                        title: workId,
-                        href: `/live/${workId}`,
-                      } as ListItem)
-                  )}
-                />
-              </AppVerticalStepContent>
-            ),
-          },
-        ]}
-      />
+    <AppSurface type="form">
+      <AppSpace>
+        <Steps
+          current={current}
+          onChange={setCurrent}
+          direction="vertical"
+          size="small"
+          items={[
+            {
+              title: <AppHeading>1. Review Batch</AppHeading>,
+              description: (
+                <AppVerticalStepContent>
+                  <AppList
+                    headerSurface
+                    headerTooltip="Bucket serialized ID"
+                    header={bucketId}
+                    data={workIds.map(
+                      (workId) =>
+                        ({
+                          title: workId,
+                          href: `/live/${workId}`,
+                        } as ListItem)
+                    )}
+                  />
+                </AppVerticalStepContent>
+              ),
+            },
+          ]}
+        />
 
-      <Flex justify="center">
         <AppButton
+          size="small"
           tooltip={`Close a batch of ${workIds.length} items`}
           type="primary"
           onClick={handleClose}
@@ -83,7 +85,7 @@ export const BatchClosePage = () => {
         >
           Batch Close
         </AppButton>
-      </Flex>
-    </AppSpace>
+      </AppSpace>
+    </AppSurface>
   );
 };

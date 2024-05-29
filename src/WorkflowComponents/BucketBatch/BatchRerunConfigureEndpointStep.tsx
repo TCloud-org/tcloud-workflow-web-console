@@ -6,6 +6,7 @@ import { ServiceConfiguration } from "../../Config/WorkflowConfig";
 import { AppForm } from "../../DataEntryComponents/AppForm";
 import { AppRow } from "../../LayoutComponents/AppRow";
 import { AppVerticalStepContent } from "../../LayoutComponents/AppVerticalStepContent";
+import { createSpan } from "Config/DataDisplayInterface";
 
 export const BatchRerunConfigureEndpointStep = (props: {
   form: FormInstance<any>;
@@ -142,31 +143,31 @@ export const BatchRerunConfigureEndpointStep = (props: {
         .filter((state) => state.service)
         .map((state, i) => (
           <Fragment key={i}>
-            <Col span={6}>
+            <Col {...createSpan(6)}>
               <Form.Item
                 name={[type, state.name as string, "source"]}
                 label="State"
               >
-                <Input disabled style={{ width: "171.5%" }} />
+                <Input disabled />
               </Form.Item>
             </Col>
-            <Col span={6}>
+            <Col {...createSpan(6)}>
               <Form.Item
                 name={[type, state.name as string, "serviceName"]}
                 label="Service"
               >
-                <Input disabled style={{ width: "171.5%" }} />
+                <Input disabled />
               </Form.Item>
             </Col>
-            <Col span={8}>
+            <Col {...createSpan(8)}>
               <Form.Item
                 name={[type, state.name as string, "baseUrl"]}
                 label="Endpoint"
               >
-                <Input disabled style={{ width: "171.5%" }} />
+                <Input disabled />
               </Form.Item>
             </Col>
-            <Col span={4}>
+            <Col {...createSpan(4)}>
               <Form.Item
                 name={[type, state.name as string, "alias"]}
                 label="Alias"
@@ -178,7 +179,6 @@ export const BatchRerunConfigureEndpointStep = (props: {
                     label: config.alias,
                     value: config.alias,
                   }))}
-                  style={{ width: "171.5%" }}
                 />
               </Form.Item>
             </Col>
@@ -189,28 +189,27 @@ export const BatchRerunConfigureEndpointStep = (props: {
       .filter((service) => service)
       .map((service, i) => (
         <Fragment key={i}>
-          <Col span={10}>
+          <Col {...createSpan(10)}>
             <Form.Item name={[type, service, "serviceName"]} label="Service">
-              <Input disabled style={{ width: "171.5%" }} />
+              <Input disabled />
             </Form.Item>
           </Col>
-          <Col span={10}>
+          <Col {...createSpan(10)}>
             <Form.Item
               name={[type, service, "baseUrl"]}
               label="Endpoint"
               tooltip={form.getFieldValue(service)?.baseUrl}
             >
-              <Input disabled style={{ width: "171.5%" }} />
+              <Input disabled />
             </Form.Item>
           </Col>
-          <Col span={4}>
+          <Col {...createSpan(4)}>
             <Form.Item name={[type, service, "alias"]} label="Alias">
               <Select
                 options={(serviceConfigMap[service] || []).map((config) => ({
                   label: config.alias,
                   value: config.alias,
                 }))}
-                style={{ width: "171.5%" }}
               />
             </Form.Item>
           </Col>

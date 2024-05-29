@@ -102,7 +102,7 @@ export const LiveTransition = forwardRef<
               description: (
                 <AppRow className="mt-2">
                   <Col {...createSpan(4)}>
-                    <Typography.Text>Current State</Typography.Text>
+                    <Typography.Text>Current state</Typography.Text>
                   </Col>
 
                   <Col {...createSpan(20)}>
@@ -129,7 +129,7 @@ export const LiveTransition = forwardRef<
                       {nextStates.length > 0 && (
                         <AppRow>
                           <Col {...createSpan(4)}>
-                            <Typography.Text>Next State</Typography.Text>
+                            <Typography.Text>Next state</Typography.Text>
                           </Col>
 
                           <Col {...createSpan(20)}>
@@ -158,7 +158,7 @@ export const LiveTransition = forwardRef<
                       {otherStates.length > 0 && (
                         <AppRow>
                           <Col {...createSpan(4)}>
-                            <Typography.Text>Other State</Typography.Text>
+                            <Typography.Text>Other state</Typography.Text>
                           </Col>
 
                           <Col {...createSpan(20)}>

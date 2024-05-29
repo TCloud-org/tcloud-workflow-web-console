@@ -55,7 +55,6 @@ export const fetchGraphsById = async (
       Authorization: `Bearer ${token}`,
     },
   };
-  console.log(workflowId);
   return await axios
     .get(
       `${WOS_GET_GRAPHS_BY_WORKFLOW_ID_ENDPOINT}?workflowId=${workflowId}`,
@@ -105,7 +104,6 @@ export const getConfigurationsByService = async (
       config
     )
     .then((response) => {
-      console.log(response.data, service);
       return response.data as GetConfigurationsByServiceNameOutput;
     })
     .catch((_) => undefined);

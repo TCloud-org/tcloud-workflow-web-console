@@ -3,7 +3,6 @@ import { Flex, Tooltip, Typography } from "antd";
 import { Fragment, ReactNode } from "react";
 import { AppIconButton } from "../DataEntryComponents/AppIconButton";
 import { AppSpace } from "../LayoutComponents/AppSpace";
-import { AppSurface } from "./AppSurface";
 
 export const AppHeading = (props: {
   children?: string;
@@ -13,9 +12,6 @@ export const AppHeading = (props: {
   surface?: boolean;
 }) => {
   const getSurface = (children?: ReactNode): JSX.Element => {
-    if (props.surface) {
-      return <AppSurface>{children}</AppSurface>;
-    }
     return <Fragment>{children}</Fragment>;
   };
 

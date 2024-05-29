@@ -7,6 +7,7 @@ import { AppRow } from "../../LayoutComponents/AppRow";
 import { AppVerticalStepContent } from "../../LayoutComponents/AppVerticalStepContent";
 import { WorkflowModal } from "../WorkflowModal";
 import { useState } from "react";
+import { createSpan } from "Config/DataDisplayInterface";
 
 export const BatchRerunConfigureWorkflowStep = (props: {
   form: FormInstance<any>;
@@ -21,12 +22,12 @@ export const BatchRerunConfigureWorkflowStep = (props: {
       <AppVerticalStepContent>
         <AppForm form={form} layout="vertical">
           <AppRow>
-            <Col span={10}>
+            <Col {...createSpan(10)}>
               <Form.Item label="Workflow" name="workflowName">
-                <Input style={{ width: "171.5%" }} disabled />
+                <Input disabled />
               </Form.Item>
             </Col>
-            <Col span={10}>
+            <Col {...createSpan(10)}>
               <Form.Item
                 label="Alias"
                 name={["workflowVersionConfig", "alias"]}
@@ -39,15 +40,14 @@ export const BatchRerunConfigureWorkflowStep = (props: {
                         label: graph.alias,
                       } as DefaultOptionType)
                   )}
-                  style={{ width: "171.5%" }}
                 />
               </Form.Item>
             </Col>
-            <Col span={4}>
+            <Col {...createSpan(4)}>
               <Form.Item label=" ">
                 <AppButton
                   onClick={() => setModalOpen(true)}
-                  style={{ width: "171.5%" }}
+                  className="w-full"
                 >
                   View graph
                 </AppButton>

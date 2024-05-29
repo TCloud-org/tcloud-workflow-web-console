@@ -25,6 +25,7 @@ import {
 import { extractServices, extractStates } from "../../Utils/ObjectUtils";
 import { BatchRerunConfigureEndpointStep } from "../../WorkflowComponents/BucketBatch/BatchRerunConfigureEndpointStep";
 import { BatchRerunConfigureWorkflowStep } from "../../WorkflowComponents/BucketBatch/BatchRerunConfigureWorkflowStep";
+import { AppSurface } from "DataDisplayComponents/AppSurface";
 
 export const BatchRerunPage = () => {
   const navigate = useNavigate();
@@ -80,11 +81,8 @@ export const BatchRerunPage = () => {
   }, [workflowId, authToken]);
 
   useEffect(() => {
-    if (graphs.length > 0) {
-      const workflowAlias = form.getFieldValue("workflowVersionConfig")?.alias;
-      if (!workflowAlias) return;
-
-      const graph = graphs.find((item) => item.alias === workflowAlias);
+    if (liveGraph) {
+      const graph = graphs.find((item) => item.alias === liveGraph?.alias);
       if (!graph) return;
 
       const extractedServices = extractServices(graph);
@@ -93,7 +91,7 @@ export const BatchRerunPage = () => {
       const extractedStates = extractStates(graph);
       setStates(extractedStates);
     }
-  }, [graphs, form]);
+  }, [graphs, form, liveGraph]);
 
   useEffect(() => {
     fetchWorkflowAliases();
@@ -179,70 +177,67 @@ export const BatchRerunPage = () => {
   };
 
   return (
-    <AppSpace loading={loading}>
-      <Steps
-        current={current}
-        onChange={setCurrent}
-        direction="vertical"
-        size="small"
-        items={[
-          {
-            title: <AppHeading>1. Review Batch</AppHeading>,
-            description: (
-              <AppVerticalStepContent>
-                <AppList
-                  headerSurface
-                  headerTooltip="Bucket serialized ID"
-                  header={bucketId}
-                  data={workIds.map(
-                    (workId) =>
-                      ({
-                        title: workId,
-                        href: `/live/${workId}`,
-                      } as ListItem)
-                  )}
+    <AppSurface type="form">
+      <AppSpace loading={loading}>
+        <Steps
+          current={current}
+          onChange={setCurrent}
+          direction="vertical"
+          size="small"
+          items={[
+            {
+              title: "Review Batch",
+              description: (
+                <AppVerticalStepContent>
+                  <AppList
+                    headerSurface
+                    headerTooltip="Bucket serialized ID"
+                    header={bucketId}
+                    data={workIds.map(
+                      (workId) =>
+                        ({
+                          title: workId,
+                          href: `/live/${workId}`,
+                        } as ListItem)
+                    )}
+                  />
+                </AppVerticalStepContent>
+              ),
+            },
+            {
+              title: "Configure Workflow",
+              description: (
+                <BatchRerunConfigureWorkflowStep graphs={graphs} form={form} />
+              ),
+            },
+            {
+              title: (
+                <Flex align="center" gap={8}>
+                  Configure Endpoint by
+                  <Select
+                    style={{ width: 100 }}
+                    size="small"
+                    options={EndpointConfigTypes}
+                    value={endpointConfigType}
+                    onChange={setEndpointConfigType}
+                  />
+                </Flex>
+              ),
+              description: (
+                <BatchRerunConfigureEndpointStep
+                  form={form}
+                  type={endpointConfigType}
+                  services={services}
+                  states={states}
+                  serviceConfigMap={serviceConfigMap}
                 />
-              </AppVerticalStepContent>
-            ),
-          },
-          {
-            title: <AppHeading>2. Configure Workflow</AppHeading>,
-            description: (
-              <BatchRerunConfigureWorkflowStep graphs={graphs} form={form} />
-            ),
-          },
-          {
-            title: (
-              <AppSpace
-                size="small"
-                direction="horizontal"
-                style={{ alignItems: "start" }}
-              >
-                <AppHeading>3. Configure Endpoint by</AppHeading>
-                <Select
-                  style={{ width: 100 }}
-                  size="small"
-                  options={EndpointConfigTypes}
-                  value={endpointConfigType}
-                  onChange={setEndpointConfigType}
-                />
-              </AppSpace>
-            ),
-            description: (
-              <BatchRerunConfigureEndpointStep
-                form={form}
-                type={endpointConfigType}
-                services={services}
-                states={states}
-                serviceConfigMap={serviceConfigMap}
-              />
-            ),
-          },
-        ]}
-      />
+              ),
+            },
+          ]}
+        />
 
-      <Flex justify="center">
         <AppButton
+          size="small"
           tooltip={`Rerun a batch of ${workIds.length} items`}
           type="primary"
           onClick={handleRerun}
@@ -250,7 +245,7 @@ export const BatchRerunPage = () => {
         >
           Batch Rerun
         </AppButton>
-      </Flex>
-    </AppSpace>
+      </AppSpace>
+    </AppSurface>
   );
 };

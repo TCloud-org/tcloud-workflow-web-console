@@ -14,7 +14,7 @@ const columns: EditableColumn[] = [
     title: "Work Id",
     dataIndex: "workId",
     render: (workId: string) => (
-      <AppLink href={`/live/${workId}`}>{workId}</AppLink>
+      <AppLink href={`/live/${encodeURIComponent(workId)}`}>{workId}</AppLink>
     ),
   },
   {
