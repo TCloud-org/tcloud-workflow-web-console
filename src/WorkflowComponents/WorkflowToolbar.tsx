@@ -164,8 +164,6 @@ export const WorkflowToolbar = (props: {
     };
     const formData = {
       workIds: [workId],
-      clientId,
-      workflowId,
     };
 
     axios
