@@ -64,18 +64,23 @@ export const BucketPage = () => {
 
   return (
     <AppSpace loading={loading}>
-      <Select
-        options={workflows?.map((workflow) => ({
-          label: workflow.workflowName,
-          value: workflow.workflowId,
-        }))}
-        placeholder="Select a workflow"
-        value={workflowSelected}
-        onChange={setWorkflowSelected}
-        dropdownStyle={{ width: "auto" }}
-      />
-
-      <PageTitle onReload={fetchBuckets}>Bucket</PageTitle>
+      <PageTitle
+        onReload={fetchBuckets}
+        endDecorator={
+          <Select
+            options={workflows?.map((workflow) => ({
+              label: workflow.workflowName,
+              value: workflow.workflowId,
+            }))}
+            placeholder="Select a workflow"
+            value={workflowSelected}
+            onChange={setWorkflowSelected}
+            dropdownStyle={{ width: "auto" }}
+          />
+        }
+      >
+        Bucket
+      </PageTitle>
 
       <Flex vertical gap={16} className="relative">
         {isRestricted && <PremiumMask />}

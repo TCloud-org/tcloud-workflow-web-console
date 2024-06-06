@@ -28,7 +28,7 @@ export const PageTitle = (props: {
         </Typography.Title>
       </Col>
       <Col {...Span[2]} className="flex justify-center lg:justify-end">
-        <AppSpace direction="horizontal" size="small" align="center">
+        <AppSpace direction="horizontal" align="center">
           {props.endDecorator}
           {props.onReload && (
             <AppIconButton
