@@ -18,7 +18,7 @@ export const BillingCard = (props: { billing?: StepWorkflowBilling }) => {
   const tier =
     account.productTiers?.find(
       (item) => item.product === ProductType.STEP_WORKFLOW
-    )?.tier || ProductTierType.FREE_TIER;
+    )?.tier || ProductTierType.LITE;
 
   return (
     <AppCard>

@@ -11,9 +11,8 @@ export enum ProductType {
 }
 
 export enum ProductTierType {
-  FREE_TIER = "FREE_TIER",
-  STARTUP = "STARTUP",
-  SCALEUP = "SCALEUP",
+  LITE = "LITE",
+  PRO = "PRO",
   ENTERPRISE = "ENTERPRISE",
 }
 
