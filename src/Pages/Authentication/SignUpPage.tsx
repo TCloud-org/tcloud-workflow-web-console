@@ -172,12 +172,8 @@ export const SignUpPage = () => {
               </Flex>
               <Form.Item>
                 <AppButton
-                  style={{
-                    backgroundColor: borderColor,
-                    color: token.colorWhite,
-                    width: "100%",
-                    fontSize: 14,
-                  }}
+                  type="primary"
+                  className="w-full"
                   size="large"
                   onClick={handleSignUp}
                   loading={emailSignUpLoading}

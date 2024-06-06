@@ -119,12 +119,8 @@ export const ForgotPasswordPage = () => {
 
               <Form.Item>
                 <AppButton
-                  style={{
-                    backgroundColor: borderColor,
-                    color: token.colorWhite,
-                    width: "100%",
-                    fontSize: 14,
-                  }}
+                  type="primary"
+                  className="w-full"
                   size="large"
                   onClick={handleSubmit}
                   loading={loading}
