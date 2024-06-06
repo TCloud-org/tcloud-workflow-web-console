@@ -139,7 +139,7 @@ export const DashboardPage = () => {
 
   return (
     <div>
-      <AppSpace>
+      <AppSpace className="max-w-screen-2xl ml-auto mr-auto">
         <Flex className="w-full flex flex-col px-4">
           <PageTitle
             onReload={handleReload}
