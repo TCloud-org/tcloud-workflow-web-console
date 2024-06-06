@@ -196,7 +196,7 @@ export const AppSider = (props: {
         ref={siderRef as any}
         width={SiderWidth}
         trigger={null}
-        className="top-[80px] lg:top-4 hidden lg:block glass-bar !fixed overflow-auto left-4 bottom-4 z-[100]"
+        className="top-[80px] lg:top-4 hidden lg:block glass-bar !backdrop-blur-lg !fixed overflow-auto left-4 bottom-4 z-[100]"
       >
         <div>
           <div className="py-4">
@@ -213,7 +213,7 @@ export const AppSider = (props: {
         width={SiderWidth}
         collapsed={collapsed}
         trigger={null}
-        className="top-[80px] lg:top-0 block lg:hidden glass-bar !fixed overflow-auto left-0 bottom-4 z-[100]"
+        className="top-[80px] lg:top-0 block lg:hidden glass-bar !backdrop-blur-lg !fixed overflow-auto left-0 bottom-4 z-[100]"
       >
         <AppMenu items={siderMenus} />
       </Sider>
