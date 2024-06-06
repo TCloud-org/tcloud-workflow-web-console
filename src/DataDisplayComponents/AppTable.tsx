@@ -26,6 +26,7 @@ const TableComponents: TableProps["components"] = {
   },
   header: {
     cell: AppResizableHeader,
+    row: (props: any) => <tr {...props} className="glass-bar" />,
   },
 };
 
@@ -242,7 +243,9 @@ export const AppTable = (
   return (
     <Table
       title={showTitle ? () => renderTitle() : undefined}
-      style={props.style}
+      style={{
+        ...props.style,
+      }}
       components={TableComponents}
       rowClassName={() => "editable-row"}
       bordered={bordered}
@@ -274,10 +277,9 @@ export const AppTable = (
       onChange={props.onChange}
       loading={props.loading}
       scroll={{ x: 1000 }}
-      size="small"
       locale={props.locale}
       rowHoverable={props.rowHoverable}
-      className={props.className}
+      className={`glass-bar px-4 ${props.className}`}
     />
   );
 };

@@ -483,3 +483,8 @@ a {
 .lighting-bg {
   background-image: url("https://tcw-images.s3.us-west-2.amazonaws.com/lighting.png");
 }
+
+.ant-table-thead .ant-table-cell {
+  background-color: transparent !important;
+  border-bottom   : none !important;
+}

@@ -7,6 +7,7 @@ export const WorkColumns: EditableColumn[] = [
   {
     title: "Work ID",
     dataIndex: "workId",
+    width: 300,
     render: (text: string) => (
       <AppLink href={`/live/${encodeURIComponent(text)}`}>{text}</AppLink>
     ),

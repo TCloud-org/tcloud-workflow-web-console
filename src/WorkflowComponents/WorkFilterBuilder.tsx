@@ -261,7 +261,6 @@ export const WorkFilterBuilder = (props: {
             style={{ width: conditionWidth }}
             placeholder="Condition"
             options={ConditionOptions}
-            size="small"
           />
         </Form.Item>
         {!isNullCondition(condition) && (
@@ -350,7 +349,6 @@ export const WorkFilterBuilder = (props: {
             <Flex align="center" gap="8px">
               <AppButton
                 icon={<SaveOutlined />}
-                size="small"
                 type="primary"
                 disabled={noFilters(
                   (form.getFieldValue(parent) || []).filter(filter)
@@ -362,7 +360,6 @@ export const WorkFilterBuilder = (props: {
               {active !== undefined && (
                 <AppButton
                   icon={<FileSyncOutlined />}
-                  size="small"
                   onClick={handleUpdateQuery}
                 >
                   Update query
@@ -393,7 +390,6 @@ export const WorkFilterBuilder = (props: {
                             style={{ marginBottom: 0 }}
                           >
                             <Select
-                              size="small"
                               options={BitwiseOperatorOptions}
                               style={{ width: operatorWidth }}
                             />
@@ -409,7 +405,6 @@ export const WorkFilterBuilder = (props: {
                           style={{ marginBottom: 0 }}
                         >
                           <Select
-                            size="small"
                             showSearch
                             style={{ width: attributeWidth }}
                             options={Object.keys(
@@ -428,7 +423,6 @@ export const WorkFilterBuilder = (props: {
 
                         <Form.Item style={{ marginBottom: 0 }}>
                           <AppIconButton
-                            danger
                             tooltip="Remove clause"
                             onClick={() => handleRemoveClause(name)}
                           >
