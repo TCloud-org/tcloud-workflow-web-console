@@ -24,22 +24,6 @@ export const WorkStatisticDisplay = (props: {
     <Row gutter={[16, 16]} className="lighting-bg">
       <Col {...Span[2]}>
         <Row gutter={[16, 16]}>
-          <Col {...Span[1]}>
-            <BillingCard billing={billing} />
-          </Col>
-
-          <Col {...Span[1]}>
-            <WorkflowTransitionsDisplay />
-          </Col>
-
-          <Col {...Span[1]}>
-            <WorkflowAPIKeyDisplay />
-          </Col>
-        </Row>
-      </Col>
-
-      <Col {...Span[2]}>
-        <Row gutter={[16, 16]}>
           <ResultStatSection statistic={statistic} />
 
           <Col {...Span[1]} className="flex flex-col">
@@ -51,6 +35,22 @@ export const WorkStatisticDisplay = (props: {
               infraStatistic={infraStatistic}
               infraStatisticLoading={infraStatisticLoading}
             />
+          </Col>
+        </Row>
+      </Col>
+
+      <Col {...Span[2]}>
+        <Row gutter={[16, 16]}>
+          <Col {...Span[1]}>
+            <BillingCard billing={billing} />
+          </Col>
+
+          <Col {...Span[1]}>
+            <WorkflowTransitionsDisplay />
+          </Col>
+
+          <Col {...Span[1]}>
+            <WorkflowAPIKeyDisplay />
           </Col>
         </Row>
       </Col>
