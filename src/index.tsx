@@ -33,6 +33,9 @@ root.render(
   <ConfigProvider
     theme={{
       components: {
+        List: {
+          colorTextLabel: "white",
+        },
         Button: {
           defaultShadow: "none",
           textHoverBg: "rgb(148 163 184 / 0.1)",

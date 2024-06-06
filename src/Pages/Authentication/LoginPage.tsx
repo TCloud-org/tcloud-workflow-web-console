@@ -239,13 +239,17 @@ export const LoginPage = () => {
               </Form.Item>
               <Flex justify="space-between" align="center">
                 <Form.Item name="rememberMe" valuePropName="checked">
-                  <Checkbox style={{ color: token.colorTextSecondary }}>
+                  <Checkbox
+                    style={{ color: token.colorTextSecondary }}
+                    className="hover:!text-white transition-all duration-300"
+                  >
                     Remember me
                   </Checkbox>
                 </Form.Item>
                 <Form.Item>
                   <AppButton
                     type="link"
+                    className="hover:!text-white transition-all duration-300"
                     style={{ color: token.colorTextSecondary }}
                     onClick={handleForgotPassword}
                   >

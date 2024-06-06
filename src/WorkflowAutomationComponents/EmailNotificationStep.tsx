@@ -83,14 +83,14 @@ export const EmailNotificationStep = (props: {
         {status && (
           <div
             style={{
-              width: "4px",
+              width: "8px",
               position: "absolute",
               left: 0,
               top: 0,
               bottom: 0,
               backgroundColor: StatusColor[status],
-              borderTopLeftRadius: token.borderRadiusLG,
-              borderBottomLeftRadius: token.borderRadiusLG,
+              borderTopLeftRadius: 16,
+              borderBottomLeftRadius: 16,
             }}
           />
         )}

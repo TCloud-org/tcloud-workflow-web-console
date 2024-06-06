@@ -24,8 +24,8 @@ export const AppSearchInput = (
 
   const content = (
     <div
+      className="bg-dark"
       style={{
-        backgroundColor: "white",
         boxShadow: token.boxShadow,
         borderRadius: token.borderRadiusLG,
         padding: 16,

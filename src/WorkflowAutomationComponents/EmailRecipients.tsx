@@ -1,5 +1,5 @@
 import { InternetAddress } from "Config/EMSConfig";
-import { Flex, Tag, Typography } from "antd";
+import { Flex, Typography } from "antd";
 
 export const EmailRecipients = (props: {
   recipients?: InternetAddress[];
@@ -28,14 +28,9 @@ export const EmailRecipients = (props: {
         {recipients
           .map((recipient) => recipient.address)
           .map((address, i) => (
-            <Tag
-              style={{ margin: 0 }}
-              key={i}
-              bordered={false}
-              color="processing"
-            >
+            <div style={{ margin: 0 }} key={i} className="text-neutral-7">
               {address}
-            </Tag>
+            </div>
           ))}
       </Flex>
     </Flex>

@@ -1,5 +1,4 @@
 import { AMS_SIGN_UP_ENDPOINT } from "Config/AMSEndpointConfig";
-import { borderColor } from "Config/AutomationConfig";
 import { Span } from "Config/DataDisplayInterface";
 import { AppLogoText } from "DataDisplayComponents/AppLogoText";
 import { AppButton } from "DataEntryComponents/AppButton";

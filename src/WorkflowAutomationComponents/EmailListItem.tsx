@@ -42,7 +42,7 @@ export const EmailListItem = (props: {
               <AppButton
                 type="link"
                 onClick={() => setIsCollapsed((prev) => !prev)}
-                style={{ padding: 0, color: "black", fontWeight: 600 }}
+                style={{ padding: 0, fontWeight: 600 }}
                 icon={
                   <CaretRightFilled
                     style={{

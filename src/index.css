@@ -24,6 +24,7 @@ code {
 .inner-html {
   overflow  : auto;
   max-height: 300px;
+  color     : black !important;
 }
 
 .editable-cell {
@@ -469,9 +470,9 @@ a {
   background-color       : transparent !important;
   -webkit-backdrop-filter: blur(8px) !important;
   backdrop-filter        : blur(8px) !important;
-  border-radius          : 16px;
+  border-radius          : 16px !important;
   border                 : 1px solid rgb(32 31 48 / 1);
-  box-shadow             : rgba(164, 143, 255, 0.12) 0px -7px 120px 0px inset;
+  box-shadow             : rgba(164, 143, 255, 0.12) 0px -7px 120px 0px inset !important;
 }
 
 .glass-pill {
@@ -501,4 +502,103 @@ a {
 
 .ant-table-thead>* {
   background-color: transparent !important;
+}
+
+.custom-logo-frame {
+  background-color       : linear-gradient(rgba(203, 203, 232, 0.08) 0%, rgba(203, 203, 232, 0.04) 100%);
+  border-radius          : 12px;
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter        : blur(12px);
+  box-shadow             : rgba(255, 255, 255, 0.12) 0px -1px 1px 0px inset, rgba(196, 136, 255, 0.1) 0px 1px 1px 0px inset;
+  mix-blend-mode         : multiply;
+  z-index                : 9;
+  border                 : 1px solid rgba(255, 255, 255, 0.04);
+  position               : relative;
+  width                  : auto;
+  height                 : auto;
+  padding                : 0;
+  display                : flex;
+  place-content          : center;
+  align-items            : center;
+}
+
+.custom-logo-layer-1 {
+  border                 : 1px solid rgba(255, 255, 255, 0.04);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter        : blur(12px);
+  background-color       : linear-gradient(rgba(203, 203, 232, 0.08) 0%, rgba(203, 203, 232, 0.04) 100%);
+  border-radius          : 12px;
+  box-shadow             : rgba(255, 255, 255, 0.12) 0px -1px 1px 0px inset, rgba(196, 136, 255, 0.1) 0px 1px 1px 0px inset;
+  flex                   : 0 0 auto;
+  height                 : 54px;
+  width                  : 54px;
+  position               : relative;
+  mix-blend-mode         : multiply;
+  z-index                : 9;
+  overflow               : visible;
+}
+
+.custom-logo-layer-2_1 {
+  aspect-ratio           : 1.04545 / 1;
+  border                 : 1px solid rgba(255, 255, 255, 0.04);
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter        : blur(5px);
+  background-color       : linear-gradient(rgba(203, 203, 232, 0.04) 0%, rgba(203, 203, 232, 0.08) 69.7477%);
+  border-radius          : 8px;
+  box-shadow             : rgba(116, 7, 255, 0.32) 0px -12px 4px 0px inset;
+  overflow               : visible;
+  height                 : 46px;
+  position               : absolute;
+  left                   : 3px;
+  right                  : 3px;
+  top                    : 4px;
+}
+
+.custom-logo-layer-2_1::after,
+.custom-logo-layer-2_2::after {
+  content       : "";
+  border        : none;
+  width         : 100%;
+  height        : 100%;
+  position      : absolute;
+  box-sizing    : border-box;
+  left          : 0;
+  top           : 0;
+  border-radius : inherit;
+  pointer-events: none;
+}
+
+.custom-logo-layer-2_2 {
+  border                 : 1px solid rgba(255, 255, 255, 0.04);
+  aspect-ratio           : 1 / 1;
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter        : blur(12px);
+  background-color       : linear-gradient(rgba(2, 3, 28, 0.9) 0%, rgba(18, 20, 61, 0.9) 100%);
+  border-radius          : 8px;
+  box-shadow             : rgba(209, 187, 255, 0.32) 0px 0.5px 0.5px 0px inset, rgba(166, 96, 255, 0.16) 0px -12px 24px 0px inset, rgba(160, 86, 255, 0.12) 0px -1px 1px 0px inset;
+  padding                : 0px;
+  place-content          : center;
+  align-items            : center;
+  display                : flex;
+  height                 : 46px;
+  position               : absolute;
+  top                    : 2px;
+  left                   : 4px;
+  right                  : 4px;
+  gap                    : 10px;
+  flex-flow              : row;
+}
+
+.custom-logo-layer-3 {
+  flex    : 1 0 0px;
+  height  : 100%;
+  overflow: visible;
+  position: relative;
+  width   : 1px;
+}
+
+.custom-logo-layer-4 {
+  position     : absolute;
+  border-radius: inherit;
+  inset        : 0px;
 }

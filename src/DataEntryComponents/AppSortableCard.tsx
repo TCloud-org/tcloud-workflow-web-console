@@ -1,7 +1,9 @@
+import { DoubleLeftOutlined, DoubleRightOutlined } from "@ant-design/icons";
 import { UniqueIdentifier } from "@dnd-kit/core";
 import { defaultAnimateLayoutChanges, useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { Card, Drawer, Flex, Input, Typography, theme } from "antd";
+import { AutomationStep, borderColor } from "Config/AutomationConfig";
+import { Card, Drawer, Flex, Input, Typography } from "antd";
 import {
   CSSProperties,
   ChangeEvent,
@@ -14,9 +16,7 @@ import {
   useState,
 } from "react";
 import { InputRef } from "./AppEditableCell";
-import { AutomationStep, borderColor } from "Config/AutomationConfig";
 import { AppIconButton } from "./AppIconButton";
-import { DoubleLeftOutlined, DoubleRightOutlined } from "@ant-design/icons";
 
 export const pointerHoldingDurationThreshold = 200;
 
@@ -37,8 +37,6 @@ export const AppSortableCard = (props: {
   label?: string;
   setStep?: Dispatch<SetStateAction<AutomationStep>>;
 }) => {
-  const { token } = theme.useToken();
-
   const { setStep = () => {} } = props;
 
   const { attributes, listeners, setNodeRef, transform, transition } =
@@ -53,9 +51,6 @@ export const AppSortableCard = (props: {
     cursor: "pointer",
     zIndex: 1,
     position: "relative",
-    boxShadow: token.boxShadowSecondary,
-    border: "1px solid",
-    borderColor: "transparent",
   };
   const borderStyle: CSSProperties = {
     borderColor: borderColor,
@@ -157,6 +152,7 @@ export const AppSortableCard = (props: {
         {...attributes}
         onPointerDown={handlePointerDown}
         onPointerUp={handlePointerUp}
+        className="glass-card"
       >
         {props.children}
       </Card>

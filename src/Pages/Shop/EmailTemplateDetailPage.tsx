@@ -68,6 +68,7 @@ export const EmailTemplateDetailPage = () => {
             label: "Raw",
             children: (
               <div
+                className="inner-html"
                 dangerouslySetInnerHTML={{
                   __html: template.theme
                     ? replacePlaceholders(template.theme, {
@@ -84,6 +85,7 @@ export const EmailTemplateDetailPage = () => {
             disabled: template.preview === undefined,
             children: (
               <div
+                className="inner-html"
                 dangerouslySetInnerHTML={{
                   __html: template.preview ? template.preview : "",
                 }}
@@ -124,6 +126,7 @@ export const EmailTemplateDetailPage = () => {
 
       {tryToken && (
         <div
+          className="inner-html"
           dangerouslySetInnerHTML={{
             __html: replacePlaceholders(template.theme || "", {
               ...form.getFieldsValue(),
