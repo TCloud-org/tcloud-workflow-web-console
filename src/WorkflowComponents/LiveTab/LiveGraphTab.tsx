@@ -10,6 +10,7 @@ import { AppSpace } from "../../LayoutComponents/AppSpace";
 import { getGraphVisualization } from "../../Network/GraphFetch";
 import { populateFlowNodeData } from "../../Utils/ObjectUtils";
 import { GraphInfoCard } from "../GraphInfoCard";
+import { dotStyle } from "DataDisplayComponents/AppSurface";
 
 const OPTIONS = [
   {
@@ -60,7 +61,7 @@ export const LiveGraphTab = (props: { graph?: Graph }) => {
   const renderContent = (): JSX.Element => {
     if (viewAs === "flow") {
       return (
-        <Flex justify="center">
+        <Flex justify="center" className="glass-card" style={dotStyle}>
           <AppFlow nodes={nodes} edges={edges} />
         </Flex>
       );

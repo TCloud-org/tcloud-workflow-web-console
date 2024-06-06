@@ -75,7 +75,7 @@ export const XMLCodeEditor = (props: {
             })
           : githubDarkInit({
               settings: {
-                background: "#0a1021",
+                background: "transparent",
                 caret: textColor,
                 gutterBackground: "#0a1021",
                 fontFamily: "monospace",

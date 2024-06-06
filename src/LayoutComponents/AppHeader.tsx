@@ -9,7 +9,6 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { ScheduleRounded } from "@mui/icons-material";
-import { HeaderHeight } from "Config/LayoutConfig";
 import { Client } from "Config/SCSConfig";
 import { AppAvatar } from "DataDisplayComponents/AppAvatar";
 import { AppButton } from "DataEntryComponents/AppButton";
@@ -52,9 +51,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setClientId, updateClients } from "../features/workflow/clientSlice";
 import { AppBrand } from "./AppBrand";
-import { AppSubHeader } from "./AppSubHeader";
-
-const topHeaderHeight = 40;
 
 export const AppHeader = (props: {
   collapsed?: boolean;
@@ -178,9 +174,8 @@ export const AppHeader = (props: {
   };
 
   const contentStyle: React.CSSProperties = {
-    backgroundColor: token.colorBgElevated,
+    backgroundColor: token.colorBgContainer,
     borderRadius: token.borderRadiusLG,
-    boxShadow: token.boxShadowSecondary,
   };
 
   const menuStyle: React.CSSProperties = {
@@ -193,63 +188,33 @@ export const AppHeader = (props: {
     )?.tier !== ProductTierType.ENTERPRISE;
 
   return (
-    <Header
-      style={{
-        position: "fixed",
-        top: 0,
-        right: 0,
-        zIndex: 50,
-        height: HeaderHeight,
-        background: token.colorBgContainer,
-        borderBottom: `1px solid ${token.colorBorder}`,
-        padding: 0,
-      }}
-      className={`left-0 lg:left-[250px]`}
-    >
-      <Flex
-        align="center"
-        justify="space-between"
-        style={{
-          height: topHeaderHeight,
-          borderBottom: "1px solid",
-          borderBottomColor: token.colorBorderSecondary,
-        }}
-        gap={48}
-      >
+    <Header className="left-0 lg:left-[280px] glass-bar !fixed top-4 right-4 z-50 p-0 flex items-center">
+      <Flex align="center" justify="space-between" gap={16} className="w-full">
         <Flex
-          justify="flex-start"
           align="center"
           style={{ flex: 1 }}
-          className="flex lg:hidden"
+          className="flex lg:hidden pl-2"
         >
           <AppIconButton
             id="menu-button"
             type="text"
             onClick={() => setCollapsed(!collapsed)}
-            style={{
-              borderRadius: 0,
-              width: topHeaderHeight,
-              height: topHeaderHeight,
-            }}
-            className="sm:px-2"
           >
             {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
           </AppIconButton>
 
-          <AppBrand className="container-hover" />
+          <AppBrand />
         </Flex>
         <Flex
           style={{
             borderRadius: token.borderRadiusLG,
             flex: 1.5,
-            height: topHeaderHeight,
           }}
           className="hidden lg:flex px-4"
           align="center"
         >
           <AppSearchBar
             placeholder="Search by work ID"
-            size="small"
             value={searchInput}
             onChange={(value) => setSearchInput(value)}
             options={getHistoryOptions()}
@@ -258,48 +223,43 @@ export const AppHeader = (props: {
           />
         </Flex>
 
-        <Flex align="center" style={{ flex: 1.5 }} justify="flex-end">
-          {isTierUpgradable && (
-            <Flex className="mx-1">
-              <AppButton
-                type="primary"
-                size="small"
-                onClick={() => navigate("/subscription/plan")}
-              >
-                Upgrade
-              </AppButton>
-            </Flex>
-          )}
-          <AppIconButton
-            onClick={() => navigate("/support")}
-            type="text"
-            tooltip="Support"
-            style={{
-              borderRadius: 0,
-              height: topHeaderHeight,
-              width: topHeaderHeight,
-            }}
-          >
-            <QuestionCircleOutlined />
-          </AppIconButton>
-          <Select
-            placeholder="Client"
-            value={clientId}
-            variant="borderless"
-            className="container-hover"
-            style={{
-              transition: "all 0.3s",
-              height: topHeaderHeight,
-              padding: "0 8px",
-            }}
-            dropdownStyle={{ width: "auto" }}
-            placement="bottomRight"
-            onChange={handleClientIdChange}
-            options={clients.map((client) => ({
-              label: client.clientId,
-              value: client.clientId,
-            }))}
-          />
+        <Flex
+          align="center"
+          style={{ flex: 1.5 }}
+          justify="flex-end"
+          gap={8}
+          className="px-4"
+        >
+          <Flex gap={8} align="center" className="hidden lg:flex">
+            {isTierUpgradable && (
+              <Flex className="mx-1">
+                <AppButton
+                  type="primary"
+                  onClick={() => navigate("/subscription/plan")}
+                >
+                  Upgrade
+                </AppButton>
+              </Flex>
+            )}
+            <AppIconButton
+              type="text"
+              onClick={() => navigate("/support")}
+              tooltip="Support"
+            >
+              <QuestionCircleOutlined />
+            </AppIconButton>
+            <Select
+              placeholder="Client"
+              value={clientId}
+              dropdownStyle={{ width: "auto" }}
+              placement="bottomRight"
+              onChange={handleClientIdChange}
+              options={clients.map((client) => ({
+                label: client.clientId,
+                value: client.clientId,
+              }))}
+            />
+          </Flex>
           <Dropdown
             menu={{ items: accountItems }}
             trigger={["click"]}
@@ -316,7 +276,7 @@ export const AppHeader = (props: {
                   style: menuStyle,
                 })}
                 <Divider style={{ margin: 0 }} />
-                <Flex justify="center" style={{ padding: "8px 16px" }}>
+                <Flex justify="center" className="p-4">
                   <AppButton
                     type="primary"
                     size="small"
@@ -334,10 +294,8 @@ export const AppHeader = (props: {
               style={{
                 cursor: "pointer",
                 transition: "all 0.3s",
-                padding: "0px 16px",
-                height: topHeaderHeight,
               }}
-              className="container-hover"
+              className="px-4 py-2"
               gap={6}
             >
               <AppAvatar />
@@ -358,7 +316,6 @@ export const AppHeader = (props: {
           </Dropdown>
         </Flex>
       </Flex>
-      <AppSubHeader />
     </Header>
   );
 };

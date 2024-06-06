@@ -112,8 +112,6 @@ export const StateCardInfo = forwardRef<HTMLDivElement, StateCardInfoProps>(
         style={{
           transition: "all 0.3s",
           marginTop: "16px",
-          backgroundColor: "white",
-          borderRadius: "8px",
           overflow: "auto",
           ...style,
         }}

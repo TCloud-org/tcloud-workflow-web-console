@@ -6,7 +6,6 @@ import {
 } from "@mui/icons-material";
 import { Span } from "Config/DataDisplayInterface";
 import { WorkStatistic } from "Config/WorkflowConfig";
-import { AppRow } from "LayoutComponents/AppRow";
 import { Col } from "antd";
 import { ResultStatCard } from "./ResultStatCard";
 
@@ -49,12 +48,12 @@ export const ResultStatSection = (props: { statistic?: WorkStatistic }) => {
   ];
 
   return (
-    <AppRow gutter={[16, 16]} className="px-4">
+    <>
       {stats.map((stat, i) => (
-        <Col key={i} {...Span[4]}>
+        <Col key={i} {...Span[2]}>
           <ResultStatCard data={stat} />
         </Col>
       ))}
-    </AppRow>
+    </>
   );
 };

@@ -1,4 +1,4 @@
-import { Divider, Flex, Typography } from "antd";
+import { Divider, Flex, Typography, theme } from "antd";
 import { Fragment, ReactNode } from "react";
 import { AppMenuLink } from "./AppMenuLink";
 
@@ -16,6 +16,8 @@ export interface AppMenuProps {
 }
 
 export const AppMenu = (props: AppMenuProps) => {
+  const { token } = theme.useToken();
+
   const { items = [] } = props;
 
   const renderContent = (item: MenuItem, i: number): ReactNode => {
@@ -24,7 +26,11 @@ export const AppMenu = (props: AppMenuProps) => {
         <Fragment key={`${item.key}-${i}`}>
           {i > 0 && <Divider style={{ margin: 0 }} />}
           <Flex vertical gap={8}>
-            <Typography.Text strong className="text-slate-600 mx-4">
+            <Typography.Text
+              strong
+              className="mx-4"
+              style={{ color: token.colorText }}
+            >
               {item.label?.toString().toUpperCase()}
             </Typography.Text>
 

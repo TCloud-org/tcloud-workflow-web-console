@@ -1,5 +1,5 @@
 import { Typography } from "antd";
-import { CSSProperties, ReactElement, ReactNode, cloneElement } from "react";
+import { ReactElement, ReactNode, cloneElement } from "react";
 
 export const StatTitle = (props: {
   children?: string | ReactNode;
@@ -8,15 +8,19 @@ export const StatTitle = (props: {
 }) => {
   return (
     <Typography.Text
-      className={`text-slate-700 font-semibold flex items-center gap-2 ${props.className}`}
+      className={`text-white font-semibold flex flex-col gap-8 ${props.className}`}
     >
-      {props.icon &&
-        cloneElement(props.icon as ReactElement, {
-          style: {
-            fontSize: 16,
-          } as CSSProperties,
-        })}
-      {props.children}
+      {props.icon && (
+        <div className="h-16 w-16 glass-card border border-neutral-11 !rounded-md flex justify-center items-center">
+          {cloneElement(props.icon as ReactElement, {
+            className: "!text-white",
+            style: {
+              fontSize: 32,
+            },
+          })}
+        </div>
+      )}
+      <div className="text-lg">{props.children}</div>
     </Typography.Text>
   );
 };

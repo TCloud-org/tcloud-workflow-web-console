@@ -31,7 +31,11 @@ export const PageTitle = (props: {
         <AppSpace direction="horizontal" size="small" align="center">
           {props.endDecorator}
           {props.onReload && (
-            <AppIconButton onClick={props.onReload} tooltip="Reload">
+            <AppIconButton
+              type="primary"
+              onClick={props.onReload}
+              tooltip="Reload"
+            >
               <ReloadOutlined />
             </AppIconButton>
           )}

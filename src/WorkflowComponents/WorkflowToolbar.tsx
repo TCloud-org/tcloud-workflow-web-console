@@ -225,12 +225,11 @@ export const WorkflowToolbar = (props: {
       {contextHolder}
       <AppSurface type="form" className="flex">
         <Flex vertical gap={16}>
-          <Typography.Text className="font-semibold text-slate-800">
+          <Typography.Text className="font-semibold">
             Action Panel
           </Typography.Text>
           <Flex gap={16}>
             <Dropdown.Button
-              size="small"
               onClick={handleRetry}
               trigger={["click"]}
               loading={retryLoading}
@@ -245,7 +244,6 @@ export const WorkflowToolbar = (props: {
             </Dropdown.Button>
 
             <Dropdown.Button
-              size="small"
               onClick={handleRerun}
               trigger={["click"]}
               loading={rerunLoading}
@@ -266,12 +264,12 @@ export const WorkflowToolbar = (props: {
               cancelText="No"
               onConfirm={handleClose}
             >
-              <Button loading={closeLoading} danger type="primary" size="small">
+              <Button loading={closeLoading} danger type="primary">
                 Close
               </Button>
             </Popconfirm>
 
-            <Radio.Group value={runConfig} buttonStyle="solid" size="small">
+            <Radio.Group value={runConfig} buttonStyle="solid">
               <Radio.Button
                 value={WorkflowRunConfig.Transition}
                 onClick={() =>
@@ -287,13 +285,13 @@ export const WorkflowToolbar = (props: {
             </Radio.Group>
 
             <Flex>
-              <AppIconButton onClick={onReload} tooltip="Reload" size="small">
+              <AppIconButton onClick={onReload} tooltip="Reload" type="primary">
                 <ReloadOutlined />
               </AppIconButton>
             </Flex>
 
             <Flex>
-              <AppIconButton onClick={handleShare} tooltip="Share" size="small">
+              <AppIconButton onClick={handleShare} tooltip="Share">
                 <ShareAltOutlined />
               </AppIconButton>
             </Flex>

@@ -38,7 +38,6 @@ export const AppForm = (
       }
       labelCol={props.layout === "vertical" ? Span[1] : formItemLayout.labelCol}
       labelAlign="left"
-      size="small"
       {...props}
     >
       {props.children}

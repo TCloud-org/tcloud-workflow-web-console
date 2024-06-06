@@ -1,5 +1,6 @@
 import { borderColor } from "Config/AutomationConfig";
-import { Card, Flex, Typography, theme } from "antd";
+import { AppCard } from "DataDisplayComponents/AppCard";
+import { Flex, Typography, theme } from "antd";
 import { CSSProperties } from "react";
 
 export const TemplateChip = (props: {
@@ -20,13 +21,18 @@ export const TemplateChip = (props: {
   };
 
   return (
-    <Card
+    <AppCard
       onClick={props.onClick}
       cover={
         <img
           alt="template"
           src={props.src}
-          style={{ height: "20vh", objectFit: "contain", maxWidth: "100%" }}
+          style={{
+            height: "20vh",
+            objectFit: "cover",
+            maxWidth: "100%",
+            borderRadius: 16,
+          }}
         />
       }
       style={style}
@@ -37,6 +43,6 @@ export const TemplateChip = (props: {
           {props.title}
         </Typography.Text>
       </Flex>
-    </Card>
+    </AppCard>
   );
 };

@@ -46,7 +46,6 @@ export const getWorksByWorkflowId = async (
 
 export const getWorksInDateRange = async (
   clientId: string,
-  workflowId: string,
   token: string,
   start?: string,
   end?: string,
@@ -54,7 +53,6 @@ export const getWorksInDateRange = async (
 ): Promise<GetWorksInDateRangeOutput> => {
   const formData = {
     clientId,
-    workflowId,
     start: start ? new Date(start).toISOString() : undefined,
     end: end ? new Date(end).toISOString() : undefined,
     period,
@@ -70,7 +68,6 @@ export const getWorksInDateRange = async (
 
 export const getWorkStatisticInDateRange = async (
   clientId: string,
-  workflowId: string,
   token: string,
   start?: string,
   end?: string,
@@ -78,7 +75,6 @@ export const getWorkStatisticInDateRange = async (
 ): Promise<GetWorkStatisticInDateRangeOutput> => {
   const formData = {
     clientId,
-    workflowId,
     start: start ? new Date(start).toISOString() : undefined,
     end: end ? new Date(end).toISOString() : undefined,
     period,

@@ -1,4 +1,3 @@
-import { background } from "App";
 import { HoveredLink } from "DataEntryComponents/HoveredLink";
 import { Flex, Image, Typography, theme } from "antd";
 import { Footer } from "antd/es/layout/layout";
@@ -9,7 +8,7 @@ export const AppFooter = () => {
     <Footer
       style={{
         padding: 0,
-        backgroundColor: background,
+        backgroundColor: token.colorBgContainer,
         borderTop: `1px solid ${token.colorBorderSecondary}`,
       }}
     >

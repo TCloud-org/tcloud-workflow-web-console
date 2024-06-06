@@ -10,17 +10,17 @@ export const AppCollapse = (props: {
 
   const { items = [] } = props;
 
-  const panelStyle: React.CSSProperties = {
-    borderRadius: token.borderRadiusLG,
-  };
-
   return (
     <Collapse
       expandIcon={({ isActive }) => (
         <CaretRightOutlined rotate={isActive ? 90 : 0} />
       )}
+      bordered={false}
       style={{ background: token.colorBgContainer }}
-      items={items.map((item) => ({ ...item, style: panelStyle }))}
+      items={items.map((item) => ({
+        ...item,
+        className: "glass-bar",
+      }))}
     />
   );
 };

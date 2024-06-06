@@ -1,5 +1,5 @@
 import { LinkOutlined } from "@ant-design/icons";
-import { DescriptionsProps, Typography } from "antd";
+import { DescriptionsProps, Select, Typography } from "antd";
 import axios from "axios";
 import { Key, useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -10,11 +10,11 @@ import { WOS_ADD_GRAPH_ENDPOINT } from "../../Config/WOSEndpointConfig";
 import {
   GetGraphsByWorkflowIdOutput,
   Graph,
+  Workflow,
 } from "../../Config/WorkflowConfig";
 import { AppDescriptions } from "../../DataDisplayComponents/AppDescriptions";
 import { AppSurface } from "../../DataDisplayComponents/AppSurface";
 import { AppTable } from "../../DataDisplayComponents/AppTable";
-import { PageTitle } from "../../DataDisplayComponents/PageTitle";
 import { AppButton } from "../../DataEntryComponents/AppButton";
 import { AppLink } from "../../DataEntryComponents/AppLink";
 import { AppSpace } from "../../LayoutComponents/AppSpace";
@@ -80,19 +80,21 @@ const columns: EditableColumn[] = [
   },
 ];
 
-export const GraphPage = () => {
+export const GraphPage = (props: { workflows?: Workflow[] }) => {
   const navigate = useNavigate();
 
+  const { workflows = [] } = props;
+
   const authToken = useSelector((state: any) => state.auth.token);
-  const { workflowId, workflowName } = useSelector(
-    (state: any) => state.workflow.workflow || {}
-  );
 
   const [graphs, setGraphs] = useState<Graph[]>([]);
   const [nextAvailableVersion, setNextAvailableVersion] = useState<number>(1);
   const [liveGraph, setLiveGraph] = useState<Graph>();
   const [selected, setSelected] = useState<Key[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [workflowSelected, setWorkflowSelected] = useState<
+    string | undefined
+  >();
 
   const graphDescriptions: DescriptionsProps["items"] = [
     {
@@ -134,9 +136,9 @@ export const GraphPage = () => {
   };
 
   const fetchGraphs = useCallback(() => {
-    if (workflowId) {
+    if (workflowSelected) {
       setLoading(true);
-      fetchGraphsById(workflowId, authToken)
+      fetchGraphsById(workflowSelected, authToken)
         .then((response: GetGraphsByWorkflowIdOutput | undefined) => {
           setGraphs(response?.graphs || []);
           setNextAvailableVersion(response?.nextAvailableVersion || 1);
@@ -145,7 +147,7 @@ export const GraphPage = () => {
         })
         .catch((_) => setLoading(false));
     }
-  }, [workflowId, authToken]);
+  }, [workflowSelected, authToken]);
 
   useEffect(() => {
     fetchGraphs();
@@ -157,32 +159,37 @@ export const GraphPage = () => {
 
   return (
     <AppSpace loading={loading}>
-      <PageTitle
-        endDecorator={
-          <AppButton onClick={handleCreateGraph} type="primary">
-            Create graph
-          </AppButton>
-        }
-      >
-        {workflowName}
-      </PageTitle>
+      <div className="flex items-center justify-between gap-4">
+        <Select
+          placeholder="Select a workflow"
+          options={workflows.map((workflow) => ({
+            label: workflow.workflowName,
+            value: workflow.workflowId,
+          }))}
+          dropdownStyle={{ width: "auto" }}
+          value={workflowSelected}
+          onChange={setWorkflowSelected}
+        />
 
-      <AppSurface type="form" style={{ paddingBottom: 0 }}>
+        <AppButton onClick={handleCreateGraph} type="primary">
+          Add graph
+        </AppButton>
+      </div>
+
+      <AppSurface style={{ paddingBottom: 0 }}>
         <AppDescriptions title="Details" items={graphDescriptions} />
       </AppSurface>
 
-      <AppSurface type="form">
-        <AppTable
-          rows={graphs}
-          columns={columns.map((col) =>
-            !col.editable ? col : { ...col, handleSave: saveGraph }
-          )}
-          selected={selected}
-          heading="Graphs"
-          setSelected={setSelected}
-          rowId="graphId"
-        />
-      </AppSurface>
+      <AppTable
+        rows={graphs}
+        columns={columns.map((col) =>
+          !col.editable ? col : { ...col, handleSave: saveGraph }
+        )}
+        selected={selected}
+        heading="Graphs"
+        setSelected={setSelected}
+        rowId="graphId"
+      />
     </AppSpace>
   );
 };

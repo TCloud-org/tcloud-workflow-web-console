@@ -1,12 +1,10 @@
-import { Card, CardProps, theme } from "antd";
+import { Card, CardProps } from "antd";
 
 export const AppCard = (props: CardProps) => {
-  const { token } = theme.useToken();
-
   return (
     <Card
       {...props}
-      style={{ borderColor: token.colorBorder, ...props.style }}
+      className={`glass-card transition-all duration-300 ${props.className}`}
     />
   );
 };

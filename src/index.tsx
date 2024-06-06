@@ -33,32 +33,94 @@ root.render(
   <ConfigProvider
     theme={{
       components: {
+        Button: {
+          defaultShadow: "none",
+          textHoverBg: "rgb(148 163 184 / 0.1)",
+          borderRadius: 6,
+          borderRadiusSM: 4,
+          borderRadiusLG: 8,
+          primaryShadow:
+            "rgba(2, 3, 28, 0.8) 0px 4px 10px 4px, rgba(206, 206, 251, 0.16) 0px 0px 0px 4px, rgba(234, 234, 251, 0.3) 0px -4px 12px 0px inset",
+        },
+        Input: {
+          colorBgContainer: "rgb(22 20 39 / 0.5)",
+          hoverBorderColor: "rgb(40 38 55 / 1)",
+          activeBorderColor: "rgb(141 140 149 / 1)",
+          colorText: "white",
+          colorTextPlaceholder: "rgb(141 140 149 / 1)",
+          colorBorder: "rgb(40 38 55 / 1)",
+          activeShadow: "none",
+          colorTextDisabled: "#8d8c95",
+        },
         Select: {
-          optionSelectedBg: "rgb(241 245 249 / 0.6)",
+          optionSelectedColor: "white",
+          optionSelectedBg: "rgb(70 69 83 / 0.5)",
+          optionActiveBg: "rgb(70 69 83 / 0.5)",
+          colorText: "white",
+          colorBgContainer: "rgb(22 20 39 / 0.5)",
+          colorPrimaryHover: "rgb(40 38 55 / 1)",
+          colorBorder: "rgb(40 38 55 / 1)",
+          colorPrimary: "rgb(141 140 149 / 1)",
+          controlOutlineWidth: 0,
+          colorTextDisabled: "#8d8c95",
+        },
+        DatePicker: {
+          colorBgContainer: "rgb(22 20 39 / 0.5)",
+          hoverBg: "blue",
+          activeBorderColor: "rgb(141 140 149 / 1)",
+          cellHoverWithRangeBg: "rgb(148 163 184 / 0.15)",
+          cellActiveWithRangeBg: "rgb(148 163 184 / 0.15)",
         },
         Table: {
-          rowSelectedBg: "rgb(241 245 249 / 0.6)",
+          rowHoverBg: "rgb(148 163 184 / 0.1)",
+          rowSelectedBg: "rgb(148 163 184 / 0.1)",
+          rowSelectedHoverBg: "rgb(148 163 184 / 0.1)",
+          headerSortHoverBg: "rgb(148 163 184 / 0.2)",
+          headerColor: "white",
+          headerBg: "#161427",
+          colorBgContainer: "transparent",
+        },
+        Tooltip: {
+          colorBgSpotlight: "#161427",
+        },
+        Alert: {
+          colorInfoBg: "#02031C",
         },
         Segmented: {
-          trackBg: "rgb(241 245 249 / 0.6)",
+          itemActiveBg: "#602AF8",
+          itemHoverBg: "rgb(148 163 184 / 0.1)",
+          itemSelectedBg: "#602AF8",
+          trackBg: "rgb(148 163 184 / 0.1)",
+        },
+        Modal: {
+          headerBg: "transparent",
         },
       },
       token: {
-        colorPrimary: "#4312e5",
-        boxShadow: "0 30px 60px 0 rgba(90, 116, 148, 0.15)",
-        boxShadowSecondary: "0 30px 60px 0 rgba(90, 116, 148, 0.1)",
-        colorBorder: "rgba(90, 116, 148, 0.15)",
-        colorBorderSecondary: "rgba(90, 116, 148, 0.1)",
-        colorFill: "rgb(203 213 225 / 0.6)",
-        colorFillSecondary: "rgb(226 232 240 / 0.6)",
-        colorFillTertiary: "rgb(241 245 249 / 0.6)",
-        colorFillQuaternary: "rgb(248 250 252 / 0.6)",
+        colorBgBase: "#02031C",
+        colorBgContainer: "#02031C",
+        colorPrimary: "#602AF8",
+
+        boxShadow: "rgba(164, 143, 255, 0.12) 0px -7px 120px 0px inset",
+        boxShadowSecondary:
+          "rgba(164, 143, 255, 0.12) 0px -7px 120px 0px inset",
+
+        colorBorder: "#282637",
+        colorBorderSecondary: "#201f30",
+
+        colorFill: "rgb(148 163 184 / 0.2)",
+        colorFillSecondary: "rgb(148 163 184 / 0.15)",
+        colorFillTertiary: "rgb(148 163 184 / 0.1)",
+        colorFillQuaternary: "rgb(148 163 184 / 0.075)",
+
         colorSuccess: "rgb(40 205 65 / 1)",
         colorError: "rgb(255 59 48 / 1)",
         colorInfo: "rgb(0 122 255 / 1)",
         colorWarning: "rgb(255 204 0 / 1)",
-        colorText: "rgb(30 41 59 / 1)",
-        colorTextBase: "rgb(30 41 59 / 1)",
+
+        colorText: "#ffffff",
+        colorTextBase: "#ffffff",
+        colorTextDisabled: "#8d8c95",
       },
     }}
   >

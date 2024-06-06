@@ -13,11 +13,7 @@ export const InfraCompositionCard = (props: {
 
   return (
     <Fragment>
-      <AppCard
-        size="small"
-        className="bg-white relative z-10 mr-2"
-        style={{ borderColor: "transparent" }}
-      >
+      <AppCard>
         <Statistic
           loading={infraStatisticLoading}
           title={<StatTitle>Infra Composition Chart</StatTitle>}

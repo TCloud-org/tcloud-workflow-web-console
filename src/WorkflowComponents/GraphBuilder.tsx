@@ -178,8 +178,8 @@ export const GraphBuilder = (props: {
         items-center
         overflow-x-auto
         overflow-y-hidden
-        p-10
-        bg-slate-300/20 rounded-md
+        !p-10
+        glass-card
     "
       style={{ border: `1px solid ${token.colorBorder}` }}
     >
@@ -215,7 +215,7 @@ export const GraphBuilder = (props: {
             <Flex
               gap={8}
               align="center"
-              className="border-2 border-solid rounded-lg border-slate-400/20 p-4 bg-white cursor-pointer hover:border-primary"
+              className="glass-card cursor-pointer hover:border-primary"
               style={{ transition: "all 0.3s", boxShadow: token.boxShadow }}
               onClick={handleAddState}
             >

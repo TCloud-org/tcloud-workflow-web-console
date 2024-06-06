@@ -12,7 +12,6 @@ import {
 } from "@mui/icons-material";
 import { useClickAway } from "@uidotdev/usehooks";
 import { SiderWidth } from "Config/LayoutConfig";
-import { Flex, theme } from "antd";
 import Sider from "antd/es/layout/Sider";
 import { Dispatch, SetStateAction } from "react";
 import { useSelector } from "react-redux";
@@ -87,7 +86,6 @@ export const AppSider = (props: {
 }) => {
   const { collapsed, setCollapsed = () => {} } = props;
 
-  const { token } = theme.useToken();
   const { isDevMode } = useSelector((state: any) => state.general);
 
   const siderMenus: AppMenuProps["items"] = [
@@ -198,26 +196,15 @@ export const AppSider = (props: {
         ref={siderRef as any}
         width={SiderWidth}
         trigger={null}
-        style={{
-          overflow: "auto",
-          position: "fixed",
-          left: 0,
-          bottom: 0,
-          zIndex: 100,
-          background: token.colorBgContainer,
-          borderRight: "1px solid",
-          borderRightColor: token.colorBorderSecondary,
-        }}
-        className="top-[80px] lg:top-0 hidden lg:block"
+        className="top-[80px] lg:top-4 hidden lg:block glass-bar !fixed overflow-auto left-4 bottom-4 z-[100]"
       >
-        <Flex vertical>
-          <AppBrand
-            style={{ borderBottom: `1px solid ${token.colorBorder}` }}
-            className="hidden lg:block"
-          />
+        <div>
+          <div className="py-4">
+            <AppBrand className="hidden lg:block" />
+          </div>
 
           <AppMenu items={siderMenus} />
-        </Flex>
+        </div>
       </Sider>
 
       <Sider
@@ -226,17 +213,7 @@ export const AppSider = (props: {
         width={SiderWidth}
         collapsed={collapsed}
         trigger={null}
-        style={{
-          overflow: "auto",
-          position: "fixed",
-          left: 0,
-          bottom: 0,
-          zIndex: 100,
-          background: token.colorBgContainer,
-          borderRight: "1px solid",
-          borderRightColor: token.colorBorderSecondary,
-        }}
-        className="top-[80px] lg:top-0 block lg:hidden"
+        className="top-[80px] lg:top-0 block lg:hidden glass-bar !fixed overflow-auto left-0 bottom-4 z-[100]"
       >
         <AppMenu items={siderMenus} />
       </Sider>

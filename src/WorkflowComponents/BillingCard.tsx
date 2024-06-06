@@ -21,12 +21,7 @@ export const BillingCard = (props: { billing?: StepWorkflowBilling }) => {
     )?.tier || ProductTierType.FREE_TIER;
 
   return (
-    <AppCard
-      size="small"
-      className="h-full"
-      bordered={false}
-      style={{ boxShadow: "none" }}
-    >
+    <AppCard>
       <Statistic
         title={
           <Flex align="center" justify="space-between">

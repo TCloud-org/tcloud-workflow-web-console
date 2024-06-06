@@ -90,7 +90,6 @@ export const LiveWorkflowViewTab = (props: {
                   : []),
                 {
                   children: route.resultName,
-                  // color: TagVariantMapping[route.resultType]?.color,
                   icon: TagVariantMapping[route.resultType]?.icon,
                   tooltip: "Result name",
                 },

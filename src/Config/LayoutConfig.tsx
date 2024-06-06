@@ -28,4 +28,4 @@ export type EditableColumn = EditableColumnTypes[number] & {
 
 export const SiderWidth = 250;
 export const SiderCollapseWidth = 80;
-export const HeaderHeight = 80;
+export const HeaderHeight = 40;

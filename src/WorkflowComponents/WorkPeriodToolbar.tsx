@@ -58,7 +58,6 @@ export const WorkPeriodToolbar = () => {
             borderTop: `1px solid ${token.colorBorder}`,
             borderLeft: `1px solid ${token.colorBorder}`,
             borderBottom: `1px solid ${token.colorBorder}`,
-            backgroundColor: token.colorWhite,
           }}
         />
         <Select
@@ -71,7 +70,6 @@ export const WorkPeriodToolbar = () => {
             borderTopRightRadius: token.borderRadius,
             borderBottomRightRadius: token.borderRadius,
             border: `1px solid ${token.colorBorder}`,
-            backgroundColor: token.colorWhite,
           }}
           variant="borderless"
         />

@@ -79,16 +79,7 @@ export const GraphStateCard = (props: {
       <div
         ref={setNodeRef}
         style={style}
-        className="
-      bg-white
-      opacity-40
-      border-2 border-[#4312e5]
-      w-[350px]
-      h-[350px]
-      rounded-lg
-      flex
-      flex-col
-      "
+        className="bg-dark opacity-40 border-2 border-primary w-[350px] h-[350px] rounded-2xl flex flex-col"
       ></div>
     );
   }
@@ -112,11 +103,10 @@ export const GraphStateCard = (props: {
       ref={setNodeRef}
       id={state.id}
       style={style}
-      className="w-[350px] h-[350px] bg-white rounded-md flex flex-col relative"
+      className="w-[350px] h-[350px] flex flex-col relative glass-card !p-0"
     >
       <div
         className="
-      bg-white
       text-md
       h-[60px] cursor-default
       rounded-md

@@ -1,4 +1,3 @@
-import { Flex } from "antd";
 import { Key, useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -94,10 +93,15 @@ export const AuthTokenPage = () => {
 
   return (
     <AppSpace>
-      <PageTitle>Auth Token</PageTitle>
-      <Flex justify="flex-end">
-        <AppButton onClick={onAddToken}>Add token</AppButton>
-      </Flex>
+      <PageTitle
+        endDecorator={
+          <AppButton type="primary" onClick={onAddToken}>
+            Add token
+          </AppButton>
+        }
+      >
+        Auth Token
+      </PageTitle>
 
       {Object.entries(tokenMap).map(([type, tokens], i) => (
         <AppTable

@@ -31,10 +31,19 @@ export const AppBarChart = (props: {
       style={{ stroke: "#fff", strokeWidth: 1 }}
     >
       <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="name" />
-      <YAxis />
-      <Tooltip cursor={{ fill: token.colorBorder }} />
-      <Legend />
+      <XAxis dataKey="name" stroke="white" />
+      <YAxis stroke="white" />
+      <Tooltip
+        cursor={{ fill: token.colorFill }}
+        contentStyle={{
+          backgroundColor: token.colorBgContainer,
+          color: token.colorText,
+          borderColor: token.colorBorder,
+          borderRadius: token.borderRadiusLG,
+        }}
+        itemStyle={{ color: "#ffffff" }}
+      />
+      <Legend iconType="circle" />
       {data.length > 0 &&
         Object.entries(data[0])
           .filter(([_, v]) => typeof v === "number")

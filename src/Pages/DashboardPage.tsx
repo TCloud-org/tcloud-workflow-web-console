@@ -1,11 +1,10 @@
 import { EditableColumn } from "Config/LayoutConfig";
 import { WorkColumns } from "Config/TableColumnConfig";
-import { AppSurface } from "DataDisplayComponents/AppSurface";
 import { PageTitle } from "DataDisplayComponents/PageTitle";
 import { getBilling, getInfraStat } from "Network/WorkflowFetch";
 import { WorkPeriodToolbar } from "WorkflowComponents/WorkPeriodToolbar";
 import { WorkStatisticDisplay } from "WorkflowComponents/WorkStatisticDisplay";
-import { Alert, Flex, Typography, theme } from "antd";
+import { Flex } from "antd";
 import { Key, useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
@@ -23,7 +22,6 @@ import {
 } from "../Network/WorkFetch";
 
 export const DashboardPage = () => {
-  const { token } = theme.useToken();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const start = searchParams.get("start") || undefined;
@@ -31,9 +29,6 @@ export const DashboardPage = () => {
 
   const authToken = useSelector((state: any) => state.auth.token);
   const clientId = useSelector((state: any) => state.client.clientId);
-  const { workflowId } = useSelector(
-    (state: any) => state.workflow?.workflow || {}
-  );
   const period = useSelector((state: any) => state.dashboard.period);
 
   const [works, setWorks] = useState<Work[]>([]);
@@ -70,11 +65,10 @@ export const DashboardPage = () => {
   }, [clientId, authToken]);
 
   const fetchWorksInRange = useCallback(async () => {
-    if (((start && end) || period) && clientId && workflowId) {
+    if (((start && end) || period) && clientId) {
       setLoading(true);
       const workRes = await getWorksInDateRange(
         clientId,
-        workflowId,
         authToken,
         start,
         end,
@@ -85,7 +79,6 @@ export const DashboardPage = () => {
       });
       const statRes = await getWorkStatisticInDateRange(
         clientId,
-        workflowId,
         authToken,
         start,
         end,
@@ -124,7 +117,7 @@ export const DashboardPage = () => {
       setWorks([]);
       setColumns([]);
     }
-  }, [start, end, clientId, workflowId, period, authToken]);
+  }, [start, end, clientId, period, authToken]);
 
   useEffect(() => {
     fetchBilling();
@@ -145,7 +138,7 @@ export const DashboardPage = () => {
   };
 
   return (
-    <AppSurface type="form" style={{ paddingLeft: 0, paddingRight: 0 }}>
+    <div>
       <AppSpace>
         <Flex className="w-full flex flex-col px-4">
           <PageTitle
@@ -156,27 +149,6 @@ export const DashboardPage = () => {
           </PageTitle>
         </Flex>
 
-        {!workflowId && (
-          <Alert
-            message="Notice"
-            banner
-            style={{ borderRadius: token.borderRadiusLG }}
-            description={
-              <Typography.Text>
-                No workflow is currently activated. Please go to{" "}
-                <Typography.Link href="/workflow">
-                  Step Workflow/Workflow
-                </Typography.Link>{" "}
-                and activate one.
-              </Typography.Text>
-            }
-            type="warning"
-            showIcon
-            closable
-            className="mx-4"
-          />
-        )}
-
         <WorkStatisticDisplay
           statistic={statistic}
           infraStatistic={infraStatistic}
@@ -185,7 +157,6 @@ export const DashboardPage = () => {
         />
 
         <AppTable
-          style={{ marginLeft: 16, marginRight: 16 }}
           loading={loading}
           heading="Workflows"
           onReload={fetchWorksInRange}
@@ -200,6 +171,6 @@ export const DashboardPage = () => {
           exludedColumnsFromExport={{ metadata: true }}
         />
       </AppSpace>
-    </AppSurface>
+    </div>
   );
 };

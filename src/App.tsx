@@ -1,4 +1,3 @@
-import { HeaderHeight } from "Config/LayoutConfig";
 import { AddWorkflowPage } from "Pages/ApiWorkflowConfigurationSider/AddWorkflowPage";
 import { WorkflowPage } from "Pages/ApiWorkflowConfigurationSider/WorkflowPage";
 import { ApiWorkflowHowItWorksPage } from "Pages/ApiWorkflowGetStartedSider/ApiWorkflowHowItWorksPage";
@@ -91,7 +90,6 @@ import { GeneralPage } from "./Pages/SettingsSider/GeneralPage";
 import { deserializeLocation } from "./Utils/Serializer";
 import { setItems } from "./features/navigation/breadcrumbSlice";
 
-export const background = "rgb(249 250 251 / 1)";
 export const App = () => {
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -122,20 +120,20 @@ export const App = () => {
     }
 
     return (
-      <Layout style={{ minHeight: "100vh", backgroundColor: background }}>
+      <Layout style={{ minHeight: "100vh", backgroundColor: colorBgContainer }}>
         <AppSider collapsed={collapsed} setCollapsed={setCollapsed} />
 
         <Layout
-          style={{ backgroundColor: background }}
-          className={`ml-0 lg:ml-[250px]`}
+          style={{ backgroundColor: colorBgContainer }}
+          className={`ml-0 lg:ml-[266px]`}
         >
           <AppHeader collapsed={collapsed} setCollapsed={setCollapsed} />
 
           <Layout
             style={{
               padding: "0 16px 0 16px",
-              marginTop: HeaderHeight,
-              backgroundColor: background,
+              marginTop: 80,
+              backgroundColor: colorBgContainer,
             }}
           >
             <AppBreadcrumb />

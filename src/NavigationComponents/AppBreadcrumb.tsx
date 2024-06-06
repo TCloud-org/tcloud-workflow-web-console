@@ -9,7 +9,7 @@ export const AppBreadcrumb = () => {
 
   return (
     <Breadcrumb
-      style={{ margin: "16px 0" }}
+      style={{ margin: "16px" }}
       items={items.map((item, i) => ({
         ...item,
         title:

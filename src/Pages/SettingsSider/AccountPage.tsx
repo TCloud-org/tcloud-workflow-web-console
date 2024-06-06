@@ -181,6 +181,7 @@ export const AccountPage = () => {
                   border: "1px solid",
                   borderRightWidth: 0,
                   borderColor: token.colorBorder,
+                  marginTop: 2,
                 }}
                 variant="borderless"
                 options={Object.entries(CountryCodes).map(

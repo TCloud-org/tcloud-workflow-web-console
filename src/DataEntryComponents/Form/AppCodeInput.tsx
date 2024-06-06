@@ -65,7 +65,7 @@ export const AppCodeInput = (props: {
         </Form.Item>
       ) : (
         <div
-          className="bg-[#fff] rounded-xl overflow-hidden"
+          className="glass-bar rounded-xl overflow-hidden"
           style={{ border: `1px solid ${token.colorBorder}` }}
         >
           <div
@@ -113,7 +113,7 @@ export const AppCodeInput = (props: {
             wrapperCol={Span[1]}
             noStyle
           >
-            <XMLCodeEditor theme="light" style={{ width: "100%" }} />
+            <XMLCodeEditor theme="dark" style={{ width: "100%" }} />
           </Form.Item>
         </div>
       )}

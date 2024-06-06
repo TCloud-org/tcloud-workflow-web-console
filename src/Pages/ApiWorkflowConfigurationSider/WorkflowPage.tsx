@@ -1,6 +1,5 @@
 import { Span } from "Config/DataDisplayInterface";
 import { EditableColumn } from "Config/LayoutConfig";
-import { WOS_GET_WORKFLOWS_BY_CLIENT_ID_ENDPOINT } from "Config/WOSEndpointConfig";
 import { Workflow } from "Config/WorkflowConfig";
 import { AppCopy } from "DataDisplayComponents/AppCopy";
 import { AppTable } from "DataDisplayComponents/AppTable";
@@ -11,20 +10,18 @@ import { AppSpace } from "LayoutComponents/AppSpace";
 import { formatDate } from "Utils/DateUtils";
 import { WorkflowCard } from "WorkflowComponents/WorkflowCard";
 import { Col, Flex, Segmented, Tag, Tooltip, Typography } from "antd";
-import axios from "axios";
 import { setWorkflow } from "features/workflow/workflowSlice";
-import { Key, useCallback, useEffect, useState } from "react";
+import { Key, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-export const WorkflowPage = () => {
-  const clientId = useSelector((state: any) => state.client.clientId);
-  const authToken = useSelector((state: any) => state.auth.token);
+export const WorkflowPage = (props: { workflows?: Workflow[] }) => {
   const activeWorkflow: Workflow | undefined = useSelector(
     (state: any) => state.workflow.workflow || {}
   );
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { workflows = [] } = props;
 
   const columns: EditableColumn[] = [
     {
@@ -80,43 +77,15 @@ export const WorkflowPage = () => {
     },
   ];
 
-  const [workflows, setWorkflows] = useState<Workflow[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
   const [viewAs, setViewAs] = useState<string>("Table");
   const [selected, setSelected] = useState<Key[]>([]);
-
-  const fetchWorkflows = useCallback(async () => {
-    if (clientId) {
-      setLoading(true);
-
-      const config = {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
-      };
-
-      const workflows = await axios
-        .get(
-          `${WOS_GET_WORKFLOWS_BY_CLIENT_ID_ENDPOINT}?clientId=${clientId}`,
-          config
-        )
-        .then((response) => response.data.workflows as Workflow[]);
-      setWorkflows(workflows);
-
-      setLoading(false);
-    }
-  }, [clientId, authToken]);
-
-  useEffect(() => {
-    fetchWorkflows();
-  }, [fetchWorkflows]);
 
   const handleAddWorkflow = () => {
     navigate("/step-workflow/add-workflow");
   };
 
   return (
-    <AppSpace loading={loading}>
+    <AppSpace>
       <PageTitle
         endDecorator={
           <AppButton onClick={handleAddWorkflow} type="primary">

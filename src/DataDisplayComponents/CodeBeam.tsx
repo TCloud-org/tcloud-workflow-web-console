@@ -58,7 +58,7 @@ export const CodeBeam = (props: {
   };
 
   const {
-    themeMode = "light",
+    themeMode = "dark",
     value = "",
     showDots,
     label,
@@ -79,10 +79,8 @@ export const CodeBeam = (props: {
 
   return (
     <div
-      className={`rounded-xl overflow-hidden ${className}`}
+      className={`rounded-xl overflow-hidden glass-bar ${className}`}
       style={{
-        border: `1px solid ${borderColor || currentTheme.borderColor}`,
-        backgroundColor: currentTheme.backgroundColor,
         ...style,
       }}
     >
@@ -133,7 +131,7 @@ export const CodeBeam = (props: {
         customStyle={{
           padding: borderColor === "transparent" ? 0 : "27px",
           fontSize: "0.75rem",
-          background: currentTheme.backgroundColor,
+          background: "transparent",
           border: "none",
           color: currentTheme.textColor,
         }}

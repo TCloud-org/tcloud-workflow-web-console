@@ -20,8 +20,8 @@ const SizeMapping: any = {
 };
 
 export const dotStyle: CSSProperties = {
-  background: "white",
-  backgroundImage: `radial-gradient(black 1px, transparent 0)`,
+  background: "02031C",
+  backgroundImage: `radial-gradient(#464553 1px, transparent 0)`,
   backgroundSize: "40px 40px",
 };
 
@@ -71,7 +71,7 @@ export const AppSurface = forwardRef<HTMLDivElement, AppSurfaceProps>(
           ...(type === "shadow" && shadowStyle),
           ...style,
         }}
-        className={`max-w-screen-2xl ml-auto mr-auto ${className}`}
+        className={`max-w-screen-2xl ml-auto mr-auto glass-bar ${className}`}
       >
         {children}
       </div>

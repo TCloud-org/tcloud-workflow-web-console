@@ -1,5 +1,4 @@
 import Icon from "@ant-design/icons/lib/components/Icon";
-import { HeaderHeight } from "Config/LayoutConfig";
 import { BRAND } from "Config/WOSEndpointConfig";
 import { Flex, Typography } from "antd";
 import { CSSProperties } from "react";
@@ -15,7 +14,6 @@ export const AppBrand = (props: {
         alignContent: "center",
         borderRadius: 0,
         color: "black",
-        height: HeaderHeight / 2,
         transition: "all 0.3s",
         lineHeight: 0,
         margin: 0,

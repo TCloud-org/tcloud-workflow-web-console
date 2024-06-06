@@ -4,27 +4,13 @@ import {
   StepWorkflowBilling,
   WorkStatistic,
 } from "Config/WorkflowConfig";
-import { AppCard } from "DataDisplayComponents/AppCard";
-import { AppSecretDescription } from "DataDisplayComponents/AppSecretDescription";
-import { StatTitle } from "DataDisplayComponents/StatTitle";
-import { AppButton } from "DataEntryComponents/AppButton";
-import { AppRow } from "LayoutComponents/AppRow";
-import {
-  Col,
-  Divider,
-  Flex,
-  Progress,
-  Statistic,
-  Typography,
-  theme,
-} from "antd";
-import { Account, ProductTierType, ProductType } from "features/auth/authSlice";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Col, Row } from "antd";
 import { BillingCard } from "./BillingCard";
 import { InfraCompositionCard } from "./InfraCompositionCard";
 import { ResultDistributionCard } from "./ResultDistributionCard";
 import { ResultStatSection } from "./ResultStatSection";
+import { WorkflowAPIKeyDisplay } from "./WorkflowAPIKeyDisplay";
+import { WorkflowTransitionsDisplay } from "./WorkflowTransitionsDisplay";
 
 export const WorkStatisticDisplay = (props: {
   statistic?: WorkStatistic;
@@ -32,107 +18,42 @@ export const WorkStatisticDisplay = (props: {
   infraStatisticLoading?: boolean;
   billing?: StepWorkflowBilling;
 }) => {
-  const navigate = useNavigate();
-  const account: Account = useSelector((state: any) => state.auth.account);
-  const authToken: string = useSelector((state: any) => state.auth.token);
-  const tier =
-    account.productTiers?.find(
-      (item) => item.product === ProductType.STEP_WORKFLOW
-    )?.tier || ProductTierType.FREE_TIER;
-  const { token } = theme.useToken();
-
   const { statistic, infraStatistic, infraStatisticLoading, billing } = props;
 
-  const handleUpgradePlan = () => {
-    navigate("/subscription/plan");
-  };
-
   return (
-    <Flex vertical>
-      <ResultStatSection statistic={statistic} />
+    <Row gutter={[16, 16]} className="lighting-bg">
+      <Col {...Span[2]}>
+        <Row gutter={[16, 16]}>
+          <Col {...Span[1]}>
+            <BillingCard billing={billing} />
+          </Col>
 
-      <Divider />
+          <Col {...Span[1]}>
+            <WorkflowTransitionsDisplay />
+          </Col>
 
-      <AppRow gutter={[16, 16]} className="px-4">
-        <Col {...Span[2]} className="flex flex-col">
-          <ResultDistributionCard statistic={statistic} />
-        </Col>
+          <Col {...Span[1]}>
+            <WorkflowAPIKeyDisplay />
+          </Col>
+        </Row>
+      </Col>
 
-        <Col {...Span[2]} className="flex flex-col">
-          <InfraCompositionCard
-            infraStatistic={infraStatistic}
-            infraStatisticLoading={infraStatisticLoading}
-          />
-        </Col>
-      </AppRow>
+      <Col {...Span[2]}>
+        <Row gutter={[16, 16]}>
+          <ResultStatSection statistic={statistic} />
 
-      <Divider />
+          <Col {...Span[1]} className="flex flex-col">
+            <ResultDistributionCard statistic={statistic} />
+          </Col>
 
-      <AppRow gutter={[16, 16]} className="px-4">
-        <Col {...Span[2]}>
-          <AppCard size="small" bordered={false} style={{ boxShadow: "none" }}>
-            <Statistic
-              title={<StatTitle>API Key</StatTitle>}
-              valueStyle={{
-                paddingTop: "8px",
-              }}
-              valueRender={() => (
-                <Flex vertical>
-                  <AppSecretDescription>{authToken}</AppSecretDescription>
-                </Flex>
-              )}
+          <Col {...Span[1]} className="flex flex-col">
+            <InfraCompositionCard
+              infraStatistic={infraStatistic}
+              infraStatisticLoading={infraStatisticLoading}
             />
-          </AppCard>
-        </Col>
-        <Col {...Span[2]}>
-          <AppCard size="small" bordered={false} style={{ boxShadow: "none" }}>
-            <Statistic
-              title={<StatTitle>Free Tier</StatTitle>}
-              valueRender={() => (
-                <Flex vertical gap={4} className="mt-4">
-                  <Flex justify="space-between" align="center">
-                    <Typography.Text>Transitions</Typography.Text>
-                    <Typography.Text className="text-slate-800">
-                      {billing?.totalTransitions || 0} /{" "}
-                      {billing?.deductibleTransitions || 0}
-                    </Typography.Text>
-                  </Flex>
-                  <Progress
-                    type="line"
-                    showInfo={false}
-                    percent={
-                      billing
-                        ? billing.totalTransitions /
-                          billing.deductibleTransitions
-                        : 0
-                    }
-                    strokeColor={token.colorInfo}
-                  />
-                  {tier !== ProductTierType.ENTERPRISE && (
-                    <Flex className="mt-4">
-                      <AppButton
-                        type="primary"
-                        size="small"
-                        onClick={handleUpgradePlan}
-                      >
-                        Upgrade plan
-                      </AppButton>
-                    </Flex>
-                  )}
-                </Flex>
-              )}
-            />
-          </AppCard>
-        </Col>
-      </AppRow>
-
-      <Divider />
-
-      <div className="px-4">
-        <BillingCard billing={billing} />
-      </div>
-
-      <Divider />
-    </Flex>
+          </Col>
+        </Row>
+      </Col>
+    </Row>
   );
 };
