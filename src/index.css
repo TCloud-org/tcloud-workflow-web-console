@@ -450,7 +450,7 @@ a {
 .glass-success {
   border          : 1px solid rgba(206, 206, 251, .1) !important;
   background-color: rgba(206, 206, 251, .02) !important;
-  box-shadow      : rgba(206, 206, 251, 0.1) 0px 0px 16.3056px 0px inset;
+  box-shadow      : rgba(206, 206, 251, 0.1) 0px 0px 16.3056px 0px inset !important;
   backdrop-filter : blur(16px) !important;
   border-radius   : 12px !important;
 }
@@ -480,6 +480,13 @@ a {
   border          : 1px solid rgba(142, 103, 255, 0.12);
 }
 
+.glass-header {
+  box-shadow      : rgba(206, 206, 251, 0.04) 0px -32px 64px 0px inset;
+  border          : 1px solid rgba(206, 206, 251, 0.05);
+  background-color: rgba(206, 206, 251, 0.02) !important;
+  border-radius   : 12px !important;
+}
+
 .lighting-bg {
   background-image: url("https://tcw-images.s3.us-west-2.amazonaws.com/lighting.png");
 }
@@ -487,4 +494,8 @@ a {
 .ant-table-thead .ant-table-cell {
   background-color: transparent !important;
   border-bottom   : none !important;
+}
+
+.ant-table-thead>* {
+  background-color: transparent !important;
 }
