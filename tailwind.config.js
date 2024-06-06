@@ -3,6 +3,9 @@ module.exports = {
   content: ["./src/**/*.{html,js,ts,tsx,jsx}", './public/**/*.{html,js,ts,tsx,jsx}'],
   theme: {
     extend: {
+      fontFamily: {
+        poppins: ['Poppins', 'sans-serif'],
+      },
       colors: {
         "primary": '#602AF8',
         "hover": 'rgb(241 245 249 / 0.6)',

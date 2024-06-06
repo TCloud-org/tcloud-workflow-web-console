@@ -279,7 +279,9 @@ export const AppTable = (
       scroll={{ x: 1000 }}
       locale={props.locale}
       rowHoverable={props.rowHoverable}
-      className={`glass-bar px-4 ${props.className}`}
+      className={`glass-bar px-4 ${!showTitle ? "pt-4" : ""} ${
+        props.className
+      }`}
     />
   );
 };
