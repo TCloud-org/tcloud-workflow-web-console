@@ -39,6 +39,8 @@ root.render(
           borderRadius: 6,
           borderRadiusSM: 4,
           borderRadiusLG: 8,
+          dangerShadow:
+            "rgba(2, 3, 28, 0.8) 0px 4px 10px 4px, rgba(206, 206, 251, 0.16) 0px 0px 0px 4px, rgba(234, 234, 251, 0.3) 0px -4px 12px 0px inset",
           primaryShadow:
             "rgba(2, 3, 28, 0.8) 0px 4px 10px 4px, rgba(206, 206, 251, 0.16) 0px 0px 0px 4px, rgba(234, 234, 251, 0.3) 0px -4px 12px 0px inset",
         },

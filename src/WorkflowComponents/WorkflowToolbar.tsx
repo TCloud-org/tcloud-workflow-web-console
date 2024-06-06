@@ -1,11 +1,11 @@
 import { ReloadOutlined, ShareAltOutlined } from "@ant-design/icons";
+import { AppIconToggle } from "DataEntryComponents/AppIconToggle";
 import {
   Button,
   Dropdown,
   Flex,
   MenuProps,
   Popconfirm,
-  Radio,
   Typography,
   message,
 } from "antd";
@@ -269,20 +269,17 @@ export const WorkflowToolbar = (props: {
               </Button>
             </Popconfirm>
 
-            <Radio.Group value={runConfig} buttonStyle="solid">
-              <Radio.Button
-                value={WorkflowRunConfig.Transition}
-                onClick={() =>
-                  setRunConfig((prev: WorkflowRunConfig) =>
-                    prev === WorkflowRunConfig.Transition
-                      ? undefined
-                      : WorkflowRunConfig.Transition
-                  )
-                }
-              >
-                Transition
-              </Radio.Button>
-            </Radio.Group>
+            <AppIconToggle
+              onToggle={() => {
+                setRunConfig((prev: WorkflowRunConfig) =>
+                  prev === WorkflowRunConfig.Transition
+                    ? undefined
+                    : WorkflowRunConfig.Transition
+                );
+              }}
+              title="Transition"
+              active={runConfig === WorkflowRunConfig.Transition}
+            />
 
             <Flex>
               <AppIconButton onClick={onReload} tooltip="Reload" type="primary">
@@ -291,7 +288,11 @@ export const WorkflowToolbar = (props: {
             </Flex>
 
             <Flex>
-              <AppIconButton onClick={handleShare} tooltip="Share">
+              <AppIconButton
+                onClick={handleShare}
+                tooltip="Share"
+                type="primary"
+              >
                 <ShareAltOutlined />
               </AppIconButton>
             </Flex>

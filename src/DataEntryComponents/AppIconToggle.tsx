@@ -15,9 +15,11 @@ export const AppIconToggle = (
     ...defaultStyle,
     ...((props.children as any)?.props?.style || {}),
   };
-  const modifiedChildren = cloneElement(props.children as any, {
-    style: mergedStyle,
-  });
+  const modifiedChildren =
+    props.children &&
+    cloneElement(props.children as any, {
+      style: mergedStyle,
+    });
 
   const handleOnClick = () => {
     if (props.onToggle) {
