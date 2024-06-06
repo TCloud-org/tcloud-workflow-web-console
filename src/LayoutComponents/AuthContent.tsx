@@ -8,6 +8,7 @@ export const AuthContent = (props: { children?: ReactNode }) => {
       justify="center"
       align="center"
       style={{ height: "100vh", width: "100vw" }}
+      className="lighting-bg"
     >
       <AppRow gutter={[0, 0]} style={{ height: "100%", width: "100%" }}>
         {props.children}

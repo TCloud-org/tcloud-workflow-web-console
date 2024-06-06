@@ -2,7 +2,6 @@ import { AMS_SIGN_UP_ENDPOINT } from "Config/AMSEndpointConfig";
 import { borderColor } from "Config/AutomationConfig";
 import { Span } from "Config/DataDisplayInterface";
 import { AppLogoText } from "DataDisplayComponents/AppLogoText";
-import { AuthImageDisplay } from "DataDisplayComponents/AuthImageDisplay";
 import { AppButton } from "DataEntryComponents/AppButton";
 import { AppForm } from "DataEntryComponents/AppForm";
 import { AuthContainer } from "LayoutComponents/AuthContainer";
@@ -15,6 +14,7 @@ import {
   Flex,
   Form,
   Input,
+  Row,
   Typography,
   message,
   theme,
@@ -102,7 +102,7 @@ export const SignUpPage = () => {
       {contextHolder}
       <AuthContent>
         <Col
-          {...Span[2]}
+          {...Span[1]}
           className="z-10 flex flex-col justify-center items-center"
         >
           <AuthContainer>
@@ -119,26 +119,31 @@ export const SignUpPage = () => {
                 marginTop: 16,
               }}
             >
-              <Flex gap={20} align="center">
-                <Form.Item style={{ flex: 1 }} name="firstName">
-                  <Input
-                    style={{
-                      padding: "16px",
-                      borderRadius: token.borderRadiusLG,
-                    }}
-                    placeholder="First name"
-                  />
-                </Form.Item>
-                <Form.Item style={{ flex: 1 }} name="lastName">
-                  <Input
-                    style={{
-                      padding: "16px",
-                      borderRadius: token.borderRadiusLG,
-                    }}
-                    placeholder="Last name"
-                  />
-                </Form.Item>
-              </Flex>
+              <Row gutter={[24, 0]}>
+                <Col {...Span[2]}>
+                  <Form.Item style={{ flex: 1 }} name="firstName">
+                    <Input
+                      style={{
+                        padding: "16px",
+                        borderRadius: token.borderRadiusLG,
+                      }}
+                      placeholder="First name"
+                    />
+                  </Form.Item>
+                </Col>
+
+                <Col {...Span[2]}>
+                  <Form.Item style={{ flex: 1 }} name="lastName">
+                    <Input
+                      style={{
+                        padding: "16px",
+                        borderRadius: token.borderRadiusLG,
+                      }}
+                      placeholder="Last name"
+                    />
+                  </Form.Item>
+                </Col>
+              </Row>
               <Form.Item name="email">
                 <Input
                   style={{
@@ -196,13 +201,6 @@ export const SignUpPage = () => {
               </Form.Item>
             </AppForm>
           </AuthContainer>
-        </Col>
-
-        <Col
-          {...Span[2]}
-          className="absolute top-0 left-0 right-0 bottom-0 lg:relative z-0"
-        >
-          <AuthImageDisplay imageUrl="https://tcw-images.s3.us-west-2.amazonaws.com/side-bg.jpg" />
         </Col>
       </AuthContent>
     </>

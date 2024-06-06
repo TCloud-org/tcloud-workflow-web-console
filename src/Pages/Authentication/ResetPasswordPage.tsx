@@ -1,8 +1,6 @@
 import { AMS_RESET_PASSWORD_ENDPOINT } from "Config/AMSEndpointConfig";
-import { borderColor } from "Config/AutomationConfig";
 import { Span } from "Config/DataDisplayInterface";
 import { AppLogoText } from "DataDisplayComponents/AppLogoText";
-import { AuthImageDisplay } from "DataDisplayComponents/AuthImageDisplay";
 import { AppButton } from "DataEntryComponents/AppButton";
 import { AppForm } from "DataEntryComponents/AppForm";
 import { AuthContainer } from "LayoutComponents/AuthContainer";
@@ -58,7 +56,7 @@ export const ResetPasswordPage = () => {
       {contextHolder}
       <AuthContent>
         <Col
-          {...Span[2]}
+          {...Span[1]}
           className="z-10 flex flex-col justify-center items-center"
         >
           <AuthContainer>
@@ -127,12 +125,8 @@ export const ResetPasswordPage = () => {
               </Form.Item>
               <Form.Item>
                 <AppButton
-                  style={{
-                    backgroundColor: borderColor,
-                    color: token.colorWhite,
-                    width: "100%",
-                    fontSize: 14,
-                  }}
+                  type="primary"
+                  className="w-full"
                   size="large"
                   onClick={handleSubmit}
                   loading={loading}
@@ -142,13 +136,6 @@ export const ResetPasswordPage = () => {
               </Form.Item>
             </AppForm>
           </AuthContainer>
-        </Col>
-
-        <Col
-          {...Span[2]}
-          className="absolute top-0 left-0 right-0 bottom-0 lg:relative z-0"
-        >
-          <AuthImageDisplay imageUrl="https://tcw-images.s3.us-west-2.amazonaws.com/side-bg.jpg" />
         </Col>
       </AuthContent>
     </>

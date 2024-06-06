@@ -28,6 +28,7 @@ export const GoogleLoginButton = (
 
   return (
     <AppButton
+      className="hover:!text-white transition-all duration-300 hover:!border-neutral-5"
       icon={<Icon component={GoogleSvg} />}
       {...props}
       onClick={() => {

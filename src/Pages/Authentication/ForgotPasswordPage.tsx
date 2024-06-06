@@ -2,9 +2,9 @@ import { AMS_RESET_PASSWORD_ENDPOINT } from "Config/AMSEndpointConfig";
 import { borderColor } from "Config/AutomationConfig";
 import { Span } from "Config/DataDisplayInterface";
 import { AppLogoText } from "DataDisplayComponents/AppLogoText";
-import { AuthImageDisplay } from "DataDisplayComponents/AuthImageDisplay";
 import { AppButton } from "DataEntryComponents/AppButton";
 import { AppForm } from "DataEntryComponents/AppForm";
+import { AuthContainer } from "LayoutComponents/AuthContainer";
 import { AuthContent } from "LayoutComponents/AuthContent";
 import { Col, Flex, Form, Input, Typography, message, theme } from "antd";
 import axios from "axios";
@@ -69,21 +69,11 @@ export const ForgotPasswordPage = () => {
     <>
       {contextHolder}
       <AuthContent>
-        <Col {...Span[2]} className="hidden lg:block">
-          <AuthImageDisplay
-            imageUrl="https://tcw-images.s3.us-west-2.amazonaws.com/6221538.jpg"
-            resourceUrl="https://www.freepik.com/free-vector/hand-drawn-illustrated-business-planning_20124546.htm"
-            resourceLabel="Image by freepik"
-          />
-        </Col>
-        <Col {...Span[2]}>
-          <Flex
-            vertical
-            align="center"
-            gap={16}
-            justify="center"
-            style={{ height: "100%" }}
-          >
+        <Col
+          {...Span[1]}
+          className="z-10 flex flex-col justify-center items-center"
+        >
+          <AuthContainer>
             <AppLogoText />
 
             <Typography.Title level={3}>Forgot your password?</Typography.Title>
@@ -102,6 +92,7 @@ export const ForgotPasswordPage = () => {
                   style={{
                     color: token.colorTextSecondary,
                   }}
+                  className="hover:!text-white transition-all duration-300"
                 >
                   Resend email
                 </Typography.Text>
@@ -150,7 +141,7 @@ export const ForgotPasswordPage = () => {
                 </Form.Item>
               </Flex>
             </AppForm>
-          </Flex>
+          </AuthContainer>
         </Col>
       </AuthContent>
     </>
