@@ -140,7 +140,7 @@ export const ServiceDetailPage = () => {
     },
     {
       key: "2",
-      label: "Next available version",
+      label: "Next version",
       children: nextAvailableVersion,
       span: Span[3],
     },

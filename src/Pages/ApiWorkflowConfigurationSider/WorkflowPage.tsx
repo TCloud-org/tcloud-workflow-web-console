@@ -9,8 +9,7 @@ import { AppRow } from "LayoutComponents/AppRow";
 import { AppSpace } from "LayoutComponents/AppSpace";
 import { formatDate } from "Utils/DateUtils";
 import { WorkflowCard } from "WorkflowComponents/WorkflowCard";
-import { Col, Flex, Segmented, Tag, Tooltip, Typography } from "antd";
-import { setWorkflow } from "features/workflow/workflowSlice";
+import { Col, Segmented, Typography } from "antd";
 import { Key, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -47,33 +46,8 @@ export const WorkflowPage = (props: { workflows?: Workflow[] }) => {
       render: (text: string) => formatDate(text),
     },
     {
-      title: "Next Available Version",
+      title: "Next Version",
       dataIndex: "nextAvailableVersion",
-    },
-    {
-      title: "Action",
-      fixed: "right",
-      width: "10%",
-      render: (value: Workflow) => (
-        <Flex align="center" gap="8px">
-          <AppButton
-            size="small"
-            onClick={() => {
-              if (activeWorkflow?.workflowId === value.workflowId) {
-                dispatch(setWorkflow(undefined));
-              } else {
-                dispatch(setWorkflow(value));
-              }
-              window.location.reload();
-            }}
-            danger={activeWorkflow?.workflowId === value.workflowId}
-          >
-            {activeWorkflow?.workflowId === value.workflowId
-              ? "Deactivate"
-              : "Activate"}
-          </AppButton>
-        </Flex>
-      ),
     },
   ];
 
@@ -95,19 +69,6 @@ export const WorkflowPage = (props: { workflows?: Workflow[] }) => {
       >
         Workflow
       </PageTitle>
-
-      {activeWorkflow?.workflowId && (
-        <>
-          <Typography.Title level={5} style={{ marginBottom: 0 }}>
-            Active Workflow
-          </Typography.Title>
-          <Tooltip title="Active">
-            <Tag className="rounded-lg px-4 py-2">
-              {activeWorkflow.workflowName}
-            </Tag>
-          </Tooltip>
-        </>
-      )}
 
       <Typography.Title level={5}>Available Workflows</Typography.Title>
 

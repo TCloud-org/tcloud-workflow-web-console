@@ -104,7 +104,7 @@ export const EmailTemplateDetailPage = () => {
           )
         }
       />
-      <AppButton size="small" onClick={() => setThemeColor(token.colorPrimary)}>
+      <AppButton onClick={() => setThemeColor(token.colorPrimary)}>
         Reset to default
       </AppButton>
 

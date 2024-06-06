@@ -106,11 +106,7 @@ export const AddGraphStep = (props: StepContentProps) => {
         >
           <Input.TextArea placeholder="Enter a description" />
         </Form.Item>
-        <Form.Item
-          label="Version"
-          name="version"
-          tooltip="Next available version"
-        >
+        <Form.Item label="Version" name="version" tooltip="Next version">
           <InputNumber style={{ width: "100%" }} disabled />
         </Form.Item>
 

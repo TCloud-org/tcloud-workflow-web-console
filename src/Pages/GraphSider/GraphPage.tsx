@@ -117,7 +117,7 @@ export const GraphPage = (props: { workflows?: Workflow[] }) => {
     },
     {
       key: "3",
-      label: "Next available version",
+      label: "Next version",
       children: nextAvailableVersion,
       span: Span[2],
     },

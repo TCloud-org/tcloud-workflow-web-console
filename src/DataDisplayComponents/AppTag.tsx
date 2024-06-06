@@ -5,7 +5,7 @@ import {
   CloseCircleOutlined,
   MinusCircleOutlined,
 } from "@ant-design/icons";
-import { Tag, Tooltip } from "antd";
+import { Tooltip } from "antd";
 import { CollapseTag } from "../Utils/ObjectUtils";
 
 export const TagVariantMapping: { [key: string]: CollapseTag } = {
@@ -35,21 +35,30 @@ export const TagVariantMapping: { [key: string]: CollapseTag } = {
   },
 };
 
+const PillColor = {
+  green: "glass-success-pill",
+  blue: "glass-info-pill",
+  geekblue: "glass-info-pill",
+  red: "glass-error-pill",
+  gold: "glass-warning-pill",
+};
+
 export const AppTag = (props: CollapseTag) => {
+  const color = PillColor[props.color as keyof typeof PillColor] || "";
+
   return (
     <Tooltip title={props.tooltip}>
-      <Tag
+      <div
         {...props}
         style={{
-          margin: 0,
           whiteSpace: "normal",
           wordBreak: "break-all",
           ...props.style,
         }}
-        className={props.className}
+        className={`glass-pill px-3 py-0.5 flex items-center gap-2 ${color} ${props.className}`}
       >
-        {props.children}
-      </Tag>
+        {props.icon} {props.children}
+      </div>
     </Tooltip>
   );
 };

@@ -448,6 +448,7 @@ a {
 
 .glass-bar,
 .glass-info,
+.glass-error,
 .glass-success {
   border                 : 1px solid rgba(206, 206, 251, .1) !important;
   background-color       : rgba(206, 206, 251, .02) !important;
@@ -458,11 +459,15 @@ a {
 }
 
 .glass-info {
-  box-shadow: rgba(100, 100, 255, 0.3) 0px 0px 16.3056px 0px inset;
+  box-shadow: rgba(100, 100, 255, 0.3) 0px 0px 16.3056px 0px inset !important;
 }
 
 .glass-success {
-  box-shadow: rgba(100, 255, 100, 0.3) 0px 0px 16.3056px 0px inset;
+  box-shadow: rgba(100, 255, 100, 0.3) 0px 0px 16.3056px 0px inset !important;
+}
+
+.glass-error {
+  box-shadow: rgba(255, 100, 100, 0.3) 0px 0px 16.3056px 0px inset !important;
 }
 
 .glass-card {
@@ -475,6 +480,10 @@ a {
   box-shadow             : rgba(164, 143, 255, 0.12) 0px -7px 120px 0px inset !important;
 }
 
+.glass-error-pill,
+.glass-success-pill,
+.glass-info-pill,
+.glass-warning-pill,
 .glass-pill {
   box-shadow             : rgba(158, 113, 255, 0.2) 0px -12px 24px 0px inset;
   border-radius          : 48px;
@@ -482,6 +491,26 @@ a {
   -webkit-backdrop-filter: blur(7px);
   backdrop-filter        : blur(7px);
   border                 : 1px solid rgba(142, 103, 255, 0.12);
+}
+
+.glass-error-pill {
+  box-shadow: rgba(255, 100, 100, 0.2) 0px -12px 24px 0px inset !important;
+  border    : 1px solid rgba(255, 100, 100, 0.12) !important;
+}
+
+.glass-success-pill {
+  box-shadow: rgba(100, 255, 100, 0.2) 0px -12px 24px 0px inset !important;
+  border    : 1px solid rgba(100, 255, 100, 0.12) !important;
+}
+
+.glass-info-pill {
+  box-shadow: rgba(100, 100, 255, 0.2) 0px -12px 24px 0px inset !important;
+  border    : 1px solid rgba(100, 100, 255, 0.12) !important;
+}
+
+.glass-warning-pill {
+  box-shadow: rgba(255, 255, 100, 0.2) 0px -12px 24px 0px inset !important;
+  border    : 1px solid rgba(255, 255, 100, 0.12) !important;
 }
 
 .glass-header {

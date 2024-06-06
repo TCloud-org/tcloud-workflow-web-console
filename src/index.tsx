@@ -81,6 +81,8 @@ root.render(
           rowSelectedBg: "rgb(148 163 184 / 0.1)",
           rowSelectedHoverBg: "rgb(148 163 184 / 0.1)",
           headerSortHoverBg: "rgb(148 163 184 / 0.2)",
+          headerSortActiveBg: "rgb(148 163 184 / 0.2)",
+          bodySortBg: "rgb(148 163 184 / 0.1)",
           headerColor: "white",
           headerBg: "#161427",
           colorBgContainer: "transparent",

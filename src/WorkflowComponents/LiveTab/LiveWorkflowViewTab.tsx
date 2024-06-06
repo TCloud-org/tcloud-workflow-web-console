@@ -41,8 +41,9 @@ export const LiveWorkflowViewTab = (props: {
         label: (
           <Fragment>
             <AppCollapseLabel
+              step={i + 1}
               label={route.source}
-              endTags={[
+              startTags={[
                 {
                   children:
                     route.resultType === "terminal"
@@ -52,6 +53,8 @@ export const LiveWorkflowViewTab = (props: {
                   icon: TagVariantMapping[route.resultType]?.icon,
                   tooltip: "Result type",
                 },
+              ]}
+              endTags={[
                 ...(i > 0 && routes[i - 1].source === route.source
                   ? [
                       {
@@ -61,7 +64,6 @@ export const LiveWorkflowViewTab = (props: {
                             (item) => route.source === item.source
                           )
                         }`,
-                        color: "gold",
                         icon: <SyncOutlined />,
                       } as CollapseTag,
                     ]
@@ -72,25 +74,18 @@ export const LiveWorkflowViewTab = (props: {
                         ? [
                             {
                               children: `${route?.metadata?.httpResponse.latency} ms`,
-                              color: getLatencyColor(
-                                route?.metadata?.httpResponse.latency
-                              ),
                               tooltip: `Latency: ${route?.metadata?.httpResponse.latency} ms`,
                             } as CollapseTag,
                           ]
                         : []),
                       {
                         children: `${route?.metadata?.httpResponse.statusCode} ${route?.metadata?.httpResponse.status}`,
-                        color: getStatusCodeColor(
-                          route?.metadata?.httpResponse.statusCode
-                        ),
                         tooltip: `Reason: ${route?.metadata?.httpResponse.reasonPhrase}`,
                       } as CollapseTag,
                     ]
                   : []),
                 {
                   children: route.resultName,
-                  icon: TagVariantMapping[route.resultType]?.icon,
                   tooltip: "Result name",
                 },
               ]}
