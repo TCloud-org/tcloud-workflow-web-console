@@ -26,7 +26,9 @@ const TableComponents: TableProps["components"] = {
   },
   header: {
     cell: AppResizableHeader,
-    row: (props: any) => <tr {...props} className="glass-bar" />,
+    row: (props: any) => (
+      <tr {...props} className="glass-bar !backdrop-blur-lg" />
+    ),
   },
 };
 
