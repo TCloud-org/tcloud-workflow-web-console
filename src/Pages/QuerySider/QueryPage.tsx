@@ -2,7 +2,8 @@ import { Span } from "Config/DataDisplayInterface";
 import { Clause } from "Config/FilterConfig";
 import { EditableColumn } from "Config/LayoutConfig";
 import { WorkColumns } from "Config/TableColumnConfig";
-import { Work } from "Config/WorkflowConfig";
+import { WOS_GET_WORKFLOWS_BY_CLIENT_ID_ENDPOINT } from "Config/WOSEndpointConfig";
+import { Work, Workflow } from "Config/WorkflowConfig";
 import { AppTable } from "DataDisplayComponents/AppTable";
 import { PageTitle } from "DataDisplayComponents/PageTitle";
 import { PremiumMask } from "DataEntryComponents/PremiumMask";
@@ -13,7 +14,8 @@ import { transformClausesDate } from "Utils/ObjectUtils";
 import { WorkFilterBuilder } from "WorkflowComponents/WorkFilterBuilder";
 import { WorkFilterDisplay } from "WorkflowComponents/WorkFilterDisplay";
 import { WorkSavedFilterList } from "WorkflowComponents/WorkSavedFilterList";
-import { Col } from "antd";
+import { Col, Select } from "antd";
+import axios from "axios";
 import { FilterQuery } from "features/filter/workFilterSlice";
 import { Key, useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -21,9 +23,7 @@ import { useSelector } from "react-redux";
 export const QueryPage = () => {
   const authToken = useSelector((state: any) => state.auth.token);
   const clientId = useSelector((state: any) => state.client.clientId);
-  const { workflowId } = useSelector(
-    (state: any) => state.workflow.workflow || {}
-  );
+
   const { saved, active }: { saved: FilterQuery[]; active?: string } =
     useSelector((state: any) => state.workFilter);
 
@@ -33,8 +33,34 @@ export const QueryPage = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [selected, setSelected] = useState<Key[]>([]);
   const [isRestrictedAccess, setIsRestrictedAccess] = useState<boolean>(false);
+  const [workflows, setWorkflows] = useState<Workflow[]>([]);
+  const [workflowId, setWorkflowId] = useState<string>();
+
+  const fetchWorkflows = useCallback(async () => {
+    if (clientId && authToken) {
+      const res = await axios
+        .get(
+          `${WOS_GET_WORKFLOWS_BY_CLIENT_ID_ENDPOINT}?clientId=${clientId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${authToken}`,
+            },
+          }
+        )
+        .then((res) => res.data.workflows || [])
+        .catch((err) => {
+          console.error(err);
+          return [];
+        });
+
+      setWorkflows(res);
+    }
+  }, [clientId, authToken]);
 
   const fetchQueriedWorks = useCallback(async () => {
+    if (!workflowId || !clientId) {
+      return;
+    }
     setLoading(true);
 
     const res = await queryWorks(clientId, workflowId, clauses, authToken);
@@ -70,6 +96,10 @@ export const QueryPage = () => {
   }, [clientId, workflowId, clauses, authToken]);
 
   useEffect(() => {
+    fetchWorkflows();
+  }, [fetchWorkflows]);
+
+  useEffect(() => {
     fetchQueriedWorks();
   }, [fetchQueriedWorks]);
 
@@ -83,7 +113,22 @@ export const QueryPage = () => {
 
   return (
     <AppSpace>
-      <PageTitle>Query</PageTitle>
+      <PageTitle
+        endDecorator={
+          <Select
+            options={workflows.map((workflow) => ({
+              label: workflow.workflowName,
+              value: workflow.workflowId,
+            }))}
+            value={workflowId}
+            onChange={setWorkflowId}
+            dropdownStyle={{ width: "auto" }}
+            placeholder="Select a workflow"
+          />
+        }
+      >
+        Query
+      </PageTitle>
 
       <AppRow gutter={[16, 16]} style={{ position: "relative" }}>
         <Col {...Span[2]} className="flex flex-col">
