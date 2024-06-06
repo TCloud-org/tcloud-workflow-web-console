@@ -71,6 +71,11 @@ export const SubscriptionPlanCard = (props: { data: any }) => {
   return (
     <div
       className={`glass-card !rounded-3xl !p-10 w-full gap-12 flex flex-col border h-full relative`}
+      style={{
+        boxShadow: !data.emphasized
+          ? "rgba(164, 143, 255, 0.12) 0px -7px 120px 0px inset"
+          : "rgba(163, 143, 255, 0.47) 0px -7px 120px 0px inset",
+      }}
     >
       {isCurrent && (
         <p className="glass-pill absolute left-4 top-4 px-4 py-1">Current</p>
