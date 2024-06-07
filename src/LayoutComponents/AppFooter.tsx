@@ -1,5 +1,6 @@
+import { Span } from "Config/DataDisplayInterface";
 import { HoveredLink } from "DataEntryComponents/HoveredLink";
-import { Flex, Image, Typography, theme } from "antd";
+import { Col, Flex, Image, Row, Typography, theme } from "antd";
 import { Footer } from "antd/es/layout/layout";
 
 export const AppFooter = () => {
@@ -21,24 +22,38 @@ export const AppFooter = () => {
           fontWeight: 500,
         }}
       >
-        <Flex align="center" justify="space-between">
-          <Flex align="center" gap={32}>
-            <Flex align="center" gap={8}>
-              <Image
-                src="https://tcw-icon.s3.us-west-2.amazonaws.com/7.png"
-                width={24}
-                preview={false}
-              />
-              <Typography.Text
-                style={{ fontSize: 12 }}
-              >{`The Cloud World ©${new Date().getFullYear()}`}</Typography.Text>
+        <Row gutter={[16, 16]}>
+          <Col {...Span[2]}>
+            <Flex align="center" gap={32}>
+              <Flex align="center" gap={8}>
+                <Image
+                  src="https://tcw-icon.s3.us-west-2.amazonaws.com/7.png"
+                  width={24}
+                  preview={false}
+                />
+                <Typography.Text
+                  style={{ fontSize: 12 }}
+                >{`The Cloud World ©${new Date().getFullYear()}`}</Typography.Text>
+              </Flex>
+
+              <HoveredLink href="/terms-and-conditions">Terms</HoveredLink>
+
+              <HoveredLink href="/privacy-policy">Privacy</HoveredLink>
             </Flex>
+          </Col>
 
-            <HoveredLink href="/terms-and-conditions">Terms</HoveredLink>
+          <Col {...Span[2]} className="flex flex-col items-end">
+            <Flex align="center" gap={32}>
+              <HoveredLink href="https://thecloudworld.supahub.com/b/feedback">
+                Submit feedbacks
+              </HoveredLink>
 
-            <HoveredLink href="/privacy-policy">Privacy</HoveredLink>
-          </Flex>
-        </Flex>
+              <HoveredLink href="https://thecloudworld.supahub.com/b/support-tickets">
+                Report bugs
+              </HoveredLink>
+            </Flex>
+          </Col>
+        </Row>
       </div>
     </Footer>
   );

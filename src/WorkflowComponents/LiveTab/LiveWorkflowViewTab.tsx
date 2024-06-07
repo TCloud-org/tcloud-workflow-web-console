@@ -1,16 +1,14 @@
 import { SyncOutlined } from "@ant-design/icons";
 import { AppWorkflowCollapse } from "DataDisplayComponents/AppWorkflowCollapse";
+import { AppLineConnector } from "LayoutComponents/AppLineConnector";
+import { theme } from "antd";
+import { Fragment } from "react/jsx-runtime";
 import { SelectItem } from "../../Config/DataDisplayInterface";
 import { Route } from "../../Config/WorkflowConfig";
 import { AppCollapseLabel } from "../../DataDisplayComponents/AppCollapseLabel";
 import { TagVariantMapping } from "../../DataDisplayComponents/AppTag";
 import { CollapseTag } from "../../Utils/ObjectUtils";
 import { StateCardInfo } from "../StateCardInfo";
-import { getLatencyColor } from "WorkflowComponents/LatencyTag";
-import { getStatusCodeColor } from "Utils/ColorUtils";
-import { Fragment } from "react/jsx-runtime";
-import { AppLineConnector } from "LayoutComponents/AppLineConnector";
-import { theme } from "antd";
 
 export const LiveWorkflowViewTab = (props: {
   routeMap: { [key: string]: Route[] };

@@ -11,15 +11,10 @@ import { formatDate } from "Utils/DateUtils";
 import { WorkflowCard } from "WorkflowComponents/WorkflowCard";
 import { Col, Segmented, Typography } from "antd";
 import { Key, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 export const WorkflowPage = (props: { workflows?: Workflow[] }) => {
-  const activeWorkflow: Workflow | undefined = useSelector(
-    (state: any) => state.workflow.workflow || {}
-  );
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const { workflows = [] } = props;
 
   const columns: EditableColumn[] = [
