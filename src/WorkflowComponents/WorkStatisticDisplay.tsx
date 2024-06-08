@@ -21,7 +21,7 @@ export const WorkStatisticDisplay = (props: {
   const { statistic, infraStatistic, infraStatisticLoading, billing } = props;
 
   return (
-    <Row gutter={[16, 16]} className="lighting-bg">
+    <Row gutter={[16, 16]}>
       <Col {...Span[2]}>
         <Row gutter={[16, 16]}>
           <ResultStatSection statistic={statistic} />
