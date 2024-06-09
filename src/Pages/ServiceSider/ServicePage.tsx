@@ -22,7 +22,7 @@ export const ServicePage = () => {
     setServices(
       Object.keys(serviceConfigMap).map((service) => ({
         title: service,
-        href: `service/${service}`,
+        href: `service-configuration/${service}`,
       }))
     );
     setLoading(false);

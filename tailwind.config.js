@@ -7,6 +7,10 @@ module.exports = {
         poppins: ['Poppins', 'sans-serif'],
       },
       colors: {
+        "disabled": "rgba(203, 203, 232, 0.3)",
+        "divider-bolder": "rgba(206, 206, 251, 0.08)",
+        "divider": "rgba(206, 206, 251, 0.04)",
+        "title": "rgb(229, 229, 249)",
         "primary": '#602AF8',
         "hover": 'rgb(241 245 249 / 0.6)',
         paragraph: "rgba(203, 203, 232, 0.75)",

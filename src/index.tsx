@@ -33,6 +33,11 @@ root.render(
   <ConfigProvider
     theme={{
       components: {
+        Tree: {
+          directoryNodeSelectedBg: "transparent",
+          directoryNodeSelectedColor: "white",
+          controlItemBgHover: "transparent",
+        },
         List: {
           colorTextLabel: "white",
         },

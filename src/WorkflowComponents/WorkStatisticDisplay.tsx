@@ -11,6 +11,7 @@ import { ResultDistributionCard } from "./ResultDistributionCard";
 import { ResultStatSection } from "./ResultStatSection";
 import { WorkflowAPIKeyDisplay } from "./WorkflowAPIKeyDisplay";
 import { WorkflowTransitionsDisplay } from "./WorkflowTransitionsDisplay";
+import { ResourceHierarchy } from "./ResourceHierarchy";
 
 export const WorkStatisticDisplay = (props: {
   statistic?: WorkStatistic;
@@ -51,6 +52,10 @@ export const WorkStatisticDisplay = (props: {
 
           <Col {...Span[1]}>
             <WorkflowAPIKeyDisplay />
+          </Col>
+
+          <Col {...Span[1]} className="flex flex-col">
+            <ResourceHierarchy />
           </Col>
         </Row>
       </Col>

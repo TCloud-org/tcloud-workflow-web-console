@@ -9,7 +9,6 @@ import { AppIconButton } from "../../DataEntryComponents/AppIconButton";
 import { AppSpace } from "../../LayoutComponents/AppSpace";
 import { getGraphById } from "../../Network/WorkflowFetch";
 import { GraphInfoCard } from "../../WorkflowComponents/GraphInfoCard";
-import { Tag } from "antd";
 
 export const GraphDetailPage = () => {
   const navigate = useNavigate();
@@ -54,9 +53,9 @@ export const GraphDetailPage = () => {
           </AppIconButton>
         }
       >
-        <Tag style={{ fontSize: "1.5rem" }} className="p-4">
+        <div style={{ fontSize: "1.5rem" }} className="p-4">
           {graphId}
-        </Tag>
+        </div>
       </PageTitle>
 
       <GraphInfoCard graph={graph} />

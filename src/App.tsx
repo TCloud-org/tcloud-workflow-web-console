@@ -214,6 +214,30 @@ export const App = () => {
               element: <DashboardPage />,
             },
             {
+              path: "/graph",
+              element: <Navigate to="/step-workflow" />,
+            },
+            {
+              path: "/service-configuration",
+              element: <Navigate to="/step-workflow" />,
+            },
+            {
+              path: "/retry-policy",
+              element: <Navigate to="/step-workflow" />,
+            },
+            {
+              path: "/authentication",
+              element: <Navigate to="/security" />,
+            },
+            {
+              path: "/subscription",
+              element: <Navigate to="/settings" />,
+            },
+            {
+              path: "/client",
+              element: <Navigate to="/people" />,
+            },
+            {
               path: "/statistic",
               element: <WorkflowStatisticPage />,
             },
@@ -282,10 +306,6 @@ export const App = () => {
               element: <AddWorkflowPage />,
             },
             {
-              path: "/graph",
-              element: <Navigate to="/step-workflow" />,
-            },
-            {
               path: "/graph/:graphId",
               element: <GraphDetailPage />,
             },
@@ -298,27 +318,23 @@ export const App = () => {
               element: <CreateGraphPage />,
             },
             {
-              path: "/service",
-              element: <Navigate to="/step-workflow" />,
-            },
-            {
               path: "/step-workflow/add-service-endpoint",
               element: <AddServicePage />,
             },
             {
-              path: "/service/:serviceName",
+              path: "/service-configuration/:serviceName",
               element: <ServiceDetailPage />,
             },
             {
-              path: "/service/:serviceName/create",
+              path: "/service-configuration/:serviceName/create",
               element: <CreateEndpointPage />,
             },
             {
-              path: "/service/:serviceName/:serviceId",
+              path: "/service-configuration/:serviceName/:serviceId",
               element: <ServiceEndpointSetting />,
             },
             {
-              path: "/service/:serviceName/:serviceId/edit",
+              path: "/service-configuration/:serviceName/:serviceId/edit",
               element: <EditEndpointPage />,
             },
             {

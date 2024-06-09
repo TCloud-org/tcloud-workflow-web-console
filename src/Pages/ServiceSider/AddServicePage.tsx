@@ -43,7 +43,7 @@ export const AddServicePage = () => {
     await axios
       .post(WOS_ADD_SERVICE_CONFIGURATION_ENDPOINT, formData, config)
       .then((_) => {
-        navigate(`/service`);
+        navigate(`/service-configuration`);
       })
       .catch((_) => {});
     setLoading(false);

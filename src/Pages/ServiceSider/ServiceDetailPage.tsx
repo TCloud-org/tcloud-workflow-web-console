@@ -31,7 +31,9 @@ export const ServiceDetailPage = () => {
       dataIndex: "serviceId",
       render: (text: string) => (
         <AppLink
-          href={`/service/${serviceName}/${text}`}
+          href={`/service-configuration/${serviceName}/${encodeURIComponent(
+            text
+          )}`}
           tooltip="Click to view or edit service endpoint"
         >
           {text}
@@ -133,7 +135,11 @@ export const ServiceDetailPage = () => {
       label: "Live version",
       span: Span[3],
       children: (
-        <a href={`/service/${serviceName}/${liveService?.serviceId}`}>
+        <a
+          href={`/service-configuration/${serviceName}/${encodeURIComponent(
+            liveService?.serviceId || ""
+          )}`}
+        >
           <LinkOutlined /> Version {liveService?.version}
         </a>
       ),

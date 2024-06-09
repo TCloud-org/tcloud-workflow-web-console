@@ -59,7 +59,9 @@ export const EditEndpointPage = () => {
       .post(WOS_ADD_SERVICE_CONFIGURATION_ENDPOINT, formData, config)
       .then((_) => {
         setLoading(false);
-        navigate(`/service/${data.serviceName}/${data.serviceId}`);
+        navigate(
+          `/service-configuration/${data.serviceName}/${data.serviceId}`
+        );
       })
       .catch((_) => {
         setLoading(false);

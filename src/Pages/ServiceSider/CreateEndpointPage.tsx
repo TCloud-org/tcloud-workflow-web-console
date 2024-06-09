@@ -65,7 +65,7 @@ export const CreateEndpointPage = () => {
         config
       )
       .then((_) => {
-        navigate(`/service/${serviceName}`);
+        navigate(`/service-configuration/${serviceName}`);
       })
       .catch((error) => console.error(error));
   };
