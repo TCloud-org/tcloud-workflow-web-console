@@ -278,7 +278,6 @@ export const AppTable = (
       })}
       onChange={props.onChange}
       loading={props.loading}
-      scroll={{ x: 1000, y: "auto" }}
       locale={props.locale}
       rowHoverable={props.rowHoverable}
       className={`glass-bar px-4 ${!showTitle ? "pt-4" : ""} ${
