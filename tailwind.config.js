@@ -14,7 +14,7 @@ module.exports = {
         "primary": '#602AF8',
         "hover": 'rgb(241 245 249 / 0.6)',
         paragraph: "rgba(203, 203, 232, 0.75)",
-        "dark": "#02031C",
+        "dark": "#02031d",
         'primary-blue': {
           DEFAULT: '#0469ff',
           '50': '#e6f0ff',

@@ -4,13 +4,14 @@ import {
   WOS_NOTIFY_WORKFLOW_ENDPOINT,
 } from "Config/WOSEndpointConfig";
 import { AppSurface } from "DataDisplayComponents/AppSurface";
+import { AppTag } from "DataDisplayComponents/AppTag";
 import { PageTitle } from "DataDisplayComponents/PageTitle";
 import { AppButton } from "DataEntryComponents/AppButton";
 import { AppForm } from "DataEntryComponents/AppForm";
 import { AppRow } from "LayoutComponents/AppRow";
 import { AppSpace } from "LayoutComponents/AppSpace";
 import { resultTypes } from "WorkflowComponents/SetupNextState";
-import { Col, Divider, Form, Input, Select, Tag, Typography } from "antd";
+import { Col, Divider, Form, Input, Select, Typography } from "antd";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -96,7 +97,7 @@ export const DevModePage = () => {
 
           {workId && (
             <Form.Item>
-              <Tag className="p-2">
+              <AppTag className="p-2">
                 Work ID:{" "}
                 <Typography.Link
                   href={`/live/${encodeURIComponent(workId)}`}
@@ -104,7 +105,7 @@ export const DevModePage = () => {
                 >
                   {workId}
                 </Typography.Link>
-              </Tag>
+              </AppTag>
             </Form.Item>
           )}
 

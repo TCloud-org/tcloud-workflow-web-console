@@ -13,7 +13,7 @@ export const AppWorkflowCollapse = (props: {
 
   const panelStyle: React.CSSProperties = {
     margin: "32px 0",
-    background: `${token.colorBgContainer}bb`,
+    background: `${token.colorBgContainer}33`,
     borderRadius: "12px",
     boxShadow: "rgba(206, 206, 251, 0.1) 0px 0px 16.3056px 0px inset",
     border: "1px solid rgba(206, 206, 251, .1)",

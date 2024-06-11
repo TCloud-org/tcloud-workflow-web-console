@@ -109,8 +109,8 @@ root.render(
         },
       },
       token: {
-        colorBgBase: "#02031C",
-        colorBgContainer: "#02031C",
+        colorBgBase: "#02031d",
+        colorBgContainer: "#02031d",
         colorPrimary: "#602AF8",
 
         boxShadow: "rgba(164, 143, 255, 0.12) 0px -7px 120px 0px inset",
