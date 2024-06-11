@@ -1,4 +1,5 @@
 import { AppSurface } from "DataDisplayComponents/AppSurface";
+import { PageTitle } from "DataDisplayComponents/PageTitle";
 import { AppButton } from "DataEntryComponents/AppButton";
 import { AppSpace } from "LayoutComponents/AppSpace";
 import { capitalizeEachWord } from "Utils/StringUtils";
@@ -23,12 +24,9 @@ export const SubscriptionPage = () => {
   return (
     <AppSurface>
       <AppSpace>
-        <Typography.Text>
-          Subscription plan:{" "}
-          <span className="font-bold">
-            {capitalizeEachWord(tier.toLowerCase())}
-          </span>
-        </Typography.Text>
+        <PageTitle>Plan Information</PageTitle>
+        <Typography.Text strong>Current Plan</Typography.Text>
+        <p>{capitalizeEachWord(tier.toLowerCase())}</p>
         <AppButton type="primary" onClick={handleChoosePlan}>
           Choose plan
         </AppButton>

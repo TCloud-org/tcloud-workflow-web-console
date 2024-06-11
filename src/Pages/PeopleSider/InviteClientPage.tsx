@@ -84,7 +84,6 @@ export const InviteClientPage = () => {
                     >
                       <Input
                         placeholder="Invitee's email address"
-                        size="small"
                         addonAfter={
                           <Form.Item
                             noStyle
@@ -94,7 +93,6 @@ export const InviteClientPage = () => {
                             <Select
                               options={ClientPermissionOptions}
                               placeholder="Permission"
-                              size="small"
                               style={{
                                 width: 250,
                               }}

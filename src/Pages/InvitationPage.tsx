@@ -1,4 +1,5 @@
 import { SCS_PROCESS_INVITATION_URL } from "Config/SCSEndpointConfig";
+import { AppCard } from "DataDisplayComponents/AppCard";
 import { AppLogo } from "DataDisplayComponents/AppLogo";
 import { AppButton } from "DataEntryComponents/AppButton";
 import {
@@ -7,7 +8,7 @@ import {
   getInvitationToken,
 } from "Network/SecurityFetch";
 import { prettifyDate } from "Utils/DateUtils";
-import { Card, Flex, Result, Typography, message } from "antd";
+import { Flex, Result, Typography, message } from "antd";
 import { ActionType } from "app/rootReducer";
 import axios from "axios";
 import { useCallback, useEffect, useMemo, useState } from "react";
@@ -107,8 +108,7 @@ export const InvitationPage = () => {
     <>
       {contextHolder}
       <Flex justify="center" align="center" style={{ height: "100vh" }}>
-        <Card
-          hoverable
+        <AppCard
           style={{
             width: "50vw",
           }}
@@ -169,7 +169,7 @@ export const InvitationPage = () => {
               Your invitation expires in 30 days.
             </Typography.Text>
           </Flex>
-        </Card>
+        </AppCard>
       </Flex>
     </>
   );

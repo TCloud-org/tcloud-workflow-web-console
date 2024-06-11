@@ -38,7 +38,7 @@ export const SettingsPage = () => {
           },
           {
             key: "subscription",
-            label: "Subscription",
+            label: "Plan",
             children: <SubscriptionPage />,
           },
         ]}

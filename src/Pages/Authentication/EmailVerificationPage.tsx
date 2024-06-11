@@ -2,7 +2,6 @@ import {
   AMS_SEND_VERIFICATION_CODE_ENDPOINT,
   AMS_VERIFY_ACCOUNT_ENDPOINT,
 } from "Config/AMSEndpointConfig";
-import { borderColor } from "Config/AutomationConfig";
 import { Span } from "Config/DataDisplayInterface";
 import { SCS_PROCESS_INVITATION_URL } from "Config/SCSEndpointConfig";
 import { AppLogoText } from "DataDisplayComponents/AppLogoText";
@@ -186,13 +185,8 @@ export const EmailVerificationPage = () => {
 
               <Form.Item>
                 <AppButton
-                  style={{
-                    backgroundColor: borderColor,
-                    color: token.colorWhite,
-                    width: "100%",
-                    fontSize: 14,
-                    marginTop: 16,
-                  }}
+                  type="primary"
+                  className="w-full"
                   size="large"
                   onClick={handleVerify}
                   loading={loading}
