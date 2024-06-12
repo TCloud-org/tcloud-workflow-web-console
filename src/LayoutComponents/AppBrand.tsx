@@ -28,7 +28,7 @@ export const AppBrand = (props: {
           component={() => (
             <img
               alt={BRAND}
-              src="https://tcw-icon.s3.us-west-2.amazonaws.com/7.png"
+              src="https://utfs.io/f/bd04c0a7-53fe-4f53-9c25-e44a5e0afb75-ejb435.png"
               className="w-6"
             />
           )}

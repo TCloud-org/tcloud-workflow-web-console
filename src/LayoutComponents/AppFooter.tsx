@@ -26,7 +26,7 @@ export const AppFooter = () => {
             <Flex align="center" gap={32}>
               <Flex align="center" gap={8}>
                 <Image
-                  src="https://tcw-icon.s3.us-west-2.amazonaws.com/7.png"
+                  src="https://utfs.io/f/bd04c0a7-53fe-4f53-9c25-e44a5e0afb75-ejb435.png"
                   width={32}
                   preview={false}
                 />
