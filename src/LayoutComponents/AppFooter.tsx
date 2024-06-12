@@ -18,7 +18,6 @@ export const AppFooter = () => {
           width: "100%",
           padding: 24,
           background: token.colorBgContainer,
-          fontSize: 12,
           fontWeight: 500,
         }}
       >
@@ -28,12 +27,10 @@ export const AppFooter = () => {
               <Flex align="center" gap={8}>
                 <Image
                   src="https://tcw-icon.s3.us-west-2.amazonaws.com/7.png"
-                  width={24}
+                  width={32}
                   preview={false}
                 />
-                <Typography.Text
-                  style={{ fontSize: 12 }}
-                >{`The Cloud World ©${new Date().getFullYear()}`}</Typography.Text>
+                <Typography.Text>{`The Cloud World ©${new Date().getFullYear()}`}</Typography.Text>
               </Flex>
 
               <HoveredLink href="/terms-and-conditions">Terms</HoveredLink>

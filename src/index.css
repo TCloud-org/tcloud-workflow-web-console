@@ -543,6 +543,10 @@ a {
   border-radius: 8px !important;
 }
 
+.word-wrap {
+  word-break: break-word !important;
+}
+
 .ant-tree-node-content-wrapper:hover,
 .ant-tree-treenode-selected>.ant-tree-node-content-wrapper {
   color                  : rgb(229, 229, 249) !important;

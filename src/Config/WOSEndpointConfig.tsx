@@ -1,13 +1,6 @@
 export const BRAND = "The Cloud Workflow";
-export const IMS_ENDPOINT = "http://34.222.124.144:80/api/v1";
-export const WOS_ENDPOINT =
-  "https://wos-server-142456886.us-west-2.elb.amazonaws.com/api/private/v1";
-export const IMS_GET_SERVICES_ENDPOINT = IMS_ENDPOINT + "/get-services";
-export const IMS_GET_OPERATIONS_BY_SERVICE_ID_ENDPOINT =
-  IMS_ENDPOINT + "/get-operations-by-service-id";
-export const IMS_REGISTER_OPERATION_ENDPOINT =
-  IMS_ENDPOINT + "/register-operation";
-export const IMS_REGISTER_SERVICE_ENDPOINT = IMS_ENDPOINT + "/register-service";
+export const WOS_ENDPOINT = "https://wos.be.thecloudworlds.com/api/private/v1";
+
 export const WOS_GET_WORKFLOW_STATES_BY_WORKFLOW_ID_ENDPOINT =
   WOS_ENDPOINT + "/get-workflow-states-by-workflow-id";
 export const WOS_VALIDATE_XML_WORKFLOW_ENDPOINT =

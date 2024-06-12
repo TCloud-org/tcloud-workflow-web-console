@@ -10,5 +10,5 @@ export const AppTree = (
     defaultExpandedKeys?: Key[];
   }
 ) => {
-  return <ForwardDirectoryTree multiple showLine showIcon={false} {...props} />;
+  return <ForwardDirectoryTree multiple showLine {...props} />;
 };

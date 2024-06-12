@@ -219,7 +219,7 @@ export const ResourceHierarchy = () => {
                 }}
                 multiple
                 treeData={treeNodes}
-                className="bg-transparent !text-disabled"
+                className="bg-transparent word-wrap"
                 onSelect={onSelect}
               />
             </div>

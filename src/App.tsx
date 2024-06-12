@@ -24,7 +24,6 @@ import { PrivacyPolicyPage } from "Pages/Policy/PrivacyPolicyPage";
 import { TermsAndConditionsPage } from "Pages/Policy/TermsAndConditionsPage";
 import { QueryPage } from "Pages/QuerySider/QueryPage";
 import { SecurityPage } from "Pages/SecuritySider/SecurityPage";
-import { AccountPage } from "Pages/SettingsSider/AccountPage";
 import { SettingsPage } from "Pages/SettingsSider/SettingsPage";
 import { EditEmailTemplatePage } from "Pages/Shop/EditEmailTemplatePage";
 import { EmailTemplateDetailPage } from "Pages/Shop/EmailTemplateDetailPage";
@@ -85,8 +84,6 @@ import { CreateEndpointPage } from "./Pages/ServiceSider/CreateEndpointPage";
 import { EditEndpointPage } from "./Pages/ServiceSider/EditEndpointPage";
 import { ServiceDetailPage } from "./Pages/ServiceSider/ServiceDetailPage";
 import { ServiceEndpointSetting } from "./Pages/ServiceSider/ServiceEndpointSetting";
-import { BillingPage } from "./Pages/SettingsSider/BillingPage";
-import { GeneralPage } from "./Pages/SettingsSider/GeneralPage";
 import { deserializeLocation } from "./Utils/Serializer";
 import { setItems } from "./features/navigation/breadcrumbSlice";
 
@@ -403,15 +400,15 @@ export const App = () => {
             },
             {
               path: "/account",
-              element: <AccountPage />,
+              element: <Navigate to="/settings" />,
             },
             {
               path: "/general",
-              element: <GeneralPage />,
+              element: <Navigate to="/settings" />,
             },
             {
               path: "/billing",
-              element: <BillingPage />,
+              element: <Navigate to="/settings" />,
             },
             {
               path: "/monitor",
