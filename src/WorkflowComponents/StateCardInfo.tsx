@@ -1,10 +1,9 @@
 import { AppCopy } from "DataDisplayComponents/AppCopy";
 import { CodeBeam } from "DataDisplayComponents/CodeBeam";
-import { DescriptionsProps, Typography } from "antd";
+import { Col, DescriptionsProps, Row, Typography } from "antd";
 import { CSSProperties, forwardRef } from "react";
 import { Span } from "../Config/DataDisplayInterface";
 import { Route } from "../Config/WorkflowConfig";
-import { AppDescriptions } from "../DataDisplayComponents/AppDescriptions";
 import { formatDate } from "../Utils/DateUtils";
 import { parseError } from "../Utils/Serializer";
 
@@ -88,9 +87,7 @@ export const StateCardInfo = forwardRef<HTMLDivElement, StateCardInfoProps>(
               children: (
                 <CodeBeam
                   value="json"
-                  className="w-full"
                   borderColor="transparent"
-                  wrapLongLines
                   snippets={[
                     {
                       key: "json",
@@ -112,24 +109,22 @@ export const StateCardInfo = forwardRef<HTMLDivElement, StateCardInfoProps>(
         style={{
           transition: "all 0.3s",
           marginTop: "16px",
-          overflow: "auto",
           ...style,
         }}
         className="mx-6"
         ref={ref}
       >
-        <AppDescriptions
-          layout="vertical"
-          labelStyle={{
-            fontWeight: 600,
-            textTransform: "uppercase",
-          }}
-          contentStyle={{
-            marginBottom: 16,
-          }}
-          size="small"
-          items={items}
-        />
+        <Row gutter={[32, 32]}>
+          {items.map((item, i) => (
+            <Col className="flex flex-col" key={i} {...(item.span as any)}>
+              <div className="flex flex-col gap-1 h-full">
+                <div className="font-semibold uppercase">{item.label}</div>
+
+                <div className="flex">{item.children}</div>
+              </div>
+            </Col>
+          ))}
+        </Row>
       </div>
     );
   }

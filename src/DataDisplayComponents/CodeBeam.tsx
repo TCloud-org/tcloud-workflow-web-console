@@ -79,7 +79,7 @@ export const CodeBeam = (props: {
 
   return (
     <div
-      className={`rounded-xl overflow-hidden glass-bar ${className}`}
+      className={`rounded-xl flex flex-col overflow-hidden glass-bar ${className}`}
       style={{
         ...style,
       }}
@@ -134,6 +134,8 @@ export const CodeBeam = (props: {
           background: "transparent",
           border: "none",
           color: currentTheme.textColor,
+          maxHeight: 700,
+          overflow: "auto",
         }}
       >
         {`${code}`}

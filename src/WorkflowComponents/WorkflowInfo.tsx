@@ -12,9 +12,10 @@ export const WorkflowInfo = (props: { graph?: Graph }) => {
   const { graph } = props;
 
   return (
-    <AppSurface type="form" style={{ paddingBottom: 0 }}>
+    <AppSurface style={{ paddingBottom: 0 }}>
       <AppDescriptions
         title="Info"
+        className="bg-transparent"
         items={[
           {
             key: "workId",

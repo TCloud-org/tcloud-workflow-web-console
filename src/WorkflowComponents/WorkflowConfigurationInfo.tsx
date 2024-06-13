@@ -15,9 +15,10 @@ export const WorkflowConfigurationInfo = (props: {
   const { data = {}, version = "" } = props;
 
   return (
-    <AppSurface type="form" style={{ paddingBottom: 0 }}>
+    <AppSurface style={{ paddingBottom: 0 }}>
       <AppDescriptions
         title="Configuration"
+        className="bg-transparent"
         items={[
           {
             key: "workflowAlias",
