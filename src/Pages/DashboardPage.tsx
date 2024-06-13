@@ -7,7 +7,6 @@ import { WorkStatisticDisplay } from "WorkflowComponents/WorkStatisticDisplay";
 import { Flex } from "antd";
 import { Key, useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
 import {
   InfraStatistic,
   StepWorkflowBilling,
@@ -22,14 +21,10 @@ import {
 } from "../Network/WorkFetch";
 
 export const DashboardPage = () => {
-  const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
-  const start = searchParams.get("start") || undefined;
-  const end = searchParams.get("end") || undefined;
-
   const authToken = useSelector((state: any) => state.auth.token);
   const clientId = useSelector((state: any) => state.client.clientId);
   const period = useSelector((state: any) => state.dashboard.period);
+  const dateRange = useSelector((state: any) => state.dashboard.dateRange);
 
   const [works, setWorks] = useState<Work[]>([]);
   const [selected, setSelected] = useState<Key[]>([]);
@@ -65,8 +60,10 @@ export const DashboardPage = () => {
   }, [clientId, authToken]);
 
   const fetchWorksInRange = useCallback(async () => {
-    if (((start && end) || period) && clientId) {
+    if ((dateRange || period) && clientId) {
       setLoading(true);
+      const start = dateRange[0];
+      const end = dateRange[1];
       const workRes = await getWorksInDateRange(
         clientId,
         authToken,
@@ -74,7 +71,6 @@ export const DashboardPage = () => {
         end,
         start ? undefined : period
       ).catch((err) => {
-        console.error(err.response.status);
         return undefined;
       });
       const statRes = await getWorkStatisticInDateRange(
@@ -84,7 +80,6 @@ export const DashboardPage = () => {
         end,
         start ? undefined : period
       ).catch((err) => {
-        console.error(err.response.status);
         return undefined;
       });
       setWorks(workRes?.works || []);
@@ -117,7 +112,7 @@ export const DashboardPage = () => {
       setWorks([]);
       setColumns([]);
     }
-  }, [start, end, clientId, period, authToken]);
+  }, [dateRange, clientId, period, authToken]);
 
   useEffect(() => {
     fetchBilling();

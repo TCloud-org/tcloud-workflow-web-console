@@ -14,18 +14,16 @@ import { AppSpace } from "../LayoutComponents/AppSpace";
 import { fetchServiceConfiguration } from "../Network/WorkflowFetch";
 import { EndpointConfigByState } from "./EndpointConfigByState";
 import { GraphState } from "./GraphBuilder";
+import { decodeWorkId } from "Utils/IdentifierUtils";
 
 export const RetryConfiguration = forwardRef<
   HTMLDivElement,
   { onClose?: () => void; routes?: Route[] }
 >(({ onClose = () => {}, routes = [] }, ref) => {
   const { workId } = useParams();
+  const { clientId, workflowId } = decodeWorkId(workId || "");
 
   const authToken = useSelector((state: any) => state.auth.token);
-  const clientId = useSelector((state: any) => state.client.clientId);
-  const { workflowId } = useSelector(
-    (state: any) => state.workflow.workflow || {}
-  );
 
   const [lastRoute, setLastRoute] = useState<Route>();
   const [configurations, setConfigurations] = useState<ServiceConfiguration[]>(
@@ -35,7 +33,7 @@ export const RetryConfiguration = forwardRef<
   const [formData, setFormData] = useState<any>({});
 
   const fetchConfig = useCallback(async () => {
-    if (routes.length > 0) {
+    if (routes.length > 0 && clientId) {
       setLoading(true);
 
       const last = routes[routes.length - 1];
@@ -139,7 +137,7 @@ export const RetryConfiguration = forwardRef<
             },
           ]}
         />
-        <Button size="small" type="primary" onClick={handleRetry}>
+        <Button type="primary" onClick={handleRetry}>
           Retry with this configuration
         </Button>
       </AppSpace>

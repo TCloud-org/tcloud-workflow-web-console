@@ -13,26 +13,17 @@ import { AppSpace } from "LayoutComponents/AppSpace";
 import { resultTypes } from "WorkflowComponents/SetupNextState";
 import { Col, Divider, Form, Input, Select, Typography } from "antd";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 
 export const DevModePage = () => {
   const authToken = useSelector((state: any) => state.auth.token);
-  const { workflowId } = useSelector(
-    (state: any) => state.workflow.workflow || {}
-  );
   const [workId, setWorkId] = useState<string>("");
 
   const [initiateForm] = Form.useForm();
   const [notifyForm] = Form.useForm();
 
   const [loading, setLoading] = useState<{ [key: string]: boolean }>({});
-
-  useEffect(() => {
-    if (workflowId) {
-      initiateForm.setFieldValue("workflowId", workflowId);
-    }
-  }, [workflowId, initiateForm]);
 
   const handleInitiate = async () => {
     setLoading({ initiate: true });

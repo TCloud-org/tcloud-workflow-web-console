@@ -60,7 +60,9 @@ export const EditEndpointPage = () => {
       .then((_) => {
         setLoading(false);
         navigate(
-          `/service-configuration/${data.serviceName}/${data.serviceId}`
+          `/service-configuration/${data.serviceName}/${encodeURIComponent(
+            data.serviceId
+          )}`
         );
       })
       .catch((_) => {

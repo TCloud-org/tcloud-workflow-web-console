@@ -1,41 +1,29 @@
 import { PeriodOptions } from "Config/MenuConfig";
 import { DatePicker, Flex, Select, theme } from "antd";
-import dayjs, { Dayjs } from "dayjs";
-import { setPeriod } from "features/settings/dashboardSlice";
-import { useEffect, useState } from "react";
+import dayjs from "dayjs";
+import { setDateRange, setPeriod } from "features/settings/dashboardSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
 
 export const WorkPeriodToolbar = () => {
   const period = useSelector((state: any) => state.dashboard.period);
+  const dateRange = useSelector((state: any) =>
+    (state.dashboard.dateRange || [undefined, undefined])
+      .filter((iso: any) => iso)
+      .map((iso: string) => dayjs(iso))
+  );
   const dispatch = useDispatch();
 
   const { token } = theme.useToken();
-  const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
-  const start = searchParams.get("start");
-  const end = searchParams.get("end");
-
-  const [dateRange, setDateRange] = useState<
-    [start: Dayjs | undefined, end: Dayjs | undefined]
-  >([undefined, undefined]);
-
-  useEffect(() => {
-    if (start && end) {
-      setDateRange([dayjs(start), dayjs(end)]);
-    } else {
-      setDateRange([undefined, undefined]);
-    }
-  }, [start, end]);
 
   const handleRangePickerChange = (
     _: any,
     dateString: [string, string] | string
   ) => {
-    const params = new URLSearchParams(location.search);
-    params.set("start", dateString[0]);
-    params.set("end", dateString[1]);
-    window.location.href = `${location.pathname}?${params}`;
+    if (!dateString || !dateString[0] || !dateString[1]) {
+      dispatch(setDateRange([undefined, undefined]));
+    } else {
+      dispatch(setDateRange([dayjs(dateString[0]), dayjs(dateString[1])]));
+    }
   };
 
   const handlePeriodChange = (value: string) => {
@@ -46,7 +34,6 @@ export const WorkPeriodToolbar = () => {
     <Flex gap="16px" align="center">
       <Flex style={{ flex: 2 }}>
         <DatePicker.RangePicker
-          size="small"
           value={dateRange}
           allowEmpty={[true, true]}
           onChange={handleRangePickerChange}

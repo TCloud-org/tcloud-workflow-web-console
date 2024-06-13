@@ -19,6 +19,7 @@ import { AppRow } from "../../LayoutComponents/AppRow";
 import { AppSpace } from "../../LayoutComponents/AppSpace";
 import { AppVerticalStepContent } from "../../LayoutComponents/AppVerticalStepContent";
 import { getConfigurationsByService } from "../../Network/WorkflowFetch";
+import { decodeBucketId } from "Utils/IdentifierUtils";
 
 export const BatchRetryPage = () => {
   const navigate = useNavigate();
@@ -29,10 +30,7 @@ export const BatchRetryPage = () => {
     bucketId,
   }: { workIds: Key[]; route: Route; bucketId: string } = location.state || {};
   const authToken = useSelector((state: any) => state.auth.token);
-  const clientId = useSelector((state: any) => state.client.clientId);
-  const { workflowId } = useSelector(
-    (state: any) => state.workflow.workflow || {}
-  );
+  const { clientId, workflowId } = decodeBucketId(bucketId);
 
   const [form] = Form.useForm();
 
@@ -42,11 +40,18 @@ export const BatchRetryPage = () => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const fetchConfigurations = useCallback(async () => {
-    const data = await getConfigurationsByService(route.service, authToken);
+    if (!route.service || !clientId) return;
+
+    const data = await getConfigurationsByService(
+      clientId,
+      route.service,
+      authToken
+    );
     const configs = data?.configurations || [];
     setConfigs(configs);
+    console.log(route);
     setConfig(configs.find((config) => config.alias === "live"));
-  }, [route, authToken]);
+  }, [route, authToken, clientId]);
 
   useEffect(() => {
     fetchConfigurations();

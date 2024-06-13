@@ -10,15 +10,17 @@ import { AppDescriptions } from "../DataDisplayComponents/AppDescriptions";
 import { AppSurface } from "../DataDisplayComponents/AppSurface";
 import { AppSpace } from "../LayoutComponents/AppSpace";
 import { Box } from "../LayoutComponents/Box";
+import { useParams } from "react-router-dom";
+import { decodeWorkId } from "Utils/IdentifierUtils";
 
 export const WorkflowModal = (props: {
   open?: boolean;
   alias?: string;
   onClose?: () => void;
 }) => {
-  const { workflowId, workflowName } = useSelector(
-    (state: any) => state.workflow.workflow || {}
-  );
+  const { workId } = useParams();
+  const { workflowId, workflowName } = decodeWorkId(workId || "");
+
   const authToken = useSelector((state: any) => state.auth.token);
 
   const { alias = "live", onClose } = props;

@@ -146,7 +146,7 @@ export const EventWorkflowSortableForm = (props: {
       <AppDroppable id="droppable">
         <AppSurface
           type="dot"
-          style={{ height: "70vh", padding: "64px 0" }}
+          style={{ minHeight: "70vh", padding: "64px 0" }}
           className="flex items-center justify-center"
         >
           <SortableContext

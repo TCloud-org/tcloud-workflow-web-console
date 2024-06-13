@@ -12,7 +12,7 @@ import {
 import axios from "axios";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { v4 } from "uuid";
 import {
   WOS_CLOSE_WORKFLOW_ENDPOINT,
@@ -48,15 +48,7 @@ export const WorkflowToolbar = (props: {
   const { onReload = async () => {}, routes = [], graph } = props;
   const { workId } = useParams();
 
-  const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
-
   const authToken = useSelector((state: any) => state.auth.token);
-  const clientId =
-    useSelector((state: any) => state.client.clientId) ||
-    searchParams.get("clientId");
-  const workflow = useSelector((state: any) => state.workflow.workflow || {});
-  const workflowId = workflow?.workflowId || searchParams.get("workflowId");
 
   const [messageApi, contextHolder] = message.useMessage();
 
@@ -139,9 +131,7 @@ export const WorkflowToolbar = (props: {
     setRetryLoading(true);
 
     const formData = {
-      clientId,
       workIds: [workId],
-      workflowId,
     };
     const config = {
       headers: {
@@ -200,12 +190,9 @@ export const WorkflowToolbar = (props: {
   };
 
   const handleShare = () => {
-    const params = new URLSearchParams();
-    params.set("workflowId", workflowId);
-    params.set("clientId", clientId);
     const currentUrl = window.location.href;
     navigator.clipboard
-      .writeText(`${currentUrl}?${params}`)
+      .writeText(currentUrl)
       .then(() => {
         messageApi.success("Link copied to clipboard");
       })

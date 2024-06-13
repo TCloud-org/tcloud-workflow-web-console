@@ -1,25 +1,29 @@
+import { WOS_GET_WORKFLOWS_BY_CLIENT_ID_ENDPOINT } from "Config/WOSEndpointConfig";
 import { PremiumMask } from "DataEntryComponents/PremiumMask";
 import { Alert, Flex, Select, Typography } from "antd";
+import axios from "axios";
+import { setBucketWorkflowId } from "features/settings/stepWorkflowSlice";
 import { useCallback, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Route, Workflow } from "../../Config/WorkflowConfig";
 import { AppEmpty } from "../../DataDisplayComponents/AppEmpty";
 import { PageTitle } from "../../DataDisplayComponents/PageTitle";
 import { AppSpace } from "../../LayoutComponents/AppSpace";
 import { getBuckets } from "../../Network/WorkflowFetch";
 import { BucketTable } from "../../WorkflowComponents/BucketTable";
-import axios from "axios";
-import { WOS_GET_WORKFLOWS_BY_CLIENT_ID_ENDPOINT } from "Config/WOSEndpointConfig";
 
 export const BucketPage = () => {
+  const dispatch = useDispatch();
   const clientId = useSelector((state: any) => state.client.clientId);
   const authToken = useSelector((state: any) => state.auth.token);
+  const bucketWorkflowId = useSelector(
+    (state: any) => state.stepWorkflow.bucketWorkflowId
+  );
 
   const [bucketMap, setBucketMap] = useState<Record<string, Route[]>>({});
   const [loading, setLoading] = useState(false);
   const [isRestricted, setIsRestricted] = useState<boolean>(false);
-  const [workflows, setWorkflows] = useState<Workflow[]>();
-  const [workflowSelected, setWorkflowSelected] = useState<string>();
+  const [workflows, setWorkflows] = useState<Workflow[]>([]);
 
   const fetchWorkflows = useCallback(async () => {
     if (clientId && authToken) {
@@ -39,10 +43,10 @@ export const BucketPage = () => {
   }, [clientId, authToken]);
 
   const fetchBuckets = useCallback(async () => {
-    if (workflowSelected) {
+    if (bucketWorkflowId) {
       setLoading(true);
       const data = await getBuckets(
-        decodeURIComponent(workflowSelected),
+        decodeURIComponent(bucketWorkflowId),
         authToken
       );
       if (data.response && data.response.status === 403) {
@@ -52,7 +56,7 @@ export const BucketPage = () => {
       }
       setLoading(false);
     }
-  }, [workflowSelected, authToken]);
+  }, [bucketWorkflowId, authToken]);
 
   useEffect(() => {
     fetchWorkflows();
@@ -68,13 +72,13 @@ export const BucketPage = () => {
         onReload={fetchBuckets}
         endDecorator={
           <Select
-            options={workflows?.map((workflow) => ({
+            options={workflows.map((workflow) => ({
               label: workflow.workflowName,
               value: workflow.workflowId,
             }))}
             placeholder="Select a workflow"
-            value={workflowSelected}
-            onChange={setWorkflowSelected}
+            value={workflows.length > 0 ? bucketWorkflowId : undefined}
+            onChange={(value: string) => dispatch(setBucketWorkflowId(value))}
             dropdownStyle={{ width: "auto" }}
           />
         }

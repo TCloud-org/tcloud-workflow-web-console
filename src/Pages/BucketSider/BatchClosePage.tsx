@@ -11,6 +11,7 @@ import { AppList } from "../../DataDisplayComponents/AppList";
 import { AppButton } from "../../DataEntryComponents/AppButton";
 import { AppSpace } from "../../LayoutComponents/AppSpace";
 import { AppVerticalStepContent } from "../../LayoutComponents/AppVerticalStepContent";
+import { decodeBucketId } from "Utils/IdentifierUtils";
 
 export const BatchClosePage = () => {
   const navigate = useNavigate();
@@ -18,10 +19,7 @@ export const BatchClosePage = () => {
   const { workIds = [], bucketId }: { workIds: Key[]; bucketId: string } =
     location.state || {};
   const authToken = useSelector((state: any) => state.auth.token);
-  const clientId = useSelector((state: any) => state.client.clientId);
-  const { workflowId } = useSelector(
-    (state: any) => state.workflow.workflow || {}
-  );
+  const { clientId, workflowId } = decodeBucketId(bucketId);
 
   const [current, setCurrent] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);

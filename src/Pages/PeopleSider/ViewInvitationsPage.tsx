@@ -23,6 +23,7 @@ import { useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { PermissionColor } from "./ClientDetailsPage";
 import { AppButton } from "DataEntryComponents/AppButton";
+import { AppLink } from "DataEntryComponents/AppLink";
 
 export const InvitationComponent = {
   ACCEPTED: {
@@ -49,17 +50,15 @@ const columns: EditableColumn[] = [
     dataIndex: "receiver",
     render: (text: string) => (
       <Flex align="center" gap={8}>
-        <Flex style={{ flex: 1 }}>
+        <Flex flex={1}>
           <AppAvatar />
         </Flex>
-        <Flex style={{ flex: 6 }}>
-          <a href={`mailto:${text}`} className="custom-link">
-            {text}
-          </a>
+        <Flex flex={6}>
+          <AppLink href={`mailto:${text}`}>{text}</AppLink>
         </Flex>
       </Flex>
     ),
-    width: "20%",
+    width: "30%",
   },
   {
     title: "Location",
@@ -80,7 +79,6 @@ const columns: EditableColumn[] = [
         {text}
       </Tag>
     ),
-    width: "10%",
   },
   {
     title: "Granted Permissions",
@@ -98,25 +96,21 @@ const columns: EditableColumn[] = [
         ))}
       </Flex>
     ),
-    width: "18%",
   },
   {
     title: "Sent",
     dataIndex: "sentAt",
     render: (text: string) => formatDate(text),
-    width: "12%",
   },
   {
     title: "Expired",
     dataIndex: "expiredAt",
     render: (text: string) => formatDate(text),
-    width: "12%",
   },
   {
     title: "Confirmed",
     dataIndex: "confirmedAt",
     render: (text: string) => formatDate(text),
-    width: "12%",
   },
 ];
 

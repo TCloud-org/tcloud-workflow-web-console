@@ -54,7 +54,6 @@ export const ServiceDetailPage = () => {
       title: "Alias",
       dataIndex: "alias",
       editable: true,
-      width: "15%",
       handleSave: async (value: ServiceConfiguration) => {
         const formData = {
           serviceId: value.serviceId,

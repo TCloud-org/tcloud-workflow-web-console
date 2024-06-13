@@ -32,7 +32,6 @@ export const FormSelect = (props: {
         <Select
           placeholder={placeholder}
           value={value}
-          size="small"
           onChange={onChange}
           options={options}
         />

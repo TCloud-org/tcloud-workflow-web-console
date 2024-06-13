@@ -30,18 +30,16 @@ import { EndpointConfigByService } from "./EndpointConfigByService";
 import { EndpointConfigByState } from "./EndpointConfigByState";
 import { GraphState } from "./GraphBuilder";
 import { WorkflowModal } from "./WorkflowModal";
+import { decodeWorkId } from "Utils/IdentifierUtils";
 
 export const RerunConfiguration = forwardRef<
   HTMLDivElement,
   { onClose?: () => void; onRefresh?: () => void }
 >(({ onClose = () => {}, onRefresh = () => {} }, ref) => {
   const authToken = useSelector((state: any) => state.auth.token);
-  const { workflowId, workflowName } = useSelector(
-    (state: any) => state.workflow.workflow || {}
-  );
-  const clientId = useSelector((state: any) => state.client.clientId);
 
   const { workId } = useParams();
+  const { clientId, workflowId, workflowName } = decodeWorkId(workId || "");
 
   const [graphs, setGraphs] = useState<Graph[]>([]);
   const [workflowAlias, setWorkflowAlias] = useState<string>("live");
@@ -72,6 +70,8 @@ export const RerunConfiguration = forwardRef<
 
     try {
       const promises = services.map(async (service) => {
+        if (!clientId) return;
+
         const res = await fetchServiceConfiguration(
           clientId,
           service,
@@ -352,7 +352,7 @@ export const RerunConfiguration = forwardRef<
             ]}
           />
 
-          <Button type="primary" onClick={handleRerun} size="small">
+          <Button type="primary" onClick={handleRerun}>
             Rerun with this configuration
           </Button>
         </AppSpace>

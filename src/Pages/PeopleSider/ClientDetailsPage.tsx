@@ -69,11 +69,9 @@ const columns: EditableColumn[] = [
     width: "15%",
     render: (value: ClientInvitee & { permissions: string[] }) => (
       <Flex align="center" gap={4}>
-        <AppButton onClick={() => {}} size="small">
-          Edit
-        </AppButton>
+        <AppButton onClick={() => {}}>Edit</AppButton>
         {!value.permissions.includes("ADMIN") && (
-          <AppButton onClick={() => {}} size="small" danger type="primary">
+          <AppButton onClick={() => {}} danger type="primary">
             Revoke
           </AppButton>
         )}

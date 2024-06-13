@@ -11,27 +11,27 @@ const templates = [
   {
     key: "blank",
     title: "Blank",
-    src: "https://tcw-images.s3.us-west-2.amazonaws.com/Screenshot+2024-04-13+at+10.13.16%E2%80%AFPM.png",
+    src: "https://utfs.io/f/23b12579-2938-45d3-b2e1-4adc221e887f-b8l3zi.png",
   },
   {
     key: "basic",
     title: "Basic",
-    src: "https://tcw-images.s3.us-west-2.amazonaws.com/Screenshot+2024-04-13+at+10.49.34%E2%80%AFPM.png",
+    src: "https://utfs.io/f/0cdaf882-d07e-44e2-9bdc-eca9857117a5-b8rrmc.png",
   },
   {
     key: "delay",
     title: "Delay",
-    src: "https://tcw-images.s3.us-west-2.amazonaws.com/Screenshot+2024-04-13+at+9.39.03%E2%80%AFPM.png",
+    src: "https://utfs.io/f/ba718cb5-47bf-41cf-a883-2c469ebc8c08-7lw247.png",
   },
   {
     key: "consecutiveEmails",
     title: "Consecutive Emails",
-    src: "https://tcw-images.s3.us-west-2.amazonaws.com/Screenshot+2024-04-13+at+11.00.25%E2%80%AFPM.png",
+    src: "https://utfs.io/f/b7fdefc8-2139-47ef-9d3d-cdb15ee0507d-txocx4.png",
   },
   {
     key: "consecutiveEmailsWithDelay",
     title: "Consecutive Emails with Delay",
-    src: "https://tcw-images.s3.us-west-2.amazonaws.com/Screenshot+2024-04-13+at+10.58.13%E2%80%AFPM.png",
+    src: "https://utfs.io/f/606a99a0-52c4-4d7d-b8c0-1cade4408191-etzlcu.png",
   },
 ];
 

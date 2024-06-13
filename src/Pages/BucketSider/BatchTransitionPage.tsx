@@ -15,6 +15,7 @@ import { AppSpace } from "../../LayoutComponents/AppSpace";
 import { AppVerticalStepContent } from "../../LayoutComponents/AppVerticalStepContent";
 import { getGraphById } from "../../Network/WorkflowFetch";
 import { extractStatesAfterSource } from "../../Utils/ObjectUtils";
+import { decodeBucketId } from "Utils/IdentifierUtils";
 
 export const BatchTransitionPage = () => {
   const navigate = useNavigate();
@@ -27,10 +28,7 @@ export const BatchTransitionPage = () => {
     location?.state || {};
 
   const authToken = useSelector((state: any) => state.auth.token);
-  const clientId = useSelector((state: any) => state.client.clientId);
-  const { workflowId } = useSelector(
-    (state: any) => state.workflow.workflow || {}
-  );
+  const { clientId, workflowId } = decodeBucketId(bucketId);
 
   const [current, setCurrent] = useState<number>(0);
   const [graph, setGraph] = useState<Graph>();

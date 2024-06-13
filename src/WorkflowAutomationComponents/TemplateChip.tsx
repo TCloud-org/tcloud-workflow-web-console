@@ -29,7 +29,7 @@ export const TemplateChip = (props: {
           src={props.src}
           style={{
             height: "20vh",
-            objectFit: "cover",
+            objectFit: "contain",
             maxWidth: "100%",
             borderRadius: 16,
           }}

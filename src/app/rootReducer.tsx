@@ -35,9 +35,17 @@ const appReducer = combineReducers({
 
 const rootReducer = (state: any, action: any) => {
   if (action.type === "LOG_OUT") {
+    const authSlice = state.auth;
     storage.removeItem("persist:root");
 
-    return appReducer(undefined, action);
+    const resetState = appReducer(undefined, action);
+    return {
+      ...resetState,
+      auth: {
+        ...resetState.auth,
+        rememberMeToken: authSlice.rememberMeToken,
+      },
+    };
   }
   return appReducer(state, action);
 };

@@ -25,17 +25,15 @@ import {
 import { extractServices, extractStates } from "../../Utils/ObjectUtils";
 import { BatchRerunConfigureEndpointStep } from "../../WorkflowComponents/BucketBatch/BatchRerunConfigureEndpointStep";
 import { BatchRerunConfigureWorkflowStep } from "../../WorkflowComponents/BucketBatch/BatchRerunConfigureWorkflowStep";
+import { decodeBucketId } from "Utils/IdentifierUtils";
 
 export const BatchRerunPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { workIds = [], bucketId }: { workIds: Key[]; bucketId: string } =
     location.state || {};
-  const clientId = useSelector((state: any) => state.client.clientId);
   const authToken = useSelector((state: any) => state.auth.token);
-  const { workflowId, workflowName } = useSelector(
-    (state: any) => state.workflow.workflow || {}
-  );
+  const { clientId, workflowId, workflowName } = decodeBucketId(bucketId);
 
   const [form] = Form.useForm();
 
@@ -58,8 +56,14 @@ export const BatchRerunPage = () => {
     const configMap: { [service: string]: ServiceConfiguration[] } = {};
 
     const promises = services.map(async (service) => {
-      const res = await fetchServiceConfiguration(clientId, service, authToken);
-      configMap[service] = res.configurations;
+      if (clientId) {
+        const res = await fetchServiceConfiguration(
+          clientId,
+          service,
+          authToken
+        );
+        configMap[service] = res.configurations;
+      }
     });
 
     await Promise.all(promises);

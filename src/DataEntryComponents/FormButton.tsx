@@ -39,7 +39,6 @@ export const FormButton = (props: {
           style={{ width: width }}
           disabled={disabled}
           onClick={onClick}
-          size="small"
         >
           {children}
         </Button>

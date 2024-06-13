@@ -90,7 +90,8 @@ export const getServiceConfigurations = async (
 };
 
 export const getConfigurationsByService = async (
-  service: string | undefined,
+  clientId: string,
+  service: string,
   token: string
 ) => {
   const config = {
@@ -100,7 +101,7 @@ export const getConfigurationsByService = async (
   };
   return await axios
     .get(
-      `${WOS_GET_CONFIGURATIONS_BY_SERVICE_NAME_ENDPOINT}?serviceName=${service}`,
+      `${WOS_GET_CONFIGURATIONS_BY_SERVICE_NAME_ENDPOINT}?clientId=${clientId}&serviceName=${service}`,
       config
     )
     .then((response) => {
