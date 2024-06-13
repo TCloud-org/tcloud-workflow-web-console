@@ -23,7 +23,7 @@ export const WorkflowConfigurationInfo = (props: {
             key: "workflowAlias",
             label: "Workflow alias".toUpperCase(),
             children: data[version]?.workflowVersionConfig.alias,
-            span: Span[2],
+            span: Span[1],
           },
           {
             key: "stateAlias",
@@ -55,7 +55,7 @@ export const WorkflowConfigurationInfo = (props: {
                   }))}
                 />
               ),
-            span: Span[2],
+            span: Span[1],
           },
           {
             key: "serviceAlias",
@@ -87,7 +87,7 @@ export const WorkflowConfigurationInfo = (props: {
                   }))}
                 />
               ),
-            span: Span[2],
+            span: Span[1],
           },
         ]}
         layout="vertical"
