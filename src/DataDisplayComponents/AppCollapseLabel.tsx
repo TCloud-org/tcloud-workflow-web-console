@@ -37,11 +37,13 @@ export const AppCollapseLabel = (props: {
               {formatDate(time)}
             </p>
 
-            <Tooltip title={`Transition ${step}`}>
-              <div className="glass-pill px-3 py-1 flex justify-center items-center rounded-full">
-                T{step}
-              </div>
-            </Tooltip>
+            {step > 0 && (
+              <Tooltip title={`Transition ${step}`}>
+                <div className="glass-pill px-3 py-1 flex justify-center items-center rounded-full">
+                  T{step}
+                </div>
+              </Tooltip>
+            )}
           </div>
         </div>
       </Col>
