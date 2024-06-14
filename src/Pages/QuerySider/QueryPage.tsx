@@ -17,12 +17,18 @@ import { WorkSavedFilterList } from "WorkflowComponents/WorkSavedFilterList";
 import { Col, Select } from "antd";
 import axios from "axios";
 import { FilterQuery } from "features/filter/workFilterSlice";
+import { setQueryWorkflowId } from "features/settings/stepWorkflowSlice";
 import { Key, useCallback, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export const QueryPage = () => {
+  const dispatch = useDispatch();
+
   const authToken = useSelector((state: any) => state.auth.token);
   const clientId = useSelector((state: any) => state.client.clientId);
+  const queryWorkflowId = useSelector(
+    (state: any) => state.stepWorkflow.queryWorkflowId
+  );
 
   const { saved, active }: { saved: FilterQuery[]; active?: string } =
     useSelector((state: any) => state.workFilter);
@@ -34,7 +40,6 @@ export const QueryPage = () => {
   const [selected, setSelected] = useState<Key[]>([]);
   const [isRestrictedAccess, setIsRestrictedAccess] = useState<boolean>(false);
   const [workflows, setWorkflows] = useState<Workflow[]>([]);
-  const [workflowId, setWorkflowId] = useState<string>();
 
   const fetchWorkflows = useCallback(async () => {
     if (clientId && authToken) {
@@ -58,12 +63,12 @@ export const QueryPage = () => {
   }, [clientId, authToken]);
 
   const fetchQueriedWorks = useCallback(async () => {
-    if (!workflowId || !clientId) {
+    if (!queryWorkflowId || !clientId) {
       return;
     }
     setLoading(true);
 
-    const res = await queryWorks(clientId, workflowId, clauses, authToken);
+    const res = await queryWorks(clientId, queryWorkflowId, clauses, authToken);
     if (res.response && res.response.status === 403) {
       setIsRestrictedAccess(true);
     } else {
@@ -93,7 +98,7 @@ export const QueryPage = () => {
     }
 
     setLoading(false);
-  }, [clientId, workflowId, clauses, authToken]);
+  }, [clientId, queryWorkflowId, clauses, authToken]);
 
   useEffect(() => {
     fetchWorkflows();
@@ -120,8 +125,8 @@ export const QueryPage = () => {
               label: workflow.workflowName,
               value: workflow.workflowId,
             }))}
-            value={workflowId}
-            onChange={setWorkflowId}
+            value={queryWorkflowId}
+            onChange={(value: string) => dispatch(setQueryWorkflowId(value))}
             dropdownStyle={{ width: "auto" }}
             placeholder="Select a workflow"
           />

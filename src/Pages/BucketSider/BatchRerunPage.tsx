@@ -54,7 +54,6 @@ export const BatchRerunPage = () => {
     setLoading(true);
 
     const configMap: { [service: string]: ServiceConfiguration[] } = {};
-
     const promises = services.map(async (service) => {
       if (clientId) {
         const res = await fetchServiceConfiguration(
@@ -219,7 +218,6 @@ export const BatchRerunPage = () => {
                   Configure Endpoint by
                   <Select
                     style={{ width: 100 }}
-                    size="small"
                     options={EndpointConfigTypes}
                     value={endpointConfigType}
                     onChange={setEndpointConfigType}
@@ -240,7 +238,6 @@ export const BatchRerunPage = () => {
         />
 
         <AppButton
-          size="small"
           tooltip={`Rerun a batch of ${workIds.length} items`}
           type="primary"
           onClick={handleRerun}

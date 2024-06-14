@@ -97,7 +97,6 @@ export const BatchRerunConfigureEndpointStep = (props: {
     setStateFieldsFromConfig,
     type,
   ]);
-
   const handleServiceValuesChange = (e: {
     [key: string]: { [key: string]: any };
   }) => {

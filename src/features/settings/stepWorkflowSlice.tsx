@@ -5,6 +5,7 @@ export interface StepWorkflowState {
   configurationTabIndex: string;
   bucketWorkflowId: string | undefined;
   graphWorkflowId: string | undefined;
+  queryWorkflowId: string | undefined;
 }
 
 const initialState: StepWorkflowState = {
@@ -12,6 +13,7 @@ const initialState: StepWorkflowState = {
   configurationTabIndex: "workflow",
   bucketWorkflowId: undefined,
   graphWorkflowId: undefined,
+  queryWorkflowId: undefined,
 };
 
 export const stepWorkflowSlice = createSlice({
@@ -30,6 +32,9 @@ export const stepWorkflowSlice = createSlice({
     setGraphWorkflowId: (state, action: PayloadAction<string>) => {
       state.graphWorkflowId = action.payload;
     },
+    setQueryWorkflowId: (state, action: PayloadAction<string>) => {
+      state.queryWorkflowId = action.payload;
+    },
   },
 });
 
@@ -38,6 +43,7 @@ export const {
   setConfigurationTabIndex,
   setBucketWorkflowId,
   setGraphWorkflowId,
+  setQueryWorkflowId,
 } = stepWorkflowSlice.actions;
 
 export default stepWorkflowSlice.reducer;

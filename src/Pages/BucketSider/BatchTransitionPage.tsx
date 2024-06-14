@@ -208,7 +208,6 @@ export const BatchTransitionPage = () => {
         />
 
         <AppButton
-          size="small"
           tooltip={`Transition a batch of ${workIds.length} items from ${from} to ${to}`}
           type="primary"
           onClick={handleBatchTransition}

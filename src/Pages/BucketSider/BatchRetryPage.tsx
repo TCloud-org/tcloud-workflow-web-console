@@ -180,7 +180,6 @@ export const BatchRetryPage = () => {
         />
 
         <AppButton
-          size="small"
           tooltip={`Retry a batch of ${workIds.length} items`}
           type="primary"
           onClick={handleBatchRetry}

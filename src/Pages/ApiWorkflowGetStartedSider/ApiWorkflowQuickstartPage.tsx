@@ -527,7 +527,7 @@ export const ApiWorkflowQuickstartPage = () => {
         snippets={{
           curl: {
             snippet: `curl -X POST \
-https://wos-server-142456886.us-west-2.elb.amazonaws.com/api/private/v1/initiate-tca-workflow \
+https://wos.be.thecloudworlds.com:8080/api/private/v1/initiate-workflow \
 \n     -H 'Content-Type: application/json' \
 \n     -d '{
             "clientId": "admin",

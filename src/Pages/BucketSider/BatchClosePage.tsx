@@ -75,7 +75,6 @@ export const BatchClosePage = () => {
         />
 
         <AppButton
-          size="small"
           tooltip={`Close a batch of ${workIds.length} items`}
           type="primary"
           onClick={handleClose}

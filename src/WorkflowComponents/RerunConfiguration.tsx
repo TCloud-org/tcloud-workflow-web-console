@@ -361,6 +361,7 @@ export const RerunConfiguration = forwardRef<
         open={modalOpen}
         alias={workflowAlias}
         onClose={handleCloseModal}
+        workflowId={workflowId}
       />
     </>
   );

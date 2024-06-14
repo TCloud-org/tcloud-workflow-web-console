@@ -58,6 +58,7 @@ export const BatchRerunConfigureWorkflowStep = (props: {
       </AppVerticalStepContent>
       <WorkflowModal
         open={modalOpen}
+        workflowId={graphs.length > 0 ? graphs[0].workflowId : undefined}
         alias={form.getFieldValue("workflowVersionConfig")?.alias}
         onClose={() => setModalOpen(false)}
       />

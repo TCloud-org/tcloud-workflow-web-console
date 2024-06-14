@@ -4,11 +4,11 @@ import {
   SettingOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { AppImageWithSource } from "DataDisplayComponents/AppImageWithSource";
+import { AppCard } from "DataDisplayComponents/AppCard";
 import { AppButton } from "DataEntryComponents/AppButton";
 import { AppSearchInput } from "DataEntryComponents/AppSearchInput";
 import { AppRow } from "LayoutComponents/AppRow";
-import { Card, Col, Collapse, Flex, Typography, theme } from "antd";
+import { Col, Collapse, Flex, Typography, theme } from "antd";
 import { cloneElement } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -35,8 +35,6 @@ const topics = [
   },
 ];
 
-const bgColor = "#f3f1ff";
-
 export const SupportPage = () => {
   const { token } = theme.useToken();
   const navigate = useNavigate();
@@ -46,7 +44,6 @@ export const SupportPage = () => {
       <Flex
         vertical
         style={{
-          backgroundColor: bgColor,
           borderTopLeftRadius: token.borderRadiusLG,
           borderTopRightRadius: token.borderRadiusLG,
           padding: 64,
@@ -59,35 +56,27 @@ export const SupportPage = () => {
         </Typography.Title>
 
         <AppSearchInput style={{ width: "50%" }} showFilter={false} />
-
-        <AppImageWithSource
-          imageUrl="https://tcw-images.s3.us-west-2.amazonaws.com/2492484-removebg.png"
-          resourceUrl="https://www.freepik.com/free-vector/flat-design-call-center-concept_4723736.htm#fromView=search&page=1&position=3&uuid=cfcab6f1-2cb9-425c-ba36-5c6dd50649bc"
-          resourceLabel="Image by freepik"
-          size={400}
-          preview={false}
-        />
       </Flex>
 
       <AppRow
         gutter={[16, 16]}
+        className="cursor-pointer"
         style={{
           justifyContent: "center",
           padding: "64px 128px",
-          background: token.colorBgContainer,
           margin: 0,
         }}
       >
         {topics.map((topic, i) => (
-          <Col span={6} key={i}>
-            <Card hoverable>
+          <Col span={6} key={i} className="flex flex-col">
+            <AppCard className="h-full">
               <Flex vertical align="center" gap={16}>
                 {cloneElement(topic.icon, {
-                  style: { fontSize: 24, color: token.colorPrimary },
+                  style: { fontSize: 24 },
                 })}
                 <Typography.Text strong>{topic.label}</Typography.Text>
               </Flex>
-            </Card>
+            </AppCard>
           </Col>
         ))}
       </AppRow>
@@ -99,7 +88,6 @@ export const SupportPage = () => {
         gap={32}
         style={{
           padding: "64px 128px",
-          background: token.colorBgContainer,
         }}
       >
         <Typography.Title level={4} style={{ margin: 0 }}>
@@ -108,7 +96,7 @@ export const SupportPage = () => {
 
         <Collapse
           bordered={false}
-          style={{ background: token.colorBgContainer, width: "100%" }}
+          style={{ width: "100%" }}
           expandIconPosition="right"
           ghost
           items={[
@@ -117,13 +105,7 @@ export const SupportPage = () => {
               label: (
                 <Typography.Text strong>This is panel header 1</Typography.Text>
               ),
-              children: (
-                <p>
-                  A dog is a type of domesticated animal. Known for its loyalty
-                  and faithfulness, it can be found as a welcome guest in many
-                  households across the world.
-                </p>
-              ),
+              children: <p>Coming soon...</p>,
               style: {},
             },
             {
@@ -131,13 +113,7 @@ export const SupportPage = () => {
               label: (
                 <Typography.Text strong>This is panel header 2</Typography.Text>
               ),
-              children: (
-                <p>
-                  A dog is a type of domesticated animal. Known for its loyalty
-                  and faithfulness, it can be found as a welcome guest in many
-                  households across the world.
-                </p>
-              ),
+              children: <p>Coming soon...</p>,
               style: {},
             },
           ]}
@@ -146,7 +122,6 @@ export const SupportPage = () => {
 
       <Flex
         style={{
-          backgroundColor: bgColor,
           borderBottomLeftRadius: token.borderRadiusLG,
           borderBottomRightRadius: token.borderRadiusLG,
           padding: 64,

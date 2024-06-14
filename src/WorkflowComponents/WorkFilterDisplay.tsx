@@ -94,7 +94,6 @@ export const WorkFilterDisplay = (props: {
             {data.map((item, i) => renderFilterTags(item, i))}
             <AppButton
               icon={<CloseOutlined style={{ fontSize: "10px" }} />}
-              size="small"
               style={{ fontSize: "12px" }}
               onClick={() => setClauses([])}
             >

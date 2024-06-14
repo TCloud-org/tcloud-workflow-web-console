@@ -10,20 +10,16 @@ import { AppDescriptions } from "../DataDisplayComponents/AppDescriptions";
 import { AppSurface } from "../DataDisplayComponents/AppSurface";
 import { AppSpace } from "../LayoutComponents/AppSpace";
 import { Box } from "../LayoutComponents/Box";
-import { useParams } from "react-router-dom";
-import { decodeWorkId } from "Utils/IdentifierUtils";
 
 export const WorkflowModal = (props: {
   open?: boolean;
   alias?: string;
   onClose?: () => void;
+  workflowId?: string;
 }) => {
-  const { workId } = useParams();
-  const { workflowId, workflowName } = decodeWorkId(workId || "");
-
   const authToken = useSelector((state: any) => state.auth.token);
 
-  const { alias = "live", onClose } = props;
+  const { alias = "live", onClose, workflowId } = props;
 
   const [graph, setGraph] = useState<Graph>();
   const [loading, setLoading] = useState<boolean>(false);
@@ -76,7 +72,7 @@ export const WorkflowModal = (props: {
 
   return (
     <Modal
-      title={workflowName}
+      title={workflowId}
       centered
       open={props.open}
       onCancel={onClose}
@@ -88,7 +84,7 @@ export const WorkflowModal = (props: {
       }}
       width="65%"
     >
-      <AppSpace loading={loading}>
+      <AppSpace loading={loading} className="py-4">
         <AppSurface style={{ paddingBottom: 0 }}>
           <AppDescriptions items={descriptions} layout="vertical" />
         </AppSurface>

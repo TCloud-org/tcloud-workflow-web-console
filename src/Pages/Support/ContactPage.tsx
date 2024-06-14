@@ -4,13 +4,14 @@ import {
   MailOutlined,
   PhoneOutlined,
 } from "@ant-design/icons";
+import { Span } from "Config/DataDisplayInterface";
 import { AppCard } from "DataDisplayComponents/AppCard";
 import { AppSurface } from "DataDisplayComponents/AppSurface";
 import { PageTitle } from "DataDisplayComponents/PageTitle";
 import { AppButton } from "DataEntryComponents/AppButton";
 import { AppForm } from "DataEntryComponents/AppForm";
 import { AppRow } from "LayoutComponents/AppRow";
-import { Col, Flex, Form, Input, Typography } from "antd";
+import { Col, Flex, Form, Input, Row, Typography } from "antd";
 
 const contactOptions = [
   {
@@ -20,8 +21,8 @@ const contactOptions = [
   },
   {
     icon: <MailOutlined />,
-    value: "thecloudworld24@outlook.com",
-    href: "mailto:thecloudworld24@outlook.com",
+    value: "tungdinh@thecloudworlds.com",
+    href: "mailto:tungdinh@thecloudworlds.com",
   },
   {
     icon: <EnvironmentOutlined />,
@@ -32,22 +33,24 @@ const contactOptions = [
 export const ContactPage = () => {
   return (
     <div
+      className="py-6"
       style={{
         display: "flex",
         flexDirection: "column",
         height: "100%",
       }}
     >
-      <PageTitle>Contact us</PageTitle>
-      <AppRow style={{ height: "100%", flex: 1 }} gutter={[16, 16]}>
-        <Col span={12}>
+      <AppRow style={{ height: "100%", flex: 1 }} gutter={[64, 64]}>
+        <Col {...Span[2]}>
           <Flex vertical gap={16} align="flex-start">
+            <PageTitle className="w-full">Contact us</PageTitle>
+
             <Typography.Text>
               Any question? We would be happy to help
             </Typography.Text>
             {contactOptions.map((option, i) => (
               <AppCard
-                style={{ width: 450, cursor: "pointer" }}
+                className="cursor-pointer w-full"
                 key={i}
                 onClick={() => (window.location.href = option.href)}
               >
@@ -59,29 +62,26 @@ export const ContactPage = () => {
             ))}
           </Flex>
         </Col>
-        <Col span={12}>
+        <Col {...Span[2]}>
           <AppSurface type="form">
             <Flex vertical gap={16}>
               <Typography.Title level={3} style={{ marginTop: 0 }}>
                 Get in touch
               </Typography.Title>
               <AppForm layout="vertical" style={{ width: "100%" }}>
-                <Flex align="center" gap={16}>
-                  <Form.Item
-                    style={{ flex: 1 }}
-                    label="First name"
-                    name="firstName"
-                  >
-                    <Input />
-                  </Form.Item>
-                  <Form.Item
-                    style={{ flex: 1 }}
-                    label="Last name"
-                    name="lastName"
-                  >
-                    <Input />
-                  </Form.Item>
-                </Flex>
+                <Row gutter={[24, 24]}>
+                  <Col {...Span[2]}>
+                    <Form.Item label="First name" name="firstName">
+                      <Input />
+                    </Form.Item>
+                  </Col>
+
+                  <Col {...Span[2]}>
+                    <Form.Item label="Last name" name="lastName">
+                      <Input />
+                    </Form.Item>
+                  </Col>
+                </Row>
                 <Form.Item label="Email address" name="email">
                   <Input />
                 </Form.Item>
