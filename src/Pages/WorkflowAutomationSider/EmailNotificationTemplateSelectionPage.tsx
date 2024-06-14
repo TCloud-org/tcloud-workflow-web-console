@@ -62,7 +62,7 @@ export const EmailNotificationTemplateSelectionPage = () => {
         ))}
       </AppRow>
       <Flex justify="flex-end">
-        <AppButton onClick={handleNext} type="primary" size="small">
+        <AppButton onClick={handleNext} type="primary">
           Next
         </AppButton>
       </Flex>

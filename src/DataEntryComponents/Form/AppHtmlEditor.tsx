@@ -18,7 +18,7 @@ export const AppHtmlEditor = (props: {
   const [panorama, setPanorama] = useState<"horizontal" | "vertical">(
     "horizontal"
   );
-  const codeTheme = "light";
+  const codeTheme = "dark";
 
   return (
     <div
@@ -67,7 +67,7 @@ export const AppHtmlEditor = (props: {
           value={value || ""}
           onChange={(value) => onChange(value)}
           theme={
-            codeTheme === "light"
+            codeTheme !== "dark"
               ? githubLightInit({
                   settings: {
                     caret: "#000000",
@@ -77,6 +77,8 @@ export const AppHtmlEditor = (props: {
               : githubDarkInit({
                   settings: {
                     caret: "#c6c6c6",
+                    gutterBackground: "#02031d",
+                    background: "#02031d",
                     fontFamily: "monospace",
                   },
                 })

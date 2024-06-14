@@ -5,12 +5,14 @@ import {
   PhoneOutlined,
 } from "@ant-design/icons";
 import { Span } from "Config/DataDisplayInterface";
+import { WOS_CONTACT_ME } from "Config/WOSEndpointConfig";
 import { AppCard } from "DataDisplayComponents/AppCard";
 import { PageTitle } from "DataDisplayComponents/PageTitle";
 import { AppButton } from "DataEntryComponents/AppButton";
 import { AppForm } from "DataEntryComponents/AppForm";
 import { AppRow } from "LayoutComponents/AppRow";
-import { Col, Flex, Form, Input, Row, Typography } from "antd";
+import { Col, Flex, Form, Input, Row, Typography, message } from "antd";
+import axios from "axios";
 
 const contactOptions = [
   {
@@ -30,6 +32,14 @@ const contactOptions = [
   },
 ];
 export const ContactPage = () => {
+  const [messageApi, contextHolder] = message.useMessage();
+  const [form] = Form.useForm();
+
+  const handleContact = async () => {
+    await axios.post(WOS_CONTACT_ME, { ...form.getFieldsValue() });
+    messageApi.success("Message sent!");
+  };
+
   return (
     <div
       className="py-6"
@@ -39,6 +49,7 @@ export const ContactPage = () => {
         height: "100%",
       }}
     >
+      {contextHolder}
       <AppRow style={{ height: "100%", flex: 1 }} gutter={[64, 64]}>
         <Col {...Span[2]}>
           <Flex vertical gap={16} align="flex-start">
@@ -67,7 +78,12 @@ export const ContactPage = () => {
               <Typography.Title level={3} style={{ marginTop: 0 }}>
                 Get in touch
               </Typography.Title>
-              <AppForm layout="vertical" style={{ width: "100%" }}>
+              <AppForm
+                layout="vertical"
+                style={{ width: "100%" }}
+                form={form}
+                onValuesChange={(_, values) => form.setFieldsValue(values)}
+              >
                 <Row gutter={[24, 24]}>
                   <Col {...Span[2]}>
                     <Form.Item label="First name" name="firstName">
@@ -93,6 +109,7 @@ export const ContactPage = () => {
                     type="primary"
                     style={{ width: "100%" }}
                     icon={<ArrowRightOutlined />}
+                    onClick={handleContact}
                   >
                     Submit
                   </AppButton>
