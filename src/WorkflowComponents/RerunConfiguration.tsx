@@ -243,6 +243,7 @@ export const RerunConfiguration = forwardRef<
           }
         >
           <PageTitle
+            style={{ paddingTop: 0 }}
             level={5}
             endDecorator={
               <AppIconButton type="text" onClick={onClose}>

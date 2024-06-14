@@ -68,7 +68,7 @@ export const WorkflowToolbar = (props: {
           : "0px";
 
       if (rerunRef.current.style.maxHeight === "0px") {
-        rerunRef.current.style.marginBottom = "-48px";
+        rerunRef.current.style.marginBottom = "-64px";
         rerunRef.current.style.opacity = "0";
       } else {
         rerunRef.current.style.marginBottom = "0px";
@@ -85,7 +85,7 @@ export const WorkflowToolbar = (props: {
           ? `${height}px`
           : "0px";
       if (retryRef.current.style.maxHeight === "0px") {
-        retryRef.current.style.marginBottom = "-48px";
+        retryRef.current.style.marginBottom = "-64px";
         retryRef.current.style.opacity = "0";
       } else {
         retryRef.current.style.marginBottom = "0px";
@@ -101,7 +101,7 @@ export const WorkflowToolbar = (props: {
           ? `${height}px`
           : "0px";
       if (transitionRef.current.style.maxHeight === "0px") {
-        transitionRef.current.style.marginBottom = "-48px";
+        transitionRef.current.style.marginBottom = "-64px";
         transitionRef.current.style.opacity = "0";
       } else {
         transitionRef.current.style.marginBottom = "0px";
