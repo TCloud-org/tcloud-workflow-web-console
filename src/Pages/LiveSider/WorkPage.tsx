@@ -1,7 +1,7 @@
 import { AppSurface } from "DataDisplayComponents/AppSurface";
 import { AppRow } from "LayoutComponents/AppRow";
 import { WorkflowInfo } from "WorkflowComponents/WorkflowInfo";
-import { Col, Tabs, TreeDataNode } from "antd";
+import { Col, Divider, Tabs, TreeDataNode } from "antd";
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -211,22 +211,30 @@ export const WorkPage = () => {
         </Col>
 
         <Col {...Span[1]}>
-          <WorkflowToolbar
-            onReload={reload}
-            routes={routeMap[versionSelected]}
-            graph={graph}
-          />
-        </Col>
+          <AppSurface className="!px-0">
+            <div className="px-8 py-4">
+              <WorkflowToolbar
+                onReload={reload}
+                routes={routeMap[versionSelected]}
+                graph={graph}
+              />
+            </div>
 
-        <Col {...Span[2]}>
-          <WorkflowInfo graph={graph} routes={routeMap[versionSelected]} />
-        </Col>
+            <Divider className="border-neutral-11/80" />
 
-        <Col {...Span[2]}>
-          <WorkflowConfigurationInfo
-            data={workflowConfigurationMap}
-            version={versionSelected}
-          />
+            <div className="px-8 py-4">
+              <WorkflowInfo graph={graph} routes={routeMap[versionSelected]} />
+            </div>
+
+            <Divider className="border-neutral-11/80" />
+
+            <div className="px-8 py-4">
+              <WorkflowConfigurationInfo
+                data={workflowConfigurationMap}
+                version={versionSelected}
+              />
+            </div>
+          </AppSurface>
         </Col>
       </AppRow>
       <AppSurface type="form">

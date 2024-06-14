@@ -1,14 +1,8 @@
 import { ReloadOutlined, ShareAltOutlined } from "@ant-design/icons";
+import { Span } from "Config/DataDisplayInterface";
+import { AppInfo } from "DataDisplayComponents/AppInfo";
 import { AppIconToggle } from "DataEntryComponents/AppIconToggle";
-import {
-  Button,
-  Dropdown,
-  Flex,
-  MenuProps,
-  Popconfirm,
-  Typography,
-  message,
-} from "antd";
+import { Button, Dropdown, Flex, MenuProps, Popconfirm, message } from "antd";
 import axios from "axios";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
@@ -20,7 +14,6 @@ import {
   WOS_RETRY_WORKFLOW_ENDPOINT,
 } from "../Config/WOSEndpointConfig";
 import { Graph, Route, WorkflowRunConfig } from "../Config/WorkflowConfig";
-import { AppSurface } from "../DataDisplayComponents/AppSurface";
 import { AppIconButton } from "../DataEntryComponents/AppIconButton";
 import { LiveTransition } from "./LiveTransition";
 import { RerunConfiguration } from "./RerunConfiguration";
@@ -210,82 +203,98 @@ export const WorkflowToolbar = (props: {
   return (
     <>
       {contextHolder}
-      <AppSurface type="form" className="flex">
-        <Flex vertical gap={16}>
-          <Typography.Text className="font-semibold">
-            Action Panel
-          </Typography.Text>
-          <Flex gap={16}>
-            <Dropdown.Button
-              onClick={handleRetry}
-              trigger={["click"]}
-              loading={retryLoading}
-              menu={{
-                items: RetryOptions,
-                onClick: (e) => {
-                  setRunConfig(e.key);
-                },
-              }}
-            >
-              Retry
-            </Dropdown.Button>
+      <AppInfo
+        title="Action Panel"
+        items={[
+          {
+            key: "actions",
+            span: Span[1],
+            children: (
+              <Flex wrap="wrap" gap={16} className="w-full">
+                <Flex>
+                  <Dropdown.Button
+                    onClick={handleRetry}
+                    trigger={["click"]}
+                    loading={retryLoading}
+                    menu={{
+                      items: RetryOptions,
+                      onClick: (e) => {
+                        setRunConfig(e.key);
+                      },
+                    }}
+                  >
+                    Retry
+                  </Dropdown.Button>
+                </Flex>
 
-            <Dropdown.Button
-              onClick={handleRerun}
-              trigger={["click"]}
-              loading={rerunLoading}
-              menu={{
-                items: RerunOptions,
-                onClick: (e) => {
-                  setRunConfig(e.key);
-                },
-              }}
-            >
-              Rerun
-            </Dropdown.Button>
+                <Flex>
+                  <Dropdown.Button
+                    onClick={handleRerun}
+                    trigger={["click"]}
+                    loading={rerunLoading}
+                    menu={{
+                      items: RerunOptions,
+                      onClick: (e) => {
+                        setRunConfig(e.key);
+                      },
+                    }}
+                  >
+                    Rerun
+                  </Dropdown.Button>
+                </Flex>
 
-            <Popconfirm
-              title="Close this workflow"
-              description="Are you sure to close this workflow?"
-              okText="Yes"
-              cancelText="No"
-              onConfirm={handleClose}
-            >
-              <Button loading={closeLoading} danger type="primary">
-                Close
-              </Button>
-            </Popconfirm>
+                <Flex>
+                  <Popconfirm
+                    title="Close this workflow"
+                    description="Are you sure to close this workflow?"
+                    okText="Yes"
+                    cancelText="No"
+                    onConfirm={handleClose}
+                  >
+                    <Button loading={closeLoading} danger type="primary">
+                      Close
+                    </Button>
+                  </Popconfirm>
+                </Flex>
 
-            <AppIconToggle
-              onToggle={() => {
-                setRunConfig((prev: WorkflowRunConfig) =>
-                  prev === WorkflowRunConfig.Transition
-                    ? undefined
-                    : WorkflowRunConfig.Transition
-                );
-              }}
-              title="Transition"
-              active={runConfig === WorkflowRunConfig.Transition}
-            />
+                <Flex>
+                  <AppIconToggle
+                    onToggle={() => {
+                      setRunConfig((prev: WorkflowRunConfig) =>
+                        prev === WorkflowRunConfig.Transition
+                          ? undefined
+                          : WorkflowRunConfig.Transition
+                      );
+                    }}
+                    title="Transition"
+                    active={runConfig === WorkflowRunConfig.Transition}
+                  />
+                </Flex>
 
-            <Flex>
-              <AppIconButton onClick={onReload} tooltip="Reload" type="primary">
-                <ReloadOutlined />
-              </AppIconButton>
-            </Flex>
+                <Flex>
+                  <AppIconButton
+                    onClick={onReload}
+                    tooltip="Reload"
+                    type="primary"
+                  >
+                    <ReloadOutlined />
+                  </AppIconButton>
+                </Flex>
 
-            <Flex>
-              <AppIconButton
-                onClick={handleShare}
-                tooltip="Share"
-                type="primary"
-              >
-                <ShareAltOutlined />
-              </AppIconButton>
-            </Flex>
-          </Flex>
-        </Flex>
-      </AppSurface>
+                <Flex>
+                  <AppIconButton
+                    onClick={handleShare}
+                    tooltip="Share"
+                    type="primary"
+                  >
+                    <ShareAltOutlined />
+                  </AppIconButton>
+                </Flex>
+              </Flex>
+            ),
+          },
+        ]}
+      />
       <RetryConfiguration
         ref={retryRef}
         onClose={handleCloseConfig}

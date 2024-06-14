@@ -1,6 +1,7 @@
 import { AppCopy } from "DataDisplayComponents/AppCopy";
+import { AppInfo } from "DataDisplayComponents/AppInfo";
 import { CodeBeam } from "DataDisplayComponents/CodeBeam";
-import { Col, DescriptionsProps, Row, Typography } from "antd";
+import { DescriptionsProps, Typography } from "antd";
 import { CSSProperties, forwardRef } from "react";
 import { Span } from "../Config/DataDisplayInterface";
 import { Route } from "../Config/WorkflowConfig";
@@ -114,17 +115,7 @@ export const StateCardInfo = forwardRef<HTMLDivElement, StateCardInfoProps>(
         className="mx-6"
         ref={ref}
       >
-        <Row gutter={[32, 32]}>
-          {items.map((item, i) => (
-            <Col className="flex flex-col" key={i} {...(item.span as any)}>
-              <div className="flex flex-col gap-1 h-full">
-                <div className="font-semibold uppercase">{item.label}</div>
-
-                <div className="flex">{item.children}</div>
-              </div>
-            </Col>
-          ))}
-        </Row>
+        <AppInfo items={items} />
       </div>
     );
   }

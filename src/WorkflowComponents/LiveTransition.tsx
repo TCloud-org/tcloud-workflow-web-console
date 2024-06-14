@@ -197,7 +197,6 @@ export const LiveTransition = forwardRef<
         />
 
         <AppButton
-          size="small"
           type="primary"
           loading={loading}
           onClick={handleTransition}
