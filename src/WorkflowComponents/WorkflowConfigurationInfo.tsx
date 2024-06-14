@@ -18,7 +18,7 @@ export const WorkflowConfigurationInfo = (props: {
     <AppSurface style={{ paddingBottom: 0 }}>
       <AppDescriptions
         title="Configuration"
-        className="bg-transparent"
+        className="bg-transparent w-full"
         items={[
           {
             key: "workflowAlias",
@@ -35,24 +35,14 @@ export const WorkflowConfigurationInfo = (props: {
                 "live"
               ) : (
                 <AppTree
-                  style={{ backgroundColor: token.colorFillAlter }}
                   selectable={false}
+                  className="bg-transparent"
                   treeData={Object.entries(
                     data[version]?.stateEndpointConfigMap || {}
                   ).map(([k, v]) => ({
                     key: k,
-                    title: (
-                      <AppSpace size="small" direction="horizontal">
-                        <Typography.Text
-                          style={{ fontWeight: 500 }}
-                        >{`${k}:`}</Typography.Text>
-                        <Typography.Text
-                          style={{ color: token.colorTextSecondary }}
-                        >
-                          {v.alias}
-                        </Typography.Text>
-                      </AppSpace>
-                    ),
+                    title: `${k}: ${v.alias}`,
+                    isLeaf: true,
                   }))}
                 />
               ),
@@ -67,8 +57,8 @@ export const WorkflowConfigurationInfo = (props: {
                 "live"
               ) : (
                 <AppTree
-                  style={{ backgroundColor: token.colorFillAlter }}
                   selectable={false}
+                  className="bg-transparent"
                   treeData={Object.entries(
                     data[version]?.serviceEndpointConfigMap || {}
                   ).map(([k, v]) => ({

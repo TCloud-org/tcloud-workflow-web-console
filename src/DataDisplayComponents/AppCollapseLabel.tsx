@@ -1,8 +1,9 @@
+import { Span } from "Config/DataDisplayInterface";
+import { AppRow } from "LayoutComponents/AppRow";
+import { formatDate } from "Utils/DateUtils";
 import { Col, Flex, Tooltip, Typography } from "antd";
 import { CollapseTag } from "../Utils/ObjectUtils";
 import { AppTag } from "./AppTag";
-import { AppRow } from "LayoutComponents/AppRow";
-import { Span } from "Config/DataDisplayInterface";
 
 export const AppCollapseLabel = (props: {
   label: string;
@@ -10,8 +11,9 @@ export const AppCollapseLabel = (props: {
   endTags?: CollapseTag[];
   id?: string;
   step?: number;
+  time?: string;
 }) => {
-  const { label, startTags = [], endTags = [], step = 0 } = props;
+  const { label, startTags = [], endTags = [], step = 0, time = "" } = props;
   return (
     <AppRow gutter={[16, 16]} id={props.id}>
       <Col {...Span[1]}>
@@ -30,11 +32,17 @@ export const AppCollapseLabel = (props: {
             </Flex>
           </Flex>
 
-          <Tooltip title={`Transition ${step}`}>
-            <div className="glass-pill px-3 py-1 flex justify-center items-center rounded-full">
-              T{step}
-            </div>
-          </Tooltip>
+          <div className="flex items-center gap-2">
+            <p className="text-xs text-paragraph max-w-32 text-end">
+              {formatDate(time)}
+            </p>
+
+            <Tooltip title={`Transition ${step}`}>
+              <div className="glass-pill px-3 py-1 flex justify-center items-center rounded-full">
+                T{step}
+              </div>
+            </Tooltip>
+          </div>
         </div>
       </Col>
 

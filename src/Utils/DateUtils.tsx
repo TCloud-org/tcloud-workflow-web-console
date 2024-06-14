@@ -23,6 +23,21 @@ export const formatDate = (data: number | string | undefined) => {
   return `${utcDate} ${utcTime} (${utcOffset})`;
 };
 
+export const formatDateShort = (data: number | string | undefined) => {
+  if (!data) return undefined;
+
+  let time = parseInt(data.toString());
+  if (isUnixTimestamp(data)) {
+    time *= 1000;
+  }
+  const date = new Date(time);
+
+  const utcString = date.toISOString();
+  const utcDate = utcString.split("T")[0];
+  const utcTime = utcString.split("T")[1].split(".")[0];
+  return `${utcDate} ${utcTime}`;
+};
+
 export const formatDateString = (data: string | undefined) => {
   if (!data) return undefined;
 

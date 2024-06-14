@@ -26,9 +26,9 @@ export const LiveWorkflowViewTab = (props: {
 
   const getColor = (route: Route) => {
     if (route.resultType === "failure") {
-      return token.colorError;
+      return token.colorFill;
     }
-    return token.colorPrimary;
+    return token.colorFill;
   };
 
   return (
@@ -39,6 +39,7 @@ export const LiveWorkflowViewTab = (props: {
         label: (
           <Fragment>
             <AppCollapseLabel
+              time={route.createdAt}
               step={i + 1}
               label={route.source}
               startTags={[
@@ -93,7 +94,7 @@ export const LiveWorkflowViewTab = (props: {
               <AppLineConnector
                 start={getId(routes[i - 1])}
                 end={getId(route)}
-                headShape="arrow1"
+                headShape="circle"
                 color={getColor(route)}
               />
             )}

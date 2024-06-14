@@ -209,6 +209,7 @@ export const WorkPage = () => {
             onChange={setVersionSelected}
           />
         </Col>
+
         <Col {...Span[1]}>
           <WorkflowToolbar
             onReload={reload}
@@ -216,9 +217,11 @@ export const WorkPage = () => {
             graph={graph}
           />
         </Col>
+
         <Col {...Span[2]}>
-          <WorkflowInfo graph={graph} />
+          <WorkflowInfo graph={graph} routes={routeMap[versionSelected]} />
         </Col>
+
         <Col {...Span[2]}>
           <WorkflowConfigurationInfo
             data={workflowConfigurationMap}

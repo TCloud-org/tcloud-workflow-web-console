@@ -51,6 +51,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setClientId, updateClients } from "../features/workflow/clientSlice";
 import { AppBrand } from "./AppBrand";
+import { setTabIndex } from "features/settings/settingsSlice";
 
 export const AppHeader = (props: {
   collapsed?: boolean;
@@ -68,19 +69,28 @@ export const AppHeader = (props: {
       key: "/account",
       icon: <UserOutlined />,
       label: "Account",
-      onClick: () => navigate("/account"),
+      onClick: () => {
+        dispatch(setTabIndex("account"));
+        navigate("/settings");
+      },
     },
     {
       key: "/general",
       icon: <SettingFilled />,
       label: "Settings",
-      onClick: () => navigate("/general"),
+      onClick: () => {
+        dispatch(setTabIndex("general"));
+        navigate("/settings");
+      },
     },
     {
       key: "/billing",
       icon: <ContainerOutlined />,
       label: "Billing",
-      onClick: () => navigate("/billing"),
+      onClick: () => {
+        dispatch(setTabIndex("billing"));
+        navigate("/settings");
+      },
     },
   ];
 
