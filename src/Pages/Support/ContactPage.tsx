@@ -42,7 +42,7 @@ export const ContactPage = () => {
 
   return (
     <div
-      className="py-6"
+      className="py-6 px-4"
       style={{
         display: "flex",
         flexDirection: "column",
@@ -104,7 +104,7 @@ export const ContactPage = () => {
                   <Input.TextArea autoSize={{ minRows: 5, maxRows: 10 }} />
                 </Form.Item>
 
-                <Form.Item style={{ flex: 1 }}>
+                <Form.Item style={{ flex: 1 }} noStyle>
                   <AppButton
                     type="primary"
                     style={{ width: "100%" }}
