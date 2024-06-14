@@ -2,7 +2,7 @@ import { LinkOutlined } from "@ant-design/icons";
 import { DescriptionsProps, Select, Typography } from "antd";
 import axios from "axios";
 import { Key, useCallback, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Span } from "../../Config/DataDisplayInterface";
 import { EditableColumn } from "../../Config/LayoutConfig";
@@ -20,6 +20,7 @@ import { AppLink } from "../../DataEntryComponents/AppLink";
 import { AppSpace } from "../../LayoutComponents/AppSpace";
 import { fetchGraphsById } from "../../Network/WorkflowFetch";
 import { formatDate } from "../../Utils/DateUtils";
+import { setGraphWorkflowId } from "features/settings/stepWorkflowSlice";
 
 const columns: EditableColumn[] = [
   {
@@ -82,19 +83,20 @@ const columns: EditableColumn[] = [
 
 export const GraphPage = (props: { workflows?: Workflow[] }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const { workflows = [] } = props;
 
   const authToken = useSelector((state: any) => state.auth.token);
+  const graphWorkflowId = useSelector(
+    (state: any) => state.stepWorkflow.graphWorkflowId
+  );
 
   const [graphs, setGraphs] = useState<Graph[]>([]);
   const [nextAvailableVersion, setNextAvailableVersion] = useState<number>(1);
   const [liveGraph, setLiveGraph] = useState<Graph>();
   const [selected, setSelected] = useState<Key[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  const [workflowSelected, setWorkflowSelected] = useState<
-    string | undefined
-  >();
 
   const graphDescriptions: DescriptionsProps["items"] = [
     {
@@ -123,22 +125,31 @@ export const GraphPage = (props: { workflows?: Workflow[] }) => {
     },
   ];
 
-  const saveGraph = async (value: any) => {
+  const saveGraph = async (value: Graph) => {
     setLoading(true);
+    const formData = {
+      graphId: value.graphId,
+      clientId: value.clientId,
+      workflowId: value.workflowId,
+      description: value.description,
+      alias: value.alias,
+      version: value.version,
+    };
+
     const config = {
       headers: {
         Authorization: `Bearer ${authToken}`,
       },
     };
-    await axios.post(WOS_ADD_GRAPH_ENDPOINT, value, config);
-    fetchGraphs();
+    await axios.post(WOS_ADD_GRAPH_ENDPOINT, formData, config);
+    await fetchGraphs();
     setLoading(false);
   };
 
-  const fetchGraphs = useCallback(() => {
-    if (workflowSelected) {
+  const fetchGraphs = useCallback(async () => {
+    if (graphWorkflowId) {
       setLoading(true);
-      fetchGraphsById(workflowSelected, authToken)
+      await fetchGraphsById(graphWorkflowId, authToken)
         .then((response: GetGraphsByWorkflowIdOutput | undefined) => {
           setGraphs(response?.graphs || []);
           setNextAvailableVersion(response?.nextAvailableVersion || 1);
@@ -147,7 +158,7 @@ export const GraphPage = (props: { workflows?: Workflow[] }) => {
         })
         .catch((_) => setLoading(false));
     }
-  }, [workflowSelected, authToken]);
+  }, [graphWorkflowId, authToken]);
 
   useEffect(() => {
     fetchGraphs();
@@ -167,8 +178,8 @@ export const GraphPage = (props: { workflows?: Workflow[] }) => {
             value: workflow.workflowId,
           }))}
           dropdownStyle={{ width: "auto" }}
-          value={workflowSelected}
-          onChange={setWorkflowSelected}
+          value={graphWorkflowId}
+          onChange={(value: string) => dispatch(setGraphWorkflowId(value))}
         />
 
         <AppButton onClick={handleCreateGraph} type="primary">
@@ -181,7 +192,7 @@ export const GraphPage = (props: { workflows?: Workflow[] }) => {
       </AppSurface>
 
       <AppTable
-        rows={graphs}
+        rows={[...graphs]}
         columns={columns.map((col) =>
           !col.editable ? col : { ...col, handleSave: saveGraph }
         )}

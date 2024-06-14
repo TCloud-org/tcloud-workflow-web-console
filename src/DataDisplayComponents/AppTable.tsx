@@ -94,7 +94,10 @@ export const AppTable = (
     }, {})
   );
 
-  const data = rows.map((row, i) => ({ ...row, key: row[rowId] || i }));
+  const data = rows.map((row, i) => ({
+    ...row,
+    key: (Math.random() + 1).toString(36).substring(7),
+  }));
 
   const editableColumns = mergedColumns.map((col: EditableColumn, i) => {
     const newCol: EditableColumn = {
@@ -268,14 +271,16 @@ export const AppTable = (
           : undefined
       }
       columns={editableColumns as EditableColumnTypes}
-      dataSource={data.filter((work) => {
-        return (
-          !anyFilters() ||
-          Object.entries(filtered).some(
-            ([dataIndex, filter]) => filter[work[dataIndex] as string]
-          )
-        );
-      })}
+      dataSource={[
+        ...data.filter((work) => {
+          return (
+            !anyFilters() ||
+            Object.entries(filtered).some(
+              ([dataIndex, filter]) => filter[work[dataIndex] as string]
+            )
+          );
+        }),
+      ]}
       onChange={props.onChange}
       loading={props.loading}
       locale={props.locale}

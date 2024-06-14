@@ -17,35 +17,27 @@ export const EditEndpointPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const data = location.state?.data as ServiceConfiguration;
+  const [form] = Form.useForm();
 
   const authToken = useSelector((state: any) => state.auth.token);
-
-  const [formData, setFormData] = useState<{
-    [key: string]: string | number | undefined;
-  }>({});
 
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     if (data) {
-      setFormData((prev) => ({
-        ...prev,
+      form.setFieldsValue({
         serviceId: data.serviceId,
         clientId: data.clientId,
         serviceName: data.serviceName,
         baseUrl: data.baseUrl,
         environment: data.environment,
         alias: data.alias,
-      }));
+      });
     }
-  }, [data]);
+  }, [data, form]);
 
-  const handleFormChange = (e: any) => {
-    const value = Object.values(e)[0] as any;
-    setFormData((prev) => ({
-      ...prev,
-      [Object.keys(e)[0]]: value.target.value as string | number | undefined,
-    }));
+  const handleFormChange = (_: any, values: any) => {
+    form.setFieldsValue(values);
   };
 
   const handleUpdate = () => {
@@ -56,14 +48,14 @@ export const EditEndpointPage = () => {
       },
     };
     axios
-      .post(WOS_ADD_SERVICE_CONFIGURATION_ENDPOINT, formData, config)
+      .post(
+        WOS_ADD_SERVICE_CONFIGURATION_ENDPOINT,
+        form.getFieldsValue(),
+        config
+      )
       .then((_) => {
         setLoading(false);
-        navigate(
-          `/service-configuration/${data.serviceName}/${encodeURIComponent(
-            data.serviceId
-          )}`
-        );
+        navigate(`/service-configuration/${data.serviceName}`);
       })
       .catch((_) => {
         setLoading(false);
@@ -79,51 +71,37 @@ export const EditEndpointPage = () => {
       </Flex>
 
       <AppSurface type="form">
-        <AppForm onValuesChange={handleFormChange}>
-          <Form.Item
-            label="Service Id"
-            name="serviceId"
-            valuePropName="serviceId"
-          >
-            <Input value={formData["serviceId"]} disabled />
+        <AppForm onValuesChange={handleFormChange} form={form}>
+          <Form.Item label="Service Id" name="serviceId">
+            <Input disabled />
           </Form.Item>
 
-          <Form.Item label="Client Id" name="clientId" valuePropName="clientId">
-            <Input value={formData["clientId"]} disabled />
+          <Form.Item label="Client Id" name="clientId">
+            <Input disabled />
           </Form.Item>
 
-          <Form.Item
-            label="Service"
-            name="serviceName"
-            valuePropName="serviceName"
-          >
-            <Input value={formData["serviceName"]} disabled />
+          <Form.Item label="Service" name="serviceName">
+            <Input disabled />
           </Form.Item>
 
           <Form.Item
             label="Endpoint"
             name="baseUrl"
-            valuePropName=""
             rules={[
               { required: true, message: "Please enter a service endpoint" },
             ]}
           >
-            <Input
-              value={formData["baseUrl"]}
-              placeholder="Enter a service endpoint"
-            />
+            <Input placeholder="Enter a service endpoint" />
           </Form.Item>
 
           <Form.Item
             label="Environment"
             name="environment"
-            valuePropName="environment"
             rules={[
               { required: true, message: "Please select an environment" },
             ]}
           >
             <Select
-              value={formData["environment"]}
               options={EnvironmentOptions}
               placeholder="Select an environment"
             />
@@ -132,10 +110,9 @@ export const EditEndpointPage = () => {
           <Form.Item
             label="Alias"
             name="alias"
-            valuePropName="alias"
             tooltip="If this field is left empty, it will be automatically assigned a generated ID"
           >
-            <Input value={formData["alias"]} placeholder="Enter an alias" />
+            <Input placeholder="Enter an alias" />
           </Form.Item>
         </AppForm>
         <Flex justify="center">
