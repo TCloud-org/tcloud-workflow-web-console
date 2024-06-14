@@ -94,10 +94,7 @@ export const AppTable = (
     }, {})
   );
 
-  const data = rows.map((row, i) => ({
-    ...row,
-    key: (Math.random() + 1).toString(36).substring(7),
-  }));
+  const data = rows.map((row, i) => ({ ...row, key: row[rowId] || i }));
 
   const editableColumns = mergedColumns.map((col: EditableColumn, i) => {
     const newCol: EditableColumn = {
