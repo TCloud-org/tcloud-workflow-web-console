@@ -6,7 +6,6 @@ import {
 } from "@ant-design/icons";
 import { Span } from "Config/DataDisplayInterface";
 import { AppCard } from "DataDisplayComponents/AppCard";
-import { AppSurface } from "DataDisplayComponents/AppSurface";
 import { PageTitle } from "DataDisplayComponents/PageTitle";
 import { AppButton } from "DataEntryComponents/AppButton";
 import { AppForm } from "DataEntryComponents/AppForm";
@@ -63,7 +62,7 @@ export const ContactPage = () => {
           </Flex>
         </Col>
         <Col {...Span[2]}>
-          <AppSurface type="form">
+          <AppCard>
             <Flex vertical gap={16}>
               <Typography.Title level={3} style={{ marginTop: 0 }}>
                 Get in touch
@@ -100,7 +99,7 @@ export const ContactPage = () => {
                 </Form.Item>
               </AppForm>
             </Flex>
-          </AppSurface>
+          </AppCard>
         </Col>
       </AppRow>
     </div>
