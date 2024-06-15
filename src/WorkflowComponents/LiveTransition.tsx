@@ -108,7 +108,6 @@ export const LiveTransition = forwardRef<
 
                   <Col {...createSpan(20)}>
                     <Radio.Group
-                      size="small"
                       buttonStyle="solid"
                       style={{ width: "100%" }}
                       value={from}
@@ -138,7 +137,6 @@ export const LiveTransition = forwardRef<
                               {nextStates.map((state, i) => (
                                 <Radio.Group
                                   key={i}
-                                  size="small"
                                   buttonStyle="solid"
                                   style={{ width: "100%" }}
                                   value={to}
@@ -167,7 +165,6 @@ export const LiveTransition = forwardRef<
                               {otherStates.map((state, i) => (
                                 <Radio.Group
                                   key={i}
-                                  size="small"
                                   buttonStyle="solid"
                                   style={{ width: "100%" }}
                                   value={to}

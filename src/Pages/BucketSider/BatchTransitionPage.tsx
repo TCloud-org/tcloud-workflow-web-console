@@ -91,7 +91,6 @@ export const BatchTransitionPage = () => {
       <AppSpace loading={loading}>
         <Steps
           direction="vertical"
-          size="small"
           current={current}
           onChange={setCurrent}
           items={[
@@ -124,7 +123,6 @@ export const BatchTransitionPage = () => {
 
                     <Col {...createSpan(20)}>
                       <Radio.Group
-                        size="small"
                         value={from}
                         buttonStyle="solid"
                         style={{ width: "100%" }}
@@ -152,7 +150,6 @@ export const BatchTransitionPage = () => {
                           <Flex vertical gap={16}>
                             {nextStates.map((state, i) => (
                               <Radio.Group
-                                size="small"
                                 buttonStyle="solid"
                                 value={to}
                                 style={{ width: "100%" }}
@@ -180,7 +177,6 @@ export const BatchTransitionPage = () => {
                           <Flex vertical gap={16}>
                             {otherStates.map((state, i) => (
                               <Radio.Group
-                                size="small"
                                 buttonStyle="solid"
                                 value={to}
                                 style={{ width: "100%" }}

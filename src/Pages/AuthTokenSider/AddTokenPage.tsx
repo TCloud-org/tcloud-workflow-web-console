@@ -124,7 +124,7 @@ export const AddTokenPage = () => {
               options={Object.entries(AuthenticationTypes).map(
                 ([type, value]) => ({
                   label: (
-                    <AppSpace direction="horizontal" size="small">
+                    <AppSpace direction="horizontal">
                       <Typography.Text
                         style={{
                           color: value.disabled

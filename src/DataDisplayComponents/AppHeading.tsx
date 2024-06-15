@@ -21,7 +21,7 @@ export const AppHeading = (props: {
         <Typography.Text strong>{props.children}</Typography.Text>
       </Tooltip>
 
-      <AppSpace direction="horizontal" size="small" align="center">
+      <AppSpace direction="horizontal" align="center">
         {props.endDecorator}
         {props.onReload && (
           <AppIconButton onClick={props.onReload} tooltip="Reload">

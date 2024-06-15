@@ -29,7 +29,6 @@ export const AppList = (props: {
   } = props;
   return (
     <List
-      size="small"
       itemLayout={itemLayout}
       header={
         <AppHeading

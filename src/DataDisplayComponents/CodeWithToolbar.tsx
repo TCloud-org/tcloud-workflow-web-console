@@ -19,7 +19,7 @@ export const CodeWithToolbar = (props: {
         setLanguage={setLanguage}
         language={language}
       />
-      <AppSurface size="small">
+      <AppSurface>
         <CodeDisplay
           language={snippets[language]?.language}
           code={snippets[language]?.snippet}

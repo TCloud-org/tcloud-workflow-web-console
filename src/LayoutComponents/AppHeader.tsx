@@ -172,7 +172,7 @@ export const AppHeader = (props: {
         label: (
           <Flex justify="space-between" align="center">
             <span>Recent</span>
-            <AppButton onClick={handleClear} type="link" size="small">
+            <AppButton onClick={handleClear} type="link">
               Clear
             </AppButton>
           </Flex>
@@ -289,7 +289,6 @@ export const AppHeader = (props: {
                 <Flex justify="center" className="p-4">
                   <AppButton
                     type="primary"
-                    size="small"
                     onClick={handleLogout}
                     icon={<LogoutOutlined />}
                   >
@@ -306,7 +305,7 @@ export const AppHeader = (props: {
                 transition: "all 0.3s",
               }}
               className="px-4 py-2"
-              gap={6}
+              gap={8}
             >
               <AppAvatar />
               <Typography.Text

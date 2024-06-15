@@ -58,7 +58,7 @@ export const WorkflowPage = (props: { workflows?: Workflow[] }) => {
       <PageTitle
         endDecorator={
           <AppButton onClick={handleAddWorkflow} type="primary">
-            Add a new workflow
+            Add workflow
           </AppButton>
         }
       >

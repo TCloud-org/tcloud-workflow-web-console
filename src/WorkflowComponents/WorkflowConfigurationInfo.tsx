@@ -61,7 +61,7 @@ export const WorkflowConfigurationInfo = (props: {
                 ).map(([k, v]) => ({
                   key: k,
                   title: (
-                    <AppSpace size="small" direction="horizontal">
+                    <AppSpace direction="horizontal">
                       <Typography.Text
                         style={{ fontWeight: 500 }}
                       >{`${k}:`}</Typography.Text>

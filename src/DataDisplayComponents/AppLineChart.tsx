@@ -51,7 +51,7 @@ export const AppLineChart = (
         content={({ active, payload, label }) =>
           active && payload && payload.length > 0 ? (
             <AppSurface>
-              <AppSpace size="small">
+              <AppSpace>
                 <Typography.Text
                   strong
                   style={{ fontSize: "12px" }}

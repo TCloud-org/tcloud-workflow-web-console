@@ -1,4 +1,4 @@
-import { Button } from "antd";
+import { AppButton } from "DataEntryComponents/AppButton";
 import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -38,15 +38,20 @@ export const ServicePage = () => {
 
   return (
     <AppSpace>
-      <PageTitle>Service Endpoint Configuration</PageTitle>
+      <PageTitle
+        endDecorator={
+          <AppButton type="primary" onClick={handleAddService}>
+            Add service endpoint
+          </AppButton>
+        }
+      >
+        Service Endpoint Configuration
+      </PageTitle>
       <AppList
         data={services}
         header="Services"
         onReload={fetchServices}
         loading={loading}
-        headerEndDecorator={
-          <Button onClick={handleAddService}>Add a new service</Button>
-        }
       />
     </AppSpace>
   );

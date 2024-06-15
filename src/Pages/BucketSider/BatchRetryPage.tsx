@@ -117,7 +117,6 @@ export const BatchRetryPage = () => {
           current={current}
           onChange={setCurrent}
           direction="vertical"
-          size="small"
           items={[
             {
               title: <AppHeading>1. Review Batch</AppHeading>,

@@ -16,13 +16,13 @@ export const TableTitle = (props: {
 
   return (
     <Flex justify="space-between" align="flex-start">
-      <AppSpace direction="horizontal" size="small" align="center">
+      <AppSpace direction="horizontal" align="center">
         <Typography.Text style={{ margin: 0 }} className="font-semibold">
           {props.children}
         </Typography.Text>
         {startDecorator}
       </AppSpace>
-      <AppSpace direction="horizontal" size="small" align="center">
+      <AppSpace direction="horizontal" align="center">
         {endDecorator}
         {onReload && (
           <AppIconButton onClick={onReload} tooltip="Reload">

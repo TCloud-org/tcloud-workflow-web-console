@@ -39,7 +39,7 @@ const columns = [
     label: "Type",
     value: "type",
     render: (text: string) => (
-      <AppSpace direction="horizontal" size="small">
+      <AppSpace direction="horizontal">
         <Typography.Text>
           {AuthenticationTypes[text as keyof AuthenticationTypesProps]?.label}
         </Typography.Text>

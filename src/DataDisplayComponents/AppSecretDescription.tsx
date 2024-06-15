@@ -1,4 +1,4 @@
-import { Flex, Typography, message, theme } from "antd";
+import { Flex, Typography, message } from "antd";
 import { useState } from "react";
 import { AppButton } from "../DataEntryComponents/AppButton";
 import { AppSpace } from "../LayoutComponents/AppSpace";
@@ -9,17 +9,11 @@ export const AppSecretDescription = (props: {
   children: string;
   mask?: number;
 }) => {
-  const { token } = theme.useToken();
   const { children, mask = defaultMask } = props;
 
   const [messageApi, contextHolder] = message.useMessage();
 
   const [reveal, setReveal] = useState<boolean>(false);
-
-  const buttonStyle = {
-    fontWeight: 600,
-    color: reveal ? "white" : token.colorPrimary,
-  };
 
   const maskSize = parseInt((children.length * mask).toString());
   const maskedText =
@@ -43,19 +37,11 @@ export const AppSecretDescription = (props: {
           <Flex align="center" gap={8}>
             <AppButton
               onClick={() => setReveal((prev) => !prev)}
-              style={buttonStyle}
-              size="small"
               type={reveal ? "primary" : "default"}
             >
               Reveal Key
             </AppButton>
-            <AppButton
-              onClick={handleCopy}
-              size="small"
-              style={{ fontWeight: 600, color: token.colorPrimary }}
-            >
-              Copy Key
-            </AppButton>
+            <AppButton onClick={handleCopy}>Copy Key</AppButton>
           </Flex>
         </AppSpace>
       </AppSurface>

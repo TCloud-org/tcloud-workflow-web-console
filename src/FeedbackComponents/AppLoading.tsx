@@ -7,7 +7,7 @@ export const AppLoading = (props: {
 }) => {
   const { loading = false, children } = props;
   return (
-    <Spin tip="Loading" size="small" spinning={loading}>
+    <Spin tip="Loading" spinning={loading}>
       {children}
     </Spin>
   );

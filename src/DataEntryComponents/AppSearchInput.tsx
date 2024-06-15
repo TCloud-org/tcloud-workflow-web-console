@@ -54,7 +54,7 @@ export const AppSearchInput = (
         prefix={<SearchOutlined />}
         suffix={
           showFilter && (
-            <AppIconButton type="text" size="small" onClick={handleFilterClick}>
+            <AppIconButton type="text" onClick={handleFilterClick}>
               <Icon>tune</Icon>
             </AppIconButton>
           )

@@ -35,18 +35,22 @@ export const RetryPolicyPage = () => {
 
   return (
     <AppSpace loading={loading}>
-      <PageTitle>Retry Policy</PageTitle>
+      <PageTitle
+        endDecorator={
+          <AppButton
+            type="primary"
+            onClick={() => navigate("/step-workflow/add-retry-policy")}
+          >
+            Add retry policy
+          </AppButton>
+        }
+      >
+        Retry Policy
+      </PageTitle>
       <AppList
         data={retryPolicies}
         header="Policies"
         onReload={fetchRetryPolicies}
-        headerEndDecorator={
-          <AppButton
-            onClick={() => navigate("/step-workflow/add-retry-policy")}
-          >
-            Add a new retry policy
-          </AppButton>
-        }
       />
     </AppSpace>
   );

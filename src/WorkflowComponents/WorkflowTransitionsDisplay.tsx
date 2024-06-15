@@ -50,11 +50,7 @@ export const WorkflowTransitionsDisplay = (props: {
             />
             {tier !== ProductTierType.ENTERPRISE && (
               <Flex className="mt-4">
-                <AppButton
-                  type="primary"
-                  size="small"
-                  onClick={handleUpgradePlan}
-                >
+                <AppButton type="primary" onClick={handleUpgradePlan}>
                   Upgrade plan
                 </AppButton>
               </Flex>

@@ -5,7 +5,7 @@ export const AppAvatar = () => {
   const { token } = theme.useToken();
 
   return (
-    <Avatar style={{ backgroundColor: token.colorPrimary }} size="small">
+    <Avatar style={{ backgroundColor: token.colorPrimary }}>
       <UserOutlined />
     </Avatar>
   );

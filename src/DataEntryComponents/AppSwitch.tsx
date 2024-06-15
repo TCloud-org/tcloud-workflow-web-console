@@ -8,7 +8,7 @@ export const AppSwitch = (
   const { children } = props;
   return (
     <Flex gap="8px" align="center">
-      <Switch size="small" {...props} />
+      <Switch {...props} />
       <Typography.Text>{children}</Typography.Text>
     </Flex>
   );

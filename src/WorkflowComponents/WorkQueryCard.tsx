@@ -105,9 +105,8 @@ export const WorkQueryCard = (props: { query: FilterQuery }) => {
       {contextHolder}
       <AppCard
         title={`${key}${isActivated ? " (Active)" : ""}`}
-        size="small"
         extra={
-          <AppIconButton size="small" type="text" onClick={handleRemove}>
+          <AppIconButton type="text" onClick={handleRemove}>
             <CloseOutlined />
           </AppIconButton>
         }

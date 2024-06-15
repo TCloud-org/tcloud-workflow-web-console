@@ -72,7 +72,6 @@ export const WorkflowSettingsToolbar = (props: {
                         (item) => item.dataIndex === attribute
                       ) === -1
                     }
-                    size="small"
                     onChange={(checked) => handleSelect(attribute, checked)}
                   />
                   <Typography.Text>{attribute}</Typography.Text>

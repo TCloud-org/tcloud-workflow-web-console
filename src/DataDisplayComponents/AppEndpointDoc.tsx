@@ -10,7 +10,7 @@ export const AppEndpointDoc = (props: {
 }) => {
   const { endpoint, method = "POST" } = props;
   return (
-    <AppSurface size="small">
+    <AppSurface>
       <Flex justify="space-between" align="center">
         <Flex gap="12px" align="center">
           <HttpMethodBadge method={method} />

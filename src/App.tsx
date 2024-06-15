@@ -1,9 +1,5 @@
 import { AddWorkflowPage } from "Pages/ApiWorkflowConfigurationSider/AddWorkflowPage";
 import { WorkflowPage } from "Pages/ApiWorkflowConfigurationSider/WorkflowPage";
-import { ApiWorkflowHowItWorksPage } from "Pages/ApiWorkflowGetStartedSider/ApiWorkflowHowItWorksPage";
-import { ApiWorkflowIntroductionPage } from "Pages/ApiWorkflowGetStartedSider/ApiWorkflowIntroductionPage";
-import { ApiWorkflowModelPage } from "Pages/ApiWorkflowGetStartedSider/ApiWorkflowModelPage";
-import { ApiWorkflowQuickstartPage } from "Pages/ApiWorkflowGetStartedSider/ApiWorkflowQuickstartPage";
 import { EmailVerificationPage } from "Pages/Authentication/EmailVerificationPage";
 import { ForgotPasswordPage } from "Pages/Authentication/ForgotPasswordPage";
 import { LoginPage } from "Pages/Authentication/LoginPage";
@@ -22,7 +18,6 @@ import { ViewInvitationsPage } from "Pages/PeopleSider/ViewInvitationsPage";
 import { CookiePolicyPage } from "Pages/Policy/CookiePolicyPage";
 import { PrivacyPolicyPage } from "Pages/Policy/PrivacyPolicyPage";
 import { TermsAndConditionsPage } from "Pages/Policy/TermsAndConditionsPage";
-import { QueryPage } from "Pages/QuerySider/QueryPage";
 import { SecurityPage } from "Pages/SecuritySider/SecurityPage";
 import { SettingsPage } from "Pages/SettingsSider/SettingsPage";
 import { EditEmailTemplatePage } from "Pages/Shop/EditEmailTemplatePage";
@@ -67,14 +62,12 @@ import { BatchClosePage } from "./Pages/BucketSider/BatchClosePage";
 import { BatchRerunPage } from "./Pages/BucketSider/BatchRerunPage";
 import { BatchRetryPage } from "./Pages/BucketSider/BatchRetryPage";
 import { BatchTransitionPage } from "./Pages/BucketSider/BatchTransitionPage";
-import { BucketPage } from "./Pages/BucketSider/BucketPage";
 import { DashboardPage } from "./Pages/DashboardPage";
 import { CreateGraphPage } from "./Pages/GraphSider/AddGraphPage";
 import { EditGraphPage } from "./Pages/GraphSider/EditGraphPage";
 import { GraphDetailPage } from "./Pages/GraphSider/GraphDetailPage";
 import { LiveWorkflowPage } from "./Pages/LiveSider/LiveWorkflowPage";
 import { WorkPage } from "./Pages/LiveSider/WorkPage";
-import { OnboardingPage } from "./Pages/OnboardingSider/OnboardingPage";
 import { AddRetryPolicyPage } from "./Pages/RetryPolicySider/AddRetryPolicyPage";
 import { EditRetryPolicyPage } from "./Pages/RetryPolicySider/EditRetryPolicyPage";
 import { RetryPolicyDetailPage } from "./Pages/RetryPolicySider/RetryPolicyDetailPage";
@@ -243,28 +236,8 @@ export const App = () => {
               element: <StepWorkflowPage />,
             },
             {
-              path: "/step-workflow-introduction",
-              element: <ApiWorkflowIntroductionPage />,
-            },
-            {
-              path: "/step-workflow-how-it-works",
-              element: <ApiWorkflowHowItWorksPage />,
-            },
-            {
-              path: "/step-workflow-onboarding",
-              element: <OnboardingPage />,
-            },
-            {
-              path: "/step-workflow-model",
-              element: <ApiWorkflowModelPage />,
-            },
-            {
-              path: "/step-workflow-quickstart",
-              element: <ApiWorkflowQuickstartPage />,
-            },
-            {
               path: "/query",
-              element: <QueryPage />,
+              element: <Navigate to="/step-workflow" />,
             },
             {
               path: "/live",
@@ -276,7 +249,7 @@ export const App = () => {
             },
             {
               path: "/bucket",
-              element: <BucketPage />,
+              element: <Navigate to="/step-workflow" />,
             },
             {
               path: "/bucket/batch-retry",

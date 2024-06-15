@@ -185,7 +185,6 @@ export const BatchRerunPage = () => {
           current={current}
           onChange={setCurrent}
           direction="vertical"
-          size="small"
           items={[
             {
               title: "Review Batch",

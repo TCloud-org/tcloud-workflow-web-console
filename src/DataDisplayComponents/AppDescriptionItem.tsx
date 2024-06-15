@@ -18,7 +18,6 @@ export const AppDescriptionItem = (
   };
   return (
     <AppSpace
-      size="small"
       direction={props.layout}
       style={{
         ...(props.layout === "horizontal" && horizontalStyle),
