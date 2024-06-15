@@ -39,6 +39,7 @@ export const GraphLineConnectors = (props: {
                 states.find((item) => item.name === branch.target)?.id as string
               }
               headShape="arrow1"
+              color="rgb(148 163 184 / 0.5)"
               startAnchor={{ position: "left", offset: { x: 0, y: 0 } }}
               endAnchor={{
                 position: "left",

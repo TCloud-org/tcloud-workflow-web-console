@@ -6,18 +6,9 @@ import {
   DragIndicatorRounded,
 } from "@mui/icons-material";
 import { createOneSpan } from "Config/DataDisplayInterface";
-import { TagVariantMapping } from "DataDisplayComponents/AppTag";
+import { AppTag, TagVariantMapping } from "DataDisplayComponents/AppTag";
 import { AppForm } from "DataEntryComponents/AppForm";
-import {
-  Flex,
-  Form,
-  Input,
-  Select,
-  Tag,
-  Tooltip,
-  Typography,
-  theme,
-} from "antd";
+import { Flex, Form, Input, Select, Tooltip, Typography, theme } from "antd";
 import {
   CSSProperties,
   Dispatch,
@@ -204,7 +195,7 @@ export const GraphStateCard = (props: {
               vertical
               gap={8}
               align="flex-end"
-              className="absolute -left-[50px] bottom-4"
+              className="absolute -left-[64px] bottom-4"
             >
               {branches.map((branch, i) => (
                 <Tooltip
@@ -217,7 +208,7 @@ export const GraphStateCard = (props: {
                   }
                   key={i}
                 >
-                  <Tag
+                  <AppTag
                     style={{ margin: 0 }}
                     id={`${state.id}-${branch.type}-${branch.name}`}
                     color={
@@ -227,7 +218,7 @@ export const GraphStateCard = (props: {
                     }
                   >
                     {branch.type}
-                  </Tag>
+                  </AppTag>
                 </Tooltip>
               ))}
             </Flex>

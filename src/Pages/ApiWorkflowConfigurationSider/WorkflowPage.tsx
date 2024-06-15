@@ -10,11 +10,18 @@ import { AppSpace } from "LayoutComponents/AppSpace";
 import { formatDate } from "Utils/DateUtils";
 import { WorkflowCard } from "WorkflowComponents/WorkflowCard";
 import { Col, Segmented, Typography } from "antd";
+import {
+  setConfigurationTabIndex,
+  setGraphWorkflowId,
+} from "features/settings/stepWorkflowSlice";
 import { Key, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 export const WorkflowPage = (props: { workflows?: Workflow[] }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const { workflows = [] } = props;
 
   const columns: EditableColumn[] = [
@@ -22,9 +29,17 @@ export const WorkflowPage = (props: { workflows?: Workflow[] }) => {
       title: "Id",
       dataIndex: "workflowId",
       render: (text: string) => (
-        <Typography.Text className="flex items-center gap-2">
-          {text} <AppCopy content={text} />
-        </Typography.Text>
+        <div className="flex items-center gap-2">
+          <Typography.Link
+            onClick={() => {
+              dispatch(setGraphWorkflowId(text));
+              dispatch(setConfigurationTabIndex("graph"));
+            }}
+          >
+            {text}
+          </Typography.Link>{" "}
+          <AppCopy content={text} />
+        </div>
       ),
     },
     {
