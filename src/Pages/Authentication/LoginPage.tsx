@@ -131,7 +131,7 @@ export const LoginPage = () => {
             phoneNumber: sysAccount.phoneNumber,
             createdAt: sysAccount.createdAt,
             productTiers: sysAccount.productTiers,
-          },
+          } as Account,
         })
       );
     }
