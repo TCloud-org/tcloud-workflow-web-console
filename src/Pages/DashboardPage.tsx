@@ -163,7 +163,6 @@ export const DashboardPage = () => {
           selected={selected}
           setSelected={setSelected}
           rowId="workId"
-          defaultPageSize={25}
           showFilter
           showDownload
           exludedColumnsFromExport={{ metadata: true }}

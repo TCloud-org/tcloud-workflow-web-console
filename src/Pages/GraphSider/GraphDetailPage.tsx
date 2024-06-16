@@ -1,4 +1,5 @@
 import { EditOutlined } from "@ant-design/icons";
+import { AppSurface } from "DataDisplayComponents/AppSurface";
 import { CodeBeam } from "DataDisplayComponents/CodeBeam";
 import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -45,31 +46,31 @@ export const GraphDetailPage = () => {
   };
 
   return (
-    <AppSpace>
-      <PageTitle
-        endDecorator={
-          <AppIconButton onClick={handleEdit} type="primary">
-            <EditOutlined />
-          </AppIconButton>
-        }
-      >
-        <div style={{ fontSize: "1.5rem" }} className="p-4">
+    <AppSurface>
+      <AppSpace>
+        <PageTitle
+          endDecorator={
+            <AppIconButton onClick={handleEdit} type="primary">
+              <EditOutlined />
+            </AppIconButton>
+          }
+        >
           {graphId}
-        </div>
-      </PageTitle>
+        </PageTitle>
 
-      <GraphInfoCard graph={graph} />
-      <CodeBeam
-        value="xml"
-        snippets={[
-          {
-            key: "xml",
-            label: "XML",
-            value: graph?.graphArch?.xmlGraphFormat.xml || "",
-            language: "xml",
-          },
-        ]}
-      />
-    </AppSpace>
+        <GraphInfoCard graph={graph} />
+        <CodeBeam
+          value="xml"
+          snippets={[
+            {
+              key: "xml",
+              label: "XML",
+              value: graph?.graphArch?.xmlGraphFormat.xml || "",
+              language: "xml",
+            },
+          ]}
+        />
+      </AppSpace>
+    </AppSurface>
   );
 };

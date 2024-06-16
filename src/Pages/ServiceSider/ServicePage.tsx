@@ -37,8 +37,10 @@ export const ServicePage = () => {
   };
 
   return (
-    <AppSpace>
+    <AppSpace className="p-4">
       <PageTitle
+        id="service"
+        onReload={fetchServices}
         endDecorator={
           <AppButton type="primary" onClick={handleAddService}>
             Add service endpoint
@@ -47,12 +49,7 @@ export const ServicePage = () => {
       >
         Service Endpoint Configuration
       </PageTitle>
-      <AppList
-        data={services}
-        header="Services"
-        onReload={fetchServices}
-        loading={loading}
-      />
+      <AppList data={services} header="Services" loading={loading} />
     </AppSpace>
   );
 };

@@ -21,6 +21,7 @@ import { AppSpace } from "../../LayoutComponents/AppSpace";
 import { fetchGraphsById } from "../../Network/WorkflowFetch";
 import { formatDate } from "../../Utils/DateUtils";
 import { setGraphWorkflowId } from "features/settings/stepWorkflowSlice";
+import { PageTitle } from "DataDisplayComponents/PageTitle";
 
 const columns: EditableColumn[] = [
   {
@@ -169,23 +170,30 @@ export const GraphPage = (props: { workflows?: Workflow[] }) => {
   };
 
   return (
-    <AppSpace loading={loading}>
-      <div className="flex items-center justify-between gap-4">
-        <Select
-          placeholder="Select a workflow"
-          options={workflows.map((workflow) => ({
-            label: workflow.workflowName,
-            value: workflow.workflowId,
-          }))}
-          dropdownStyle={{ width: "auto" }}
-          value={graphWorkflowId}
-          onChange={(value: string) => dispatch(setGraphWorkflowId(value))}
-        />
-
-        <AppButton onClick={handleCreateGraph} type="primary">
-          Add graph
-        </AppButton>
-      </div>
+    <AppSpace loading={loading} className="p-4">
+      <PageTitle
+        id="graph"
+        onReload={fetchGraphs}
+        endDecorator={
+          <AppButton onClick={handleCreateGraph} type="primary">
+            Add graph
+          </AppButton>
+        }
+      >
+        <div className="flex items-center gap-4">
+          Graph
+          <Select
+            placeholder="Select a workflow"
+            options={workflows.map((workflow) => ({
+              label: workflow.workflowName,
+              value: workflow.workflowId,
+            }))}
+            dropdownStyle={{ width: "auto" }}
+            value={graphWorkflowId}
+            onChange={(value: string) => dispatch(setGraphWorkflowId(value))}
+          />
+        </div>
+      </PageTitle>
 
       <AppSurface style={{ paddingBottom: 0 }}>
         <AppDescriptions title="Details" items={graphDescriptions} />

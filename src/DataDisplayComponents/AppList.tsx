@@ -1,9 +1,9 @@
-import { LinkOutlined } from "@ant-design/icons";
+import { LinkRounded } from "@mui/icons-material";
 import { List } from "antd";
+import { ListItemLayout } from "antd/es/list";
 import { CSSProperties, ReactNode } from "react";
 import { ListItem } from "../Config/DataDisplayInterface";
 import { AppHeading } from "./AppHeading";
-import { ListItemLayout } from "antd/es/list";
 
 export const AppList = (props: {
   data?: ListItem[];
@@ -30,6 +30,7 @@ export const AppList = (props: {
   return (
     <List
       itemLayout={itemLayout}
+      className="glass-card"
       header={
         <AppHeading
           surface={headerSurface}
@@ -46,14 +47,13 @@ export const AppList = (props: {
         defaultPageSize: 10,
         showQuickJumper: true,
         pageSizeOptions: [5, 10, 25, 50, 100],
-        size: "small",
       }}
       dataSource={data}
       loading={loading}
       renderItem={(item: any, _) => (
         <List.Item>
           <List.Item.Meta
-            avatar={<LinkOutlined />}
+            avatar={<LinkRounded style={{ fontSize: 20 }} />}
             title={<a href={item.href}>{item.title}</a>}
           />
         </List.Item>

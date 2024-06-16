@@ -2,7 +2,6 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface StepWorkflowState {
   tabIndex: string;
-  configurationTabIndex: string;
   bucketWorkflowId: string | undefined;
   graphWorkflowId: string | undefined;
   queryWorkflowId: string | undefined;
@@ -10,7 +9,6 @@ export interface StepWorkflowState {
 
 const initialState: StepWorkflowState = {
   tabIndex: "work",
-  configurationTabIndex: "workflow",
   bucketWorkflowId: undefined,
   graphWorkflowId: undefined,
   queryWorkflowId: undefined,
@@ -22,9 +20,6 @@ export const stepWorkflowSlice = createSlice({
   reducers: {
     setTabIndex: (state, action: PayloadAction<string>) => {
       state.tabIndex = action.payload;
-    },
-    setConfigurationTabIndex: (state, action: PayloadAction<string>) => {
-      state.configurationTabIndex = action.payload;
     },
     setBucketWorkflowId: (state, action: PayloadAction<string>) => {
       state.bucketWorkflowId = action.payload;
@@ -40,7 +35,6 @@ export const stepWorkflowSlice = createSlice({
 
 export const {
   setTabIndex,
-  setConfigurationTabIndex,
   setBucketWorkflowId,
   setGraphWorkflowId,
   setQueryWorkflowId,

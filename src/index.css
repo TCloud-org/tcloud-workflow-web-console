@@ -21,6 +21,10 @@ code {
     monospace;
 }
 
+html {
+  scroll-padding-top: 6rem;
+}
+
 .inner-html {
   overflow  : auto;
   max-height: 300px;
@@ -667,4 +671,8 @@ a {
   position     : absolute;
   border-radius: inherit;
   inset        : 0px;
+}
+
+.ant-table-title {
+  padding: 16px 0 !important;
 }

@@ -15,7 +15,7 @@ export const TableTitle = (props: {
     props;
 
   return (
-    <Flex justify="space-between" align="flex-start">
+    <Flex justify="space-between" align="center">
       <AppSpace direction="horizontal" align="center">
         <Typography.Text style={{ margin: 0 }} className="font-semibold">
           {props.children}

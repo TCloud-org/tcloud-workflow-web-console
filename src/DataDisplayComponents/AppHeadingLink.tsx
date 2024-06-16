@@ -5,7 +5,6 @@ import { useState } from "react";
 
 export const scrollToHash = () => {
   const hash = window.location.hash.slice(1);
-
   if (hash) {
     const element = document.getElementById(hash);
     if (element) {

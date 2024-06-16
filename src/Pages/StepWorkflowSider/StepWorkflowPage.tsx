@@ -16,10 +16,13 @@ export const StepWorkflowPage = () => {
   };
 
   return (
-    <AppSurface type="form">
+    <AppSurface type="form" className="!px-0">
       <AppMainTabs
         activeKey={tabIndex}
         onChange={handleTabChange}
+        tabBarStyle={{
+          padding: "0 16px",
+        }}
         items={[
           {
             key: "work",

@@ -3,26 +3,27 @@ import { EditableColumn } from "Config/LayoutConfig";
 import { Workflow } from "Config/WorkflowConfig";
 import { AppCopy } from "DataDisplayComponents/AppCopy";
 import { AppTable } from "DataDisplayComponents/AppTable";
-import { PageTitle } from "DataDisplayComponents/PageTitle";
+import { PageTitle, scrollToId } from "DataDisplayComponents/PageTitle";
 import { AppButton } from "DataEntryComponents/AppButton";
 import { AppRow } from "LayoutComponents/AppRow";
 import { AppSpace } from "LayoutComponents/AppSpace";
 import { formatDate } from "Utils/DateUtils";
 import { WorkflowCard } from "WorkflowComponents/WorkflowCard";
 import { Col, Segmented, Typography } from "antd";
-import {
-  setConfigurationTabIndex,
-  setGraphWorkflowId,
-} from "features/settings/stepWorkflowSlice";
+import { setGraphWorkflowId } from "features/settings/stepWorkflowSlice";
 import { Key, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-export const WorkflowPage = (props: { workflows?: Workflow[] }) => {
+export const WorkflowPage = (props: {
+  workflows?: Workflow[];
+  onReload?: () => void;
+  loading?: boolean;
+}) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { workflows = [] } = props;
+  const { workflows = [], onReload, loading } = props;
 
   const columns: EditableColumn[] = [
     {
@@ -33,7 +34,8 @@ export const WorkflowPage = (props: { workflows?: Workflow[] }) => {
           <Typography.Link
             onClick={() => {
               dispatch(setGraphWorkflowId(text));
-              dispatch(setConfigurationTabIndex("graph"));
+              navigate("#graph");
+              scrollToId("graph");
             }}
           >
             {text}
@@ -69,8 +71,10 @@ export const WorkflowPage = (props: { workflows?: Workflow[] }) => {
   };
 
   return (
-    <AppSpace>
+    <AppSpace className="p-4" loading={loading}>
       <PageTitle
+        id="workflow"
+        onReload={onReload}
         endDecorator={
           <AppButton onClick={handleAddWorkflow} type="primary">
             Add workflow

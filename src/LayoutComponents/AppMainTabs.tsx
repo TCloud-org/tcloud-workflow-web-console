@@ -1,5 +1,7 @@
 import { Tabs, TabsProps } from "antd";
 
 export const AppMainTabs = (props: TabsProps) => {
-  return <Tabs {...props} tabBarStyle={{ fontWeight: 600 }} />;
+  return (
+    <Tabs {...props} tabBarStyle={{ fontWeight: 600, ...props.tabBarStyle }} />
+  );
 };

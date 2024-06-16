@@ -117,7 +117,7 @@ export const QueryPage = () => {
   }, [active, saved]);
 
   return (
-    <AppSpace>
+    <AppSpace className="p-4">
       <PageTitle
         endDecorator={
           <Select
@@ -162,7 +162,6 @@ export const QueryPage = () => {
             selected={selected}
             setSelected={setSelected}
             rowId="workId"
-            defaultPageSize={25}
             showFilter
             showDownload
             exludedColumnsFromExport={{ metadata: true }}

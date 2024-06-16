@@ -24,7 +24,11 @@ export const AppHeading = (props: {
       <AppSpace direction="horizontal" align="center">
         {props.endDecorator}
         {props.onReload && (
-          <AppIconButton onClick={props.onReload} tooltip="Reload">
+          <AppIconButton
+            type="primary"
+            onClick={props.onReload}
+            tooltip="Reload"
+          >
             <ReloadOutlined />
           </AppIconButton>
         )}

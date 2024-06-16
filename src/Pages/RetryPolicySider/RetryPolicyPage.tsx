@@ -34,8 +34,10 @@ export const RetryPolicyPage = () => {
   }, [fetchRetryPolicies]);
 
   return (
-    <AppSpace loading={loading}>
+    <AppSpace loading={loading} className="p-4">
       <PageTitle
+        id="retry-policy"
+        onReload={fetchRetryPolicies}
         endDecorator={
           <AppButton
             type="primary"
@@ -47,11 +49,7 @@ export const RetryPolicyPage = () => {
       >
         Retry Policy
       </PageTitle>
-      <AppList
-        data={retryPolicies}
-        header="Policies"
-        onReload={fetchRetryPolicies}
-      />
+      <AppList data={retryPolicies} header="Policies" />
     </AppSpace>
   );
 };
