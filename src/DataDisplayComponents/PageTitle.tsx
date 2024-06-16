@@ -31,6 +31,7 @@ export const scrollToHash = () => {
 export const PageTitle = (props: {
   children?: ReactNode;
   endDecorator?: ReactNode;
+  startDecorator?: ReactNode;
   className?: string;
   onReload?: () => void;
   level?: TitleProps["level"];
@@ -53,7 +54,7 @@ export const PageTitle = (props: {
     >
       <Col
         {...Span[2]}
-        className="flex items-center justify-center lg:justify-start"
+        className="flex items-center gap-2 justify-center lg:justify-start"
       >
         <Typography.Title
           level={props.level || 4}
@@ -74,11 +75,13 @@ export const PageTitle = (props: {
 
         <LinkRounded
           style={{
-            marginLeft: 8,
             opacity: isHovered ? 1 : 0,
+            width: !isHovered ? 0 : undefined,
             transition: "all 0.3s ease-in-out",
           }}
         />
+
+        {props.startDecorator}
       </Col>
       <Col {...Span[2]} className="flex justify-center lg:justify-end">
         <AppSpace direction="horizontal" align="center">

@@ -1,5 +1,5 @@
 import { LinkRounded } from "@mui/icons-material";
-import { List } from "antd";
+import { List, Typography } from "antd";
 import { ListItemLayout } from "antd/es/list";
 import { CSSProperties, ReactNode } from "react";
 import { ListItem } from "../Config/DataDisplayInterface";
@@ -54,7 +54,9 @@ export const AppList = (props: {
         <List.Item>
           <List.Item.Meta
             avatar={<LinkRounded style={{ fontSize: 20 }} />}
-            title={<a href={item.href}>{item.title}</a>}
+            title={
+              <Typography.Link href={item.href}>{item.title}</Typography.Link>
+            }
           />
         </List.Item>
       )}

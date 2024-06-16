@@ -1,6 +1,8 @@
 import { EditOutlined } from "@ant-design/icons";
+import { AppInfo } from "DataDisplayComponents/AppInfo";
 import { Flex } from "antd";
 import { ReactElement, useCallback, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Text } from "recharts";
 import { Span } from "../../Config/DataDisplayInterface";
@@ -12,7 +14,6 @@ import {
   RetryStimulationItem,
 } from "../../Config/RetryConfig";
 import { AppAreaChart } from "../../DataDisplayComponents/AppAreaChart";
-import { AppDescriptions } from "../../DataDisplayComponents/AppDescriptions";
 import { AppSurface } from "../../DataDisplayComponents/AppSurface";
 import { AppTable } from "../../DataDisplayComponents/AppTable";
 import { PageTitle } from "../../DataDisplayComponents/PageTitle";
@@ -21,7 +22,7 @@ import { AppIconButton } from "../../DataEntryComponents/AppIconButton";
 import { AppSpace } from "../../LayoutComponents/AppSpace";
 import { getRetryPolicy } from "../../Network/RetryFetch";
 import { formatTime, formatTimeShort } from "../../Utils/DateUtils";
-import { useSelector } from "react-redux";
+import { AppCopy } from "DataDisplayComponents/AppCopy";
 
 const columns: EditableColumn[] = [
   {
@@ -103,14 +104,25 @@ export const RetryPolicyDetailPage = () => {
       RetryPolicyOptions[
         policy?.policyType.toString() as keyof RetryPolicyOptionsProps
       ]?.value?.inputs || [];
-    setRetryPolicyDescriptions(
-      inputs.map((input, i) => ({
-        key: i,
+    setRetryPolicyDescriptions([
+      {
+        key: 0,
+        label: "ID",
+        children: (
+          <p className="flex items-center gap-2">
+            {policy?.retryPolicyId}
+            <AppCopy content={policy?.retryPolicyId || ""} />
+          </p>
+        ),
+        span: Span[2],
+      },
+      ...inputs.map((input, i) => ({
+        key: i + 1,
         label: input.label,
         children: policy?.[input.value],
         span: Span[2],
-      }))
-    );
+      })),
+    ]);
   };
 
   useEffect(() => {
@@ -148,8 +160,8 @@ export const RetryPolicyDetailPage = () => {
       >
         {retryPolicy?.name}
       </PageTitle>
-      <AppSurface type="form" style={{ paddingBottom: 0 }}>
-        <AppDescriptions
+      <AppSurface type="form">
+        <AppInfo
           title="Details"
           items={retryPolicyDescriptions}
           layout="vertical"

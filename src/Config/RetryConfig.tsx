@@ -127,7 +127,7 @@ export const RetryPolicyOptions: RetryPolicyOptionsProps = {
 };
 
 export interface RetryPolicy {
-  retryPolicyId: number;
+  retryPolicyId: string;
   name: string;
   clientId: string;
   policyType: RetryPolicyType;

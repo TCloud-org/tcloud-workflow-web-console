@@ -174,14 +174,7 @@ export const GraphPage = (props: { workflows?: Workflow[] }) => {
       <PageTitle
         id="graph"
         onReload={fetchGraphs}
-        endDecorator={
-          <AppButton onClick={handleCreateGraph} type="primary">
-            Add graph
-          </AppButton>
-        }
-      >
-        <div className="flex items-center gap-4">
-          Graph
+        startDecorator={
           <Select
             placeholder="Select a workflow"
             options={workflows.map((workflow) => ({
@@ -192,7 +185,14 @@ export const GraphPage = (props: { workflows?: Workflow[] }) => {
             value={graphWorkflowId}
             onChange={(value: string) => dispatch(setGraphWorkflowId(value))}
           />
-        </div>
+        }
+        endDecorator={
+          <AppButton onClick={handleCreateGraph} type="primary">
+            Add graph
+          </AppButton>
+        }
+      >
+        Graph
       </PageTitle>
 
       <AppSurface style={{ paddingBottom: 0 }}>
