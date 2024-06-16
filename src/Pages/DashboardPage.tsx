@@ -62,8 +62,8 @@ export const DashboardPage = () => {
   const fetchWorksInRange = useCallback(async () => {
     if ((dateRange || period) && clientId) {
       setLoading(true);
-      const start = dateRange[0];
-      const end = dateRange[1];
+      const start = dateRange?.[0];
+      const end = dateRange?.[1];
       const workRes = await getWorksInDateRange(
         clientId,
         authToken,
