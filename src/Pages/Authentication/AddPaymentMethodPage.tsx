@@ -29,8 +29,9 @@ export const AddPaymentMethodPage = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [redirecting, setRedirecting] = useState<boolean>(false);
 
+  console.log(account.email);
   const issueToken = useCallback(async () => {
-    if (success && sessionId && account.email) {
+    if (success && sessionId && account?.email) {
       setRedirecting(true);
       const formData = {
         sessionId: sessionId,
