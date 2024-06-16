@@ -18,7 +18,7 @@ export const WorkflowInfo = (props: { graph?: Graph; routes?: Route[] }) => {
       ? new Date(parseInt(lastRoute.createdAt) * 1000).getTime() -
         new Date(parseInt(firstRoute.createdAt) * 1000).getTime()
       : undefined;
-  const defaultNextRetry = new Date(Date.now() + 5 * 60000).getTime();
+  const defaultNextRetry = new Date(Date.now() + 15 * 60000).getTime();
 
   const items: DescriptionsProps["items"] = [
     {

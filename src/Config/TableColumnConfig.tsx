@@ -7,7 +7,7 @@ export const WorkColumns: EditableColumn[] = [
   {
     title: "Work ID",
     dataIndex: "workId",
-    width: 300,
+    width: "25%",
     render: (text: string) => (
       <AppLink href={`/live/${encodeURIComponent(text)}`}>{text}</AppLink>
     ),
@@ -41,7 +41,6 @@ export const WorkColumns: EditableColumn[] = [
     title: "Modified",
     dataIndex: "createdAt",
     render: (text: string) => formatDate(text),
-    width: 300,
     sorter: (a, b) =>
       new Date(a["createdAt"] * 1000).getTime() -
       new Date(b["createdAt"] * 1000).getTime(),
