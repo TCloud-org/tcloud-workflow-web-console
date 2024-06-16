@@ -79,6 +79,7 @@ import { ServiceDetailPage } from "./Pages/ServiceSider/ServiceDetailPage";
 import { ServiceEndpointSetting } from "./Pages/ServiceSider/ServiceEndpointSetting";
 import { deserializeLocation } from "./Utils/Serializer";
 import { setItems } from "./features/navigation/breadcrumbSlice";
+import { AddPaymentMethodPage } from "Pages/Authentication/AddPaymentMethodPage";
 
 export const App = () => {
   const {
@@ -191,6 +192,10 @@ export const App = () => {
             {
               path: "/reset-your-password/:resetToken",
               element: <ResetPasswordPage />,
+            },
+            {
+              path: "/add-payment-method",
+              element: <AddPaymentMethodPage />,
             },
             {
               path: "*",

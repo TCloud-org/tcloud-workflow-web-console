@@ -94,12 +94,12 @@ export const EmailVerificationPage = () => {
       if (isVerified) {
         dispatch(
           login({
-            token: data?.token,
+            token: undefined,
             account: data?.account,
             rememberMeToken: data?.rememberMeToken,
           })
         );
-        navigate("/");
+        navigate(`/add-payment-method?${searchParams}`);
       } else {
         messageApi.error("OTP verification failed");
       }

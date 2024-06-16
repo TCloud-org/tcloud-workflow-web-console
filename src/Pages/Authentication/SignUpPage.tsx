@@ -48,7 +48,7 @@ export const SignUpPage = () => {
   }, [fetchInvitationToken]);
 
   const handleLogin = () => {
-    navigate("/");
+    navigate(`/?${searchParams}`);
   };
 
   const handleValuesChange = (_: any, values: any) => {

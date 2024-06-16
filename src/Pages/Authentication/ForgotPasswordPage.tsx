@@ -76,10 +76,10 @@ export const ForgotPasswordPage = () => {
             <AppLogoText />
 
             <Typography.Title level={3}>Forgot your password?</Typography.Title>
-            <Typography.Text>
+            <p className="text-paragraph">
               Enter your email below to receive password reset instructions
-            </Typography.Text>
-            <Typography.Text type="secondary">
+            </p>
+            <p className="text-paragraph">
               Didn't receive instructions?{" "}
               <AppButton
                 type="link"
@@ -96,7 +96,7 @@ export const ForgotPasswordPage = () => {
                   Resend email
                 </Typography.Text>
               </AppButton>
-            </Typography.Text>
+            </p>
             <AppForm
               wrapperCol={Span[1]}
               style={{

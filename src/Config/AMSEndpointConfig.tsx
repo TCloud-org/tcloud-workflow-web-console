@@ -11,3 +11,6 @@ export const AMS_GET_ACCOUNT_ENDPOINT = AMS_ENDPOINT + "/get-account";
 export const AMS_CREATE_CHECKOUT_SESSION_ENDPOINT =
   AMS_ENDPOINT + "/create-checkout-session";
 export const AMS_GET_PAYMENT_ENDPOINT = AMS_ENDPOINT + "/get-payment";
+export const AMS_CREATE_PAYMENT_LINK_ENDPOINT =
+  AMS_ENDPOINT + "/create-payment-link";
+export const AMS_ISSUE_TOKEN = AMS_ENDPOINT + "/issue-token";

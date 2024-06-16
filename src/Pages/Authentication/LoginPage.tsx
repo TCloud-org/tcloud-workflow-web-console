@@ -121,7 +121,7 @@ export const LoginPage = () => {
 
       dispatch(
         login({
-          token: systemSignIn.token,
+          token: undefined,
           account: {
             email: sysAccount.email,
             firstName: sysAccount.firstName,
@@ -137,6 +137,8 @@ export const LoginPage = () => {
     }
 
     setGoogleSignInLoading(false);
+
+    navigate(`/add-payment-method?${searchParams}`);
   };
 
   const handleValuesChange = (_: any, values: any) => {
@@ -175,16 +177,16 @@ export const LoginPage = () => {
       if (res && res?.account?.isEmailVerified) {
         dispatch(
           login({
-            token: res.token,
+            token: undefined,
             account: res.account,
             rememberMeToken: isRememberMe ? res.token : undefined,
           })
         );
+        navigate(`/add-payment-method?${searchParams}`);
       } else {
-        navigate("/email-verification", {
+        navigate(`/email-verification?${searchParams}`, {
           state: {
             data: {
-              token: res.token,
               account: res.account,
               rememberMeToken: isRememberMe ? res.token : undefined,
               verificationToken: res.verificationToken,
