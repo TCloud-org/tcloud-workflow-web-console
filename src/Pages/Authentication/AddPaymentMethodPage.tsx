@@ -100,6 +100,14 @@ export const AddPaymentMethodPage = () => {
               Failed to add a default payment method
             </p>
           </div>
+
+          <AppButton
+            type="primary"
+            className="mt-8"
+            onClick={() => navigate("/")}
+          >
+            Start over
+          </AppButton>
         </Fragment>
       );
     }
