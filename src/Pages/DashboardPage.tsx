@@ -19,9 +19,11 @@ import {
   getWorkStatisticInDateRange,
   getWorksInDateRange,
 } from "../Network/WorkFetch";
+import { Account } from "features/auth/authSlice";
 
 export const DashboardPage = () => {
   const authToken = useSelector((state: any) => state.auth.token);
+  const account: Account = useSelector((state: any) => state.auth.account);
   const clientId = useSelector((state: any) => state.client.clientId);
   const period = useSelector((state: any) => state.dashboard.period);
   const dateRange = useSelector((state: any) => state.dashboard.dateRange);
@@ -37,11 +39,12 @@ export const DashboardPage = () => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const fetchBilling = useCallback(async () => {
-    if (clientId && authToken) {
-      const res = await getBilling(clientId, authToken);
+    if (account.email && authToken) {
+      const res = await getBilling(account.email, authToken);
       setBilling(res.billing);
     }
-  }, [clientId, authToken]);
+  }, [account, authToken]);
+
   const fetchInfraStat = useCallback(async () => {
     if (clientId && authToken) {
       setInfraStatisticLoading(true);

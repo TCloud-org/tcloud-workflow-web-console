@@ -216,13 +216,13 @@ export interface GetBillingOutput {
   billing: StepWorkflowBilling;
 }
 
-export const getBilling = async (clientId: string, token: string) => {
+export const getBilling = async (email: string, token: string) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   };
   return await axios
-    .get(`${WOS_GET_BILLING_ENDPOINT}?clientId=${clientId}`, config)
+    .get(`${WOS_GET_BILLING_ENDPOINT}?email=${email}`, config)
     .then((res) => res.data as GetBillingOutput);
 };
