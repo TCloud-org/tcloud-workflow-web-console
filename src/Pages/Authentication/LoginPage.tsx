@@ -20,7 +20,7 @@ import {
   theme,
 } from "antd";
 import axios from "axios";
-import { Account, AuthType, login } from "features/auth/authSlice";
+import { Account, AuthType, login, setToken } from "features/auth/authSlice";
 import { jwtDecode } from "jwt-decode";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -138,7 +138,12 @@ export const LoginPage = () => {
 
     setGoogleSignInLoading(false);
 
-    navigate(`/add-payment-method?${searchParams}`);
+    if (systemSignIn?.isNewUser) {
+      navigate(`/add-payment-method?${searchParams}`);
+    } else {
+      dispatch(setToken(systemSignIn?.token));
+      navigate("/");
+    }
   };
 
   const handleValuesChange = (_: any, values: any) => {
@@ -182,7 +187,12 @@ export const LoginPage = () => {
             rememberMeToken: isRememberMe ? res.token : undefined,
           })
         );
-        navigate(`/add-payment-method?${searchParams}`);
+        if (res?.isNewUser) {
+          navigate(`/add-payment-method?${searchParams}`);
+        } else {
+          dispatch(setToken(res?.token));
+          navigate("/");
+        }
       } else {
         navigate(`/email-verification?${searchParams}`, {
           state: {
