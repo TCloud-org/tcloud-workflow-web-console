@@ -138,6 +138,7 @@ export const LoginPage = () => {
 
     setGoogleSignInLoading(false);
 
+    console.log(systemSignIn);
     if (systemSignIn?.isNewUser) {
       navigate(`/add-payment-method?${searchParams}`);
     } else {
