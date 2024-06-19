@@ -62,6 +62,16 @@ root.render(
           activeShadow: "none",
           colorTextDisabled: "#8d8c95",
         },
+        InputNumber: {
+          colorBgContainer: "rgb(22 20 39 / 0.5)",
+          hoverBorderColor: "rgb(40 38 55 / 1)",
+          activeBorderColor: "rgb(141 140 149 / 1)",
+          colorText: "white",
+          colorTextPlaceholder: "rgb(141 140 149 / 1)",
+          colorBorder: "rgb(40 38 55 / 1)",
+          activeShadow: "none",
+          colorTextDisabled: "#8d8c95",
+        },
         Select: {
           optionSelectedColor: "white",
           optionSelectedBg: "rgb(70 69 83 / 0.5)",

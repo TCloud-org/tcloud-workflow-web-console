@@ -1,5 +1,9 @@
 import { CreditCardOutlined } from "@ant-design/icons";
-import { CancelRounded, CheckCircleRounded } from "@mui/icons-material";
+import {
+  CancelRounded,
+  CheckCircleRounded,
+  InfoRounded,
+} from "@mui/icons-material";
 import {
   AMS_CREATE_CHECKOUT_SESSION_ENDPOINT,
   AMS_ISSUE_TOKEN,
@@ -117,6 +121,12 @@ export const AddPaymentMethodPage = () => {
         <AppLogoText />
 
         <Typography.Title level={3}>Add Payment Method</Typography.Title>
+        <p className="text-white mb-4 flex flex-col text-center items-center gap-4 p-4 glass-card">
+          <InfoRounded /> We're currently in BETA mode and Stripe is in TEST
+          mode. Do NOT use your credit card number. Instead, please enter a
+          random number (e.g., 4242 4242 4242 4242)
+        </p>
+
         <p className="text-paragraph mb-4">
           You will not be charged for usage below the minimum cost
         </p>

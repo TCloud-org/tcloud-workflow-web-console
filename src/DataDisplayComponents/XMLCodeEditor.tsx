@@ -40,7 +40,7 @@ export const XMLCodeEditor = (props: {
         {
           label: "wait",
           type: "text",
-          apply: 'wait name="" duration="" unit=""></wait>',
+          apply: 'wait name="" period=""></wait>',
         },
         { label: "success", type: "text", apply: 'success name="" goto=""/>' },
         {

@@ -68,7 +68,7 @@ export const SetupNextState = (props: {
       <Flex
         align="center"
         style={{ transition: "all 0.3s" }}
-        className="hover:bg-slate-400/10 rounded-md cursor-pointer px-2"
+        className="hover:bg-slate-400/10 rounded-md cursor-pointer px-2 py-1"
         gap={8}
         onClick={() => setModalOpen(true)}
       >

@@ -36,6 +36,7 @@ export interface GraphState {
   name: string;
   service?: string;
   operation?: string;
+  period?: number;
   branches?: GraphResult[];
   removable?: boolean;
 }

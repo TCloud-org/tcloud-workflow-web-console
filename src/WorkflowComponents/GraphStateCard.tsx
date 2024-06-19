@@ -8,7 +8,16 @@ import {
 import { createOneSpan } from "Config/DataDisplayInterface";
 import { AppTag, TagVariantMapping } from "DataDisplayComponents/AppTag";
 import { AppForm } from "DataEntryComponents/AppForm";
-import { Flex, Form, Input, Select, Tooltip, Typography, theme } from "antd";
+import {
+  Flex,
+  Form,
+  Input,
+  InputNumber,
+  Select,
+  Tooltip,
+  Typography,
+  theme,
+} from "antd";
 import {
   CSSProperties,
   Dispatch,
@@ -70,7 +79,7 @@ export const GraphStateCard = (props: {
       <div
         ref={setNodeRef}
         style={style}
-        className="bg-dark opacity-40 border-2 border-primary w-[350px] h-[350px] rounded-2xl flex flex-col"
+        className="bg-neutral-11 opacity-40 w-[350px] h-[350px] rounded-2xl flex flex-col"
       ></div>
     );
   }
@@ -181,6 +190,34 @@ export const GraphStateCard = (props: {
                   <Input />
                 </Form.Item>
               </>
+            )}
+
+            {state.type === GraphStateType.WAIT && (
+              <Form.Item
+                label="Period"
+                name="period"
+                className="mb-2 lg:mb-4"
+                tooltip={
+                  <span>
+                    The wait state will be released after the assigned period.
+                    If no period is provided, the wait state will remain pending
+                    until it is manually notified via the{" "}
+                    <a
+                      href="https://www.documentation.thecloudworlds.com/step-workflow/api-reference/api#notifyworkflow"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      NotifyWorkflow
+                    </a>{" "}
+                    API.
+                  </span>
+                }
+              >
+                <InputNumber
+                  placeholder="Period in seconds"
+                  className="w-full"
+                />
+              </Form.Item>
             )}
 
             {state.name !== "End" && (
