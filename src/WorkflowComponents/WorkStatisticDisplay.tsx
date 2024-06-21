@@ -12,6 +12,7 @@ import { ResultStatSection } from "./ResultStatSection";
 import { WorkflowAPIKeyDisplay } from "./WorkflowAPIKeyDisplay";
 import { WorkflowTransitionsDisplay } from "./WorkflowTransitionsDisplay";
 import { ResourceHierarchy } from "./ResourceHierarchy";
+import { OnboardingGuide } from "./OnboardingGuide";
 
 export const WorkStatisticDisplay = (props: {
   statistic?: WorkStatistic;
@@ -42,6 +43,10 @@ export const WorkStatisticDisplay = (props: {
 
       <Col {...Span[2]}>
         <Row gutter={[16, 16]}>
+          <Col {...Span[1]}>
+            <OnboardingGuide />
+          </Col>
+
           <Col {...Span[1]}>
             <BillingCard billing={billing} />
           </Col>
