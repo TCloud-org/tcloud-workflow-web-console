@@ -3,7 +3,8 @@ import { AppCard } from "DataDisplayComponents/AppCard";
 import { StatTitle } from "DataDisplayComponents/StatTitle";
 import { Steps } from "antd";
 import Statistic from "antd/es/statistic/Statistic";
-import { useState } from "react";
+import { setOnboardingCurrentProcess } from "features/settings/dashboardSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const steps = [
   {
@@ -41,7 +42,10 @@ const steps = [
 ];
 
 export const OnboardingGuide = () => {
-  const [current, setCurrent] = useState<number>(0);
+  const dispatch = useDispatch();
+
+  const onboardingCurrentProcess =
+    useSelector((state: any) => state.dashboard.onboardingCurrentProcess) || 0;
 
   return (
     <AppCard>
@@ -53,12 +57,12 @@ export const OnboardingGuide = () => {
         valueRender={() => (
           <div className="mt-8">
             <Steps
-              current={current}
+              current={onboardingCurrentProcess}
               onChange={(value) => {
                 if (value === steps.length - 1) {
-                  setCurrent(value + 1);
+                  dispatch(setOnboardingCurrentProcess(value + 1));
                 } else {
-                  setCurrent(value);
+                  dispatch(setOnboardingCurrentProcess(value));
                 }
               }}
               direction="vertical"

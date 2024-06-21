@@ -4,17 +4,22 @@ import { Dayjs } from "dayjs";
 export interface DashboardState {
   period: string;
   dateRange: [start: Dayjs | undefined, end: Dayjs | undefined];
+  onboardingCurrentProcess: number;
 }
 
 const initialState: DashboardState = {
   period: "TODAY",
   dateRange: [undefined, undefined],
+  onboardingCurrentProcess: 0,
 };
 
 export const dashboardSlice = createSlice({
   name: "dashboard",
   initialState,
   reducers: {
+    setOnboardingCurrentProcess: (state, action: PayloadAction<number>) => {
+      state.onboardingCurrentProcess = action.payload;
+    },
     setPeriod: (state, action: PayloadAction<string>) => {
       state.period = action.payload;
     },
@@ -27,6 +32,7 @@ export const dashboardSlice = createSlice({
   },
 });
 
-export const { setPeriod, setDateRange } = dashboardSlice.actions;
+export const { setPeriod, setDateRange, setOnboardingCurrentProcess } =
+  dashboardSlice.actions;
 
 export default dashboardSlice.reducer;
