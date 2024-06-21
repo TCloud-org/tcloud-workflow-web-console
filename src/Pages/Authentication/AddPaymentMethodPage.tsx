@@ -124,7 +124,9 @@ export const AddPaymentMethodPage = () => {
         <p className="text-white mb-4 flex flex-col text-center items-center gap-4 p-4 glass-card">
           <InfoRounded /> We're currently in BETA mode and Stripe is in TEST
           mode. Do NOT use your credit card number. Instead, please enter a
-          random number (e.g., 4242 4242 4242 4242)
+          random number (e.g., 4242 4242 4242 4242). We don't require a credit
+          card for the Lite version. We will remove this form for the Lite
+          version in the future.
         </p>
 
         <p className="text-paragraph mb-4">
