@@ -33,9 +33,7 @@ export const AppCollapseLabel = (props: {
           </Flex>
 
           <div className="flex items-center gap-2">
-            <p className="text-xs text-paragraph max-w-32 text-end">
-              {formatDate(time)}
-            </p>
+            <p className="text-xs max-w-32 text-end">{formatDate(time)}</p>
 
             {step > 0 && (
               <Tooltip title={`Transition ${step}`}>

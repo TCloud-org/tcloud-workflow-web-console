@@ -10,7 +10,6 @@ import { AppCard } from "DataDisplayComponents/AppCard";
 import { PageTitle } from "DataDisplayComponents/PageTitle";
 import { AppButton } from "DataEntryComponents/AppButton";
 import { AppForm } from "DataEntryComponents/AppForm";
-import { AppRow } from "LayoutComponents/AppRow";
 import { Col, Flex, Form, Input, Row, Typography, message } from "antd";
 import axios from "axios";
 
@@ -41,38 +40,36 @@ export const ContactPage = () => {
   };
 
   return (
-    <div
-      className="py-6 px-4"
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        height: "100%",
-      }}
-    >
+    <>
       {contextHolder}
-      <AppRow style={{ height: "100%", flex: 1 }} gutter={[64, 64]}>
-        <Col {...Span[2]}>
-          <Flex vertical gap={16} align="flex-start">
+      <Row gutter={[0, 64]} className="w-full">
+        <Col {...Span[1]}>
+          <div className="flex flex-col gap-4">
             <PageTitle className="w-full">Contact us</PageTitle>
 
             <Typography.Text>
               Any question? We would be happy to help
             </Typography.Text>
-            {contactOptions.map((option, i) => (
-              <AppCard
-                className="cursor-pointer w-full"
-                key={i}
-                onClick={() => (window.location.href = option.href)}
-              >
-                <Flex gap={16}>
-                  {option.icon}
-                  <Typography.Text>{option.value}</Typography.Text>
-                </Flex>
-              </AppCard>
-            ))}
-          </Flex>
+
+            <Row gutter={[16, 16]}>
+              {contactOptions.map((option, i) => (
+                <Col key={i} {...Span[3]} className="flex flex-col">
+                  <AppCard
+                    className="cursor-pointer h-full"
+                    key={i}
+                    onClick={() => (window.location.href = option.href)}
+                  >
+                    <Flex gap={16}>
+                      {option.icon}
+                      <Typography.Text>{option.value}</Typography.Text>
+                    </Flex>
+                  </AppCard>
+                </Col>
+              ))}
+            </Row>
+          </div>
         </Col>
-        <Col {...Span[2]}>
+        <Col {...Span[1]}>
           <AppCard>
             <Flex vertical gap={16}>
               <Typography.Title level={3} style={{ marginTop: 0 }}>
@@ -118,7 +115,7 @@ export const ContactPage = () => {
             </Flex>
           </AppCard>
         </Col>
-      </AppRow>
-    </div>
+      </Row>
+    </>
   );
 };

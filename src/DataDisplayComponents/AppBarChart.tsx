@@ -28,11 +28,11 @@ export const AppBarChart = (props: {
       data={data}
       className={className}
       barSize={24}
-      style={{ stroke: "#fff", strokeWidth: 1 }}
+      style={{ strokeWidth: 1 }}
     >
       <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="name" stroke="white" />
-      <YAxis stroke="white" />
+      <XAxis dataKey="name" />
+      <YAxis />
       <Tooltip
         cursor={{ fill: token.colorFill }}
         contentStyle={{
@@ -41,7 +41,6 @@ export const AppBarChart = (props: {
           borderColor: token.colorBorder,
           borderRadius: token.borderRadiusLG,
         }}
-        itemStyle={{ color: "#ffffff" }}
       />
       <Legend iconType="circle" />
       {data.length > 0 &&

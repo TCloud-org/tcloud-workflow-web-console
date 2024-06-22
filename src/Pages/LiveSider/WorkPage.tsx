@@ -220,13 +220,13 @@ export const WorkPage = () => {
               />
             </div>
 
-            <Divider className="border-neutral-11/80" />
+            <Divider />
 
             <div className="px-8 py-4">
               <WorkflowInfo graph={graph} routes={routeMap[versionSelected]} />
             </div>
 
-            <Divider className="border-neutral-11/80" />
+            <Divider />
 
             <div className="px-8 py-4">
               <WorkflowConfigurationInfo

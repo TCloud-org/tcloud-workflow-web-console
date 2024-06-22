@@ -96,7 +96,6 @@ export const WorkflowPage = (props: {
         <AppTable
           columns={columns}
           rows={workflows}
-          showTitle={false}
           rowId="workflowId"
           selected={selected}
           setSelected={setSelected}

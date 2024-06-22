@@ -18,6 +18,7 @@ import { EditableColumn, EditableColumnTypes } from "../Config/LayoutConfig";
 import { AppEditableCell } from "../DataEntryComponents/AppEditableCell";
 import { AppEditableRow } from "../DataEntryComponents/AppEditableRow";
 import { TableTitle } from "./TableTitle";
+import { useSelector } from "react-redux";
 
 const TableComponents: TableProps["components"] = {
   body: {
@@ -74,6 +75,8 @@ export const AppTable = (
     showTitle = true,
     titleStartDecorator,
   } = props;
+
+  const isDarkMode = useSelector((state: any) => state.general.isDarkMode);
 
   const [mergedColumns, setMergedColumns] = useState<EditableColumn[]>([
     ...columns,
@@ -242,7 +245,7 @@ export const AppTable = (
 
   return (
     <Table
-      title={showTitle ? () => renderTitle() : undefined}
+      title={() => renderTitle()}
       style={{
         ...props.style,
       }}
@@ -280,7 +283,9 @@ export const AppTable = (
       loading={props.loading}
       locale={props.locale}
       rowHoverable={props.rowHoverable}
-      className={`${!showTitle ? "pt-4" : ""} ${props.className}`}
+      className={`${!showTitle ? "pt-4" : ""} ${
+        isDarkMode ? "dark" : "light"
+      } ${props.className}`}
     />
   );
 };

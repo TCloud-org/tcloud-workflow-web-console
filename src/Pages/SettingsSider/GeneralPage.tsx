@@ -2,10 +2,10 @@ import { AppSwitch } from "DataEntryComponents/AppSwitch";
 import { PageTitle } from "../../DataDisplayComponents/PageTitle";
 import { AppSpace } from "../../LayoutComponents/AppSpace";
 import { useDispatch, useSelector } from "react-redux";
-import { setIsDevMode } from "features/settings/generalSlice";
+import { setIsDarkMode, setIsDevMode } from "features/settings/generalSlice";
 
 export const GeneralPage = () => {
-  const { isDevMode } = useSelector((state: any) => state.general);
+  const { isDevMode, isDarkMode } = useSelector((state: any) => state.general);
   const dispatch = useDispatch();
 
   const handleDevModeSwitch = (checked: boolean) => {
@@ -15,9 +15,20 @@ export const GeneralPage = () => {
   return (
     <AppSpace>
       <PageTitle>General</PageTitle>
-      <AppSwitch value={isDevMode} onChange={handleDevModeSwitch}>
-        Dev Mode
-      </AppSwitch>
+
+      <div className="flex items-center justify-between">
+        <p>Dark mode</p>
+        <AppSwitch
+          value={isDarkMode}
+          onChange={(checked) => dispatch(setIsDarkMode(checked))}
+        />
+      </div>
+
+      <div className="flex items-center justify-between">
+        <p>Development mode</p>
+
+        <AppSwitch value={isDevMode} onChange={handleDevModeSwitch} />
+      </div>
     </AppSpace>
   );
 };

@@ -138,7 +138,7 @@ export const DashboardPage = () => {
   return (
     <div>
       <AppSpace className="max-w-screen-2xl ml-auto mr-auto">
-        <Flex className="w-full flex flex-col px-4">
+        <Flex className="w-full flex flex-col">
           <PageTitle
             onReload={handleReload}
             endDecorator={<WorkPeriodToolbar />}

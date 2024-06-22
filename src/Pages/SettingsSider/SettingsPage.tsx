@@ -1,11 +1,10 @@
-import { AppSurface } from "DataDisplayComponents/AppSurface";
 import { AppMainTabs } from "LayoutComponents/AppMainTabs";
 import { SubscriptionPage } from "Pages/Subscription/SubscriptionPage";
+import { setTabIndex } from "features/settings/settingsSlice";
+import { useDispatch, useSelector } from "react-redux";
 import { AccountPage } from "./AccountPage";
 import { BillingPage } from "./BillingPage";
 import { GeneralPage } from "./GeneralPage";
-import { useDispatch, useSelector } from "react-redux";
-import { setTabIndex } from "features/settings/settingsSlice";
 
 export const SettingsPage = () => {
   const tabIndex = useSelector((state: any) => state.settings.tabIndex);
@@ -16,33 +15,31 @@ export const SettingsPage = () => {
   };
 
   return (
-    <AppSurface type="form">
-      <AppMainTabs
-        activeKey={tabIndex}
-        onChange={handleTabChange}
-        items={[
-          {
-            key: "account",
-            label: "Account",
-            children: <AccountPage />,
-          },
-          {
-            key: "general",
-            label: "General",
-            children: <GeneralPage />,
-          },
-          {
-            key: "billing",
-            label: "Billing",
-            children: <BillingPage />,
-          },
-          {
-            key: "subscription",
-            label: "Plan",
-            children: <SubscriptionPage />,
-          },
-        ]}
-      />
-    </AppSurface>
+    <AppMainTabs
+      activeKey={tabIndex}
+      onChange={handleTabChange}
+      items={[
+        {
+          key: "account",
+          label: "Account",
+          children: <AccountPage />,
+        },
+        {
+          key: "general",
+          label: "General",
+          children: <GeneralPage />,
+        },
+        {
+          key: "billing",
+          label: "Billing",
+          children: <BillingPage />,
+        },
+        {
+          key: "subscription",
+          label: "Plan",
+          children: <SubscriptionPage />,
+        },
+      ]}
+    />
   );
 };

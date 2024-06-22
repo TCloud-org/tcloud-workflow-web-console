@@ -198,12 +198,10 @@ export const ResourceHierarchy = () => {
         }}
         valueRender={() => (
           <div className="gap-4 flex flex-col w-full">
-            <p className="text-paragraph">
-              Manage your resources all in one place
-            </p>
+            <p>Manage your resources all in one place</p>
 
             <div className="glass-inner-card px-5 py-4 gap-4 flex flex-col">
-              <p className="flex items-center gap-2 !text-title">
+              <p className="flex items-center gap-2">
                 <FolderOpenRounded /> Choose a resource folder
               </p>
 

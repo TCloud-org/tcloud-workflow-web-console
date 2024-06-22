@@ -1,4 +1,3 @@
-import { AppSurface } from "DataDisplayComponents/AppSurface";
 import { PageTitle } from "DataDisplayComponents/PageTitle";
 import { AppButton } from "DataEntryComponents/AppButton";
 import { AppSpace } from "LayoutComponents/AppSpace";
@@ -22,15 +21,13 @@ export const SubscriptionPage = () => {
   };
 
   return (
-    <AppSurface>
-      <AppSpace>
-        <PageTitle>Plan Information</PageTitle>
-        <Typography.Text strong>Current Plan</Typography.Text>
-        <p>{capitalizeEachWord(tier.toLowerCase())}</p>
-        <AppButton type="primary" onClick={handleChoosePlan}>
-          Choose plan
-        </AppButton>
-      </AppSpace>
-    </AppSurface>
+    <AppSpace>
+      <PageTitle>Plan Information</PageTitle>
+      <Typography.Text strong>Current Plan</Typography.Text>
+      <p>{capitalizeEachWord(tier.toLowerCase())}</p>
+      <AppButton type="primary" onClick={handleChoosePlan}>
+        Choose plan
+      </AppButton>
+    </AppSpace>
   );
 };

@@ -12,7 +12,6 @@ const formatter: StatisticProps["formatter"] = (value) => (
 
 const valueStyle: CSSProperties = {
   fontWeight: 800,
-  color: "white",
   padding: "16px 0",
 };
 

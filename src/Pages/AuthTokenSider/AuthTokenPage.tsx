@@ -100,7 +100,7 @@ export const AuthTokenPage = () => {
           </AppButton>
         }
       >
-        Auth Token
+        Authentication Token
       </PageTitle>
 
       {Object.entries(tokenMap).map(([type, tokens], i) => (
@@ -110,7 +110,6 @@ export const AuthTokenPage = () => {
           columns={getColumns(type)}
           selected={selected}
           setSelected={setSelected}
-          heading="Authentication Tokens"
           rowId="tokenId"
           showTitle
         />

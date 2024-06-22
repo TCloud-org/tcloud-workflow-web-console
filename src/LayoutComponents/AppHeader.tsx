@@ -8,7 +8,11 @@ import {
   SettingFilled,
   UserOutlined,
 } from "@ant-design/icons";
-import { ScheduleRounded } from "@mui/icons-material";
+import {
+  DarkModeRounded,
+  LightModeRounded,
+  ScheduleRounded,
+} from "@mui/icons-material";
 import { Client } from "Config/SCSConfig";
 import { AppAvatar } from "DataDisplayComponents/AppAvatar";
 import { AppButton } from "DataEntryComponents/AppButton";
@@ -52,6 +56,7 @@ import { useNavigate } from "react-router-dom";
 import { setClientId, updateClients } from "../features/workflow/clientSlice";
 import { AppBrand } from "./AppBrand";
 import { setTabIndex } from "features/settings/settingsSlice";
+import { setIsDarkMode } from "features/settings/generalSlice";
 
 export const AppHeader = (props: {
   collapsed?: boolean;
@@ -95,6 +100,7 @@ export const AppHeader = (props: {
   ];
 
   const clientId = useSelector((state: any) => state.client.clientId);
+  const isDarkMode = useSelector((state: any) => state.general.isDarkMode);
   const historyCache: LRUCache<string, string | number, any> = useSelector(
     (state: any) => state.history.cache
   );
@@ -241,6 +247,12 @@ export const AppHeader = (props: {
           className="px-4"
         >
           <Flex gap={8} align="center" className="hidden lg:flex">
+            <AppIconButton
+              type={isDarkMode ? "primary" : "default"}
+              onClick={() => dispatch(setIsDarkMode(!isDarkMode))}
+            >
+              {isDarkMode ? <DarkModeRounded /> : <LightModeRounded />}
+            </AppIconButton>
             {isTierUpgradable && (
               <Flex className="mx-1">
                 <AppButton

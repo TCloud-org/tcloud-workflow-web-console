@@ -97,7 +97,6 @@ export const ClientPage = () => {
         rows={[...clients].sort(clientComparator)}
         selected={selected}
         setSelected={setSelected}
-        heading="Clients"
         onReload={fetchClients}
       />
     </AppSpace>
