@@ -39,7 +39,7 @@ export const AppFooter = () => {
             </Flex>
           </Col>
 
-          <Col {...Span[2]} className="flex flex-col items-end">
+          <Col {...Span[2]} className="flex flex-col items-center lg:items-end">
             <Flex align="center" gap={32}>
               <HoveredLink href="https://thecloudworld.supahub.com/b/feedback">
                 Submit feedbacks

@@ -50,7 +50,7 @@ export const ResultStatSection = (props: { statistic?: WorkStatistic }) => {
   return (
     <>
       {stats.map((stat, i) => (
-        <Col key={i} {...Span[2]}>
+        <Col key={i} {...Span[4]}>
           <ResultStatCard data={stat} />
         </Col>
       ))}

@@ -2,7 +2,7 @@ import { Work } from "Config/WorkflowConfig";
 import { AppCard } from "DataDisplayComponents/AppCard";
 import { StatTitle } from "DataDisplayComponents/StatTitle";
 import { Statistic, StatisticProps } from "antd";
-import { CSSProperties, Fragment, ReactNode } from "react";
+import { CSSProperties, ReactNode } from "react";
 import CountUp from "react-countup";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -41,25 +41,19 @@ export const ResultStatCard = (props: {
   };
 
   return (
-    <Fragment>
-      <AppCard
-        onClick={() => handleStatisticClick(data.type)}
-        className="cursor-pointer relative z-10 hover:border-neutral-5"
-      >
-        <Statistic
-          title={<StatTitle icon={data.icon}>{data.title}</StatTitle>}
-          value={data.value}
-          formatter={formatter}
-          valueStyle={{
-            ...valueStyle,
-          }}
-          className="z-10"
-        />
-      </AppCard>
-      {/* <div
-        className="absolute left-[12px] right-0 top-[8px] -bottom-[8px] border border-solid border-black rounded-md z-0"
-        style={{ backgroundColor: `${data.color}70` }}
-      /> */}
-    </Fragment>
+    <AppCard
+      onClick={() => handleStatisticClick(data.type)}
+      className="cursor-pointer relative z-10 hover:border-neutral-5"
+    >
+      <Statistic
+        title={<StatTitle icon={data.icon}>{data.title}</StatTitle>}
+        value={data.value}
+        formatter={formatter}
+        valueStyle={{
+          ...valueStyle,
+        }}
+        className="z-10"
+      />
+    </AppCard>
   );
 };

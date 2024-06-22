@@ -1,7 +1,6 @@
 import { FolderOpenRounded } from "@mui/icons-material";
 import { WOS_GET_WORKFLOWS_BY_CLIENT_ID_ENDPOINT } from "Config/WOSEndpointConfig";
 import { Graph, Workflow } from "Config/WorkflowConfig";
-import { AppCard } from "DataDisplayComponents/AppCard";
 import { StatTitle } from "DataDisplayComponents/StatTitle";
 import { getTokens } from "Network/AuthFetch";
 import { getRetryPolicies } from "Network/RetryFetch";
@@ -39,6 +38,7 @@ const treeData: TreeDataNode[] = [
 ];
 
 export const ResourceHierarchy = () => {
+  const isDarkMode = useSelector((state: any) => state.general.isDarkMode);
   const clientId = useSelector((state: any) => state.client.clientId);
   const authToken = useSelector((state: any) => state.auth.token);
 
@@ -187,43 +187,43 @@ export const ResourceHierarchy = () => {
   };
 
   return (
-    <AppCard>
-      <Statistic
-        title={<StatTitle>Resources</StatTitle>}
-        valueStyle={{
-          fontSize: "14px",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-        valueRender={() => (
-          <div className="gap-4 flex flex-col w-full">
-            <p>Manage your resources all in one place</p>
+    <Statistic
+      title={<StatTitle>Resources</StatTitle>}
+      valueStyle={{
+        fontSize: "14px",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+      valueRender={() => (
+        <div className="gap-4 flex flex-col w-full">
+          <p>Manage your resources all in one place</p>
 
-            <div className="glass-inner-card px-5 py-4 gap-4 flex flex-col">
-              <p className="flex items-center gap-2">
-                <FolderOpenRounded /> Choose a resource folder
-              </p>
+          <div className="glass-inner-card px-5 py-4 gap-4 flex flex-col">
+            <p className="flex items-center gap-2">
+              <FolderOpenRounded /> Choose a resource folder
+            </p>
 
-              <div className="flex items-center">
-                <div className="w-2 h-2 rounded-full border-[0.5px] border-solid border-divider-bolder bg-divider" />
-                <div className="w-full bg-divider h-[1px]" />
-                <div className="w-2 h-2 rounded-full border-[0.5px] border-solid border-divider-bolder bg-divider" />
-              </div>
+            {/* <div className="flex items-center">
+              <div className="w-2 h-2 rounded-full border-[0.5px] border-solid border-divider-bolder bg-divider" />
+              <div className="w-full bg-divider h-[1px]" />
+              <div className="w-2 h-2 rounded-full border-[0.5px] border-solid border-divider-bolder bg-divider" />
+            </div> */}
 
-              <Tree.DirectoryTree
-                style={{
-                  backgroundColor: "transparent",
-                }}
-                multiple
-                treeData={treeNodes}
-                className="bg-transparent word-wrap"
-                onSelect={onSelect}
-              />
-            </div>
+            <Tree.DirectoryTree
+              style={{
+                backgroundColor: "transparent",
+              }}
+              multiple
+              treeData={treeNodes}
+              className={`bg-transparent word-wrap ${
+                isDarkMode ? "dark" : "light"
+              }`}
+              onSelect={onSelect}
+            />
           </div>
-        )}
-      />
-    </AppCard>
+        </div>
+      )}
+    />
   );
 };

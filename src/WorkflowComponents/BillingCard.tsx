@@ -1,6 +1,5 @@
 import { StepWorkflowBilling } from "Config/WorkflowConfig";
 import { AppBarChart } from "DataDisplayComponents/AppBarChart";
-import { AppCard } from "DataDisplayComponents/AppCard";
 import { AppEmpty } from "DataDisplayComponents/AppEmpty";
 import { StatTitle } from "DataDisplayComponents/StatTitle";
 import {
@@ -21,52 +20,49 @@ export const BillingCard = (props: { billing?: StepWorkflowBilling }) => {
     )?.tier || ProductTierType.LITE;
 
   return (
-    <AppCard>
-      <Statistic
-        title={
-          <Flex align="center" justify="space-between">
-            <StatTitle>Billing</StatTitle>
-            <StatTitle>
-              {prettifyDateWithoutDay(
-                billing?.startDate || new Date().getTime().toString()
-              )}
-            </StatTitle>
-          </Flex>
-        }
-        valueStyle={{
-          fontSize: 14,
-        }}
-        valueRender={() =>
-          billing ? (
-            <Flex gap={8} className="mt-2">
-              <Flex vertical flex={1} gap={8}>
-                <Typography.Text>${billing.cost.toFixed(2)}</Typography.Text>
-                <Typography.Text>
-                  Current plan: {formatTitleCase(tier)}
-                </Typography.Text>
-                <Typography.Text>
-                  Total transitions: {billing.totalTransitions}
-                </Typography.Text>
-              </Flex>
+    <Statistic
+      title={
+        <Flex align="center" justify="space-between">
+          <StatTitle>Billing</StatTitle>
+          <StatTitle>
+            {prettifyDateWithoutDay(
+              billing?.startDate || new Date().getTime().toString()
+            )}
+          </StatTitle>
+        </Flex>
+      }
+      valueStyle={{
+        fontSize: 14,
+      }}
+      valueRender={() =>
+        billing ? (
+          <Flex vertical gap={8} className="mt-2">
+            <Typography.Text>${billing.cost.toFixed(2)}</Typography.Text>
+            <Typography.Text>
+              Current plan: {formatTitleCase(tier)}
+            </Typography.Text>
+            <Typography.Text>
+              Total transitions: {billing.totalTransitions}
+            </Typography.Text>
 
-              <Flex flex={1}>
-                <AppBarChart
-                  width={240}
-                  height={300}
-                  data={[
-                    {
-                      name: prettifyDateWithoutYear(billing.startDate),
-                      "Step workflow": billing.cost,
-                    },
-                  ]}
-                />
-              </Flex>
-            </Flex>
-          ) : (
-            <AppEmpty />
-          )
-        }
-      />
-    </AppCard>
+            <div className="flex justify-center">
+              <AppBarChart
+                className="mt-8"
+                width={300}
+                height={300}
+                data={[
+                  {
+                    name: prettifyDateWithoutYear(billing.startDate),
+                    "Step workflow": billing.cost,
+                  },
+                ]}
+              />
+            </div>
+          </Flex>
+        ) : (
+          <AppEmpty />
+        )
+      }
+    />
   );
 };

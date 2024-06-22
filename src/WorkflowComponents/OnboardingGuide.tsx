@@ -1,5 +1,4 @@
 import { ArrowRightAltRounded } from "@mui/icons-material";
-import { AppCard } from "DataDisplayComponents/AppCard";
 import { StatTitle } from "DataDisplayComponents/StatTitle";
 import { Steps } from "antd";
 import Statistic from "antd/es/statistic/Statistic";
@@ -48,7 +47,7 @@ export const OnboardingGuide = () => {
     useSelector((state: any) => state.dashboard.onboardingCurrentProcess) || 0;
 
   return (
-    <AppCard>
+    <div>
       <Statistic
         title={<StatTitle>Onboarding Guide</StatTitle>}
         valueStyle={{
@@ -86,6 +85,6 @@ export const OnboardingGuide = () => {
           </div>
         )}
       />
-    </AppCard>
+    </div>
   );
 };

@@ -1,6 +1,5 @@
 import { InfraStatistic } from "Config/WorkflowConfig";
 import { AppBarChart } from "DataDisplayComponents/AppBarChart";
-import { AppCard } from "DataDisplayComponents/AppCard";
 import { StatTitle } from "DataDisplayComponents/StatTitle";
 import { Statistic } from "antd";
 
@@ -11,7 +10,7 @@ export const InfraCompositionCard = (props: {
   const { infraStatistic, infraStatisticLoading } = props;
 
   return (
-    <AppCard>
+    <div className="h-full">
       <Statistic
         loading={infraStatisticLoading}
         title={<StatTitle>Infra Composition Chart</StatTitle>}
@@ -47,6 +46,6 @@ export const InfraCompositionCard = (props: {
           />
         )}
       />
-    </AppCard>
+    </div>
   );
 };

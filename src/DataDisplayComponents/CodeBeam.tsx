@@ -1,6 +1,7 @@
 import { CodeSegmented } from "DataEntryComponents/CodeSegmented";
 import { Flex, theme } from "antd";
 import { CSSProperties, useState } from "react";
+import { useSelector } from "react-redux";
 import ReactSyntaxHighlighter from "react-syntax-highlighter";
 import {
   atomOneDark,
@@ -58,7 +59,6 @@ export const CodeBeam = (props: {
   };
 
   const {
-    themeMode = "dark",
     value = "",
     showDots,
     label,
@@ -71,7 +71,9 @@ export const CodeBeam = (props: {
     wrapLongLines = false,
   } = props;
 
-  const currentTheme = themeMapping[themeMode];
+  const isDarkMode = useSelector((state: any) => state.general.isDarkMode);
+
+  const currentTheme = themeMapping[isDarkMode ? "dark" : "light"];
 
   const [select, setSelect] = useState<string>(value);
 

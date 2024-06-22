@@ -143,7 +143,7 @@ export const DashboardPage = () => {
             onReload={handleReload}
             endDecorator={<WorkPeriodToolbar />}
           >
-            Welcome
+            Your Overview
           </PageTitle>
         </Flex>
 
@@ -156,7 +156,6 @@ export const DashboardPage = () => {
 
         <AppTable
           loading={loading}
-          heading="Workflows"
           onReload={fetchWorksInRange}
           rows={works}
           columns={columns}

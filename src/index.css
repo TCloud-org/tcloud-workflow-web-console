@@ -551,14 +551,20 @@ a {
   word-break: break-word !important;
 }
 
-.ant-tree-node-content-wrapper:hover,
-.ant-tree-treenode-selected>.ant-tree-node-content-wrapper {
+.dark .ant-tree-node-content-wrapper:hover,
+.dark .ant-tree-treenode-selected>.ant-tree-node-content-wrapper {
   color                  : rgb(229, 229, 249) !important;
   box-shadow             : rgba(234, 234, 251, 0.1) 0px -4px 12px 0px inset;
   background-color       : linear-gradient(rgba(234, 234, 251, 0) 0%, rgba(234, 234, 251, 0.06) 100%);
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter        : blur(12px);
   border                 : 1px solid rgba(206, 206, 251, 0.2);
+}
+
+.light .ant-tree-node-content-wrapper:hover,
+.light .ant-tree-treenode-selected>.ant-tree-node-content-wrapper {
+  color           : black !important;
+  background-color: rgb(148 163 184 / 0.1) !important;
 }
 
 .ant-tree-switcher {

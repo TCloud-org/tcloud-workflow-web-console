@@ -4,7 +4,7 @@ import {
   StepWorkflowBilling,
   WorkStatistic,
 } from "Config/WorkflowConfig";
-import { Col, Row } from "antd";
+import { Col, Divider, Row } from "antd";
 import { BillingCard } from "./BillingCard";
 import { InfraCompositionCard } from "./InfraCompositionCard";
 import { ResultDistributionCard } from "./ResultDistributionCard";
@@ -23,46 +23,62 @@ export const WorkStatisticDisplay = (props: {
   const { statistic, infraStatistic, infraStatisticLoading, billing } = props;
 
   return (
-    <Row gutter={[16, 16]}>
-      <Col {...Span[2]}>
+    <Row gutter={[64, 16]}>
+      <Col {...Span[1]}>
         <Row gutter={[16, 16]}>
           <ResultStatSection statistic={statistic} />
-
-          <Col {...Span[1]} className="flex flex-col">
-            <ResultDistributionCard statistic={statistic} />
-          </Col>
-
-          <Col {...Span[1]} className="flex flex-col">
-            <InfraCompositionCard
-              infraStatistic={infraStatistic}
-              infraStatisticLoading={infraStatisticLoading}
-            />
-          </Col>
         </Row>
       </Col>
 
+      <Col {...Span[1]}>
+        <Divider />
+      </Col>
+
       <Col {...Span[2]}>
-        <Row gutter={[16, 16]}>
-          <Col {...Span[1]}>
-            <OnboardingGuide />
-          </Col>
+        <OnboardingGuide />
+      </Col>
 
-          <Col {...Span[1]}>
-            <BillingCard billing={billing} />
-          </Col>
+      <Col {...Span[2]}>
+        <BillingCard billing={billing} />
+      </Col>
 
-          <Col {...Span[1]}>
-            <WorkflowTransitionsDisplay />
-          </Col>
+      <Col {...Span[1]}>
+        <Divider />
+      </Col>
 
-          <Col {...Span[1]}>
-            <WorkflowAPIKeyDisplay />
-          </Col>
+      <Col {...Span[2]} className="flex flex-col">
+        <ResultDistributionCard statistic={statistic} />
+      </Col>
 
-          <Col {...Span[1]} className="flex flex-col">
-            <ResourceHierarchy />
-          </Col>
-        </Row>
+      <Col {...Span[2]} className="flex flex-col">
+        <InfraCompositionCard
+          infraStatistic={infraStatistic}
+          infraStatisticLoading={infraStatisticLoading}
+        />
+      </Col>
+
+      <Col {...Span[1]}>
+        <Divider />
+      </Col>
+
+      <Col {...Span[2]}>
+        <WorkflowAPIKeyDisplay />
+      </Col>
+
+      <Col {...Span[2]}>
+        <WorkflowTransitionsDisplay />
+      </Col>
+
+      <Col {...Span[1]}>
+        <Divider />
+      </Col>
+
+      <Col {...Span[1]} className="flex flex-col">
+        <ResourceHierarchy />
+      </Col>
+
+      <Col {...Span[1]}>
+        <Divider />
       </Col>
     </Row>
   );
