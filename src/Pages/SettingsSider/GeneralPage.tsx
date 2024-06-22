@@ -18,6 +18,7 @@ export const GeneralPage = () => {
 
       <div className="flex items-center justify-between">
         <p>Dark mode</p>
+
         <AppSwitch
           value={isDarkMode}
           onChange={(checked) => dispatch(setIsDarkMode(checked))}

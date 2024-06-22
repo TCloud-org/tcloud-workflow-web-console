@@ -452,14 +452,14 @@ a {
 .glass-success {
   -webkit-backdrop-filter      : blur(16px) !important;
   backdrop-filter              : blur(16px) !important;
-  border-radius                : 12px !important;
+  border-radius                : 12px;
   /* border                    : 1px solid rgba(206, 206, 251, .1) !important;
   background-color             : rgba(206, 206, 251, .02) !important;
   box-shadow                   : rgba(206, 206, 251, 0.1) 0px 0px 16.3056px 0px inset !important; */
   background-color             : rgba(206, 206, 251, 0.02) !important;
-  border                       : 1px solid rgba(206, 206, 251, 0.05) !important;
+  border                       : 1px solid rgba(206, 206, 251, 0.05);
   /* box-shadow                : inset 0px -12px 40px 0px rgba(206, 206, 251, 0.05) !important; */
-  box-shadow                   : rgba(0, 0, 0, 0.16) 0px 1px 4px !important;
+  box-shadow                   : rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
 .glass-info {

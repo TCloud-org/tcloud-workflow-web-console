@@ -9,7 +9,7 @@ export const AppBreadcrumb = () => {
 
   return (
     <Breadcrumb
-      className="my-4"
+      className="my-4 max-w-screen-2xl ml-auto mr-auto w-full"
       items={items.map((item, i) => ({
         ...item,
         title:

@@ -57,6 +57,7 @@ import { setClientId, updateClients } from "../features/workflow/clientSlice";
 import { AppBrand } from "./AppBrand";
 import { setTabIndex } from "features/settings/settingsSlice";
 import { setIsDarkMode } from "features/settings/generalSlice";
+import { AppSwitch } from "DataEntryComponents/AppSwitch";
 
 export const AppHeader = (props: {
   collapsed?: boolean;
@@ -109,6 +110,7 @@ export const AppHeader = (props: {
   const authToken = useSelector((state: any) => state.auth.token);
 
   const [searchInput, setSearchInput] = useState<string>("");
+  const [menuItems, setMenuItems] = useState<MenuProps["items"]>(accountItems);
 
   const fetchClients = useCallback(async () => {
     const res = await getClients(account.email);
@@ -121,6 +123,34 @@ export const AppHeader = (props: {
       dispatch(setAccount(res.account));
     }
   }, [authToken, dispatch, account]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setMenuItems((prev) =>
+          (prev || []).filter((item) => item && item.key !== "/support")
+        );
+      } else {
+        setMenuItems((prev) => [
+          ...(prev || []).filter((item) => item && item.key !== "/support"),
+          {
+            key: "/support",
+            icon: <QuestionCircleOutlined />,
+            label: "Support",
+            onClick: () => {
+              navigate("/support");
+            },
+          },
+        ]);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [navigate]);
 
   useEffect(() => {
     fetchAccount();
@@ -204,7 +234,10 @@ export const AppHeader = (props: {
     )?.tier !== ProductTierType.ENTERPRISE;
 
   return (
-    <Header className="left-0 lg:left-[280px] glass-bar !fixed top-4 right-4 z-50 p-0 flex items-center">
+    <Header
+      className="left-0 lg:left-[250px] glass-bar !rounded-none !shadow-none !fixed !border-l-0 !border-r-0 !border-t-0 top-0 right-0 z-50 p-0 flex items-center"
+      style={{ borderBottom: `1px solid ${token.colorBorder}` }}
+    >
       <Flex align="center" justify="space-between" gap={16} className="w-full">
         <Flex
           align="center"
@@ -283,21 +316,54 @@ export const AppHeader = (props: {
             />
           </Flex>
           <Dropdown
-            menu={{ items: accountItems }}
+            menu={{ items: menuItems }}
             trigger={["click"]}
             placement="bottomRight"
             dropdownRender={(menu) => (
-              <div style={contentStyle} className="w-64 lg:w-80">
+              <div style={contentStyle} className="min-w-72 lg:min-w-80">
                 <Flex style={{ padding: "8px 16px" }} justify="flex-start">
                   <Typography.Text type="secondary">
                     {account.email}
                   </Typography.Text>
                 </Flex>
+
                 <Divider style={{ margin: 0 }} />
+
                 {React.cloneElement(menu as React.ReactElement, {
                   style: menuStyle,
                 })}
+
                 <Divider style={{ margin: 0 }} />
+
+                <div className="flex lg:hidden flex-col items-start p-4 gap-4">
+                  <div className="flex items-center justify-between w-full gap-4">
+                    <p>Client</p>
+
+                    <Select
+                      placeholder="Client"
+                      value={clientId}
+                      dropdownStyle={{ width: "auto" }}
+                      placement="bottomRight"
+                      onChange={handleClientIdChange}
+                      options={clients.map((client) => ({
+                        label: client.clientId,
+                        value: client.clientId,
+                      }))}
+                    />
+                  </div>
+
+                  <div className="flex items-center justify-between w-full gap-4">
+                    <p>Dark mode</p>
+
+                    <AppSwitch
+                      value={isDarkMode}
+                      onChange={(checked) => dispatch(setIsDarkMode(checked))}
+                    />
+                  </div>
+                </div>
+
+                <Divider style={{ margin: 0 }} />
+
                 <Flex justify="center" className="p-4">
                   <AppButton
                     type="primary"

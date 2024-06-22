@@ -17,6 +17,7 @@ import { Dispatch, SetStateAction } from "react";
 import { useSelector } from "react-redux";
 import { AppBrand } from "./AppBrand";
 import { AppMenu, AppMenuProps } from "./AppMenu";
+import { theme } from "antd";
 
 export const SiderHrefs = {
   home: "home",
@@ -84,6 +85,8 @@ export const AppSider = (props: {
   collapsed?: boolean;
   setCollapsed?: Dispatch<SetStateAction<boolean>>;
 }) => {
+  const { token } = theme.useToken();
+
   const { collapsed, setCollapsed = () => {} } = props;
 
   const { isDevMode } = useSelector((state: any) => state.general);
@@ -196,7 +199,8 @@ export const AppSider = (props: {
         ref={siderRef as any}
         width={SiderWidth}
         trigger={null}
-        className="top-[80px] lg:top-4 hidden lg:block glass-bar !backdrop-blur-lg !fixed overflow-auto left-4 bottom-4 z-[100]"
+        className="top-[80px] lg:top-0 hidden lg:block glass-bar !rounded-none !shadow-none !border-t-0 !backdrop-blur-lg !fixed overflow-auto left-0 bottom-0 z-[100]"
+        style={{ border: `1px solid ${token.colorBorder}` }}
       >
         <div>
           <div className="py-4">
@@ -213,7 +217,12 @@ export const AppSider = (props: {
         width={SiderWidth}
         collapsed={collapsed}
         trigger={null}
-        className="top-[80px] lg:top-0 block lg:hidden glass-bar !backdrop-blur-lg !fixed overflow-auto left-0 bottom-4 z-[100]"
+        className="top-[64px] lg:top-0 block lg:hidden glass-bar !rounded-none !shadow-none !border-t-0 !backdrop-blur-lg !fixed overflow-auto left-0 bottom-0 z-[100]"
+        style={{
+          border: `1px solid ${token.colorBorder}`,
+          backgroundColor: token.colorBgContainer,
+          borderRightWidth: collapsed ? 0 : 1,
+        }}
       >
         <AppMenu items={siderMenus} />
       </Sider>

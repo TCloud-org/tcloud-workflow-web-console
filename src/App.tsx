@@ -116,7 +116,7 @@ export const App = () => {
 
         <Layout
           style={{ backgroundColor: colorBgContainer }}
-          className={`ml-0 lg:ml-[266px]`}
+          className={`ml-0 lg:ml-[250px]`}
         >
           <AppHeader collapsed={collapsed} setCollapsed={setCollapsed} />
 
