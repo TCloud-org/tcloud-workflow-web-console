@@ -18,7 +18,6 @@ import { AppSurfaceTitle } from "DataDisplayComponents/AppSurfaceTitle";
 import { AppButton } from "DataEntryComponents/AppButton";
 import { AppForm } from "DataEntryComponents/AppForm";
 import { AppIconButton } from "DataEntryComponents/AppIconButton";
-import { AppLine } from "LayoutComponents/AppLine";
 import { AppRow } from "LayoutComponents/AppRow";
 import { AppSpace } from "LayoutComponents/AppSpace";
 import {
@@ -341,138 +340,129 @@ export const WorkFilterBuilder = (props: {
   return (
     <Fragment>
       {contextHolder}
-      <AppSurface type="form" className="h-full">
-        <Flex vertical gap={16}>
-          <Flex align="center" justify="space-between">
-            <AppSurfaceTitle>Where</AppSurfaceTitle>
+      <Flex vertical gap={16}>
+        <Flex align="center" justify="space-between">
+          <AppSurfaceTitle>Where</AppSurfaceTitle>
 
-            <Flex align="center" gap="8px">
-              <AppButton
-                icon={<SaveOutlined />}
-                type="primary"
-                disabled={noFilters(
-                  (form.getFieldValue(parent) || []).filter(filter)
-                )}
-                onClick={handleSaveQuery}
-              >
-                Save query
-              </AppButton>
-              {active !== undefined && (
-                <AppButton
-                  icon={<FileSyncOutlined />}
-                  onClick={handleUpdateQuery}
-                >
-                  Update query
-                </AppButton>
+          <Flex align="center" gap="8px">
+            <AppButton
+              icon={<SaveOutlined />}
+              type="primary"
+              disabled={noFilters(
+                (form.getFieldValue(parent) || []).filter(filter)
               )}
-            </Flex>
+              onClick={handleSaveQuery}
+            >
+              Save query
+            </AppButton>
+            {active !== undefined && (
+              <AppButton
+                icon={<FileSyncOutlined />}
+                onClick={handleUpdateQuery}
+              >
+                Update query
+              </AppButton>
+            )}
           </Flex>
-          <AppForm
-            form={form}
-            wrapperCol={Span[1]}
-            onValuesChange={handleValuesChange}
-          >
-            <Form.List name={parent}>
-              {(fields, { add, remove }) => (
-                <Flex vertical gap="8px">
-                  {fields.map(({ key, name, ...restField }, index) => (
-                    <Flex gap="8px" vertical key={index}>
-                      {index > 0 && (
-                        <Flex
-                          justify="center"
-                          align="center"
-                          gap="8px"
-                          style={{ margin: "8px 0" }}
-                        >
-                          <AppLine />
-                          <Form.Item
-                            name={[name, "operator"]}
-                            style={{ marginBottom: 0 }}
-                          >
-                            <Select
-                              options={BitwiseOperatorOptions}
-                              style={{ width: operatorWidth }}
-                            />
-                          </Form.Item>
-                          <AppLine />
-                        </Flex>
-                      )}
-
-                      <Flex gap="8px" justify="space-between">
+        </Flex>
+        <AppForm
+          form={form}
+          wrapperCol={Span[1]}
+          onValuesChange={handleValuesChange}
+        >
+          <Form.List name={parent}>
+            {(fields, { add, remove }) => (
+              <Flex vertical gap={16}>
+                {fields.map(({ key, name, ...restField }, index) => (
+                  <Flex gap={16} vertical key={index}>
+                    {index > 0 && (
+                      <Flex
+                        justify="center"
+                        align="center"
+                        gap={16}
+                        style={{ margin: "8px 0" }}
+                      >
                         <Form.Item
-                          {...restField}
-                          name={[name, "attribute"]}
+                          name={[name, "operator"]}
                           style={{ marginBottom: 0 }}
                         >
                           <Select
-                            showSearch
-                            style={{ width: attributeWidth }}
-                            options={Object.keys(
-                              data.length === 0 ? {} : data[0]
-                            )
-                              .filter((k) => !(k in excluded))
-                              .map((k) => ({
-                                label: k,
-                                value: k,
-                              }))}
-                            placeholder="Attribute"
+                            options={BitwiseOperatorOptions}
+                            style={{ width: operatorWidth }}
                           />
                         </Form.Item>
-
-                        {renderInputs(name)}
-
-                        <Form.Item style={{ marginBottom: 0 }}>
-                          <AppIconButton
-                            tooltip="Remove clause"
-                            onClick={() => handleRemoveClause(name)}
-                          >
-                            <MinusCircleOutlined />
-                          </AppIconButton>
-                        </Form.Item>
                       </Flex>
+                    )}
+
+                    <Flex gap={16} justify="space-between">
+                      <Form.Item
+                        {...restField}
+                        name={[name, "attribute"]}
+                        style={{ marginBottom: 0 }}
+                      >
+                        <Select
+                          showSearch
+                          style={{ width: attributeWidth }}
+                          options={Object.keys(data.length === 0 ? {} : data[0])
+                            .filter((k) => !(k in excluded))
+                            .map((k) => ({
+                              label: k,
+                              value: k,
+                            }))}
+                          placeholder="Attribute"
+                        />
+                      </Form.Item>
+
+                      {renderInputs(name)}
+
+                      <Form.Item style={{ marginBottom: 0 }}>
+                        <AppIconButton
+                          tooltip="Remove clause"
+                          type="primary"
+                          danger
+                          onClick={() => handleRemoveClause(name)}
+                        >
+                          <MinusCircleOutlined />
+                        </AppIconButton>
+                      </Form.Item>
                     </Flex>
-                  ))}
-                  <Divider style={{ margin: "8px 0" }} />
-                  <Form.Item style={{ marginBottom: 0 }}>
-                    <Button
-                      type="dashed"
-                      onClick={() => handleAddClause(add)}
-                      icon={<PlusOutlined />}
-                    >
-                      Add clause
-                    </Button>
-                  </Form.Item>
-                  <Divider style={{ margin: "8px 0" }} />
-                  <Flex gap="8px" align="center">
-                    <Form.Item style={{ marginBottom: 0 }}>
-                      <AppButton
-                        type="primary"
-                        onClick={handleApply}
-                        disabled={
-                          (form.getFieldValue(parent) || []).length === 0
-                        }
-                      >
-                        Apply
-                      </AppButton>
-                    </Form.Item>
-                    <Form.Item style={{ marginBottom: 0 }}>
-                      <AppButton
-                        type="text"
-                        onClick={handleReset}
-                        disabled={
-                          (form.getFieldValue(parent) || []).length === 0
-                        }
-                      >
-                        Reset
-                      </AppButton>
-                    </Form.Item>
                   </Flex>
+                ))}
+                <Form.Item style={{ marginBottom: 0 }}>
+                  <Button
+                    type="dashed"
+                    onClick={() => handleAddClause(add)}
+                    icon={<PlusOutlined />}
+                  >
+                    Add clause
+                  </Button>
+                </Form.Item>
+                <Divider style={{ margin: "8px 0" }} />
+                <Flex gap={16} align="center">
+                  <Form.Item style={{ marginBottom: 0 }}>
+                    <AppButton
+                      type="primary"
+                      onClick={handleApply}
+                      disabled={(form.getFieldValue(parent) || []).length === 0}
+                    >
+                      Apply
+                    </AppButton>
+                  </Form.Item>
+                  <Form.Item style={{ marginBottom: 0 }}>
+                    <AppButton
+                      type="text"
+                      onClick={handleReset}
+                      disabled={(form.getFieldValue(parent) || []).length === 0}
+                    >
+                      Reset
+                    </AppButton>
+                  </Form.Item>
                 </Flex>
-              )}
-            </Form.List>
-          </AppForm>
-        </Flex>
-      </AppSurface>
+              </Flex>
+            )}
+          </Form.List>
+        </AppForm>
+      </Flex>
     </Fragment>
   );
 };

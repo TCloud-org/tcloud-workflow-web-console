@@ -52,7 +52,7 @@ export const LiveWorkflowPage = () => {
   }, [fetchWorkIds]);
 
   return (
-    <AppSpace loading={loading} className="p-4">
+    <AppSpace loading={loading}>
       <PageTitle>Work</PageTitle>
       <AppTable
         heading="Live"

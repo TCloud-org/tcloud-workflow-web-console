@@ -52,7 +52,7 @@ export const StepWorkflowConfigurationTab = () => {
   }, [location.hash]);
 
   return (
-    <div>
+    <div className="flex flex-col gap-8">
       <WorkflowPage
         workflows={workflows}
         onReload={fetchWorkflows}

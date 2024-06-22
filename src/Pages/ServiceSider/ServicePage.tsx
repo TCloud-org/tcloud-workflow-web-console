@@ -37,7 +37,7 @@ export const ServicePage = () => {
   };
 
   return (
-    <AppSpace className="p-4">
+    <AppSpace>
       <PageTitle
         id="service"
         onReload={fetchServices}

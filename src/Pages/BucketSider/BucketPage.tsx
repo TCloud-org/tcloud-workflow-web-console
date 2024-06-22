@@ -67,7 +67,7 @@ export const BucketPage = () => {
   }, [fetchBuckets]);
 
   return (
-    <AppSpace loading={loading} className="p-4">
+    <AppSpace loading={loading}>
       <PageTitle
         onReload={fetchBuckets}
         endDecorator={

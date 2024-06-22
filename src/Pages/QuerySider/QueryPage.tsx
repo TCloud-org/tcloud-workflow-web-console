@@ -117,7 +117,7 @@ export const QueryPage = () => {
   }, [active, saved]);
 
   return (
-    <AppSpace className="p-4">
+    <AppSpace>
       <PageTitle
         endDecorator={
           <Select
@@ -135,7 +135,7 @@ export const QueryPage = () => {
         Query
       </PageTitle>
 
-      <AppRow gutter={[16, 16]} style={{ position: "relative" }}>
+      <AppRow gutter={[32, 32]} style={{ position: "relative" }}>
         <Col {...Span[2]} className="flex flex-col">
           <WorkSavedFilterList />
         </Col>

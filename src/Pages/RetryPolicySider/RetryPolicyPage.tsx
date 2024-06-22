@@ -34,7 +34,7 @@ export const RetryPolicyPage = () => {
   }, [fetchRetryPolicies]);
 
   return (
-    <AppSpace loading={loading} className="p-4">
+    <AppSpace loading={loading}>
       <PageTitle
         id="retry-policy"
         onReload={fetchRetryPolicies}

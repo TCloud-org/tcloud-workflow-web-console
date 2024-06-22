@@ -26,9 +26,7 @@ const TableComponents: TableProps["components"] = {
   },
   header: {
     cell: AppResizableHeader,
-    row: (props: any) => (
-      <tr {...props} className="glass-bar !backdrop-blur-lg" />
-    ),
+    row: (props: any) => <tr {...props} />,
   },
 };
 
@@ -282,9 +280,7 @@ export const AppTable = (
       loading={props.loading}
       locale={props.locale}
       rowHoverable={props.rowHoverable}
-      className={`glass-bar px-4 ${!showTitle ? "pt-4" : ""} ${
-        props.className
-      }`}
+      className={`${!showTitle ? "pt-4" : ""} ${props.className}`}
     />
   );
 };

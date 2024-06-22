@@ -122,7 +122,7 @@ export const App = () => {
 
           <Layout
             style={{
-              padding: "0 16px 0 16px",
+              padding: "0 32px 0 32px",
               marginTop: 80,
               backgroundColor: colorBgContainer,
             }}

@@ -30,7 +30,6 @@ export const AppList = (props: {
   return (
     <List
       itemLayout={itemLayout}
-      className="glass-card"
       header={
         <AppHeading
           surface={headerSurface}

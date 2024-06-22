@@ -1,4 +1,5 @@
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import { ConfigProvider } from "antd";
 import {
   CustomEditor,
   CustomElement,
@@ -13,7 +14,6 @@ import { App } from "./App";
 import { persistor, store } from "./app/store";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-import { ConfigProvider } from "antd";
 
 declare module "slate" {
   interface CustomTypes {

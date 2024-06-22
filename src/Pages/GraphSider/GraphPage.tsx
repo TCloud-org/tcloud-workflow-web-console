@@ -170,7 +170,7 @@ export const GraphPage = (props: { workflows?: Workflow[] }) => {
   };
 
   return (
-    <AppSpace loading={loading} className="p-4">
+    <AppSpace loading={loading}>
       <PageTitle
         id="graph"
         onReload={fetchGraphs}

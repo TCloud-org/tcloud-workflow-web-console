@@ -71,7 +71,7 @@ export const WorkflowPage = (props: {
   };
 
   return (
-    <AppSpace className="p-4" loading={loading}>
+    <AppSpace loading={loading}>
       <PageTitle
         id="workflow"
         onReload={onReload}
