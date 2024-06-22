@@ -242,7 +242,8 @@ export const AppHeader = (props: {
         <Flex
           align="center"
           style={{ flex: 1 }}
-          className="flex lg:hidden pl-2"
+          className="flex lg:hidden pl-4"
+          gap={8}
         >
           <AppIconButton
             id="menu-button"

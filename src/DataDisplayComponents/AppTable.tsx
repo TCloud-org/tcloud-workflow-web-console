@@ -283,6 +283,7 @@ export const AppTable = (
       loading={props.loading}
       locale={props.locale}
       rowHoverable={props.rowHoverable}
+      scroll={{ x: "1000px" }}
       className={`${!showTitle ? "pt-4" : ""} ${
         isDarkMode ? "dark" : "light"
       } ${props.className}`}
