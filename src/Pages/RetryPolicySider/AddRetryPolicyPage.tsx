@@ -1,7 +1,7 @@
 import { Form, Input, InputNumber, Select } from "antd";
 import axios from "axios";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
   RetryInput,
@@ -14,8 +14,10 @@ import { PageTitle } from "../../DataDisplayComponents/PageTitle";
 import { AppButton } from "../../DataEntryComponents/AppButton";
 import { AppForm } from "../../DataEntryComponents/AppForm";
 import { AppSpace } from "../../LayoutComponents/AppSpace";
+import { setTabIndex } from "features/settings/stepWorkflowSlice";
 
 export const AddRetryPolicyPage = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const clientId = useSelector((state: any) => state.client.clientId);
   const authToken = useSelector((state: any) => state.auth.token);
@@ -58,10 +60,12 @@ export const AddRetryPolicyPage = () => {
 
     await axios
       .post(WOS_SAVE_RETRY_POLICY_ENDPOINT, params, config)
-      .then((_) => navigate("/retry-policy"))
+      .then((_) => {})
       .catch((err) => console.error(err));
 
+    dispatch(setTabIndex("configuration"));
     setLoading(false);
+    navigate("/step-workflow#retry-policy");
   };
 
   return (

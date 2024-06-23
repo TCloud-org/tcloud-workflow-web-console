@@ -1,5 +1,4 @@
 import { EditableColumn } from "Config/LayoutConfig";
-import { AppSurface } from "DataDisplayComponents/AppSurface";
 import { AppAnimatedBox } from "LayoutComponents/AppAnimatedBox";
 import { AppRow } from "LayoutComponents/AppRow";
 import { AppSpace } from "LayoutComponents/AppSpace";
@@ -57,30 +56,28 @@ export const WorkflowSettingsToolbar = (props: {
   return (
     <AppAnimatedBox ref={boxRef}>
       <div style={{ height: "8px" }} />
-      <AppSurface>
-        <AppSpace>
-          <Typography.Text strong>Attributes</Typography.Text>
-          <AppRow>
-            {attributes.map((attribute, i) => (
-              <Col key={i} span={12}>
-                <Flex gap="8px" align="center">
-                  <Switch
-                    checked={selected[attribute]}
-                    disabled={
-                      disabled[attribute] ||
-                      columns.findIndex(
-                        (item) => item.dataIndex === attribute
-                      ) === -1
-                    }
-                    onChange={(checked) => handleSelect(attribute, checked)}
-                  />
-                  <Typography.Text>{attribute}</Typography.Text>
-                </Flex>
-              </Col>
-            ))}
-          </AppRow>
-        </AppSpace>
-      </AppSurface>
+      <AppSpace>
+        <Typography.Text strong>Attributes</Typography.Text>
+        <AppRow>
+          {attributes.map((attribute, i) => (
+            <Col key={i} span={12}>
+              <Flex gap="8px" align="center">
+                <Switch
+                  checked={selected[attribute]}
+                  disabled={
+                    disabled[attribute] ||
+                    columns.findIndex(
+                      (item) => item.dataIndex === attribute
+                    ) === -1
+                  }
+                  onChange={(checked) => handleSelect(attribute, checked)}
+                />
+                <Typography.Text>{attribute}</Typography.Text>
+              </Flex>
+            </Col>
+          ))}
+        </AppRow>
+      </AppSpace>
     </AppAnimatedBox>
   );
 };

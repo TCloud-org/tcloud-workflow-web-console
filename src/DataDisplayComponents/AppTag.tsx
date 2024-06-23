@@ -5,7 +5,7 @@ import {
   CloseCircleOutlined,
   MinusCircleOutlined,
 } from "@ant-design/icons";
-import { Tooltip } from "antd";
+import { Tooltip, theme } from "antd";
 import { CollapseTag } from "../Utils/ObjectUtils";
 
 export const TagVariantMapping: { [key: string]: CollapseTag } = {
@@ -44,6 +44,8 @@ const PillColor = {
 };
 
 export const AppTag = (props: CollapseTag) => {
+  const { token } = theme.useToken();
+
   const color = PillColor[props.color as keyof typeof PillColor] || "";
 
   return (
@@ -53,9 +55,10 @@ export const AppTag = (props: CollapseTag) => {
         style={{
           whiteSpace: "normal",
           wordBreak: "break-all",
+          boxShadow: token.boxShadow,
           ...props.style,
         }}
-        className={`glass-pill px-3 py-0.5 flex items-center gap-2 ${color} ${props.className}`}
+        className={`px-3 py-0.5 flex items-center gap-2 ${color} ${props.className}`}
       >
         {props.icon} {props.children}
       </div>

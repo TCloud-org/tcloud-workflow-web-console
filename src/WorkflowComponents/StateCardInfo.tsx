@@ -34,57 +34,56 @@ export const StateCardInfo = forwardRef<HTMLDivElement, StateCardInfoProps>(
       {
         label: "Result name",
         children: data?.resultName ? data?.resultName : renderNATag(),
-        span: Span[2],
+        span: Span[3],
       },
       {
         label: "Result type",
         children: data?.resultType ? data.resultType : renderNATag(),
-        span: Span[2],
+        span: Span[3],
       },
       {
         label: "Latency",
         children: data?.metadata?.httpResponse?.latency
           ? `${data?.metadata?.httpResponse.latency} ms`
           : renderNATag(),
-        span: Span[2],
+        span: Span[3],
       },
       {
         label: "Status code",
         children: data?.metadata?.httpResponse?.statusCode
           ? data?.metadata?.httpResponse?.statusCode
           : renderNATag(),
-        span: Span[2],
+        span: Span[3],
       },
       {
         label: "Status",
         children: data?.metadata?.httpResponse?.status
           ? data?.metadata?.httpResponse?.status
           : renderNATag(),
-        span: Span[2],
+        span: Span[3],
       },
       {
         label: "Reason",
         children: data?.metadata?.httpResponse?.reasonPhrase
           ? data?.metadata?.httpResponse?.reasonPhrase
           : renderNATag(),
-        span: Span[2],
+        span: Span[3],
       },
       {
         label: "Completed",
         children: data?.createdAt ? formatDate(data?.createdAt) : renderNATag(),
-        span: Span[2],
+        span: Span[3],
       },
       {
         label: "Retried",
         children: data?.nextRetryAt
           ? formatDate(data?.nextRetryAt)
           : renderNATag(),
-        span: Span[2],
+        span: Span[3],
       },
       ...(data?.metadata?.error
         ? [
             {
-              label: "Error",
               children: (
                 <CodeBeam
                   value="json"
@@ -112,7 +111,6 @@ export const StateCardInfo = forwardRef<HTMLDivElement, StateCardInfoProps>(
           marginTop: "16px",
           ...style,
         }}
-        className="mx-6"
         ref={ref}
       >
         <AppInfo items={items} />

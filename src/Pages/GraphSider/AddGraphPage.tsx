@@ -7,8 +7,9 @@ import {
 import { AppRow } from "LayoutComponents/AppRow";
 import { Alert, Col, Form, Input, InputNumber, Select, Typography } from "antd";
 import axios from "axios";
+import { setTabIndex } from "features/settings/stepWorkflowSlice";
 import { useCallback, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
   WOS_ADD_GRAPH_ENDPOINT,
@@ -27,6 +28,7 @@ import { fetchGraphsById } from "../../Network/WorkflowFetch";
 export const CreateGraphPage = () => {
   const [form] = Form.useForm();
   const [graphForm] = Form.useForm();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const authToken = useSelector((state: any) => state.auth.token);
   const clients: Client[] = useSelector((state: any) => state.client.clients);
@@ -123,12 +125,12 @@ export const CreateGraphPage = () => {
 
     await axios
       .post(WOS_ADD_GRAPH_ENDPOINT, params, config)
-      .then((_) => {
-        navigate("/step-workflow");
-      })
+      .then((_) => {})
       .catch((_) => {});
 
+    dispatch(setTabIndex("configuration"));
     setLoading(false);
+    navigate("/step-workflow#graph");
   };
 
   const handleValuesChange = (change: any, values: any) => {

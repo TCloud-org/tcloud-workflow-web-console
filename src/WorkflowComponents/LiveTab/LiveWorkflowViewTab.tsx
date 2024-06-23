@@ -1,7 +1,7 @@
 import { SyncOutlined } from "@ant-design/icons";
+import { dotStyle } from "DataDisplayComponents/AppSurface";
 import { AppWorkflowCollapse } from "DataDisplayComponents/AppWorkflowCollapse";
-import { AppLineConnector } from "LayoutComponents/AppLineConnector";
-import { theme } from "antd";
+import { Steps, theme } from "antd";
 import { Fragment } from "react/jsx-runtime";
 import { SelectItem } from "../../Config/DataDisplayInterface";
 import { Route } from "../../Config/WorkflowConfig";
@@ -24,83 +24,99 @@ export const LiveWorkflowViewTab = (props: {
     return `${route.version}-${route.workId}-${route.runningOrder}`;
   };
 
-  const getColor = (route: Route) => {
-    if (route.resultType === "failure") {
-      return token.colorFill;
-    }
-    return token.colorFill;
+  const color: { [key: string]: CollapseTag } = {
+    success: {
+      color: token.colorSuccess,
+    },
+    failure: {
+      color: token.colorError,
+    },
+    notified: {
+      color: token.colorInfo,
+    },
+    default: {
+      color: token.colorInfo,
+    },
+    terminal: {
+      color: token.colorSuccess,
+    },
+    pending: {
+      color: token.colorWarning,
+    },
   };
 
   return (
-    <AppWorkflowCollapse
+    <Steps
+      style={dotStyle}
+      direction="vertical"
+      className="pt-20 pb-16"
+      size="small"
+      current={-1}
       items={routes.map((route: Route, i: number) => ({
-        key: i,
-        id: getId(route),
-        label: (
-          <Fragment>
-            <AppCollapseLabel
-              time={route.createdAt}
-              step={i + 1}
-              label={route.source}
-              startTags={[
-                {
-                  children:
-                    route.resultType === "terminal"
-                      ? "success"
-                      : route.resultType,
-                  color: TagVariantMapping[route.resultType]?.color,
-                  icon: TagVariantMapping[route.resultType]?.icon,
-                  tooltip: "Result type",
-                },
-              ]}
-              endTags={[
-                ...(i > 0 && routes[i - 1].source === route.source
-                  ? [
-                      {
-                        children: `Attempt #${
-                          i -
-                          routes.findIndex(
-                            (item) => route.source === item.source
-                          )
-                        }`,
-                        icon: <SyncOutlined />,
-                      } as CollapseTag,
-                    ]
-                  : []),
-                ...(route?.metadata?.httpResponse
-                  ? [
-                      ...(route?.metadata?.httpResponse.latency
-                        ? [
-                            {
-                              children: `${route?.metadata?.httpResponse.latency} ms`,
-                              tooltip: `Latency: ${route?.metadata?.httpResponse.latency} ms`,
-                            } as CollapseTag,
-                          ]
-                        : []),
-                      {
-                        children: `${route?.metadata?.httpResponse.statusCode} ${route?.metadata?.httpResponse.status}`,
-                        tooltip: `Reason: ${route?.metadata?.httpResponse.reasonPhrase}`,
-                      } as CollapseTag,
-                    ]
-                  : []),
-                {
-                  children: route.resultName,
-                  tooltip: "Result name",
-                },
-              ]}
-            />
-
-            {i > 0 && (
-              <AppLineConnector
-                start={getId(routes[i - 1])}
-                end={getId(route)}
-                headShape="circle"
-                color={getColor(route)}
-              />
-            )}
-          </Fragment>
+        icon: (
+          <div style={{ color: color[route.resultType].color }}>
+            {TagVariantMapping[route.resultType]?.icon}
+          </div>
         ),
-        children: <StateCardInfo data={route} />,
+        description: (
+          <AppWorkflowCollapse
+            className={i === routes.length - 1 ? "mb-0" : ""}
+            items={[
+              {
+                key: i,
+                id: getId(route),
+                label: (
+                  <Fragment>
+                    <AppCollapseLabel
+                      time={route.createdAt}
+                      label={route.source}
+                      endTags={[
+                        {
+                          children: i + 1,
+                          tooltip: `Transition ${i + 1}`,
+                        },
+                        ...(i > 0 && routes[i - 1].source === route.source
+                          ? [
+                              {
+                                children: `Attempt #${
+                                  i -
+                                  routes.findIndex(
+                                    (item) => route.source === item.source
+                                  )
+                                }`,
+                                icon: <SyncOutlined />,
+                              } as CollapseTag,
+                            ]
+                          : []),
+                        ...(route?.metadata?.httpResponse
+                          ? [
+                              ...(route?.metadata?.httpResponse.latency
+                                ? [
+                                    {
+                                      children: `${route?.metadata?.httpResponse.latency} ms`,
+                                      tooltip: `Latency: ${route?.metadata?.httpResponse.latency} ms`,
+                                    } as CollapseTag,
+                                  ]
+                                : []),
+                              {
+                                children: `${route?.metadata?.httpResponse.statusCode} ${route?.metadata?.httpResponse.status}`,
+                                tooltip: `Reason: ${route?.metadata?.httpResponse.reasonPhrase}`,
+                              } as CollapseTag,
+                            ]
+                          : []),
+                        {
+                          children: route.resultName,
+                          tooltip: "Result name",
+                        },
+                      ]}
+                    />
+                  </Fragment>
+                ),
+                children: <StateCardInfo data={route} />,
+              },
+            ]}
+          />
+        ),
       }))}
     />
   );

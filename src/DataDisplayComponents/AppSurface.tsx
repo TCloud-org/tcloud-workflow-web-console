@@ -20,7 +20,6 @@ const SizeMapping: any = {
 };
 
 export const dotStyle: CSSProperties = {
-  background: "02031C",
   backgroundImage: `radial-gradient(#464553 1px, transparent 0)`,
   backgroundSize: "40px 40px",
 };

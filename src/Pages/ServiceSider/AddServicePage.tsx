@@ -2,15 +2,17 @@ import { Client } from "Config/SCSConfig";
 import { Form, Input, Select, Typography } from "antd";
 import axios from "axios";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { WOS_ADD_SERVICE_CONFIGURATION_ENDPOINT } from "../../Config/WOSEndpointConfig";
 import { EnvironmentOptions } from "../../Config/WorkflowConfig";
 import { AppButton } from "../../DataEntryComponents/AppButton";
 import { AppForm } from "../../DataEntryComponents/AppForm";
 import { AppSpace } from "../../LayoutComponents/AppSpace";
+import { setTabIndex } from "features/settings/stepWorkflowSlice";
 
 export const AddServicePage = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const clients: Client[] = useSelector((state: any) => state.client.clients);
   const authToken = useSelector((state: any) => state.auth.token);
@@ -36,11 +38,12 @@ export const AddServicePage = () => {
     };
     await axios
       .post(WOS_ADD_SERVICE_CONFIGURATION_ENDPOINT, formData, config)
-      .then((_) => {
-        navigate(`/service-configuration`);
-      })
+      .then((_) => {})
       .catch((_) => {});
+
     setLoading(false);
+    dispatch(setTabIndex("configuration"));
+    navigate(`/step-workflow#service`);
   };
 
   return (

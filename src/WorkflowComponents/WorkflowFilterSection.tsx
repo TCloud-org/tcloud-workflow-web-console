@@ -1,3 +1,4 @@
+import { Span } from "Config/DataDisplayInterface";
 import { EditableColumn } from "Config/LayoutConfig";
 import { AppRow } from "LayoutComponents/AppRow";
 import { formatCamelCaseKey } from "Utils/ObjectUtils";
@@ -20,7 +21,7 @@ export const WorkflowFilterSection = (props: {
       </Typography.Text>
       <AppRow style={{ flex: 6 }}>
         {data.customFilters?.map((filter, i) => (
-          <Col key={i} span={8}>
+          <Col key={i} {...Span[4]}>
             <Checkbox
               checked={
                 selected[data.dataIndex || ""]?.[filter.value.toString()]

@@ -18,6 +18,7 @@ import { AppAvatar } from "DataDisplayComponents/AppAvatar";
 import { AppButton } from "DataEntryComponents/AppButton";
 import { AppIconButton } from "DataEntryComponents/AppIconButton";
 import { AppSearchBar } from "DataEntryComponents/AppSearchBar";
+import { AppSwitch } from "DataEntryComponents/AppSwitch";
 import { getAccount } from "Network/AuthFetch";
 import { getClients } from "Network/SecurityFetch";
 import {
@@ -41,6 +42,8 @@ import {
   setAccount,
 } from "features/auth/authSlice";
 import { clear, set } from "features/search/historySlice";
+import { setIsDarkMode } from "features/settings/generalSlice";
+import { setTabIndex } from "features/settings/settingsSlice";
 import { setWorkflow } from "features/workflow/workflowSlice";
 import { LRUCache } from "lru-cache";
 import React, {
@@ -55,9 +58,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setClientId, updateClients } from "../features/workflow/clientSlice";
 import { AppBrand } from "./AppBrand";
-import { setTabIndex } from "features/settings/settingsSlice";
-import { setIsDarkMode } from "features/settings/generalSlice";
-import { AppSwitch } from "DataEntryComponents/AppSwitch";
 
 export const AppHeader = (props: {
   collapsed?: boolean;
@@ -226,6 +226,9 @@ export const AppHeader = (props: {
   const contentStyle: React.CSSProperties = {
     backgroundColor: token.colorBgContainer,
     borderRadius: token.borderRadiusLG,
+    boxShadow: isDarkMode
+      ? "rgba(0, 0, 0, 0.5) 0px 7px 29px 0px"
+      : "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
   };
 
   const menuStyle: React.CSSProperties = {
@@ -366,8 +369,6 @@ export const AppHeader = (props: {
                     />
                   </div>
                 </div>
-
-                <Divider style={{ margin: 0 }} />
 
                 <Flex justify="center" className="p-4">
                   <AppButton

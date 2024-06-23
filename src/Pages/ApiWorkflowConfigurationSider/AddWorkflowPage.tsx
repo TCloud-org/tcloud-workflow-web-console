@@ -13,12 +13,14 @@ import {
   Typography,
 } from "antd";
 import axios from "axios";
+import { setTabIndex } from "features/settings/stepWorkflowSlice";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AppForm } from "../../DataEntryComponents/AppForm";
 
 export const AddWorkflowPage = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [form] = Form.useForm();
   const authToken = useSelector((state: any) => state.auth.token);
@@ -51,10 +53,9 @@ export const AddWorkflowPage = () => {
 
     await axios.post(WOS_REGISTER_WORKFLOW_ENDPOINT, formData, config);
 
-    setTimeout(() => {
-      setAddLoading(false);
-      navigate("/step-workflow");
-    }, 2000);
+    dispatch(setTabIndex("configuration"));
+    setAddLoading(false);
+    navigate("/step-workflow#workflow");
   };
 
   return (

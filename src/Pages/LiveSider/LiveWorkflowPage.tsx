@@ -55,7 +55,6 @@ export const LiveWorkflowPage = () => {
     <AppSpace loading={loading}>
       <PageTitle>Work</PageTitle>
       <AppTable
-        heading="Live"
         onReload={fetchWorkIds}
         rows={works}
         columns={columns}
