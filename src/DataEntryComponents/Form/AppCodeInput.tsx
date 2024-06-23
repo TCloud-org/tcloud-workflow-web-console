@@ -6,6 +6,7 @@ import { AppSegmented } from "DataEntryComponents/AppSegmented";
 import { GraphBuilder } from "WorkflowComponents/GraphBuilder";
 import { Flex, Form, Segmented, Tooltip, theme } from "antd";
 import { ReactNode, useMemo, useState } from "react";
+import { useSelector } from "react-redux";
 
 export enum GraphFormatType {
   XML_GRAPH_FORMAT = "xmlGraphFormat",
@@ -19,6 +20,7 @@ export const AppCodeInput = (props: {
   showOptions?: boolean;
 }) => {
   const { token } = theme.useToken();
+  const isDarkMode = useSelector((state: any) => state.general.isDarkMode);
   const { showOptions, value } = props;
 
   const [copy, setCopy] = useState<boolean>(false);
@@ -113,7 +115,10 @@ export const AppCodeInput = (props: {
             wrapperCol={Span[1]}
             noStyle
           >
-            <XMLCodeEditor theme="dark" style={{ width: "100%" }} />
+            <XMLCodeEditor
+              theme={isDarkMode ? "dark" : "light"}
+              style={{ width: "100%" }}
+            />
           </Form.Item>
         </div>
       )}
