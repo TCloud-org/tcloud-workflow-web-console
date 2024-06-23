@@ -113,8 +113,10 @@ export const AppHeader = (props: {
   const [menuItems, setMenuItems] = useState<MenuProps["items"]>(accountItems);
 
   const fetchClients = useCallback(async () => {
-    const res = await getClients(account.email);
-    dispatch(updateClients(res.clients));
+    if (account.email) {
+      const res = await getClients(account.email);
+      dispatch(updateClients(res.clients));
+    }
   }, [account, dispatch]);
 
   const fetchAccount = useCallback(async () => {
