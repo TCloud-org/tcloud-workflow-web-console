@@ -71,7 +71,7 @@ export const AddWorkflowPage = () => {
           name="workflowName"
           rules={[{ required: true, message: "Please enter a workflow name" }]}
         >
-          <Input placeholder="Workflow" />
+          <Input placeholder="Enter a workflow name" />
         </Form.Item>
 
         <Form.Item
@@ -85,7 +85,7 @@ export const AddWorkflowPage = () => {
               label: client.clientId,
               value: client.clientId,
             }))}
-            placeholder="Client"
+            placeholder="Select a client"
           />
         </Form.Item>
 
@@ -95,7 +95,7 @@ export const AddWorkflowPage = () => {
           tooltip="Once a workflow enters the terminal state, it will remain available until the end of the retention period."
         >
           <InputNumber
-            placeholder="Period"
+            placeholder="Enter a retention period"
             style={{ width: "100%" }}
             addonAfter={
               <Form.Item name={["retentionPeriod", "unit"]} noStyle>

@@ -13,6 +13,7 @@ import storage from "redux-persist/lib/storage";
 import dashboardReducer from "features/settings/dashboardSlice";
 import stepWorkflowReducer from "features/settings/stepWorkflowSlice";
 import settingsReducer from "features/settings/settingsSlice";
+import helpReducer from "features/settings/helpSlice";
 
 export const ActionType = {
   logout: "LOG_OUT",
@@ -31,6 +32,7 @@ const appReducer = combineReducers({
   dashboard: dashboardReducer,
   stepWorkflow: stepWorkflowReducer,
   settings: settingsReducer,
+  help: helpReducer,
 });
 
 const rootReducer = (state: any, action: any) => {

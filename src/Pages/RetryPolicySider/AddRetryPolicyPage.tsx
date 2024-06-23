@@ -88,9 +88,12 @@ export const AddRetryPolicyPage = () => {
             rules={[{ required: true, message: "Missing required field" }]}
           >
             {input.type === "number" ? (
-              <InputNumber style={{ width: "100%" }} />
+              <InputNumber
+                style={{ width: "100%" }}
+                placeholder={`Enter ${input.label.toLowerCase()}`}
+              />
             ) : (
-              <Input />
+              <Input placeholder={`Enter ${input.label.toLowerCase()}`} />
             )}
           </Form.Item>
         ))}

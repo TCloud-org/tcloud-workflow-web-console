@@ -345,7 +345,7 @@ export const App = () => {
               element: <EditTokenPage />,
             },
             {
-              path: "/authentication/add",
+              path: "/security/add-auth-token",
               element: <AddTokenPage />,
             },
             {

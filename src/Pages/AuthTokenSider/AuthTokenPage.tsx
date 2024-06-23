@@ -14,6 +14,7 @@ import { AppButton } from "../../DataEntryComponents/AppButton";
 import { AppLink } from "../../DataEntryComponents/AppLink";
 import { AppSpace } from "../../LayoutComponents/AppSpace";
 import { getTokens } from "../../Network/AuthFetch";
+import { AppEmpty } from "DataDisplayComponents/AppEmpty";
 
 const columns: EditableColumn[] = [
   {
@@ -69,7 +70,7 @@ export const AuthTokenPage = () => {
   }, [fetchTokens]);
 
   const onAddToken = () => {
-    navigate("/authentication/add");
+    navigate("/security/add-auth-token");
   };
 
   const getColumns = (type: string): EditableColumn[] => {
@@ -102,6 +103,8 @@ export const AuthTokenPage = () => {
       >
         Authentication Token
       </PageTitle>
+
+      {Object.entries(tokenMap).length === 0 && <AppEmpty />}
 
       {Object.entries(tokenMap).map(([type, tokens], i) => (
         <AppTable

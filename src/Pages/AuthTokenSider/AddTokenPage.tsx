@@ -1,12 +1,5 @@
-import {
-  Flex,
-  Form,
-  Input,
-  Select,
-  SelectProps,
-  Typography,
-  theme,
-} from "antd";
+import { Client } from "Config/SCSConfig";
+import { Form, Input, Select, SelectProps, Typography, theme } from "antd";
 import axios from "axios";
 import { createElement, useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -27,6 +20,7 @@ export const AddTokenPage = () => {
 
   const authToken = useSelector((state: any) => state.auth.token);
   const clientId = useSelector((state: any) => state.client.clientId);
+  const clients: Client[] = useSelector((state: any) => state.client.clients);
 
   const [inputs, setInputs] = useState<any[]>([]);
   const [services, setServices] = useState<SelectProps["options"]>([]);
@@ -106,7 +100,13 @@ export const AddTokenPage = () => {
           <Input placeholder="Enter a name" />
         </Form.Item>
         <Form.Item name="clientId" label="Client">
-          <Input disabled />
+          <Select
+            placeholder="Select a client"
+            options={clients.map((client) => ({
+              label: client.clientId,
+              value: client.clientId,
+            }))}
+          />
         </Form.Item>
         <Form.Item
           name="service"
@@ -162,13 +162,11 @@ export const AddTokenPage = () => {
           </Form.Item>
         ))}
 
-        <Flex justify="center">
-          <Form.Item style={{ marginBottom: 0 }}>
-            <AppButton loading={addLoading} onClick={handleAdd} type="primary">
-              Add
-            </AppButton>
-          </Form.Item>
-        </Flex>
+        <Form.Item style={{ marginBottom: 0 }}>
+          <AppButton loading={addLoading} onClick={handleAdd} type="primary">
+            Add Token
+          </AppButton>
+        </Form.Item>
       </AppForm>
     </AppSpace>
   );

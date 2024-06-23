@@ -79,6 +79,12 @@ export const SiderName = {
   "/contact": "Contact",
   "/store": "Store",
   "/subscription": "Subscription",
+  "/add-workflow": "Add Workflow",
+  "/add-graph": "Add Graph",
+  "/add-service-endpoint": "Add Service Endpoint",
+  "/add-retry-policy": "Add Retry Policy",
+  "/add-client": "Add Client",
+  "/add-auth-token": "Add Auth Token",
 };
 
 export const AppSider = (props: {

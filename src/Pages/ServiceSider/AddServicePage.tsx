@@ -1,6 +1,7 @@
+import { Client } from "Config/SCSConfig";
 import { Form, Input, Select, Typography } from "antd";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { WOS_ADD_SERVICE_CONFIGURATION_ENDPOINT } from "../../Config/WOSEndpointConfig";
@@ -11,19 +12,13 @@ import { AppSpace } from "../../LayoutComponents/AppSpace";
 
 export const AddServicePage = () => {
   const navigate = useNavigate();
-  const clientId = useSelector((state: any) => state.client.clientId);
+  const clients: Client[] = useSelector((state: any) => state.client.clients);
   const authToken = useSelector((state: any) => state.auth.token);
 
   const [formData, setFormData] = useState<{
     [key: string]: string | number | undefined;
   }>({});
   const [loading, setLoading] = useState<boolean>(false);
-
-  useEffect(() => {
-    if (clientId) {
-      setFormData((prev) => ({ ...prev, clientId }));
-    }
-  }, [clientId]);
 
   const handleValuesChange = (e: any) => {
     setFormData((prev) => ({
@@ -53,8 +48,14 @@ export const AddServicePage = () => {
       <Typography.Title level={4}>Add a new service</Typography.Title>
 
       <AppForm onValuesChange={handleValuesChange}>
-        <Form.Item label="Client Id" name="clientId" valuePropName="clientId">
-          <Input value={clientId} disabled />
+        <Form.Item label="Client Id" name="clientId">
+          <Select
+            placeholder="Select a client"
+            options={clients.map((client) => ({
+              label: client.clientId,
+              value: client.clientId,
+            }))}
+          />
         </Form.Item>
 
         <Form.Item label="Service" name="serviceName">

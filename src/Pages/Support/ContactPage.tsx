@@ -1,5 +1,4 @@
 import {
-  ArrowRightOutlined,
   EnvironmentOutlined,
   MailOutlined,
   PhoneOutlined,
@@ -59,7 +58,7 @@ export const ContactPage = () => {
                     key={i}
                     onClick={() => (window.location.href = option.href)}
                   >
-                    <Flex gap={16}>
+                    <Flex gap={16} vertical>
                       {option.icon}
                       <Typography.Text>{option.value}</Typography.Text>
                     </Flex>
@@ -104,7 +103,6 @@ export const ContactPage = () => {
                 <AppButton
                   type="primary"
                   style={{ width: "100%" }}
-                  icon={<ArrowRightOutlined />}
                   onClick={handleContact}
                 >
                   Submit

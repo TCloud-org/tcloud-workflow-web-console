@@ -5,10 +5,8 @@ import {
   GraphFormatType,
 } from "DataEntryComponents/Form/AppCodeInput";
 import { AppRow } from "LayoutComponents/AppRow";
-import { getClients } from "Network/SecurityFetch";
 import { Alert, Col, Form, Input, InputNumber, Select, Typography } from "antd";
 import axios from "axios";
-import { Account } from "features/auth/authSlice";
 import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -31,12 +29,11 @@ export const CreateGraphPage = () => {
   const [graphForm] = Form.useForm();
   const navigate = useNavigate();
   const authToken = useSelector((state: any) => state.auth.token);
-  const account: Account = useSelector((state: any) => state.auth.account);
+  const clients: Client[] = useSelector((state: any) => state.client.clients);
   const [isValidating, setIsValidating] = useState<boolean>(false);
   const [isXMLValidated, setIsXMLValidated] = useState<boolean>(false);
   const [showAlert, setShowAlert] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
-  const [clients, setClients] = useState<Client[]>([]);
   const [clientId, setClientId] = useState<string>("");
   const [workflowId, setWorkflowId] = useState<number>();
   const [workflows, setWorkflows] = useState<Workflow[]>([]);
@@ -50,13 +47,6 @@ export const CreateGraphPage = () => {
       );
     }
   }, [workflowId, form, authToken]);
-
-  const fetchClients = useCallback(async () => {
-    if (account) {
-      const res = await getClients(account.email);
-      setClients(res.clients || []);
-    }
-  }, [account]);
 
   const fetchWorkflows = useCallback(async () => {
     if (clientId) {
@@ -78,10 +68,6 @@ export const CreateGraphPage = () => {
   useEffect(() => {
     fetchGraphs();
   }, [fetchGraphs]);
-
-  useEffect(() => {
-    fetchClients();
-  }, [fetchClients]);
 
   useEffect(() => {
     fetchWorkflows();
@@ -204,12 +190,20 @@ export const CreateGraphPage = () => {
               name="alias"
               tooltip="If this field is left empty, it will be automatically assigned a generated ID"
             >
-              <Input name="alias" disabled={!workflowId} />
+              <Input
+                name="alias"
+                disabled={!workflowId}
+                placeholder="Enter an alias"
+              />
             </Form.Item>
           </Col>
           <Col {...Span[2]}>
             <Form.Item label="Version" name="version" tooltip="Next version">
-              <InputNumber style={{ width: "100%" }} disabled />
+              <InputNumber
+                style={{ width: "100%" }}
+                disabled
+                placeholder="Enter a version"
+              />
             </Form.Item>
           </Col>
         </AppRow>
@@ -220,7 +214,10 @@ export const CreateGraphPage = () => {
           tooltip="This description offers helpful context for this graph version"
           style={{ marginBottom: 0 }}
         >
-          <Input.TextArea disabled={!workflowId} />
+          <Input.TextArea
+            disabled={!workflowId}
+            placeholder="Enter a description"
+          />
         </Form.Item>
       </AppForm>
 
