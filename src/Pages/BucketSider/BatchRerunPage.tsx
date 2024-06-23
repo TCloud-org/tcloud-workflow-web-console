@@ -1,4 +1,4 @@
-import { AppSurface } from "DataDisplayComponents/AppSurface";
+import { decodeBucketId } from "Utils/IdentifierUtils";
 import { GraphState } from "WorkflowComponents/GraphBuilder";
 import { Flex, Form, Select, Steps } from "antd";
 import axios from "axios";
@@ -25,7 +25,6 @@ import {
 import { extractServices, extractStates } from "../../Utils/ObjectUtils";
 import { BatchRerunConfigureEndpointStep } from "../../WorkflowComponents/BucketBatch/BatchRerunConfigureEndpointStep";
 import { BatchRerunConfigureWorkflowStep } from "../../WorkflowComponents/BucketBatch/BatchRerunConfigureWorkflowStep";
-import { decodeBucketId } from "Utils/IdentifierUtils";
 
 export const BatchRerunPage = () => {
   const navigate = useNavigate();
@@ -179,72 +178,70 @@ export const BatchRerunPage = () => {
   };
 
   return (
-    <AppSurface type="form">
-      <AppSpace loading={loading}>
-        <Steps
-          current={current}
-          onChange={setCurrent}
-          direction="vertical"
-          items={[
-            {
-              title: "Review Batch",
-              description: (
-                <AppVerticalStepContent>
-                  <AppList
-                    headerSurface
-                    headerTooltip="Bucket serialized ID"
-                    header={bucketId}
-                    data={workIds.map(
-                      (workId) =>
-                        ({
-                          title: workId,
-                          href: `/live/${workId}`,
-                        } as ListItem)
-                    )}
-                  />
-                </AppVerticalStepContent>
-              ),
-            },
-            {
-              title: "Configure Workflow",
-              description: (
-                <BatchRerunConfigureWorkflowStep graphs={graphs} form={form} />
-              ),
-            },
-            {
-              title: (
-                <Flex align="center" gap={8}>
-                  Configure Endpoint by
-                  <Select
-                    style={{ width: 100 }}
-                    options={EndpointConfigTypes}
-                    value={endpointConfigType}
-                    onChange={setEndpointConfigType}
-                  />
-                </Flex>
-              ),
-              description: (
-                <BatchRerunConfigureEndpointStep
-                  form={form}
-                  type={endpointConfigType}
-                  services={services}
-                  states={states}
-                  serviceConfigMap={serviceConfigMap}
+    <AppSpace loading={loading}>
+      <Steps
+        current={current}
+        onChange={setCurrent}
+        direction="vertical"
+        items={[
+          {
+            title: "Review Batch",
+            description: (
+              <AppVerticalStepContent>
+                <AppList
+                  headerSurface
+                  headerTooltip="Bucket serialized ID"
+                  header={bucketId}
+                  data={workIds.map(
+                    (workId) =>
+                      ({
+                        title: workId,
+                        href: `/live/${workId}`,
+                      } as ListItem)
+                  )}
                 />
-              ),
-            },
-          ]}
-        />
+              </AppVerticalStepContent>
+            ),
+          },
+          {
+            title: "Configure Workflow",
+            description: (
+              <BatchRerunConfigureWorkflowStep graphs={graphs} form={form} />
+            ),
+          },
+          {
+            title: (
+              <Flex align="center" gap={8}>
+                Configure Endpoint by
+                <Select
+                  style={{ width: 100 }}
+                  options={EndpointConfigTypes}
+                  value={endpointConfigType}
+                  onChange={setEndpointConfigType}
+                />
+              </Flex>
+            ),
+            description: (
+              <BatchRerunConfigureEndpointStep
+                form={form}
+                type={endpointConfigType}
+                services={services}
+                states={states}
+                serviceConfigMap={serviceConfigMap}
+              />
+            ),
+          },
+        ]}
+      />
 
-        <AppButton
-          tooltip={`Rerun a batch of ${workIds.length} items`}
-          type="primary"
-          onClick={handleRerun}
-          loading={rerunLoading}
-        >
-          Batch Rerun
-        </AppButton>
-      </AppSpace>
-    </AppSurface>
+      <AppButton
+        tooltip={`Rerun a batch of ${workIds.length} items`}
+        type="primary"
+        onClick={handleRerun}
+        loading={rerunLoading}
+      >
+        Batch Rerun
+      </AppButton>
+    </AppSpace>
   );
 };

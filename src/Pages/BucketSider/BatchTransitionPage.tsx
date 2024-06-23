@@ -1,5 +1,5 @@
-import { AppSurface } from "DataDisplayComponents/AppSurface";
 import { AppRow } from "LayoutComponents/AppRow";
+import { decodeBucketId } from "Utils/IdentifierUtils";
 import { Col, Flex, Radio, Steps, Typography } from "antd";
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
@@ -15,7 +15,6 @@ import { AppSpace } from "../../LayoutComponents/AppSpace";
 import { AppVerticalStepContent } from "../../LayoutComponents/AppVerticalStepContent";
 import { getGraphById } from "../../Network/WorkflowFetch";
 import { extractStatesAfterSource } from "../../Utils/ObjectUtils";
-import { decodeBucketId } from "Utils/IdentifierUtils";
 
 export const BatchTransitionPage = () => {
   const navigate = useNavigate();
@@ -87,131 +86,129 @@ export const BatchTransitionPage = () => {
   };
 
   return (
-    <AppSurface type="form">
-      <AppSpace loading={loading}>
-        <Steps
-          direction="vertical"
-          current={current}
-          onChange={setCurrent}
-          items={[
-            {
-              title: "Review Batch",
-              description: (
-                <AppVerticalStepContent>
-                  <AppList
-                    headerTooltip="Bucket serialized ID"
-                    header={bucketId}
-                    data={workIds.map(
-                      (workId) =>
-                        ({
-                          title: workId,
-                          href: `/live/${encodeURIComponent(workId)}`,
-                        } as ListItem)
-                    )}
-                  />
-                </AppVerticalStepContent>
-              ),
-            },
-            {
-              title: "Confirm Source",
-              description: (
-                <AppVerticalStepContent>
-                  <AppRow>
-                    <Col {...createSpan(4)}>
-                      <Typography.Text>Current state</Typography.Text>
-                    </Col>
+    <AppSpace loading={loading}>
+      <Steps
+        direction="vertical"
+        current={current}
+        onChange={setCurrent}
+        items={[
+          {
+            title: "Review Batch",
+            description: (
+              <AppVerticalStepContent>
+                <AppList
+                  headerTooltip="Bucket serialized ID"
+                  header={bucketId}
+                  data={workIds.map(
+                    (workId) =>
+                      ({
+                        title: workId,
+                        href: `/live/${encodeURIComponent(workId)}`,
+                      } as ListItem)
+                  )}
+                />
+              </AppVerticalStepContent>
+            ),
+          },
+          {
+            title: "Confirm Source",
+            description: (
+              <AppVerticalStepContent>
+                <AppRow>
+                  <Col {...createSpan(4)}>
+                    <Typography.Text>Current state</Typography.Text>
+                  </Col>
 
-                    <Col {...createSpan(20)}>
-                      <Radio.Group
-                        value={from}
-                        buttonStyle="solid"
-                        style={{ width: "100%" }}
-                      >
-                        <Radio.Button style={{ width: "100%" }} value={from}>
-                          {from}
-                        </Radio.Button>
-                      </Radio.Group>
-                    </Col>
-                  </AppRow>
-                </AppVerticalStepContent>
-              ),
-            },
-            {
-              title: "Choose Destination",
-              description: (
-                <AppVerticalStepContent>
-                  <AppSpace>
-                    {nextStates.length > 0 && (
-                      <AppRow>
-                        <Col {...createSpan(4)}>
-                          <Typography.Text>Next state</Typography.Text>
-                        </Col>
-                        <Col {...createSpan(20)}>
-                          <Flex vertical gap={16}>
-                            {nextStates.map((state, i) => (
-                              <Radio.Group
-                                buttonStyle="solid"
-                                value={to}
+                  <Col {...createSpan(20)}>
+                    <Radio.Group
+                      value={from}
+                      buttonStyle="solid"
+                      style={{ width: "100%" }}
+                    >
+                      <Radio.Button style={{ width: "100%" }} value={from}>
+                        {from}
+                      </Radio.Button>
+                    </Radio.Group>
+                  </Col>
+                </AppRow>
+              </AppVerticalStepContent>
+            ),
+          },
+          {
+            title: "Choose Destination",
+            description: (
+              <AppVerticalStepContent>
+                <AppSpace>
+                  {nextStates.length > 0 && (
+                    <AppRow>
+                      <Col {...createSpan(4)}>
+                        <Typography.Text>Next state</Typography.Text>
+                      </Col>
+                      <Col {...createSpan(20)}>
+                        <Flex vertical gap={16}>
+                          {nextStates.map((state, i) => (
+                            <Radio.Group
+                              buttonStyle="solid"
+                              value={to}
+                              style={{ width: "100%" }}
+                              onChange={(e) => setTo(e.target.value)}
+                              key={i}
+                            >
+                              <Radio.Button
                                 style={{ width: "100%" }}
-                                onChange={(e) => setTo(e.target.value)}
-                                key={i}
+                                value={state}
                               >
-                                <Radio.Button
-                                  style={{ width: "100%" }}
-                                  value={state}
-                                >
-                                  {state}
-                                </Radio.Button>
-                              </Radio.Group>
-                            ))}
-                          </Flex>
-                        </Col>
-                      </AppRow>
-                    )}
-                    {otherStates.length > 0 && (
-                      <AppRow>
-                        <Col {...createSpan(4)}>
-                          <Typography.Text>Other state</Typography.Text>
-                        </Col>
-                        <Col {...createSpan(20)}>
-                          <Flex vertical gap={16}>
-                            {otherStates.map((state, i) => (
-                              <Radio.Group
-                                buttonStyle="solid"
-                                value={to}
+                                {state}
+                              </Radio.Button>
+                            </Radio.Group>
+                          ))}
+                        </Flex>
+                      </Col>
+                    </AppRow>
+                  )}
+                  {otherStates.length > 0 && (
+                    <AppRow>
+                      <Col {...createSpan(4)}>
+                        <Typography.Text>Other state</Typography.Text>
+                      </Col>
+                      <Col {...createSpan(20)}>
+                        <Flex vertical gap={16}>
+                          {otherStates.map((state, i) => (
+                            <Radio.Group
+                              buttonStyle="solid"
+                              value={to}
+                              style={{ width: "100%" }}
+                              onChange={(e) => setTo(e.target.value)}
+                              key={i}
+                            >
+                              <Radio.Button
                                 style={{ width: "100%" }}
-                                onChange={(e) => setTo(e.target.value)}
-                                key={i}
+                                value={state}
                               >
-                                <Radio.Button
-                                  style={{ width: "100%" }}
-                                  value={state}
-                                >
-                                  {state}
-                                </Radio.Button>
-                              </Radio.Group>
-                            ))}
-                          </Flex>
-                        </Col>
-                      </AppRow>
-                    )}
-                    {nextStates.length === 0 && <AppEmpty />}
-                  </AppSpace>
-                </AppVerticalStepContent>
-              ),
-            },
-          ]}
-        />
+                                {state}
+                              </Radio.Button>
+                            </Radio.Group>
+                          ))}
+                        </Flex>
+                      </Col>
+                    </AppRow>
+                  )}
+                  {nextStates.length === 0 && <AppEmpty />}
+                </AppSpace>
+              </AppVerticalStepContent>
+            ),
+          },
+        ]}
+      />
 
-        <AppButton
-          tooltip={`Transition a batch of ${workIds.length} items from ${from} to ${to}`}
-          type="primary"
-          onClick={handleBatchTransition}
-          loading={transitionLoading}
-        >
-          Batch Transition
-        </AppButton>
-      </AppSpace>
-    </AppSurface>
+      <AppButton
+        tooltip={`Transition a batch of ${workIds.length} items from ${from} to ${to}`}
+        type="primary"
+        onClick={handleBatchTransition}
+        loading={transitionLoading}
+      >
+        Batch Transition
+      </AppButton>
+    </AppSpace>
   );
 };

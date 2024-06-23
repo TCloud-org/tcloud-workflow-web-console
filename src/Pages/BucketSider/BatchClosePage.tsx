@@ -1,4 +1,4 @@
-import { AppSurface } from "DataDisplayComponents/AppSurface";
+import { decodeBucketId } from "Utils/IdentifierUtils";
 import { Steps } from "antd";
 import axios from "axios";
 import { Key, useState } from "react";
@@ -11,7 +11,6 @@ import { AppList } from "../../DataDisplayComponents/AppList";
 import { AppButton } from "../../DataEntryComponents/AppButton";
 import { AppSpace } from "../../LayoutComponents/AppSpace";
 import { AppVerticalStepContent } from "../../LayoutComponents/AppVerticalStepContent";
-import { decodeBucketId } from "Utils/IdentifierUtils";
 
 export const BatchClosePage = () => {
   const navigate = useNavigate();
@@ -44,44 +43,42 @@ export const BatchClosePage = () => {
   };
 
   return (
-    <AppSurface type="form">
-      <AppSpace>
-        <Steps
-          current={current}
-          onChange={setCurrent}
-          direction="vertical"
-          items={[
-            {
-              title: <AppHeading>1. Review Batch</AppHeading>,
-              description: (
-                <AppVerticalStepContent>
-                  <AppList
-                    headerSurface
-                    headerTooltip="Bucket serialized ID"
-                    header={bucketId}
-                    data={workIds.map(
-                      (workId) =>
-                        ({
-                          title: workId,
-                          href: `/live/${workId}`,
-                        } as ListItem)
-                    )}
-                  />
-                </AppVerticalStepContent>
-              ),
-            },
-          ]}
-        />
+    <AppSpace>
+      <Steps
+        current={current}
+        onChange={setCurrent}
+        direction="vertical"
+        items={[
+          {
+            title: <AppHeading>1. Review Batch</AppHeading>,
+            description: (
+              <AppVerticalStepContent>
+                <AppList
+                  headerSurface
+                  headerTooltip="Bucket serialized ID"
+                  header={bucketId}
+                  data={workIds.map(
+                    (workId) =>
+                      ({
+                        title: workId,
+                        href: `/live/${workId}`,
+                      } as ListItem)
+                  )}
+                />
+              </AppVerticalStepContent>
+            ),
+          },
+        ]}
+      />
 
-        <AppButton
-          tooltip={`Close a batch of ${workIds.length} items`}
-          type="primary"
-          onClick={handleClose}
-          loading={loading}
-        >
-          Batch Close
-        </AppButton>
-      </AppSpace>
-    </AppSurface>
+      <AppButton
+        tooltip={`Close a batch of ${workIds.length} items`}
+        type="primary"
+        onClick={handleClose}
+        loading={loading}
+      >
+        Batch Close
+      </AppButton>
+    </AppSpace>
   );
 };

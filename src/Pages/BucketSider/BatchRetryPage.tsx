@@ -1,4 +1,4 @@
-import { AppSurface } from "DataDisplayComponents/AppSurface";
+import { decodeBucketId } from "Utils/IdentifierUtils";
 import { Col, Form, Input, Select, Steps, Typography } from "antd";
 import axios from "axios";
 import { Key, useCallback, useEffect, useState } from "react";
@@ -19,7 +19,6 @@ import { AppRow } from "../../LayoutComponents/AppRow";
 import { AppSpace } from "../../LayoutComponents/AppSpace";
 import { AppVerticalStepContent } from "../../LayoutComponents/AppVerticalStepContent";
 import { getConfigurationsByService } from "../../Network/WorkflowFetch";
-import { decodeBucketId } from "Utils/IdentifierUtils";
 
 export const BatchRetryPage = () => {
   const navigate = useNavigate();
@@ -111,82 +110,80 @@ export const BatchRetryPage = () => {
   };
 
   return (
-    <AppSurface type="form">
-      <AppSpace>
-        <Steps
-          current={current}
-          onChange={setCurrent}
-          direction="vertical"
-          items={[
-            {
-              title: <AppHeading>1. Review Batch</AppHeading>,
-              description: (
-                <AppVerticalStepContent>
-                  <AppList
-                    header={bucketId}
-                    data={workIds.map(
-                      (workId) =>
-                        ({
-                          title: workId,
-                          href: `/live/${workId}`,
-                        } as ListItem)
-                    )}
-                  />
-                </AppVerticalStepContent>
-              ),
-            },
-            {
-              title: (
-                <Typography.Text strong>
-                  2. Configure Service Endpoint
-                </Typography.Text>
-              ),
-              description: (
-                <AppVerticalStepContent>
-                  <AppForm form={form} onValuesChange={handleValuesChange}>
-                    <AppRow>
-                      <Col span={12}>
-                        <Form.Item name="state" label="State">
-                          <Input disabled />
-                        </Form.Item>
-                      </Col>
-                      <Col span={12}>
-                        <Form.Item name="serviceName" label="Service">
-                          <Input disabled />
-                        </Form.Item>
-                      </Col>
-                      <Col span={12}>
-                        <Form.Item name="baseUrl" label="Endpoint">
-                          <Input disabled />
-                        </Form.Item>
-                      </Col>
-                      <Col span={12}>
-                        <Form.Item name="alias" label="Alias">
-                          <Select
-                            options={configs.map((config) => ({
-                              label: config.alias,
-                              value: config.alias,
-                            }))}
-                          />
-                        </Form.Item>
-                      </Col>
-                    </AppRow>
-                  </AppForm>
-                </AppVerticalStepContent>
-              ),
-            },
-          ]}
-        />
+    <AppSpace>
+      <Steps
+        current={current}
+        onChange={setCurrent}
+        direction="vertical"
+        items={[
+          {
+            title: <AppHeading>1. Review Batch</AppHeading>,
+            description: (
+              <AppVerticalStepContent>
+                <AppList
+                  header={bucketId}
+                  data={workIds.map(
+                    (workId) =>
+                      ({
+                        title: workId,
+                        href: `/live/${workId}`,
+                      } as ListItem)
+                  )}
+                />
+              </AppVerticalStepContent>
+            ),
+          },
+          {
+            title: (
+              <Typography.Text strong>
+                2. Configure Service Endpoint
+              </Typography.Text>
+            ),
+            description: (
+              <AppVerticalStepContent>
+                <AppForm form={form} onValuesChange={handleValuesChange}>
+                  <AppRow>
+                    <Col span={12}>
+                      <Form.Item name="state" label="State">
+                        <Input disabled />
+                      </Form.Item>
+                    </Col>
+                    <Col span={12}>
+                      <Form.Item name="serviceName" label="Service">
+                        <Input disabled />
+                      </Form.Item>
+                    </Col>
+                    <Col span={12}>
+                      <Form.Item name="baseUrl" label="Endpoint">
+                        <Input disabled />
+                      </Form.Item>
+                    </Col>
+                    <Col span={12}>
+                      <Form.Item name="alias" label="Alias">
+                        <Select
+                          options={configs.map((config) => ({
+                            label: config.alias,
+                            value: config.alias,
+                          }))}
+                        />
+                      </Form.Item>
+                    </Col>
+                  </AppRow>
+                </AppForm>
+              </AppVerticalStepContent>
+            ),
+          },
+        ]}
+      />
 
-        <AppButton
-          tooltip={`Retry a batch of ${workIds.length} items`}
-          type="primary"
-          onClick={handleBatchRetry}
-          loading={loading}
-        >
-          Batch Retry
-        </AppButton>
-      </AppSpace>
-    </AppSurface>
+      <AppButton
+        tooltip={`Retry a batch of ${workIds.length} items`}
+        type="primary"
+        onClick={handleBatchRetry}
+        loading={loading}
+      >
+        Batch Retry
+      </AppButton>
+    </AppSpace>
   );
 };
