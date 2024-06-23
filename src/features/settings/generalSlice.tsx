@@ -7,7 +7,7 @@ export interface GeneralState {
 
 const initialState: GeneralState = {
   isDevMode: false,
-  isDarkMode: false,
+  isDarkMode: true,
 };
 
 export const generalSlice = createSlice({
