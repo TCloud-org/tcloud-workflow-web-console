@@ -11,12 +11,11 @@ import { Span } from "../../Config/DataDisplayInterface";
 import { AppDescriptionBorderedBox } from "../../DataDisplayComponents/AppDescriptionBorderedBox";
 import { AppDescriptions } from "../../DataDisplayComponents/AppDescriptions";
 import { AppSecretDescription } from "../../DataDisplayComponents/AppSecretDescription";
+import { AppTag } from "../../DataDisplayComponents/AppTag";
 import { PageTitle } from "../../DataDisplayComponents/PageTitle";
 import { AppIconButton } from "../../DataEntryComponents/AppIconButton";
 import { AppSpace } from "../../LayoutComponents/AppSpace";
 import { getTokenById } from "../../Network/AuthFetch";
-import { AppTag } from "../../DataDisplayComponents/AppTag";
-import { AppSurface } from "DataDisplayComponents/AppSurface";
 
 const columns = [
   {
@@ -89,68 +88,65 @@ export const ViewTokenPage = () => {
         }
       >{`Token #${tokenId}`}</PageTitle>
 
-      <AppSurface type="form">
-        <AppDescriptions
-          layout="vertical"
-          items={[
-            ...columns.map((column) => ({
-              label: column?.label,
+      <AppDescriptions
+        layout="vertical"
+        items={[
+          ...columns.map((column) => ({
+            label: column?.label,
+            children: (
+              <AppDescriptionBorderedBox>
+                {(() => {
+                  const text =
+                    token?.[column.value as keyof AuthToken]?.toString() || "";
+                  if (column.render) {
+                    return column.render(text);
+                  }
+                  return (
+                    <Typography.Text>
+                      {token?.[column.value as keyof AuthToken]}
+                    </Typography.Text>
+                  );
+                })()}
+              </AppDescriptionBorderedBox>
+            ),
+            span: Span[1],
+          })),
+
+          ...((token &&
+            AuthenticationTypes[
+              token.type as keyof AuthenticationTypesProps
+            ].inputs.map((input, i) => ({
+              label: input?.label,
               children: (
-                <AppDescriptionBorderedBox>
-                  {(() => {
-                    const text =
-                      token?.[column.value as keyof AuthToken]?.toString() ||
-                      "";
-                    if (column.render) {
-                      return column.render(text);
-                    }
-                    return (
-                      <Typography.Text>
-                        {token?.[column.value as keyof AuthToken]}
-                      </Typography.Text>
-                    );
-                  })()}
+                <AppDescriptionBorderedBox
+                  bordered={
+                    i !==
+                    AuthenticationTypes[
+                      token.type as keyof AuthenticationTypesProps
+                    ].inputs.length -
+                      1
+                  }
+                >
+                  {input.secret ? (
+                    <AppSecretDescription>
+                      {token[input.name as keyof AuthToken]?.toString() || ""}
+                    </AppSecretDescription>
+                  ) : (
+                    <Typography.Text>
+                      {token[input.name as keyof AuthToken]}
+                    </Typography.Text>
+                  )}
                 </AppDescriptionBorderedBox>
               ),
               span: Span[1],
-            })),
-
-            ...((token &&
-              AuthenticationTypes[
-                token.type as keyof AuthenticationTypesProps
-              ].inputs.map((input, i) => ({
-                label: input?.label,
-                children: (
-                  <AppDescriptionBorderedBox
-                    bordered={
-                      i !==
-                      AuthenticationTypes[
-                        token.type as keyof AuthenticationTypesProps
-                      ].inputs.length -
-                        1
-                    }
-                  >
-                    {input.secret ? (
-                      <AppSecretDescription>
-                        {token[input.name as keyof AuthToken]?.toString() || ""}
-                      </AppSecretDescription>
-                    ) : (
-                      <Typography.Text>
-                        {token[input.name as keyof AuthToken]}
-                      </Typography.Text>
-                    )}
-                  </AppDescriptionBorderedBox>
-                ),
-                span: Span[1],
-              }))) ||
-              []),
-          ]}
-          labelStyle={{
-            fontWeight: 600,
-          }}
-          contentStyle={{}}
-        />
-      </AppSurface>
+            }))) ||
+            []),
+        ]}
+        labelStyle={{
+          fontWeight: 600,
+        }}
+        contentStyle={{}}
+      />
     </AppSpace>
   );
 };

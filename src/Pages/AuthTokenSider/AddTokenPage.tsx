@@ -19,7 +19,6 @@ import { AppButton } from "../../DataEntryComponents/AppButton";
 import { AppForm } from "../../DataEntryComponents/AppForm";
 import { AppSpace } from "../../LayoutComponents/AppSpace";
 import { getServiceConfigurations } from "../../Network/WorkflowFetch";
-import { AppSurface } from "DataDisplayComponents/AppSurface";
 
 export const AddTokenPage = () => {
   const navigate = useNavigate();
@@ -97,86 +96,80 @@ export const AddTokenPage = () => {
   };
 
   return (
-    <AppSurface type="form">
-      <AppSpace loading={loading}>
-        <AppForm form={form} onValuesChange={handleValuesChange}>
-          <Form.Item
-            name="name"
-            label="Name"
-            tooltip={GENERATED_ID_INPUT_TOOLTIP}
-          >
-            <Input placeholder="Enter a name" />
-          </Form.Item>
-          <Form.Item name="clientId" label="Client">
-            <Input disabled />
-          </Form.Item>
-          <Form.Item
-            name="service"
-            label="Associated service"
-            rules={[{ required: true }]}
-            tooltip="Select the service you wish to authenticate with"
-          >
-            <Select options={services} placeholder="Select a service" />
-          </Form.Item>
-          <Form.Item name="type" label="Authentication type">
-            <Select
-              placeholder="Select an authentication type"
-              options={Object.entries(AuthenticationTypes).map(
-                ([type, value]) => ({
-                  label: (
-                    <AppSpace direction="horizontal">
-                      <Typography.Text
+    <AppSpace loading={loading}>
+      <AppForm form={form} onValuesChange={handleValuesChange}>
+        <Form.Item
+          name="name"
+          label="Name"
+          tooltip={GENERATED_ID_INPUT_TOOLTIP}
+        >
+          <Input placeholder="Enter a name" />
+        </Form.Item>
+        <Form.Item name="clientId" label="Client">
+          <Input disabled />
+        </Form.Item>
+        <Form.Item
+          name="service"
+          label="Associated service"
+          rules={[{ required: true }]}
+          tooltip="Select the service you wish to authenticate with"
+        >
+          <Select options={services} placeholder="Select a service" />
+        </Form.Item>
+        <Form.Item name="type" label="Authentication type">
+          <Select
+            placeholder="Select an authentication type"
+            options={Object.entries(AuthenticationTypes).map(
+              ([type, value]) => ({
+                label: (
+                  <AppSpace direction="horizontal">
+                    <Typography.Text
+                      style={{
+                        color: value.disabled
+                          ? token.colorTextDisabled
+                          : undefined,
+                      }}
+                    >
+                      {value.label}
+                    </Typography.Text>
+                    {value.tag && (
+                      <AppTag
+                        {...value.tag}
                         style={{
                           color: value.disabled
                             ? token.colorTextDisabled
                             : undefined,
+                          lineHeight: "16px",
                         }}
-                      >
-                        {value.label}
-                      </Typography.Text>
-                      {value.tag && (
-                        <AppTag
-                          {...value.tag}
-                          style={{
-                            color: value.disabled
-                              ? token.colorTextDisabled
-                              : undefined,
-                            lineHeight: "16px",
-                          }}
-                        />
-                      )}
-                    </AppSpace>
-                  ),
-                  value: type,
-                  disabled: value.disabled,
-                })
-              )}
-            />
+                      />
+                    )}
+                  </AppSpace>
+                ),
+                value: type,
+                disabled: value.disabled,
+              })
+            )}
+          />
+        </Form.Item>
+        {inputs.map((input: any, i: number) => (
+          <Form.Item
+            key={i}
+            name={input.name}
+            label={input.label}
+            rules={[{ required: input.required }]}
+          >
+            {createElement(input.element, input.props)}
           </Form.Item>
-          {inputs.map((input: any, i: number) => (
-            <Form.Item
-              key={i}
-              name={input.name}
-              label={input.label}
-              rules={[{ required: input.required }]}
-            >
-              {createElement(input.element, input.props)}
-            </Form.Item>
-          ))}
+        ))}
 
-          <Flex justify="center">
-            <Form.Item style={{ marginBottom: 0 }}>
-              <AppButton
-                loading={addLoading}
-                onClick={handleAdd}
-                type="primary"
-              >
-                Add
-              </AppButton>
-            </Form.Item>
-          </Flex>
-        </AppForm>
-      </AppSpace>
-    </AppSurface>
+        <Flex justify="center">
+          <Form.Item style={{ marginBottom: 0 }}>
+            <AppButton loading={addLoading} onClick={handleAdd} type="primary">
+              Add
+            </AppButton>
+          </Form.Item>
+        </Flex>
+      </AppForm>
+    </AppSpace>
   );
 };

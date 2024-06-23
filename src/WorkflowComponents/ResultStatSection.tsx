@@ -1,7 +1,7 @@
 import {
-  BrokenImageRounded,
-  EmojiEventsRounded,
-  EngineeringRounded,
+  CachedRounded,
+  CheckRounded,
+  CloseRounded,
   ListAltRounded,
 } from "@mui/icons-material";
 import { Span } from "Config/DataDisplayInterface";
@@ -27,7 +27,7 @@ export const ResultStatSection = (props: { statistic?: WorkStatistic }) => {
       color: "#12bc95",
       value: statistic?.successes.length || 0,
       title: "Succeeded",
-      icon: <EmojiEventsRounded />,
+      icon: <CheckRounded />,
     },
     {
       data: statistic?.progresses || [],
@@ -35,7 +35,7 @@ export const ResultStatSection = (props: { statistic?: WorkStatistic }) => {
       color: "#47c9d7",
       value: statistic?.progresses.length || 0,
       title: "Running",
-      icon: <EngineeringRounded />,
+      icon: <CachedRounded />,
     },
     {
       data: statistic?.failures || [],
@@ -43,7 +43,7 @@ export const ResultStatSection = (props: { statistic?: WorkStatistic }) => {
       color: "#f86767",
       value: statistic?.failures.length || 0,
       title: "Failed",
-      icon: <BrokenImageRounded />,
+      icon: <CloseRounded />,
     },
   ];
 

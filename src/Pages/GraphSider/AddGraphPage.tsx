@@ -1,6 +1,5 @@
 import { Span } from "Config/DataDisplayInterface";
 import { Client } from "Config/SCSConfig";
-import { AppSurface } from "DataDisplayComponents/AppSurface";
 import {
   AppCodeInput,
   GraphFormatType,
@@ -165,114 +164,112 @@ export const CreateGraphPage = () => {
   };
 
   return (
-    <AppSurface type="form">
-      <AppSpace>
-        <Typography.Title level={4}>Create a new graph</Typography.Title>
-        <AppForm
-          form={form}
-          onValuesChange={handleValuesChange}
-          layout="vertical"
+    <AppSpace>
+      <Typography.Title level={4}>Create a new graph</Typography.Title>
+      <AppForm
+        form={form}
+        onValuesChange={handleValuesChange}
+        layout="vertical"
+      >
+        <AppRow gutter={[16, 16]}>
+          <Col {...Span[2]}>
+            <Form.Item label="Client" name="clientId">
+              <Select
+                options={clients.map((client) => ({
+                  label: client.clientId,
+                  value: client.clientId,
+                }))}
+                placeholder="Select a client"
+              />
+            </Form.Item>
+          </Col>
+          <Col {...Span[2]}>
+            <Form.Item label="Workflow" name="workflowId">
+              <Select
+                options={workflows.map((workflow) => ({
+                  label: workflow.workflowName,
+                  value: workflow.workflowId,
+                }))}
+                placeholder="Select a workflow"
+                disabled={!clientId}
+              />
+            </Form.Item>
+          </Col>
+        </AppRow>
+
+        <AppRow gutter={[16, 16]}>
+          <Col {...Span[2]}>
+            <Form.Item
+              label="Alias"
+              name="alias"
+              tooltip="If this field is left empty, it will be automatically assigned a generated ID"
+            >
+              <Input name="alias" disabled={!workflowId} />
+            </Form.Item>
+          </Col>
+          <Col {...Span[2]}>
+            <Form.Item label="Version" name="version" tooltip="Next version">
+              <InputNumber style={{ width: "100%" }} disabled />
+            </Form.Item>
+          </Col>
+        </AppRow>
+
+        <Form.Item
+          label="Description"
+          name="description"
+          tooltip="This description offers helpful context for this graph version"
+          style={{ marginBottom: 0 }}
         >
-          <AppRow gutter={[16, 16]}>
-            <Col {...Span[2]}>
-              <Form.Item label="Client" name="clientId">
-                <Select
-                  options={clients.map((client) => ({
-                    label: client.clientId,
-                    value: client.clientId,
-                  }))}
-                  placeholder="Select a client"
-                />
-              </Form.Item>
-            </Col>
-            <Col {...Span[2]}>
-              <Form.Item label="Workflow" name="workflowId">
-                <Select
-                  options={workflows.map((workflow) => ({
-                    label: workflow.workflowName,
-                    value: workflow.workflowId,
-                  }))}
-                  placeholder="Select a workflow"
-                  disabled={!clientId}
-                />
-              </Form.Item>
-            </Col>
-          </AppRow>
+          <Input.TextArea disabled={!workflowId} />
+        </Form.Item>
+      </AppForm>
 
-          <AppRow gutter={[16, 16]}>
-            <Col {...Span[2]}>
-              <Form.Item
-                label="Alias"
-                name="alias"
-                tooltip="If this field is left empty, it will be automatically assigned a generated ID"
+      <AppForm form={graphForm} onValuesChange={handleGraphFormValuesChange}>
+        <Typography.Text>Graph</Typography.Text>
+
+        <div className="h-2" />
+
+        <Form.Item name="graphFormat" wrapperCol={Span[1]}>
+          <AppCodeInput
+            showOptions
+            banner={
+              showAlert && isXMLValidated ? (
+                <Alert
+                  message="XML validated successfully"
+                  type="success"
+                  showIcon
+                  closable
+                  onClose={handleCloseAlert}
+                />
+              ) : showAlert && !isXMLValidated ? (
+                <Alert
+                  message="XML validation failed"
+                  type="error"
+                  showIcon
+                  closable
+                  onClose={handleCloseAlert}
+                />
+              ) : null
+            }
+            endDecorator={
+              <AppButton
+                type="text"
+                onClick={handleValidate}
+                loading={isValidating}
+                className="hover:!bg-slate-400/10"
               >
-                <Input name="alias" disabled={!workflowId} />
-              </Form.Item>
-            </Col>
-            <Col {...Span[2]}>
-              <Form.Item label="Version" name="version" tooltip="Next version">
-                <InputNumber style={{ width: "100%" }} disabled />
-              </Form.Item>
-            </Col>
-          </AppRow>
+                Validate
+              </AppButton>
+            }
+          />
+        </Form.Item>
 
-          <Form.Item
-            label="Description"
-            name="description"
-            tooltip="This description offers helpful context for this graph version"
-            style={{ marginBottom: 0 }}
-          >
-            <Input.TextArea disabled={!workflowId} />
-          </Form.Item>
-        </AppForm>
-
-        <AppForm form={graphForm} onValuesChange={handleGraphFormValuesChange}>
-          <Typography.Text>Graph</Typography.Text>
-
-          <div className="h-2" />
-
-          <Form.Item name="graphFormat" wrapperCol={Span[1]}>
-            <AppCodeInput
-              showOptions
-              banner={
-                showAlert && isXMLValidated ? (
-                  <Alert
-                    message="XML validated successfully"
-                    type="success"
-                    showIcon
-                    closable
-                    onClose={handleCloseAlert}
-                  />
-                ) : showAlert && !isXMLValidated ? (
-                  <Alert
-                    message="XML validation failed"
-                    type="error"
-                    showIcon
-                    closable
-                    onClose={handleCloseAlert}
-                  />
-                ) : null
-              }
-              endDecorator={
-                <AppButton
-                  type="text"
-                  onClick={handleValidate}
-                  loading={isValidating}
-                  className="hover:!bg-slate-400/10"
-                >
-                  Validate
-                </AppButton>
-              }
-            />
-          </Form.Item>
-
-          <Form.Item noStyle>
-            <AppButton type="primary" onClick={handleCreate} loading={loading}>
-              Create
-            </AppButton>
-          </Form.Item>
-        </AppForm>
-      </AppSpace>
-    </AppSurface>
+        <Form.Item noStyle>
+          <AppButton type="primary" onClick={handleCreate} loading={loading}>
+            Create
+          </AppButton>
+        </Form.Item>
+      </AppForm>
+    </AppSpace>
   );
 };

@@ -70,50 +70,48 @@ export const ContactPage = () => {
           </div>
         </Col>
         <Col {...Span[1]}>
-          <AppCard>
-            <Flex vertical gap={16}>
-              <Typography.Title level={3} style={{ marginTop: 0 }}>
-                Get in touch
-              </Typography.Title>
-              <AppForm
-                layout="vertical"
-                style={{ width: "100%" }}
-                form={form}
-                onValuesChange={(_, values) => form.setFieldsValue(values)}
-              >
-                <Row gutter={[24, 24]}>
-                  <Col {...Span[2]}>
-                    <Form.Item label="First name" name="firstName">
-                      <Input />
-                    </Form.Item>
-                  </Col>
+          <Flex vertical gap={16}>
+            <Typography.Title level={3} style={{ marginTop: 0 }}>
+              Get in touch
+            </Typography.Title>
+            <AppForm
+              layout="vertical"
+              style={{ width: "100%" }}
+              form={form}
+              onValuesChange={(_, values) => form.setFieldsValue(values)}
+            >
+              <Row gutter={[24, 24]}>
+                <Col {...Span[2]}>
+                  <Form.Item label="First name" name="firstName">
+                    <Input />
+                  </Form.Item>
+                </Col>
 
-                  <Col {...Span[2]}>
-                    <Form.Item label="Last name" name="lastName">
-                      <Input />
-                    </Form.Item>
-                  </Col>
-                </Row>
-                <Form.Item label="Email address" name="email">
-                  <Input />
-                </Form.Item>
-                <Form.Item label="Message" name="message">
-                  <Input.TextArea autoSize={{ minRows: 5, maxRows: 10 }} />
-                </Form.Item>
+                <Col {...Span[2]}>
+                  <Form.Item label="Last name" name="lastName">
+                    <Input />
+                  </Form.Item>
+                </Col>
+              </Row>
+              <Form.Item label="Email address" name="email">
+                <Input />
+              </Form.Item>
+              <Form.Item label="Message" name="message">
+                <Input.TextArea autoSize={{ minRows: 5, maxRows: 10 }} />
+              </Form.Item>
 
-                <Form.Item style={{ flex: 1 }} noStyle>
-                  <AppButton
-                    type="primary"
-                    style={{ width: "100%" }}
-                    icon={<ArrowRightOutlined />}
-                    onClick={handleContact}
-                  >
-                    Submit
-                  </AppButton>
-                </Form.Item>
-              </AppForm>
-            </Flex>
-          </AppCard>
+              <Form.Item style={{ flex: 1 }} noStyle>
+                <AppButton
+                  type="primary"
+                  style={{ width: "100%" }}
+                  icon={<ArrowRightOutlined />}
+                  onClick={handleContact}
+                >
+                  Submit
+                </AppButton>
+              </Form.Item>
+            </AppForm>
+          </Flex>
         </Col>
       </Row>
     </>

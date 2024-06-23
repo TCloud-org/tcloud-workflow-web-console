@@ -178,11 +178,11 @@ const lightTheme: ThemeConfig = {
     },
     InputNumber: {
       colorBgContainer: "white",
-      hoverBorderColor: "rgb(40 38 55 / 1)",
+      hoverBorderColor: "#d8dee4",
       activeBorderColor: "rgb(141 140 149 / 1)",
       colorText: "black",
       colorTextPlaceholder: "rgb(141 140 149 / 1)",
-      colorBorder: "rgb(40 38 55 / 1)",
+      colorBorder: "#d8dee4",
       activeShadow: "none",
       colorTextDisabled: "#8d8c95",
     },

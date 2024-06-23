@@ -9,7 +9,6 @@ import { AppTag } from "../../DataDisplayComponents/AppTag";
 import { AppButton } from "../../DataEntryComponents/AppButton";
 import { AppForm } from "../../DataEntryComponents/AppForm";
 import { AppSpace } from "../../LayoutComponents/AppSpace";
-import { AppSurface } from "DataDisplayComponents/AppSurface";
 
 export const EditTokenPage = () => {
   const navigate = useNavigate();
@@ -62,73 +61,72 @@ export const EditTokenPage = () => {
   };
 
   return (
-    <AppSurface type="form">
-      <AppSpace>
-        <AppForm form={form} onValuesChange={handleValuesChange}>
-          <Form.Item
-            name="name"
-            label="Name"
-            tooltip={GENERATED_ID_INPUT_TOOLTIP}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item name="clientId" label="Client">
-            <Input disabled />
-          </Form.Item>
-          <Form.Item name="service" label="Service">
-            <Input disabled />
-          </Form.Item>
-          <Form.Item name="type" label="Authentication Type">
-            <Select
-              placeholder="Select an authentication type"
-              options={Object.entries(AuthenticationTypes).map(
-                ([type, value]) => ({
-                  label: (
-                    <AppSpace direction="horizontal">
-                      <Typography.Text
+    <AppSpace>
+      <AppForm form={form} onValuesChange={handleValuesChange}>
+        <Form.Item
+          name="name"
+          label="Name"
+          tooltip={GENERATED_ID_INPUT_TOOLTIP}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item name="clientId" label="Client">
+          <Input disabled />
+        </Form.Item>
+        <Form.Item name="service" label="Service">
+          <Input disabled />
+        </Form.Item>
+        <Form.Item name="type" label="Authentication Type">
+          <Select
+            placeholder="Select an authentication type"
+            options={Object.entries(AuthenticationTypes).map(
+              ([type, value]) => ({
+                label: (
+                  <AppSpace direction="horizontal">
+                    <Typography.Text
+                      style={{
+                        color: value.disabled
+                          ? themeToken.colorTextDisabled
+                          : undefined,
+                      }}
+                    >
+                      {value.label}
+                    </Typography.Text>
+                    {value.tag && (
+                      <AppTag
+                        {...value.tag}
+                        className="!px-2 !py-0 !text-sm"
                         style={{
                           color: value.disabled
                             ? themeToken.colorTextDisabled
                             : undefined,
                         }}
-                      >
-                        {value.label}
-                      </Typography.Text>
-                      {value.tag && (
-                        <AppTag
-                          {...value.tag}
-                          style={{
-                            color: value.disabled
-                              ? themeToken.colorTextDisabled
-                              : undefined,
-                          }}
-                        />
-                      )}
-                    </AppSpace>
-                  ),
-                  value: type,
-                  disabled: value.disabled,
-                })
-              )}
-            />
+                      />
+                    )}
+                  </AppSpace>
+                ),
+                value: type,
+                disabled: value.disabled,
+              })
+            )}
+          />
+        </Form.Item>
+        {inputs.map((input: any, i: number) => (
+          <Form.Item
+            key={i}
+            name={input.name}
+            label={input.label}
+            rules={[{ required: input.required }]}
+          >
+            {createElement(input.element, input.props)}
           </Form.Item>
-          {inputs.map((input: any, i: number) => (
-            <Form.Item
-              key={i}
-              name={input.name}
-              label={input.label}
-              rules={[{ required: input.required }]}
-            >
-              {createElement(input.element, input.props)}
-            </Form.Item>
-          ))}
-        </AppForm>
-        <Flex justify="center">
-          <AppButton loading={loading} onClick={handleEdit} type="primary">
-            Edit
-          </AppButton>
-        </Flex>
-      </AppSpace>
-    </AppSurface>
+        ))}
+      </AppForm>
+      <Flex justify="center">
+        <AppButton loading={loading} onClick={handleEdit} type="primary">
+          Edit
+        </AppButton>
+      </Flex>
+    </AppSpace>
   );
 };

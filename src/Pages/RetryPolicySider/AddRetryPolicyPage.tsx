@@ -1,4 +1,3 @@
-import { AppSurface } from "DataDisplayComponents/AppSurface";
 import { Form, Input, InputNumber, Select } from "antd";
 import axios from "axios";
 import { useState } from "react";
@@ -66,44 +65,42 @@ export const AddRetryPolicyPage = () => {
   };
 
   return (
-    <AppSurface type="form">
-      <AppSpace>
-        <PageTitle>Add a retry policy</PageTitle>
+    <AppSpace>
+      <PageTitle>Add a retry policy</PageTitle>
 
-        <AppForm form={form} onValuesChange={handleValuesChange}>
-          <Form.Item label="Policy" name="policyType">
-            <Select
-              options={Object.values(RetryPolicyOptions)
-                .sort((a, b) => a.order - b.order)
-                .map((option) => ({
-                  label: option.label,
-                  value: option.value.type,
-                }))}
-              placeholder="Select a policy"
-            />
+      <AppForm form={form} onValuesChange={handleValuesChange}>
+        <Form.Item label="Policy" name="policyType">
+          <Select
+            options={Object.values(RetryPolicyOptions)
+              .sort((a, b) => a.order - b.order)
+              .map((option) => ({
+                label: option.label,
+                value: option.value.type,
+              }))}
+            placeholder="Select a policy"
+          />
+        </Form.Item>
+        {inputs.map((input, i) => (
+          <Form.Item
+            key={i}
+            label={input.label}
+            name={input.value}
+            rules={[{ required: true, message: "Missing required field" }]}
+          >
+            {input.type === "number" ? (
+              <InputNumber style={{ width: "100%" }} />
+            ) : (
+              <Input />
+            )}
           </Form.Item>
-          {inputs.map((input, i) => (
-            <Form.Item
-              key={i}
-              label={input.label}
-              name={input.value}
-              rules={[{ required: true, message: "Missing required field" }]}
-            >
-              {input.type === "number" ? (
-                <InputNumber style={{ width: "100%" }} />
-              ) : (
-                <Input />
-              )}
-            </Form.Item>
-          ))}
+        ))}
 
-          <Form.Item noStyle>
-            <AppButton type="primary" loading={loading} onClick={handleAdd}>
-              Add
-            </AppButton>
-          </Form.Item>
-        </AppForm>
-      </AppSpace>
-    </AppSurface>
+        <Form.Item noStyle>
+          <AppButton type="primary" loading={loading} onClick={handleAdd}>
+            Add
+          </AppButton>
+        </Form.Item>
+      </AppForm>
+    </AppSpace>
   );
 };
