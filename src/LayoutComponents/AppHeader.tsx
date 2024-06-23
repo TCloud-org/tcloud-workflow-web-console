@@ -118,9 +118,11 @@ export const AppHeader = (props: {
   }, [account, dispatch]);
 
   const fetchAccount = useCallback(async () => {
-    const res = await getAccount(authToken);
-    if (JSON.stringify(res.account) !== JSON.stringify(account)) {
-      dispatch(setAccount(res.account));
+    if (authToken) {
+      const res = await getAccount(authToken);
+      if (JSON.stringify(res.account) !== JSON.stringify(account)) {
+        dispatch(setAccount(res.account));
+      }
     }
   }, [authToken, dispatch, account]);
 
