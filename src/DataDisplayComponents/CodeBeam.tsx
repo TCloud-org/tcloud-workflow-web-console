@@ -40,6 +40,7 @@ export const CodeBeam = (props: {
   style?: CSSProperties;
   wrapLongLines?: boolean;
   themeMode?: "light" | "dark";
+  showLineNumbers?: boolean;
 }) => {
   const { token } = theme.useToken();
 
@@ -69,6 +70,7 @@ export const CodeBeam = (props: {
     className = "",
     style,
     wrapLongLines = false,
+    showLineNumbers = true,
   } = props;
 
   const isDarkMode = useSelector((state: any) => state.general.isDarkMode);
@@ -128,7 +130,7 @@ export const CodeBeam = (props: {
       <ReactSyntaxHighlighter
         language={snippets.find((snippet) => snippet.key === select)?.language}
         style={currentTheme.codeTheme}
-        showLineNumbers
+        showLineNumbers={showLineNumbers}
         wrapLongLines={wrapLongLines}
         customStyle={{
           padding: borderColor === "transparent" ? 0 : "27px",

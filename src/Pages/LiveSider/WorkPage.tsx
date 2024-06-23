@@ -201,7 +201,9 @@ export const WorkPage = () => {
       className="max-w-screen-2xl ml-auto mr-auto"
     >
       <AppRow gutter={[16, 16]}>
-        <Col {...Span[1]}>
+        <Col {...Span[1]} className="flex flex-col gap-4">
+          <p className="text-base font-bold">Version</p>
+
           <FormSelect
             placeholder="Select a version"
             options={versions}
@@ -211,32 +213,41 @@ export const WorkPage = () => {
         </Col>
 
         <Col {...Span[1]}>
-          <AppSurface className="!px-0">
-            <div className="px-8 py-4">
-              <WorkflowToolbar
-                onReload={reload}
-                routes={routeMap[versionSelected]}
-                graph={graph}
-              />
-            </div>
+          <Divider />
+        </Col>
 
-            <Divider />
+        <Col {...Span[1]}>
+          <WorkflowToolbar
+            onReload={reload}
+            routes={routeMap[versionSelected]}
+            graph={graph}
+          />
+        </Col>
 
-            <div className="px-8 py-4">
-              <WorkflowInfo graph={graph} routes={routeMap[versionSelected]} />
-            </div>
+        <Col {...Span[1]}>
+          <Divider />
+        </Col>
 
-            <Divider />
+        <Col {...Span[1]}>
+          <WorkflowInfo graph={graph} routes={routeMap[versionSelected]} />
+        </Col>
 
-            <div className="px-8 py-4">
-              <WorkflowConfigurationInfo
-                data={workflowConfigurationMap}
-                version={versionSelected}
-              />
-            </div>
-          </AppSurface>
+        <Col {...Span[1]}>
+          <Divider />
+        </Col>
+
+        <Col {...Span[1]}>
+          <WorkflowConfigurationInfo
+            data={workflowConfigurationMap}
+            version={versionSelected}
+          />
         </Col>
       </AppRow>
+
+      <Col {...Span[1]}>
+        <Divider />
+      </Col>
+
       <AppSurface type="form">
         <Tabs
           items={[
