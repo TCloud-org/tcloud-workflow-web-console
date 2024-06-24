@@ -13,7 +13,6 @@ import { AppLogoText } from "DataDisplayComponents/AppLogoText";
 import { AppButton } from "DataEntryComponents/AppButton";
 import { AuthContainer } from "LayoutComponents/AuthContainer";
 import { AuthContent } from "LayoutComponents/AuthContent";
-import { CreditCardSvg } from "SvgIcons/CreditCardSvg";
 import { Col, Spin, Typography } from "antd";
 import axios from "axios";
 import { Account, setToken } from "features/auth/authSlice";
@@ -77,14 +76,14 @@ export const AddPaymentMethodPage = () => {
             <div className="flex items-center gap-4">
               <Spin />
 
-              <p className="text-paragraph text-base">Redirecting...</p>
+              <p className="text-base">Redirecting...</p>
             </div>
           )}
 
           <div className="flex items-center gap-4">
             <CheckCircleRounded className="text-green-500 !text-[32px]" />
 
-            <p className="text-lg text-white font-semibold">
+            <p className="text-lg font-semibold">
               You've successfully added a default paymend method
             </p>
           </div>
@@ -95,12 +94,12 @@ export const AddPaymentMethodPage = () => {
     if (canceled) {
       return (
         <Fragment>
-          <p className="text-paragraph text-base">Please try again</p>
+          <p className="text-base">Please try again</p>
 
           <div className="flex items-center gap-4">
             <CancelRounded className="text-red-500 !text-[32px]" />
 
-            <p className="text-lg text-white font-semibold">
+            <p className="text-lg font-semibold">
               Failed to add a default payment method
             </p>
           </div>
@@ -121,26 +120,27 @@ export const AddPaymentMethodPage = () => {
         <AppLogoText />
 
         <Typography.Title level={3}>Add Payment Method</Typography.Title>
-        <p className="text-white mb-4 flex flex-col text-center items-center gap-4 p-4 glass-card">
-          <InfoRounded /> We're currently in BETA mode and Stripe is in TEST
-          mode. Do NOT use your credit card number. Instead, please enter a
-          random number (e.g., 4242 4242 4242 4242). We don't require a credit
-          card for the Lite version. We will remove this form for the Lite
-          version in the future.
+        <p className="mb-4 flex flex-col text-center items-center gap-4 p-4 glass-card mx-4">
+          <div className="flex items-center gap-2">
+            <InfoRounded /> We're in BETA mode
+          </div>
+          <p>
+            Stripe is in <strong>TEST</strong> mode. Please enter a random
+            credit card information (e.g., 4242 4242 4242 4242).
+          </p>
+
+          <p>
+            We don't require a credit card for the <strong>Lite</strong>{" "}
+            version. We will remove this form for the Lite version in the
+            future.
+          </p>
         </p>
 
-        <p className="text-paragraph mb-4">
-          You will not be charged for usage below the minimum cost
-        </p>
-
-        <div className="text-[20em]">
-          <CreditCardSvg />
-        </div>
+        <p>You will not be charged for usage below the minimum cost</p>
 
         <AppButton
           type="primary"
           icon={<CreditCardOutlined />}
-          className="mt-8"
           loading={loading}
           onClick={handleAddPaymentMethod}
         >
