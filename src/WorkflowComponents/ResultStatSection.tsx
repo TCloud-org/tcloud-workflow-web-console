@@ -34,7 +34,7 @@ export const ResultStatSection = (props: { statistic?: WorkStatistic }) => {
       type: "progresses",
       color: "#47c9d7",
       value: statistic?.progresses.length || 0,
-      title: "Running",
+      title: "In Progress",
       icon: <CachedRounded />,
     },
     {

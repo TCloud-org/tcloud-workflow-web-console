@@ -60,7 +60,7 @@ export const LiveWorkflowViewTab = (props: {
         ),
         description: (
           <AppWorkflowCollapse
-            className={i === routes.length - 1 ? "mb-0" : ""}
+            className={`${i === routes.length - 1 ? "mb-0" : ""}`}
             items={[
               {
                 key: i,

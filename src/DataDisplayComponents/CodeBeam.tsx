@@ -41,6 +41,7 @@ export const CodeBeam = (props: {
   wrapLongLines?: boolean;
   themeMode?: "light" | "dark";
   showLineNumbers?: boolean;
+  nostyle?: boolean;
 }) => {
   const { token } = theme.useToken();
 
@@ -71,6 +72,7 @@ export const CodeBeam = (props: {
     style,
     wrapLongLines = false,
     showLineNumbers = true,
+    nostyle,
   } = props;
 
   const isDarkMode = useSelector((state: any) => state.general.isDarkMode);
@@ -83,7 +85,9 @@ export const CodeBeam = (props: {
 
   return (
     <div
-      className={`rounded-xl flex flex-col overflow-hidden glass-bar ${className}`}
+      className={`rounded-xl flex flex-col overflow-hidden relative ${
+        nostyle ? "" : "glass-bar"
+      } ${className}`}
       style={{
         ...style,
       }}

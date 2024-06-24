@@ -1,5 +1,6 @@
 import { AppCopy } from "DataDisplayComponents/AppCopy";
 import { AppInfo } from "DataDisplayComponents/AppInfo";
+import { AppWorkflowCollapse } from "DataDisplayComponents/AppWorkflowCollapse";
 import { CodeBeam } from "DataDisplayComponents/CodeBeam";
 import { DescriptionsProps, Typography } from "antd";
 import { CSSProperties, forwardRef } from "react";
@@ -85,15 +86,34 @@ export const StateCardInfo = forwardRef<HTMLDivElement, StateCardInfoProps>(
         ? [
             {
               children: (
-                <CodeBeam
-                  value="json"
-                  borderColor="transparent"
-                  snippets={[
+                <AppWorkflowCollapse
+                  className="w-full !pb-0 !mb-0 code-content"
+                  items={[
                     {
-                      key: "json",
-                      label: "JSON",
-                      language: "json",
-                      value: parseError(data?.metadata.error) || "",
+                      label: (
+                        <p className="flex items-center gap-2">
+                          <div className="h-3 w-3 bg-red-500 rounded-full" />
+                          <span>Exception</span>
+                        </p>
+                      ),
+                      children: (
+                        <CodeBeam
+                          hideToolbar
+                          showLineNumbers={false}
+                          nostyle
+                          className="!bg-transparent !shadow-none mt-2"
+                          value="json"
+                          borderColor="transparent"
+                          snippets={[
+                            {
+                              key: "json",
+                              label: "JSON",
+                              language: "json",
+                              value: parseError(data?.metadata.error) || "",
+                            },
+                          ]}
+                        />
+                      ),
                     },
                   ]}
                 />

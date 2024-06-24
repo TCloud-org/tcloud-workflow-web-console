@@ -705,3 +705,7 @@ a {
 .collapse-divider .ant-collapse-content {
   border-top: 1px solid rgb(148 163 184 / 0.2) !important;
 }
+
+.code-content .ant-collapse-content {
+  background-color: rgb(148 163 184 / 0.05) !important;
+}

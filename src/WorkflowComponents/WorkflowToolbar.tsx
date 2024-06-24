@@ -1,6 +1,7 @@
 import { ReloadOutlined, ShareAltOutlined } from "@ant-design/icons";
 import { Span } from "Config/DataDisplayInterface";
 import { AppInfo } from "DataDisplayComponents/AppInfo";
+import { AppButton } from "DataEntryComponents/AppButton";
 import { AppIconToggle } from "DataEntryComponents/AppIconToggle";
 import { Button, Dropdown, Flex, MenuProps, Popconfirm, message } from "antd";
 import axios from "axios";
@@ -14,7 +15,6 @@ import {
   WOS_RETRY_WORKFLOW_ENDPOINT,
 } from "../Config/WOSEndpointConfig";
 import { Graph, Route, WorkflowRunConfig } from "../Config/WorkflowConfig";
-import { AppIconButton } from "../DataEntryComponents/AppIconButton";
 import { LiveTransition } from "./LiveTransition";
 import { RerunConfiguration } from "./RerunConfiguration";
 import { RetryConfiguration } from "./RetryConfiguration";
@@ -244,20 +244,6 @@ export const WorkflowToolbar = (props: {
                 </Flex>
 
                 <Flex>
-                  <Popconfirm
-                    title="Close this workflow"
-                    description="Are you sure to close this workflow?"
-                    okText="Yes"
-                    cancelText="No"
-                    onConfirm={handleClose}
-                  >
-                    <Button loading={closeLoading} danger type="primary">
-                      Close
-                    </Button>
-                  </Popconfirm>
-                </Flex>
-
-                <Flex>
                   <AppIconToggle
                     onToggle={() => {
                       setRunConfig((prev: WorkflowRunConfig) =>
@@ -272,23 +258,37 @@ export const WorkflowToolbar = (props: {
                 </Flex>
 
                 <Flex>
-                  <AppIconButton
-                    onClick={onReload}
-                    tooltip="Reload"
-                    type="primary"
+                  <Popconfirm
+                    title="Close this workflow"
+                    description="Are you sure to close this workflow?"
+                    okText="Yes"
+                    cancelText="No"
+                    onConfirm={handleClose}
                   >
-                    <ReloadOutlined />
-                  </AppIconButton>
+                    <Button loading={closeLoading} danger type="primary">
+                      Close
+                    </Button>
+                  </Popconfirm>
                 </Flex>
 
                 <Flex>
-                  <AppIconButton
-                    onClick={handleShare}
-                    tooltip="Share"
+                  <AppButton
+                    onClick={onReload}
+                    icon={<ReloadOutlined />}
                     type="primary"
                   >
-                    <ShareAltOutlined />
-                  </AppIconButton>
+                    Reload
+                  </AppButton>
+                </Flex>
+
+                <Flex>
+                  <AppButton
+                    onClick={handleShare}
+                    type="primary"
+                    icon={<ShareAltOutlined />}
+                  >
+                    Share
+                  </AppButton>
                 </Flex>
               </Flex>
             ),
