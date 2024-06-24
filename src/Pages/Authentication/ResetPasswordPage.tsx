@@ -123,7 +123,7 @@ export const ResetPasswordPage = () => {
                   placeholder="Confirm password"
                 />
               </Form.Item>
-              <Form.Item>
+              <Form.Item noStyle>
                 <AppButton
                   type="primary"
                   className="w-full"

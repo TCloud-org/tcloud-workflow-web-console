@@ -251,18 +251,14 @@ export const LoginPage = () => {
               </Form.Item>
               <Flex justify="space-between" align="center">
                 <Form.Item name="rememberMe" valuePropName="checked">
-                  <Checkbox
-                    style={{ color: token.colorTextSecondary }}
-                    className="hover:!text-white transition-all duration-300"
-                  >
+                  <Checkbox className="transition-all duration-300">
                     Remember me
                   </Checkbox>
                 </Form.Item>
                 <Form.Item>
                   <AppButton
                     type="link"
-                    className="hover:!text-white transition-all duration-300"
-                    style={{ color: token.colorTextSecondary }}
+                    className="transition-all duration-300"
                     onClick={handleForgotPassword}
                   >
                     Forgot your password?
@@ -283,7 +279,7 @@ export const LoginPage = () => {
               <Form.Item>
                 <Flex gap={16} align="center">
                   <AppLine />
-                  <div style={{ color: token.colorTextSecondary }}>OR</div>
+                  <p>OR</p>
                   <AppLine />
                 </Flex>
               </Form.Item>
@@ -305,9 +301,9 @@ export const LoginPage = () => {
                   />
                 </Form.Item>
               </Flex>
-              <Form.Item>
+              <Form.Item noStyle>
                 <Flex justify="center">
-                  <Typography.Text type="secondary">
+                  <Typography.Text>
                     Don't have an account?{" "}
                     <AppButton
                       style={{ margin: 0, padding: 0 }}

@@ -76,25 +76,15 @@ export const ForgotPasswordPage = () => {
             <AppLogoText />
 
             <Typography.Title level={3}>Forgot your password?</Typography.Title>
-            <p className="text-paragraph">
-              Enter your email below to receive password reset instructions
-            </p>
-            <p className="text-paragraph">
+            <p>Enter your email below to receive password reset instructions</p>
+            <p>
               Didn't receive instructions?{" "}
               <AppButton
                 type="link"
                 style={{ padding: 0 }}
                 onClick={handleResend}
               >
-                <Typography.Text
-                  underline
-                  style={{
-                    color: token.colorTextSecondary,
-                  }}
-                  className="hover:!text-white transition-all duration-300"
-                >
-                  Resend email
-                </Typography.Text>
+                <p className="underline">Resend email</p>
               </AppButton>
             </p>
             <AppForm
@@ -129,7 +119,7 @@ export const ForgotPasswordPage = () => {
               </Form.Item>
 
               <Flex justify="center">
-                <Form.Item>
+                <Form.Item noStyle>
                   <AppButton onClick={handleBackToLogin} type="link">
                     Back to Login
                   </AppButton>

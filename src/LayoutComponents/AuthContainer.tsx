@@ -8,7 +8,7 @@ export const AuthContainer = (props: { children?: ReactNode }) => {
       align="center"
       gap={16}
       justify="center"
-      className="max-w-screen-md ml-auto mr-auto w-full"
+      className="max-w-screen-sm ml-auto mr-auto w-full bg-white py-12 rounded-3xl"
     >
       {props.children}
     </Flex>

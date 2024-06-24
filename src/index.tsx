@@ -44,6 +44,8 @@ const darkTheme: ThemeConfig = {
     Button: {
       defaultShadow: "none",
       textHoverBg: "rgb(148 163 184 / 0.1)",
+      defaultHoverBorderColor: "rgb(141 140 149 / 1)",
+      defaultHoverColor: "#000000",
       borderRadius: 6,
       borderRadiusSM: 4,
       borderRadiusLG: 8,
@@ -158,13 +160,15 @@ const lightTheme: ThemeConfig = {
     Button: {
       defaultShadow: "none",
       textHoverBg: "rgb(148 163 184 / 0.1)",
+      defaultHoverBorderColor: "rgb(141 140 149 / 1)",
+      defaultHoverColor: "#000000",
       borderRadius: 6,
       borderRadiusSM: 4,
       borderRadiusLG: 8,
       dangerShadow:
-        "rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px",
+        "rgba(148, 85, 241, 0.1) 0px 1px 2px 0px, rgba(148, 85, 241, 0.2) 0px 1px 3px 0px, rgba(255, 255, 255, 0.2) 0px -1px 1px 1px inset",
       primaryShadow:
-        "rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px",
+        "rgba(148, 85, 241, 0.1) 0px 1px 2px 0px, rgba(148, 85, 241, 0.2) 0px 1px 3px 0px, rgba(255, 255, 255, 0.2) 0px -1px 1px 1px inset",
     },
     Input: {
       colorBgContainer: "white",

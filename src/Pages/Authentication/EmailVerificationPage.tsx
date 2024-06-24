@@ -196,7 +196,7 @@ export const EmailVerificationPage = () => {
               </Form.Item>
 
               <Flex justify="center">
-                <Form.Item style={{ marginTop: 8 }}>
+                <Form.Item noStyle>
                   <Typography.Text type="secondary">
                     Didn't receive the code?{" "}
                     <Typography.Link onClick={handleResendVerificationCode}>

@@ -180,7 +180,7 @@ export const SignUpPage = () => {
                   Sign Up
                 </AppButton>
               </Form.Item>
-              <Form.Item>
+              <Form.Item noStyle>
                 <Flex justify="center">
                   <Typography.Text type="secondary">
                     Already have an account?{" "}

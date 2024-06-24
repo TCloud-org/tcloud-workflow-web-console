@@ -537,8 +537,11 @@ a {
   border-radius   : 12px !important;
 }
 
-.lighting-bg {
-  background-image: url("https://utfs.io/f/74664282-2611-4a7d-ac80-60fa392c04fa-gelczw.png");
+.auth-bg {
+  background-image   : url("https://i.pinimg.com/originals/27/5f/3d/275f3d2371491a63c2a43b1cb6641a53.jpg");
+  background-repeat  : no-repeat;
+  background-position: center;
+  background-size    : cover;
 }
 
 .ant-tree-node-content-wrapper {
