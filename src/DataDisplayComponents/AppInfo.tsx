@@ -4,7 +4,7 @@ export const AppInfo = (props: DescriptionsProps) => {
   const { items = [], title } = props;
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className={`flex flex-col gap-4 ${props.className}`}>
       {title && <p className="text-base font-bold">{title}</p>}
 
       <Row gutter={[32, 32]}>

@@ -1,8 +1,7 @@
+import { PremiumMask } from "DataEntryComponents/PremiumMask";
 import { Flex } from "antd";
 import { Edge, Node } from "reactflow";
 import { AppFlow } from "../../DataDisplayComponents/AppFlow";
-import { PremiumMask } from "DataEntryComponents/PremiumMask";
-import { dotStyle } from "DataDisplayComponents/AppSurface";
 
 export const LiveFlowTab = (props: {
   nodes?: Node[];
@@ -12,12 +11,7 @@ export const LiveFlowTab = (props: {
   const { nodes = [], edges = [], restrictedAccess = {} } = props;
 
   return (
-    <Flex
-      vertical
-      justify="center"
-      className="relative glass-card"
-      style={dotStyle}
-    >
+    <Flex vertical justify="center" className="relative glass-card">
       {restrictedAccess["visual"] && <PremiumMask />}
       <AppFlow nodes={nodes} edges={edges} />
     </Flex>

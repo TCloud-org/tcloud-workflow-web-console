@@ -1,8 +1,8 @@
+import { AppWorkflowCollapse } from "DataDisplayComponents/AppWorkflowCollapse";
 import { CodeBeam } from "DataDisplayComponents/CodeBeam";
 import { Typography } from "antd";
 import { useEffect, useState } from "react";
 import { Route } from "../../Config/WorkflowConfig";
-import { AppCollapse } from "../../DataDisplayComponents/AppCollapse";
 import { AppCollapseLabel } from "../../DataDisplayComponents/AppCollapseLabel";
 import { AppEmpty } from "../../DataDisplayComponents/AppEmpty";
 import { AppSpace } from "../../LayoutComponents/AppSpace";
@@ -36,15 +36,21 @@ export const LiveEntityTab = (props: { routes: Route[] }) => {
         .sort((a, b) => a[1].runningOrder - b[1].runningOrder)
         .filter((entry) => entry[1].workRequest)
         .map(([source, value], i) => (
-          <AppCollapse
+          <AppWorkflowCollapse
             key={`req-${i}`}
+            className="!mb-0"
             items={[
               {
                 key: `child-${i}`,
                 label: <AppCollapseLabel label={source} endTags={value.tags} />,
                 children: (
                   <CodeBeam
+                    hideToolbar
+                    showLineNumbers={false}
+                    nostyle
+                    className="!bg-transparent !shadow-none mt-2"
                     value="json"
+                    borderColor="transparent"
                     snippets={[
                       {
                         key: "json",
@@ -61,15 +67,21 @@ export const LiveEntityTab = (props: { routes: Route[] }) => {
         ))}
       <Typography.Title level={5}>Document Entity</Typography.Title>
       {Object.entries(entities).map(([k, v], i) => (
-        <AppCollapse
+        <AppWorkflowCollapse
           key={`entity-${i}`}
+          className="!mb-0"
           items={[
             {
               key: `child-${i}`,
               label: <AppCollapseLabel label={k} />,
               children: (
                 <CodeBeam
+                  hideToolbar
+                  showLineNumbers={false}
+                  nostyle
+                  className="!bg-transparent !shadow-none mt-2"
                   value="json"
+                  borderColor="transparent"
                   snippets={[
                     {
                       key: "json",

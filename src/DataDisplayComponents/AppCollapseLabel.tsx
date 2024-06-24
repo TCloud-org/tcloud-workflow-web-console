@@ -21,7 +21,7 @@ export const AppCollapseLabel = (props: {
           <Flex gap={8} align="center">
             <p className="font-semibold">{label}</p>
 
-            <p>•</p>
+            {time && <p>•</p>}
 
             <p>{formatDate(time)}</p>
 
@@ -31,7 +31,7 @@ export const AppCollapseLabel = (props: {
               style={{ justifyContent: "flex-start" }}
             >
               {startTags.map((tag, i) => (
-                <AppTag {...tag} key={i} />
+                <AppTag {...tag} key={i} className="rounded-xl" />
               ))}
             </Flex>
           </Flex>

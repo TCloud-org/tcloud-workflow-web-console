@@ -10,7 +10,6 @@ import { AppSpace } from "../../LayoutComponents/AppSpace";
 import { getGraphVisualization } from "../../Network/GraphFetch";
 import { populateFlowNodeData } from "../../Utils/ObjectUtils";
 import { GraphInfoCard } from "../GraphInfoCard";
-import { dotStyle } from "DataDisplayComponents/AppSurface";
 
 const OPTIONS = [
   {
@@ -61,13 +60,18 @@ export const LiveGraphTab = (props: { graph?: Graph }) => {
   const renderContent = (): JSX.Element => {
     if (viewAs === "flow") {
       return (
-        <Flex justify="center" className="glass-card" style={dotStyle}>
+        <Flex justify="center" className="glass-card">
           <AppFlow nodes={nodes} edges={edges} />
         </Flex>
       );
     }
     if (viewAs === "tree") {
-      return <AppTree treeData={treeNodes} defaultExpandedKeys={treeNodeIds} />;
+      return (
+        <AppTree
+          treeData={treeNodes[0].children}
+          defaultExpandedKeys={treeNodeIds}
+        />
+      );
     }
     return (
       <CodeBeam
