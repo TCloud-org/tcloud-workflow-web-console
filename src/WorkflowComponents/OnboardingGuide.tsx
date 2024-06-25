@@ -49,12 +49,12 @@ export const OnboardingGuide = () => {
   return (
     <div>
       <Statistic
-        title={<StatTitle>Onboarding Guide</StatTitle>}
+        title={<StatTitle>Get Started Guide</StatTitle>}
         valueStyle={{
           fontSize: 14,
         }}
         valueRender={() => (
-          <div className="mt-2 flex flex-col gap-4">
+          <div className="flex flex-col gap-4">
             <p>Steps to quickly onboard your first workflow</p>
 
             <Steps

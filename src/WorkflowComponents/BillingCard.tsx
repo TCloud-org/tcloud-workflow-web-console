@@ -36,7 +36,7 @@ export const BillingCard = (props: { billing?: StepWorkflowBilling }) => {
       }}
       valueRender={() =>
         billing ? (
-          <Flex vertical gap={8} className="mt-2">
+          <Flex vertical gap={8}>
             <Typography.Text>${billing.cost.toFixed(2)}</Typography.Text>
             <Typography.Text>
               Current plan: {formatTitleCase(tier)}

@@ -10,10 +10,14 @@ export const WorkflowAPIKeyDisplay = () => {
     <Statistic
       title={<StatTitle>API Key</StatTitle>}
       valueStyle={{
-        paddingTop: "16px",
+        fontSize: "14px",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
       }}
       valueRender={() => (
-        <div>
+        <div className="flex flex-col gap-4">
+          <p>Use the API key below for your integration</p>
           <AppSecretDescription>{authToken}</AppSecretDescription>
         </div>
       )}

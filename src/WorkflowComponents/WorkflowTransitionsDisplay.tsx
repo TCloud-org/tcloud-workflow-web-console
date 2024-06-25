@@ -28,32 +28,35 @@ export const WorkflowTransitionsDisplay = (props: {
     <Statistic
       title={<StatTitle>Lite</StatTitle>}
       valueRender={() => (
-        <Flex vertical gap={4} className="mt-4">
-          <Flex justify="space-between" align="center">
-            <Typography.Text>Transitions</Typography.Text>
-            <Typography.Text>
-              {billing?.totalTransitions || 0} /{" "}
-              {billing?.deductibleTransitions || 0}
-            </Typography.Text>
-          </Flex>
-          <Progress
-            type="line"
-            showInfo={false}
-            percent={
-              billing
-                ? billing.totalTransitions / billing.deductibleTransitions
-                : 0
-            }
-            strokeColor={token.colorInfo}
-          />
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-col">
+            <Flex justify="space-between" align="center">
+              <Typography.Text>Transitions</Typography.Text>
+              <Typography.Text>
+                {billing?.totalTransitions || 0} /{" "}
+                {billing?.deductibleTransitions || 0}
+              </Typography.Text>
+            </Flex>
+            <Progress
+              type="line"
+              showInfo={false}
+              percent={
+                billing
+                  ? billing.totalTransitions / billing.deductibleTransitions
+                  : 0
+              }
+              strokeColor={token.colorInfo}
+            />
+          </div>
+
           {tier !== ProductTierType.ENTERPRISE && (
-            <Flex className="mt-4">
+            <Flex>
               <AppButton type="primary" onClick={handleUpgradePlan}>
                 Upgrade plan
               </AppButton>
             </Flex>
           )}
-        </Flex>
+        </div>
       )}
     />
   );

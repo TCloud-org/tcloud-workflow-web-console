@@ -39,7 +39,19 @@ export const WorkStatisticDisplay = (props: {
       </Col>
 
       <Col {...Span[2]}>
-        <BillingCard billing={billing} />
+        <Row gutter={[16, 16]}>
+          <Col {...Span[1]}>
+            <WorkflowTransitionsDisplay />
+          </Col>
+
+          <Col {...Span[1]}>
+            <Divider />
+          </Col>
+
+          <Col {...Span[1]}>
+            <BillingCard billing={billing} />
+          </Col>
+        </Row>
       </Col>
 
       <Col {...Span[1]}>
@@ -65,15 +77,7 @@ export const WorkStatisticDisplay = (props: {
         <WorkflowAPIKeyDisplay />
       </Col>
 
-      <Col {...Span[2]}>
-        <WorkflowTransitionsDisplay />
-      </Col>
-
-      <Col {...Span[1]}>
-        <Divider />
-      </Col>
-
-      <Col {...Span[1]} className="flex flex-col">
+      <Col {...Span[2]} className="flex flex-col">
         <ResourceHierarchy />
       </Col>
 
