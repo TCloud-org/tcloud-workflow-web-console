@@ -41,11 +41,11 @@ export const AppFooter = () => {
 
           <Col {...Span[2]} className="flex flex-col items-center lg:items-end">
             <Flex align="center" gap={32}>
-              <HoveredLink href="https://thecloudworld.supahub.com/b/feedback">
+              <HoveredLink href="https://thecloudworld.supahub.com/b/requests">
                 Submit feedbacks
               </HoveredLink>
 
-              <HoveredLink href="https://thecloudworld.supahub.com/b/support-tickets">
+              <HoveredLink href="https://thecloudworld.supahub.com/b/requests">
                 Report bugs
               </HoveredLink>
             </Flex>
