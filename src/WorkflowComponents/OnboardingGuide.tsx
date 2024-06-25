@@ -7,6 +7,10 @@ import { useDispatch, useSelector } from "react-redux";
 
 const steps = [
   {
+    title: "Prepare your APIs",
+    href: "/",
+  },
+  {
     title: "Set up a client",
     href: "/people/add-client",
   },
@@ -21,10 +25,6 @@ const steps = [
   {
     title: "Add a graph to a workflow",
     href: "/step-workflow/add-graph",
-  },
-  {
-    title: "Prepare your APIs",
-    href: "/",
   },
   {
     title: "Link your service endpoints",
